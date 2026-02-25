@@ -9,92 +9,6 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Marck+Script&family=Manrope:wght@300;400;500;600&display=swap" rel="stylesheet">
 
-  <style>
-    * { box-sizing: border-box; }
-    body {
-      margin: 0;
-      font-family: 'Manrope', sans-serif;
-      background: #f6f1e9;
-      color: #2b2622;
-    }
-    .page {
-      max-width: 1100px;
-      margin: 0 auto;
-      padding: 24px;
-    }
-    .grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 24px;
-    }
-    @media (max-width: 900px) {
-      .grid { grid-template-columns: 1fr; }
-    }
-    .card {
-      background: #fbf8f3;
-      border-radius: 24px;
-      padding: 28px;
-      box-shadow: 0 10px 30px rgba(0,0,0,.06);
-    }
-    h2 {
-      font-family: 'Marck Script', cursive;
-      font-size: 36px;
-      margin: 0 0 12px;
-    }
-    .muted {
-      opacity: .7;
-      font-size: 14px;
-    }
-    .btn {
-      display: inline-block;
-      padding: 12px 22px;
-      border-radius: 999px;
-      border: 1px solid #2b2622;
-      text-decoration: none;
-      color: #2b2622;
-      background: transparent;
-      cursor: pointer;
-      transition: .2s;
-    }
-    .btn:hover {
-      background: #2b2622;
-      color: #fff;
-    }
-
-    /* TIMELINE */
-    .timeline-item {
-      display: grid;
-      grid-template-columns: 60px 1fr;
-      gap: 12px;
-      margin-bottom: 16px;
-    }
-    .time {
-      font-weight: 600;
-    }
-
-    /* RSVP FORM */
-    .rsvp {
-      grid-column: 1 / -1;
-    }
-    form {
-      display: flex;
-      flex-direction: column;
-      gap: 14px;
-      margin-top: 16px;
-    }
-    input, select, textarea {
-      padding: 14px 16px;
-      border-radius: 12px;
-      border: 1px solid rgba(0,0,0,.2);
-      font-size: 14px;
-      font-family: inherit;
-    }
-    textarea { resize: vertical; }
-    button[type="submit"] {
-      margin-top: 8px;
-      align-self: flex-start;
-    }
-  </style>
 </head>
 
 <body>
@@ -113,9 +27,18 @@
       <section class="card">
         <h2>Контакты</h2>
         <p class="muted">
-          +7 (927) 650-19-70 — Валерия<br>
+          Если у вас остались вопросы, можете связаться с нашим организатором или лично с нами <br>
+        </p>
+         <p class="muted">
+          +7 (903) 335-81-06 — Валерия(Организатор)<br>
         </p>
         <p class="muted">WEDI agency</p>
+         <p class="muted">
+          +7 (917) 117-84-64 — Невеста <br>
+        </p>
+        <p class="muted">
+          +7 (987) 962-29-84 — Жених <br>
+        </p>
       </section>
 
       <section class="card">
@@ -127,7 +50,7 @@
         </div>
         <div class="timeline-item">
           <div class="time">16:30</div>
-          <div>Церемония</div>
+          <div>Выездная регистрация</div>
         </div>
         <div class="timeline-item">
           <div class="time">17:00</div>

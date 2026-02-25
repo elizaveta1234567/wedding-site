@@ -81,20 +81,27 @@ body::before{
   padding: 26px;
 }
 
-/* Внутренний грид: 2 колонки как на скрине */
+/* Внутренний контейнер: теперь ОДНА колонка, блоки идут друг за другом */
 .grid{
   position: relative;
   z-index: 1;
-  display: grid;
-  grid-template-columns: 1fr 1fr;
+
+  display: flex;
+  flex-direction: column;
   gap: 22px;
-  align-items: start;
+  align-items: stretch;
 }
 
+/* Каждый блок = целый экран (по твоему ТЗ) */
+.grid > .card{
+  min-height: calc(100vh - 52px); /* 52px = padding .page (26*2) */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
 /* На телефоне — 1 колонка */
 @media (max-width: 860px){
   .page{ padding: 18px; }
-  .grid{ grid-template-columns: 1fr; gap: 16px; }
 }
 
 /* Общий стиль “карточек” внутри открытки */
@@ -316,4 +323,11 @@ body::before{
   display: flex;
   gap: 10px;
   flex-wrap: wrap;
+}
+html, body{
+  scroll-snap-type: y mandatory;
+}
+
+.grid > .card{
+  scroll-snap-align: start;
 }
