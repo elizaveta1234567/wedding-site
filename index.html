@@ -1,0 +1,134 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Свадебное приглашение</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;600&family=Marck+Script&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="styles.css" />
+</head>
+
+<body>
+  <main class="page">
+    <header class="hero">
+      <div class="hero__inner">
+        <div class="hero__badge">Свадебное приглашение</div>
+        <h1 class="hero__title">Елизавета &amp; …</h1>
+        <p class="hero__subtitle">Будем счастливы разделить с вами этот особенный вечер 🤍</p>
+
+        <div class="hero__actions">
+          <a class="btn" href="#rsvp">Подтвердить присутствие</a>
+          <a class="btn btn--ghost" href="#location">Локация</a>
+        </div>
+      </div>
+    </header>
+
+    <section class="grid">
+      <!-- Левая карточка -->
+      <article class="card" id="location">
+        <h2 class="card__title">Локация</h2>
+        <p class="muted">Sky Village, пос. Управленческий, Берёзовый проезд, 60</p>
+        <a class="btn btn--small" target="_blank" rel="noopener" href="https://yandex.ru/maps/">Открыть карту</a>
+
+        <hr class="divider" />
+
+        <h2 class="card__title">Тайминг</h2>
+        <ul class="timeline">
+          <li><span class="time">16:00</span><span class="dot"></span><span class="txt"><b>Сбор гостей</b> — улыбки и хорошее настроение</span></li>
+          <li><span class="time">16:30</span><span class="dot"></span><span class="txt"><b>Церемония</b> — платочки пригодятся 🥹</span></li>
+          <li><span class="time">17:00</span><span class="dot"></span><span class="txt"><b>Начало банкета</b> — еда, танцы, развлечения</span></li>
+          <li><span class="time">23:00</span><span class="dot"></span><span class="txt"><b>Завершение</b> — обнимашки и финал вечера</span></li>
+        </ul>
+
+        <hr class="divider" />
+
+        <h2 class="card__title">Дресс-код</h2>
+        <p class="muted">
+          Элегантные платья, жемчужные нити, классический смокинг или небольшие акценты в палитре:
+        </p>
+        <div class="palette" aria-label="Цветовая палитра">
+          <span style="--c:#c7d1c2"></span>
+          <span style="--c:#a9b7a0"></span>
+          <span style="--c:#f1ede3"></span>
+          <span style="--c:#d7c1a5"></span>
+          <span style="--c:#8a6b53"></span>
+        </div>
+
+        <hr class="divider" />
+
+        <h2 class="card__title">Детали</h2>
+        <p class="muted">Если планировали букет — бутылочка вина с вашей подписью будет лучшей заменой 🤍</p>
+      </article>
+
+      <!-- Правая карточка -->
+      <article class="card card--right">
+        <h2 class="card__title">Контакты</h2>
+        <p class="muted">По вопросам можно обращаться к организатору:</p>
+
+        <div class="contacts">
+          <a class="contact" href="tel:+79276501970">+7 (927) 650-19-70 — Екатерина</a>
+          <a class="contact" target="_blank" rel="noopener" href="https://instagram.com/">Instagram организатора</a>
+          <a class="contact" target="_blank" rel="noopener" href="https://t.me/">Написать в Telegram</a>
+        </div>
+
+        <div class="brand">
+          <div class="brand__name">SHAKLANOVA</div>
+          <div class="brand__sub">event agency</div>
+        </div>
+
+        <div class="photo">
+          <!-- Поставь своё фото -->
+          <img src="https://images.unsplash.com/photo-1523438097201-512ae7d59c3b?q=80&w=1200&auto=format&fit=crop" alt="Атмосфера" />
+        </div>
+
+        <section class="rsvp" id="rsvp">
+          <h2 class="card__title">RSVP</h2>
+          <p class="muted">Подтвердите присутствие — так мы всё красиво спланируем ✨</p>
+
+          <!-- NETLIFY FORM -->
+          <form class="form"
+                name="rsvp"
+                method="POST"
+                action="/success"
+                data-netlify="true">
+
+            <!-- обязательное поле для Netlify -->
+            <input type="hidden" name="form-name" value="rsvp" />
+
+            <label>
+              Имя и фамилия
+              <input name="guest_name" required placeholder="Например: Елизавета Иванова" />
+            </label>
+
+            <label>
+              Будете?
+              <select name="attendance" required>
+                <option value="" disabled selected>Выберите…</option>
+                <option value="Да, приду">Да, приду</option>
+                <option value="Не смогу">Не смогу</option>
+                <option value="Пока не знаю">Пока не знаю</option>
+              </select>
+            </label>
+
+            <label>
+              Комментарий (аллергии / предпочтения)
+              <textarea name="comment" rows="3" placeholder="Например: не ем рыбу"></textarea>
+            </label>
+
+            <button class="btn" type="submit">Отправить</button>
+            <p class="hint">После отправки вас перекинет на страницу «Готово».</p>
+          </form>
+        </section>
+      </article>
+    </section>
+
+    <footer class="footer">
+      <div class="footer__inner">С любовью 🤍</div>
+    </footer>
+  </main>
+</body>
+</html>
