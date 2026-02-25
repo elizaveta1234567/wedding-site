@@ -91,7 +91,87 @@
           <!-- NETLIFY FORM (реальная форма для гостей) -->
           <form class="form"
                 name="rsvp"
+                method="POST"<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Свадебное приглашение</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;600&family=Marck+Script&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="styles.css" />
+</head>
+
+<body>
+  <main class="page">
+
+    <section class="grid">
+      <article class="card card--right">
+
+        <section class="rsvp" id="rsvp">
+          <h2 class="card__title">RSVP</h2>
+          <p class="muted">Подтвердите присутствие — так мы всё красиво спланируем ✨</p>
+
+          <!-- РЕАЛЬНАЯ NETLIFY-ФОРМА -->
+          <form class="form"
+                name="rsvp"
                 method="POST"
+                action="/success.html"
+                data-netlify="true"
+                netlify
+                netlify-honeypot="bot-field"
+                enctype="application/x-www-form-urlencoded">
+
+            <input type="hidden" name="form-name" value="rsvp" />
+
+            <!-- honeypot (антиспам) -->
+            <p hidden>
+              <label>Don’t fill this out: <input name="bot-field" /></label>
+            </p>
+
+            <label>
+              Имя и фамилия
+              <input name="guest_name" required placeholder="Например: Елизавета Иванова" />
+            </label>
+
+            <label>
+              Будете?
+              <select name="attendance" required>
+                <option value="" disabled selected>Выберите…</option>
+                <option value="Да, приду">Да, приду</option>
+                <option value="Не смогу">Не смогу</option>
+                <option value="Пока не знаю">Пока не знаю</option>
+              </select>
+            </label>
+
+            <label>
+              Комментарий (аллергии / предпочтения)
+              <textarea name="comment" rows="3" placeholder="Например: не ем рыбу"></textarea>
+            </label>
+
+            <button class="btn" type="submit">Отправить</button>
+            <p class="hint">После отправки вас перекинет на страницу «Готово».</p>
+          </form>
+        </section>
+
+      </article>
+    </section>
+
+  </main>
+
+  <!-- СКРЫТАЯ ФОРМА-МАЯЧОК ДЛЯ NETLIFY (ОБЯЗАТЕЛЬНО) -->
+  <form name="rsvp" netlify netlify-honeypot="bot-field" hidden>
+    <input type="hidden" name="form-name" value="rsvp" />
+    <input name="guest_name" />
+    <select name="attendance"></select>
+    <textarea name="comment"></textarea>
+  </form>
+
+</body>
+</html>
                 action="/success.html"
                 data-netlify="true"
                 netlify-honeypot="bot-field">
