@@ -1,210 +1,330 @@
 <!doctype html>
 <html lang="ru">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Приглашение на свадьбу</title>
 
+  <!-- Шрифты (под “элегантную” эстетику как на референсе) -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Marck+Script&family=Manrope:wght@300;400;500;600&display=swap" rel="stylesheet">
-
-</head>
- <style>
-    * { box-sizing: border-box; }
-    body {
-      margin: 0;
-      font-family: 'Manrope', sans-serif;
-      background: #f6f1e9;
-      color: #2b2622;
-    }
-    .page {
-      max-width: 1100px;
-      margin: 0 auto;
-      padding: 24px;
-    }
-    /* Внутренний контейнер: теперь ОДНА колонка, блоки идут друг за другом */
-.grid{
-  position: relative;
-  z-index: 1;
-
-  display: flex;
-  flex-direction: column;
-  gap: 22px;
-  align-items: stretch;
-}
-
-/* Каждый блок = целый экран (по твоему ТЗ) */
-.grid > .card{
-  min-height: calc(100vh - 52px); /* 52px = padding .page (26*2) */
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-}
-/* На телефоне — 1 колонка */
-@media (max-width: 860px){
-  .page{ padding: 18px; }
-}
-    .card {
-      background: #fbf8f3;
-      border-radius: 24px;
-      padding: 28px;
-      box-shadow: 0 10px 30px rgba(0,0,0,.06);
-    }
-    h2 {
-      font-family: 'Marck Script', cursive;
-      font-size: 36px;
-      margin: 0 0 12px;
-    }
-    .muted {
-      opacity: .7;
-      font-size: 14px;
-    }
-    .btn {
-      display: inline-block;
-      padding: 12px 22px;
-      border-radius: 999px;
-      border: 1px solid #2b2622;
-      text-decoration: none;
-      color: #2b2622;
-      background: transparent;
-      cursor: pointer;
-      transition: .2s;
-    }
-    .btn:hover {
-      background: #2b2622;
-      color: #fff;
-    }
-
-    /* TIMELINE */
-    .timeline-item {
-      display: grid;
-      grid-template-columns: 60px 1fr;
-      gap: 12px;
-      margin-bottom: 16px;
-    }
-    .time {
-      font-weight: 600;
-    }
-
-    /* RSVP FORM */
-    .rsvp {
-      grid-column: 1 / -1;
-    }
-    form {
-      display: flex;
-      flex-direction: column;
-      gap: 14px;
-      margin-top: 16px;
-    }
-    input, select, textarea {
-      padding: 14px 16px;
-      border-radius: 12px;
-      border: 1px solid rgba(0,0,0,.2);
-      font-size: 14px;
-      font-family: inherit;
-    }
-    textarea { resize: vertical; }
-    button[type="submit"] {
-      margin-top: 8px;
-      align-self: flex-start;
-    }
-  </style>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&family=Marck+Script&display=swap" rel="stylesheet">
+<link rel="icon" type="image/png" sizes="32x32" href="icon.jpg">
+  <link rel="stylesheet" href="styles.css" />
 </head>
 
 <body>
-  <main class="page">
-    <div class="grid">
+  <!-- Фоновая “фото-атмосфера” (без картинок — аккуратный стиль) -->
+  <div class="bg" aria-hidden="true"></div>
 
-      <section class="card">
-        <h2>Локация</h2>
-        <p class="muted">
-          Ресторан "Парк Отель", микрорайон Портовый<br>
-          ул. Комзина, 6
-        </p>
-        <a class="btn" href="https://yandex.ru/maps/org/park_otel/1081236889/?ll=49.354816%2C53.474493&z=16.74" target="_blank">Открыть карту</a>
-      </section>
+  <header class="topbar">
+    <div class="topbar__inner">
+      <div class="topbar__title">Приглашение</div>
+      <nav class="topbar__nav">
+        <a href="#location">Локация</a>
+        <a href="#timing">Тайминг</a>
+        <a href="#rsvp">Анкета</a>
+        <a href="#contacts">Контакты</a>
+      </nav>
+    </div>
+  </header>
 
-      <section class="card">
-        <h2>Контакты</h2>
-        <p class="muted">
-          Если у вас остались вопросы, можете связаться с нашим организатором или лично с нами <br>
-        </p>
-         <p class="muted">
-          +7 (903) 335-81-06 — Валерия(Организатор)<br>
-        </p>
-        <p class="muted">WEDI agency</p>
-         <p class="muted">
-          +7 (917) 117-84-64 — Невеста <br>
-        </p>
-        <p class="muted">
-          +7 (987) 962-29-84 — Жених <br>
-        </p>
-      </section>
+  <main class="pages">
+        <!-- ЛОКАЦИЯ -->
+    <section class="page" id="location">
+      <div class="card">
+        <div class="card__header">
+        <section class="hero">
+  <div class="hero__wrap">
+    <div class="hero__title">
+      <div class="hero__name-top">Владислав<span class="hero__amp">&</span></div>
+      <div class="hero__name-bottom">Елизавета</div>
+    </div>
 
-      <section class="card">
-        <h2>Тайминг</h2>
+    <div class="hero__quote">
+      НЕ ИМЕЕТ СМЫСЛА ЛЮБИТЬ, ЕСЛИ НЕ ИМЕЕШЬ<br>
+      НАМЕРЕНИЯ СДЕЛАТЬ ЭТУ ЛЮБОВЬ ВЕЧНОЙ
+    </div>
 
-        <div class="timeline-item">
-          <div class="time">16:00</div>
-          <div>Сбор гостей</div>
+    <!-- Без даты: этот блок мы просто НЕ добавляем -->
+
+    <div class="hero__media">
+        <img
+        src="photo_main.jpg"
+        alt="Владислав и Елизавета"
+        class="hero__video"
+        loading="eager"
+   />
+    </div>
+  </div>
+</section>
+<section class="calendar-section" id="calendar">
+  <div class="invite-wrap">
+    <h2 class="invite-title">Дорогие гости!</h2>
+    <div class="hero__quote">
+      Мы приглашаем вас разделить с нами счастливый день, в который мы станем одной скмьей!
+    </div>
+
+  <div class="calendar-wrap">
+    <div class="calendar">
+      <div class="calendar-row calendar-head">
+        <span>ПН</span><span>ВТ</span><span>СР</span><span>ЧТ</span><span>ПТ</span><span>СБ</span><span>ВС</span>
+      </div>
+
+      <div class="calendar-row calendar-days">
+        <span>3</span>
+        <span>4</span>
+        <span>5</span>
+
+        <!-- ЧЕТВЕРГ — 6 АВГУСТА -->
+        <span class="day-heart">
+          <span class="day-num">6</span>
+
+          <svg class="heart-svg" viewBox="0 0 220 190" aria-hidden="true">
+            <path d="M110 170
+                     C110 170, 15 115, 15 65
+                     C15 30, 40 15, 65 15
+                     C85 15, 100 26, 110 40
+                     C120 26, 135 15, 155 15
+                     C180 15, 205 30, 205 65
+                     C205 115, 110 170, 110 170Z"
+                  fill="none" stroke="currentColor" stroke-width="4"
+                  stroke-linecap="round" stroke-linejoin="round"/>
+            <line x1="110" y1="170" x2="110" y2="220"
+                  stroke="currentColor" stroke-width="4" stroke-linecap="round"/>
+          </svg>
+
+          <span class="month">Август</span>
+        </span>
+
+        <span>7</span>
+        <span>8</span>
+        <span>9</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+   <!-- ЛОКАЦИЯ -->
+<section class="page location-section" id="location">
+  <div class="location-card">
+    <h2 class="location-title">Локация</h2>
+
+    <p class="location-subtitle">
+      Ресторан “Парк Отель”, микрорайон Портовый<br>
+      ул. Козьмина, 6
+    </p>
+
+    <a class="location-btn"
+       href="https://yandex.ru/maps/org/park_otel/1081236889/?ll=49.354816%2C53.474493&z=16.74"
+       target="_blank" rel="noopener">
+      Открыть карту
+    </a>
+  </div>
+</section>
+
+        <div class="divider"></div>
+  <div class="hero__quote">
+      Мы с нетерпением ждём возможности разделить с вами этот волшебный вечер.
+          Давайте сделаем его незабываемым — истинным отражением любви сквозь время.
+    </div>
+      </div>
+    </section>
+
+<!-- ТАЙМИНГ -->
+<section class="page timing-section" id="timing">
+  <div class="timing-wrap">
+    <h2 class="timing-title">Тайминг</h2>
+
+    <div class="timing-grid">
+      <!-- 1 -->
+      <div class="timing-item">
+        <div class="timing-time">16:00</div>
+        <div class="timing-dot"></div>
+        <div class="timing-content">
+          <div class="timing-name">СБОР ГОСТЕЙ</div>
+          <div class="timing-desc">просим взять с собой улыбки и хорошее настроение</div>
         </div>
-        <div class="timeline-item">
-          <div class="time">16:30</div>
-          <div>Выездная регистрация</div>
-        </div>
-        <div class="timeline-item">
-          <div class="time">17:00</div>
-          <div>Начало банкета</div>
-        </div>
-        <div class="timeline-item">
-          <div class="time">23:00</div>
-          <div>Завершение вечера</div>
-        </div>
-      </section>
+      </div>
 
-      <!-- ✅ РАБОЧАЯ RSVP-ФОРМА (НЕ ЛОМАТЬ) -->
-      <section class="card rsvp" id="rsvp">
-        <h2>Анкета гостя</h2>
-        <p class="muted">Пожалуйста, подтвердите своё присутствие — так мы всё красиво спланируем ✨</p>
+      <!-- 2 -->
+      <div class="timing-item">
+        <div class="timing-time">16:30</div>
+        <div class="timing-dot"></div>
+        <div class="timing-content">
+          <div class="timing-name">ЦЕРЕМОНИЯ</div>
+          <div class="timing-desc">приготовьте платочки для самого трогательного момента</div>
+        </div>
+      </div>
 
-        <form
-          name="rsvp"
-          method="POST"
-          action="/success.html"
-          data-netlify="true"
-          netlify-honeypot="bot-field"
-        >
-          <input type="hidden" name="form-name" value="rsvp">
+      <!-- 3 -->
+      <div class="timing-item">
+        <div class="timing-time">17:00</div>
+        <div class="timing-dot"></div>
+        <div class="timing-content">
+          <div class="timing-name">НАЧАЛО БАНКЕТА</div>
+          <div class="timing-desc">время вкусной еды, танцев и развлечений</div>
+        </div>
+      </div>
 
-          <p style="display:none">
-            <label>Don’t fill this out <input name="bot-field"></label>
+      <!-- 4 -->
+      <div class="timing-item">
+        <div class="timing-time">23:00</div>
+        <div class="timing-dot"></div>
+        <div class="timing-content">
+          <div class="timing-name">ЗАВЕРШЕНИЕ БАНКЕТА</div>
+          <div class="timing-desc">к сожалению, даже такой прекрасный день заканчивается</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- ДРЕСС-КОД -->
+<section class="page dresscode-section" id="dresscode">
+  <div class="dresscode-wrap">
+    <h2 class="dresscode-title">Дресс-код</h2>
+
+    <p class="dresscode-text">
+      Для нас самое главное - ваше присутствие!<br>
+      Но мы будем очень благодарны, если вы поддержите<br>
+      цветовую гамму спокойных природных оттенков
+    </p>
+
+    <div class="dresscode-palette" aria-label="Палитра дресс-кода">
+      <span class="swatch s1" aria-hidden="true"></span>
+      <span class="swatch s2" aria-hidden="true"></span>
+      <span class="swatch s3" aria-hidden="true"></span>
+      <span class="swatch s4" aria-hidden="true"></span>
+      <span class="swatch s5" aria-hidden="true"></span>
+      <span class="swatch s6" aria-hidden="true"></span>
+      <span class="swatch s7" aria-hidden="true"></span>
+      <span class="swatch s8" aria-hidden="true"></span>
+    </div>
+  </div>
+    </div>
+</section>
+<!-- Пример образов дресс-кода -->
+ <div class="dresscode-wrap">
+    <h2 class="dresscode-title">Примеры нарядов</h2>
+<div class="dresscode-look">
+  <img
+    src="Dresscode.png"
+    alt="Примеры образов дресс-кода"
+    class="dresscode-image"
+    loading="lazy"
+  />
+</div>
+<!-- ДЕТАЛИ -->
+<section class="page details-section" id="details">
+  <div class="details-card">
+  <div class="details-wrap">
+
+    <div class="details-media">
+      <img
+        src="bubble.png"
+        alt="Вино"
+        class="bottle bottle-left"
+      />
+      <img
+        src="bubble.png"
+        alt="Шампанское"
+        class="bottle bottle-right"
+      />
+    </div>
+
+    <div class="details-content">
+      <h2 class="details-title">Детали</h2>
+
+      <p class="details-text">
+        Если вы планировали взять с собой букет цветов,
+        то бутылочка вина с вашей подписью будет
+        лучшей заменой!
+      </p>
+    </div>
+
+  </div>
+  </div>
+</section>
+    <!-- АНКЕТА (ВАЖНО: это Netlify Form, НЕ уводит на make.com) -->
+    <section class="page" id="rsvp">
+      <div class="card card--rsvp">
+        <div class="card__header">
+         <div class="invite-wrap">
+    <h2 class="invite-title">Анкета гостя</h2>
+          <p class="text muted">Подтвердите присутствие — так мы всё красиво спланируем ✨</p>
+        </div>
+
+        <!-- Netlify form -->
+        <form class="form"
+              name="rsvp"
+              method="POST"
+              action="/success.html"
+              data-netlify="true"
+              netlify-honeypot="bot-field">
+
+          <!-- обязательное скрытое поле для Netlify -->
+          <input type="hidden" name="form-name" value="rsvp" />
+
+          <!-- honeypot -->
+          <p class="hidden">
+            <label>Don’t fill this out: <input name="bot-field" /></label>
           </p>
 
-          <input
-            type="text"
-            name="name"
-            placeholder="Имя и фамилия"
-            required
-          >
+          <!-- created_at (заполним JS-ом) -->
+          <input type="hidden" name="created_at" id="created_at" value="" />
 
-          <select name="status" required>
-            <option value="">Будете?</option>
-            <option value="Да, приду">Да, приду</option>
-            <option value="К сожалению, не смогу">К сожалению, не смогу</option>
-          </select>
+          <label class="label">
+            Имя и фамилия
+            <input class="input" type="text" name="name" placeholder="Елизавета Ковальчук" required />
+          </label>
 
-          <textarea
-            name="comment"
-            rows="3"
-            placeholder="Комментарий (аллергии / предпочтения)"
-          ></textarea>
+          <label class="label">
+            Будете?
+            <select class="select" name="status" required>
+              <option value="" disabled selected>Выберите вариант</option>
+              <option value="Да, приду">Да, приду</option>
+              <option value="К сожалению, не смогу">К сожалению, не смогу</option>
+            </select>
+          </label>
 
-          <button type="submit" class="btn">Отправить</button>
+          <label class="label">
+            Комментарий (аллергии / предпочтения)
+            <textarea class="textarea" name="comment" rows="3" placeholder="Ем рыбу / без орехов / не ем мясо..."></textarea>
+          </label>
+
+          <button class="btn btn--primary" type="submit" id="submitBtn">
+            Отправить
+          </button>
+
+          <div class="form__hint muted" id="formHint">После отправки вы увидите страницу подтверждения.</div>
         </form>
-      </section>
+      </div>
+    </section>
 
+   <!-- КОНТАКТЫ -->
+<section class="page contacts-section" id="contacts">
+  <div class="contacts-card">
+    <h2 class="contacts-title">Контакты</h2>
+
+    <p class="contacts-subtitle">
+      По возникающим вопросам можете<br>
+      обращаться к организатору нашего<br>
+      мероприятия
+    </p>
+
+    <div class="contacts-lines">
+      <a class="contacts-link" href="tel:+79033358106">+7 (903) 335-81-06 Валерия</a>
+      <a class="contacts-link" href="https://t.me/+79033358106" target="_blank" rel="noopener">Telegram организатора</a>
     </div>
+
+    <div class="contacts-brand">
+      <div class="brand-name">WEDI</div>
+      <div class="brand-sub">event agency</div>
+    </div>
+  </div>
+</section>
   </main>
+
+  <script src="telegram.js"></script>
 </body>
 </html>

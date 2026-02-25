@@ -1,48 +1,29 @@
 <!doctype html>
 <html lang="ru">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Спасибо!</title>
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Marck+Script&family=Manrope:wght@300;400;500&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&family=Marck+Script&display=swap" rel="stylesheet">
 
-  <style>
-    body {
-      margin: 0;
-      background: #2b2622;
-      color: #fff;
-      font-family: 'Manrope', sans-serif;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      min-height: 100vh;
-      text-align: center;
-    }
-    h1 {
-      font-family: 'Marck Script', cursive;
-      font-size: 56px;
-      margin-bottom: 12px;
-    }
-    .btn {
-      margin-top: 24px;
-      display: inline-block;
-      padding: 12px 24px;
-      border-radius: 999px;
-      border: 1px solid #fff;
-      color: #fff;
-      text-decoration: none;
-    }
-  </style>
+  <link rel="stylesheet" href="styles.css" />
 </head>
 
 <body>
-  <div>
-    <h1>Спасибо!</h1>
-    <p>Ваш ответ отправлен. До встречи на празднике 🤍</p>
-    <a href="/#rsvp" class="btn">Вернуться на сайт</a>
-  </div>
+  <div class="bg" aria-hidden="true"></div>
+
+  <main class="successWrap">
+    <div class="card successCard">
+      <h1 class="title">Спасибо!</h1>
+      <p class="text muted">Ваш ответ отправлен. До встречи на празднике 🤍</p>
+
+      <a class="btn btn--primary btn--wide" href="/#location">
+        Вернуться на сайт
+      </a>
+    </div>
+  </main>
 </body>
 </html>
