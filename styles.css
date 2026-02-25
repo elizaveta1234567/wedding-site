@@ -1,262 +1,319 @@
+/* =========================
+   FONTS
+   (если у тебя уже подключены в <head> — ок, можно оставить)
+   ========================= */
+@import url("https://fonts.googleapis.com/css2?family=Marck+Script&family=Manrope:wght@300;400;500;600&display=swap");
+
+/* =========================
+   THEME
+   ========================= */
 :root{
-  --bg:#0b0b0c;
-  --card:#f3efe6;
-  --ink:#2a1f1a;
-  --muted: rgba(42,31,26,.70);
-  --accent:#c9a88a;
-  --radius: 22px;
+  --bg: #0b0b0b;               /* фон вокруг “открытки” */
+  --paper: #f3eee5;            /* беж “бумага” */
+  --paper-2: #efe7dc;
+  --ink: #2b2622;              /* основной текст */
+  --muted: rgba(43,38,34,.68);
+  --line: rgba(43,38,34,.18);
 
-  --shadow: 0 20px 60px rgba(0,0,0,.35);
-  --pad: clamp(16px, 3.2vw, 28px);
+  --shadow: 0 18px 50px rgba(0,0,0,.35);
+  --shadow-soft: 0 10px 25px rgba(0,0,0,.18);
+
+  --radius-xl: 26px;
+  --radius-lg: 18px;
+  --radius-md: 14px;
+
+  --script: "Marck Script", cursive;
+  --sans: "Manrope", system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
 }
 
-*{ box-sizing:border-box; }
-html,body{ height:100%; }
+/* =========================
+   BASE
+   ========================= */
+*{ box-sizing: border-box; }
+html, body{ height: 100%; }
 body{
-  margin:0;
-  font-family: "Manrope", system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
-  background: radial-gradient(1200px 900px at 20% -10%, rgba(201,168,138,.18), transparent 55%),
-              radial-gradient(900px 700px at 90% 10%, rgba(255,255,255,.10), transparent 60%),
-              var(--bg);
-  color:#fff;
-}
-
-.page{ min-height:100%; }
-
-.hero{
-  padding: clamp(26px, 5vw, 54px) 16px 18px;
-}
-.hero__inner{
-  max-width: 1180px;
-  margin: 0 auto;
-  padding: 0 6px;
-}
-.hero__badge{
-  display:inline-block;
-  font-size: 12px;
-  letter-spacing:.12em;
-  text-transform: uppercase;
-  opacity:.85;
-  border:1px solid rgba(255,255,255,.18);
-  padding:8px 12px;
-  border-radius: 999px;
-  margin-bottom: 14px;
-}
-.hero__title{
-  font-family: "Marck Script", cursive;
-  font-weight: 400;
-  font-size: clamp(38px, 6vw, 72px);
-  margin: 0 0 8px;
-}
-.hero__subtitle{
-  margin: 0 0 18px;
-  opacity:.85;
-  max-width: 56ch;
-  line-height: 1.5;
-}
-
-.hero__actions{
-  display:flex;
-  gap:12px;
-  flex-wrap: wrap;
-}
-
-.grid{
-  max-width: 1180px;
-  margin: 0 auto;
-  padding: 0 16px 34px;
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: 18px;
-}
-
-.card{
-  position: relative;
-  background: var(--card);
+  margin: 0;
+  font-family: var(--sans);
   color: var(--ink);
-  border-radius: var(--radius);
-  box-shadow: var(--shadow);
-  padding: var(--pad);
-  overflow: hidden;
+  background: var(--bg);
 }
 
-/* декоративные “жемчужины” */
-.card::before{
+/* Фон “как фото под открыткой” (замени URL на свою картинку, если хочешь) */
+body::before{
+  content:"";
+  position: fixed;
+  inset: 0;
+  background:
+    radial-gradient(1200px 900px at 70% 60%, rgba(255,255,255,.10), transparent 60%),
+    radial-gradient(900px 700px at 30% 40%, rgba(255,255,255,.07), transparent 55%),
+    linear-gradient(180deg, rgba(0,0,0,.75), rgba(0,0,0,.75));
+  z-index: -2;
+}
+
+/* “перламутровые шарики” поверх бумаги */
+.page::before{
+  content:"";
+  position: absolute;
+  inset: -40px;
+  background:
+    radial-gradient(circle at 15% 18%, rgba(255,255,255,.65) 0 10px, transparent 12px),
+    radial-gradient(circle at 72% 22%, rgba(255,255,255,.55) 0 8px, transparent 10px),
+    radial-gradient(circle at 40% 55%, rgba(255,255,255,.35) 0 14px, transparent 16px),
+    radial-gradient(circle at 82% 60%, rgba(255,255,255,.45) 0 10px, transparent 12px),
+    radial-gradient(circle at 22% 78%, rgba(255,255,255,.35) 0 12px, transparent 14px);
+  pointer-events: none;
+  filter: blur(.2px);
+  opacity: .55;
+  z-index: 0;
+}
+
+/* =========================
+   LAYOUT: “ОТКРЫТКА”
+   ========================= */
+.page{
+  position: relative;
+  width: min(1100px, calc(100% - 28px));
+  margin: 28px auto;
+  background: var(--paper);
+  border-radius: var(--radius-xl);
+  box-shadow: var(--shadow);
+  overflow: hidden;
+  padding: 26px;
+}
+
+/* Внутренний грид: 2 колонки как на скрине */
+.grid{
+  position: relative;
+  z-index: 1;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 22px;
+  align-items: start;
+}
+
+/* На телефоне — 1 колонка */
+@media (max-width: 860px){
+  .page{ padding: 18px; }
+  .grid{ grid-template-columns: 1fr; gap: 16px; }
+}
+
+/* Общий стиль “карточек” внутри открытки */
+.card{
+  background: linear-gradient(180deg, var(--paper), var(--paper-2));
+  border: 1px solid var(--line);
+  border-radius: var(--radius-lg);
+  padding: 18px 18px 16px;
+  box-shadow: var(--shadow-soft);
+  position: relative;
+}
+
+/* Тонкая “нить жемчуга” декоративно */
+.card::after{
   content:"";
   position:absolute;
-  inset:-80px -80px auto auto;
-  width: 260px;
-  height: 260px;
-  background:
-    radial-gradient(circle at 30% 30%, rgba(255,255,255,.9), rgba(255,255,255,.15) 35%, transparent 60%),
-    radial-gradient(circle at 65% 70%, rgba(255,255,255,.8), rgba(255,255,255,.12) 40%, transparent 65%);
-  filter: blur(.2px);
-  opacity:.65;
-  transform: rotate(18deg);
+  inset: 14px 14px auto auto;
+  width: 140px;
+  height: 70px;
+  border-radius: 999px;
+  border: 1px dashed rgba(43,38,34,.18);
+  opacity: .45;
+  transform: rotate(-8deg);
+  pointer-events: none;
 }
 
-.card--right::before{
-  inset:auto auto -90px -90px;
-  transform: rotate(-12deg);
-}
-
-.card__title{
-  font-family: "Marck Script", cursive;
+.h1, .h2{
+  font-family: var(--script);
   font-weight: 400;
-  font-size: clamp(28px, 3.4vw, 44px);
-  margin: 0 0 10px;
+  letter-spacing: .2px;
+  margin: 0 0 8px 0;
 }
+.h1{ font-size: 44px; line-height: 1; }
+.h2{ font-size: 34px; line-height: 1.05; }
 
-.muted{ color: var(--muted); margin: 0 0 12px; line-height:1.6; }
-
-.divider{
-  border:0;
-  height:1px;
-  background: rgba(42,31,26,.12);
-  margin: 18px 0;
-}
-
-.btn{
-  display:inline-flex;
-  align-items:center;
-  justify-content:center;
-  gap:10px;
-  padding: 12px 16px;
-  border-radius: 999px;
-  border:1px solid rgba(255,255,255,.20);
-  background: rgba(255,255,255,.12);
-  color:#fff;
-  text-decoration:none;
-  font-weight: 600;
-  cursor:pointer;
-}
-.btn:hover{ filter: brightness(1.06); }
-.btn--ghost{ background: transparent; }
-.btn--small{
-  background: transparent;
-  border-color: rgba(42,31,26,.20);
-  color: var(--ink);
-  padding: 10px 14px;
-}
-
-.timeline{
-  list-style:none;
-  padding:0;
-  margin: 8px 0 0;
-  display:flex;
-  flex-direction: column;
-  gap: 12px;
-}
-.timeline li{
-  display:grid;
-  grid-template-columns: 72px 16px 1fr;
-  align-items: start;
-  gap: 10px;
-}
-.time{
-  font-style: italic;
-  font-weight: 600;
-}
-.dot{
-  width: 10px;
-  height: 10px;
-  border-radius: 50%;
-  background: var(--accent);
-  margin-top: 6px;
-  box-shadow: 0 0 0 6px rgba(201,168,138,.18);
-}
-.txt{ color: var(--muted); line-height:1.5; }
-.txt b{ color: var(--ink); }
-
-.palette{
-  display:flex;
-  gap: 10px;
-  margin-top: 10px;
-}
-.palette span{
-  width: 34px;
-  height: 22px;
-  border-radius: 999px;
-  background: var(--c);
-  border: 1px solid rgba(0,0,0,.08);
-}
-
-.contacts{
-  display:flex;
-  flex-direction: column;
-  gap: 10px;
-  margin: 10px 0 18px;
-}
-.contact{
-  color: var(--ink);
-  text-decoration:none;
-  font-weight: 600;
-}
-.contact:hover{ text-decoration: underline; }
-
-.brand{
-  border-top: 1px solid rgba(42,31,26,.12);
-  padding-top: 14px;
-  margin-top: 10px;
-}
-.brand__name{
-  letter-spacing: .18em;
-  font-weight: 700;
-}
-.brand__sub{
+.muted{
   color: var(--muted);
-  margin-top: 4px;
+  font-size: 14px;
+  line-height: 1.4;
+  margin: 0;
 }
 
-.photo{
-  margin-top: 16px;
-  border-radius: 18px;
-  overflow:hidden;
-  border: 1px solid rgba(42,31,26,.10);
+/* Заголовки секций типа “Локация / Тайминг / Контакты” */
+.section-title{
+  font-family: var(--script);
+  font-size: 36px;
+  margin: 0 0 10px 0;
 }
-.photo img{
-  width:100%;
-  height: auto;
-  display:block;
+.section-sub{
+  margin: 0 0 14px 0;
+  color: var(--muted);
+  font-size: 14px;
+  line-height: 1.45;
+}
+
+/* Кнопка “открыть карту” / “написать” */
+.btn{
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+
+  padding: 11px 16px;
+  border-radius: 999px;
+  border: 1px solid rgba(43,38,34,.28);
+  background: rgba(255,255,255,.35);
+  color: var(--ink);
+  text-decoration: none;
+  font-weight: 500;
+  cursor: pointer;
+  transition: transform .08s ease, background .18s ease, border-color .18s ease;
+  user-select: none;
+}
+.btn:hover{ background: rgba(255,255,255,.55); border-color: rgba(43,38,34,.38); }
+.btn:active{ transform: translateY(1px); }
+
+/* =========================
+   RSVP FORM — ВАЖНО: НЕ МЕНЯЕМ HTML, ТОЛЬКО СТИЛИ
+   ========================= */
+.rsvp{
+  /* делаем, чтобы форма визуально выглядела как отдельная карточка */
+  background: linear-gradient(180deg, var(--paper), var(--paper-2));
+  border: 1px solid var(--line);
+  border-radius: var(--radius-lg);
+  padding: 18px;
+  box-shadow: var(--shadow-soft);
+  position: relative;
+  z-index: 2; /* чтобы ничего не перекрывало клики */
+}
+
+.rsvp .card__title{
+  font-family: var(--script);
+  font-size: 40px;
+  margin: 0 0 6px 0;
 }
 
 .form{
-  display:flex;
-  flex-direction: column;
+  margin-top: 14px;
+  display: grid;
   gap: 12px;
-  margin-top: 10px;
 }
-label{
-  display:flex;
-  flex-direction: column;
-  gap: 6px;
-  color: var(--muted);
+
+.form label{
+  display: grid;
+  gap: 8px;
   font-size: 13px;
+  color: rgba(43,38,34,.78);
 }
-input, select, textarea{
+
+.form input[type="text"],
+.form select,
+.form textarea{
+  width: 100%;
   border-radius: 14px;
-  border: 1px solid rgba(42,31,26,.18);
-  padding: 12px 12px;
-  font: inherit;
-  background: rgba(255,255,255,.65);
+  border: 1px solid rgba(43,38,34,.20);
+  background: rgba(255,255,255,.55);
+  padding: 12px 14px;
+  font-family: var(--sans);
+  font-size: 14px;
+  outline: none;
   color: var(--ink);
 }
-textarea{ resize: vertical; }
-.hint{ margin: 0; color: var(--muted); font-size: 12px; }
 
-/* ПК/планшет: две колонки */
-@media (min-width: 980px){
-  .grid{
-    grid-template-columns: 1fr 1fr;
-    gap: 22px;
-  }
+.form textarea{ resize: vertical; min-height: 90px; }
+
+.form input:focus,
+.form select:focus,
+.form textarea:focus{
+  border-color: rgba(43,38,34,.40);
+  background: rgba(255,255,255,.70);
 }
 
-.footer{
-  padding: 18px 16px 28px;
+/* Кнопка submit — точно кликабельна */
+.form button[type="submit"]{
+  justify-self: start;
+  margin-top: 6px;
+  position: relative;
+  z-index: 3;
+  pointer-events: auto;
 }
-.footer__inner{
-  max-width: 1180px;
-  margin: 0 auto;
-  opacity:.75;
+
+/* На очень узких экранах — кнопка на всю ширину */
+@media (max-width: 420px){
+  .form button[type="submit"]{ width: 100%; }
+}
+
+/* =========================
+   TIMELINE (если есть список)
+   ========================= */
+.timeline{
+  display: grid;
+  gap: 10px;
+  margin-top: 10px;
+}
+
+.timeline-item{
+  display: grid;
+  grid-template-columns: 76px 1fr;
+  gap: 10px;
+  align-items: start;
+  padding: 10px 0;
+  border-top: 1px solid rgba(43,38,34,.12);
+}
+.timeline-item:first-child{ border-top: 0; padding-top: 0; }
+
+.time{
+  font-family: var(--script);
+  font-size: 26px;
+  line-height: 1;
+}
+.t-title{
+  font-weight: 600;
+  margin: 0 0 3px 0;
+}
+.t-desc{
+  margin: 0;
+  color: var(--muted);
+  font-size: 13px;
+  line-height: 1.4;
+}
+
+/* =========================
+   SUCCESS PAGE (если используешь .hero)
+   ========================= */
+.hero{
+  background: transparent;
+  padding: 22px;
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--line);
+  box-shadow: var(--shadow-soft);
+  position: relative;
+  z-index: 1;
+}
+
+.hero__badge{
+  display: inline-flex;
+  align-items: center;
+  border: 1px solid rgba(43,38,34,.25);
+  padding: 6px 10px;
+  border-radius: 999px;
+  font-size: 12px;
+  opacity: .85;
+  margin-bottom: 10px;
+}
+
+.hero__title{
+  font-family: var(--script);
+  font-size: 56px;
+  margin: 0 0 8px 0;
+  line-height: 1;
+}
+
+.hero__subtitle{
+  margin: 0 0 16px 0;
+  color: var(--muted);
+}
+
+.hero__actions{
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
 }
