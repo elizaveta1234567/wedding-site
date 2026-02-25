@@ -10,6 +10,93 @@
   <link href="https://fonts.googleapis.com/css2?family=Marck+Script&family=Manrope:wght@300;400;500;600&display=swap" rel="stylesheet">
 
 </head>
+ <style>
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: 'Manrope', sans-serif;
+      background: #f6f1e9;
+      color: #2b2622;
+    }
+    .page {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 24px;
+    }
+    .grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 24px;
+    }
+    @media (max-width: 900px) {
+      .grid { grid-template-columns: 1fr; }
+    }
+    .card {
+      background: #fbf8f3;
+      border-radius: 24px;
+      padding: 28px;
+      box-shadow: 0 10px 30px rgba(0,0,0,.06);
+    }
+    h2 {
+      font-family: 'Marck Script', cursive;
+      font-size: 36px;
+      margin: 0 0 12px;
+    }
+    .muted {
+      opacity: .7;
+      font-size: 14px;
+    }
+    .btn {
+      display: inline-block;
+      padding: 12px 22px;
+      border-radius: 999px;
+      border: 1px solid #2b2622;
+      text-decoration: none;
+      color: #2b2622;
+      background: transparent;
+      cursor: pointer;
+      transition: .2s;
+    }
+    .btn:hover {
+      background: #2b2622;
+      color: #fff;
+    }
+
+    /* TIMELINE */
+    .timeline-item {
+      display: grid;
+      grid-template-columns: 60px 1fr;
+      gap: 12px;
+      margin-bottom: 16px;
+    }
+    .time {
+      font-weight: 600;
+    }
+
+    /* RSVP FORM */
+    .rsvp {
+      grid-column: 1 / -1;
+    }
+    form {
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+      margin-top: 16px;
+    }
+    input, select, textarea {
+      padding: 14px 16px;
+      border-radius: 12px;
+      border: 1px solid rgba(0,0,0,.2);
+      font-size: 14px;
+      font-family: inherit;
+    }
+    textarea { resize: vertical; }
+    button[type="submit"] {
+      margin-top: 8px;
+      align-self: flex-start;
+    }
+  </style>
+</head>
 
 <body>
   <main class="page">
