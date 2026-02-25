@@ -1,68 +1,74 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="ru">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>RSVP</title>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Приглашение</title>
 
   <link rel="stylesheet" href="styles.css" />
 </head>
+
 <body>
+  <main class="page">
+    <!-- ...твой остальной контент страницы... -->
 
-  <section class="rsvp">
-    <h2>RSVP</h2>
-    <p>Подтвердите присутствие — так мы всё красиво спланируем ✨</p>
+    <section class="rsvp" id="rsvp">
+      <h2 class="card__title">RSVP</h2>
+      <p class="muted">Подтвердите присутствие — так мы всё красиво спланируем ✨</p>
 
-    <!-- ✅ ЕДИНСТВЕННАЯ РАБОЧАЯ NETLIFY-ФОРМА -->
-    <form
-      name="rsvp"
-      method="POST"
-      action="/success.html"
-      data-netlify="true"
-      netlify-honeypot="bot-field"
-    >
-      <!-- ОБЯЗАТЕЛЬНО -->
-      <input type="hidden" name="form-name" value="rsvp" />
+      <!-- ВАЖНО: это ЕДИНСТВЕННАЯ форма на странице -->
+      <form
+        class="form"
+        name="rsvp"
+        method="POST"
+        action="/success.html"
+        data-netlify="true"
+        netlify-honeypot="bot-field"
+      >
+        <!-- обязательно для Netlify -->
+        <input type="hidden" name="form-name" value="rsvp" />
 
-      <!-- honeypot -->
-      <p style="display:none">
-        <label>Don’t fill this out <input name="bot-field" /></label>
-      </p>
+        <!-- honeypot (скрытое поле от ботов) -->
+        <p style="display:none;">
+          <label>Don’t fill this out: <input name="bot-field" /></label>
+        </p>
 
-      <label>
-        Имя и фамилия
-        <input
-          type="text"
-          name="name"
-          placeholder="Например: Елизавета Иванова"
-          required
-        />
-      </label>
+        <label>
+          Имя и фамилия
+          <input
+            type="text"
+            name="name"
+            placeholder="Например: Елизавета Иванова"
+            required
+          />
+        </label>
 
-      <label>
-        Будете?
-        <select name="attendance" required>
-          <option value="">Выберите…</option>
-          <option value="Да, приду">Да, приду</option>
-          <option value="Не смогу">Не смогу</option>
-        </select>
-      </label>
+        <label>
+          Будете?
+          <select name="status" required>
+            <option value="" selected disabled>Выберите…</option>
+            <option value="Да, приду">Да, приду</option>
+            <option value="Не смогу">Не смогу</option>
+            <option value="Пока не знаю">Пока не знаю</option>
+          </select>
+        </label>
 
-      <label>
-        Комментарий (аллергии / предпочтения)
-        <textarea
-          name="comment"
-          placeholder="Например: не ем рыбу"
-        ></textarea>
-      </label>
+        <label>
+          Комментарий (аллергии / предпочтения)
+          <textarea
+            name="comment"
+            rows="3"
+            placeholder="Например: не ем рыбу"
+          ></textarea>
+        </label>
 
-      <button type="submit">Отправить</button>
+        <button class="btn" type="submit">Отправить</button>
 
-      <p class="hint">
-        После отправки вас перенаправит на страницу «Готово»
-      </p>
-    </form>
-  </section>
-
+        <p class="muted" style="margin-top:10px;">
+          После отправки вас перекинет на страницу «Готово».
+        </p>
+      </form>
+    </section>
+  </main>
 </body>
 </html>
