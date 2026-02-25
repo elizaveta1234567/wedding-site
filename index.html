@@ -23,14 +23,28 @@
       margin: 0 auto;
       padding: 24px;
     }
-    .grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 24px;
-    }
-    @media (max-width: 900px) {
-      .grid { grid-template-columns: 1fr; }
-    }
+    /* Внутренний контейнер: теперь ОДНА колонка, блоки идут друг за другом */
+.grid{
+  position: relative;
+  z-index: 1;
+
+  display: flex;
+  flex-direction: column;
+  gap: 22px;
+  align-items: stretch;
+}
+
+/* Каждый блок = целый экран (по твоему ТЗ) */
+.grid > .card{
+  min-height: calc(100vh - 52px); /* 52px = padding .page (26*2) */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+/* На телефоне — 1 колонка */
+@media (max-width: 860px){
+  .page{ padding: 18px; }
+}
     .card {
       background: #fbf8f3;
       border-radius: 24px;
