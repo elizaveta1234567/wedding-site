@@ -490,70 +490,43 @@ body{
     aspect-ratio: 4 / 5; /* на мобилке выглядит ближе к рефу */
   }
 }
-/* ===== ЛОКАЦИЯ как на рефе (карточка + боковые фото) ===== */
+/* =========================
+   СЕКЦИЯ ЛОКАЦИИ
+========================= */
+
 .location-section{
   position: relative;
-  padding: 90px 18px 120px;
-  background: #ece7e1;background-color:  #fbf7f3;
-    overflow: hidden; /* чтобы боковые картинки не ломали страницу */
-}
-
-/* Боковые фото */
-.location-section::before,
-.location-section::after{
-  content: "";
-  position: absolute;
-  top: 50%;
-  width: 44vw;
-  max-width: 520px;
-  height: 78vh;
-  max-height: 720px;
-  transform: translateY(-50%);
-  background-size: cover;
-  background-position: center;
-  filter: blur(2px);
-  opacity: .85;
-  pointer-events: none;
-}
-
-/* ЛЕВОЕ фото */
-.location-section::before{
-  background-color: #fbf7f3 ;
-  background-color:  #fbf7f3;
-  background-image: url("jemchukUp.pg"); /* <-- замени путь */
-}
-
-/* ПРАВОЕ фото */
-.location-section::after{
-  background-color:  #fbf7f3;
-  right: -10vw;
-  background-image: url("jemchukDown.pn"); /* <-- замени путь */
+  display: flex;
+  justify-content: center;
+  padding: 80px 20px;
+  background: transparent;
 }
 
 /* Центральная карточка */
 .location-card{
   position: relative;
   z-index: 2;
-  width: min(520px, 92vw);
+  width: 100%;
+  max-width: 520px;
   margin: 0 auto;
   padding: 46px 28px 40px;
   background: #fbf7f3;
   border: 1.5px solid rgba(124, 86, 92, 0.55);
   border-radius: 22px;
   text-align: center;
-  box-shadow: #fbf7f3;
+  box-sizing: border-box;
 }
 
-/* Заголовок Локация (каллиграфия как у тебя) */
+/* Заголовок */
 .location-title{
   margin: 0 0 18px;
   font-family: "Segoe Script", "Brush Script MT", "Pacifico", cursive;
-  font-size: clamp(38px, 6vw, 56px);
+  font-size: clamp(36px, 6vw, 56px);
   font-weight: 400;
-  color: #6f2e37;;
+  color: #6f2e37;
 }
 
-/* Подзаголовок */
+/* Текст адреса */
 .location-subtitle{
   margin: 0 0 26px;
   font-family: "Times New Roman", "Georgia", serif;
@@ -562,12 +535,13 @@ body{
   color: rgba(0,0,0,.55);
 }
 
-/* Кнопка как на рефе — широкая, по центру, с рамкой */
+/* Кнопка */
 .location-btn{
   display: flex;
   align-items: center;
   justify-content: center;
-  width: min(420px, 100%);
+  width: 100%;
+  max-width: 420px;
   height: 54px;
   margin: 0 auto;
   border-radius: 999px;
@@ -575,11 +549,12 @@ body{
   color: rgba(0,0,0,.55);
   text-decoration: none;
   font-family: system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
-  font-size: 16px;
-  letter-spacing: 0.06em;
+  font-size: 15px;
+  letter-spacing: 0.08em;
   text-transform: uppercase;
   background: transparent;
   transition: transform .15s ease, background .15s ease;
+  box-sizing: border-box;
 }
 
 .location-btn:hover{
@@ -587,17 +562,44 @@ body{
   transform: translateY(-1px);
 }
 
-/* На мобилке боковые картинки лучше приглушить/убрать */
+/* =========================
+   МОБИЛЬНАЯ АДАПТАЦИЯ
+========================= */
+
 @media (max-width: 640px){
-  .location-section::before,
-  .location-section::after{
-    opacity: .25;
-    filter: blur(3px);
-    width: 60vw;
-    height: 65vh;
+  .location-section{
+    padding: 56px 14px;
   }
-  .location-section::before{ left: -25vw; }
-  .location-section::after{ right: -25vw; }
+
+  .location-card{
+    padding: 32px 18px 28px;
+    border-radius: 18px;
+  }
+
+  .location-title{
+    font-size: 34px;
+    margin-bottom: 14px;
+  }
+
+  .location-subtitle{
+    font-size: 15px;
+    margin-bottom: 22px;
+  }
+
+  .location-btn{
+    height: 52px;
+    font-size: 14px;
+    letter-spacing: 0.07em;
+  }
+}
+
+@media (max-width: 360px){
+  .location-btn{
+    font-size: 13px;
+    padding: 0 14px;
+    white-space: normal;
+    line-height: 1.2;
+  }
 }
 /* ===== ТАЙМИНГ как на рефе (время слева + линия + точки + текст справа) ===== */
 .timing-section{
@@ -1624,4 +1626,82 @@ details-card{
   .cal-grid{ row-gap: 18px; }
   .cal-day.is-heart::after{ height: 52px; }
   .cal-month{ padding-left: 18px; margin-top: -8px; }
+}
+/* ===== КАЛЕНДАРЬ: адаптивная сетка 7 колонок ===== */
+.calendar-block{
+  width: min(720px, 92vw);
+  margin: 28px auto 40px;
+  text-align: center;
+}
+
+/* сетка: 7 одинаковых колонок */
+.calendar-grid{
+  width: 100%;
+  display: grid;
+  grid-template-columns: repeat(7, minmax(0, 1fr));
+  row-gap: 18px;
+  align-items: center;
+  justify-items: center;
+}
+
+/* дни недели */
+.calendar-grid .cal-dow{
+  font-family: system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
+  font-size: clamp(14px, 2.6vw, 22px);
+  letter-spacing: .18em;
+  text-transform: uppercase;
+  color: rgba(0,0,0,.35);
+  white-space: nowrap; /* чтобы "ВС" не переносилось */
+}
+
+/* числа */
+.calendar-grid .cal-num{
+  font-family: system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
+  font-size: clamp(16px, 3vw, 26px);
+  color: rgba(0,0,0,.30);
+}
+
+/* ячейка с сердцем (там где "6") */
+.calendar-grid .cal-heart{
+  position: relative;
+  width: 100%;
+  display: grid;
+  place-items: center;
+}
+
+/* само svg сердца */
+.calendar-grid .cal-heart svg{
+  width: clamp(54px, 12vw, 84px);
+  height: auto;
+  display: block;
+}
+
+/* цифра внутри сердца — строго по центру */
+.calendar-grid .cal-heart .heart-num{
+  position: absolute;
+  top: 43%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-family: system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
+  font-size: clamp(14px, 3vw, 20px);
+  color: rgba(0,0,0,.45);
+}
+
+/* подпись месяца */
+.calendar-month{
+  margin-top: 14px;
+  font-family: "Segoe Script", "Brush Script MT", "Pacifico", cursive;
+  font-size: clamp(26px, 6vw, 44px);
+  color: #7c565c;
+}
+
+/* мобильная докрутка: чуть больше воздуха и меньше “жмёт” */
+@media (max-width: 520px){
+  .calendar-block{
+    width: 92vw;
+    margin: 18px auto 30px;
+  }
+  .calendar-grid{
+    row-gap: 14px;
+  }
 }
