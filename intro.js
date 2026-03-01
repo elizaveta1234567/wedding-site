@@ -1,50 +1,52 @@
 (() => {
-  const intro = document.querySelector(".intro");
-  if (!intro) return;
+  function initIntro() {
+    const intro = document.querySelector(".intro");
+    if (!intro) return;
 
-  const hit = intro.querySelector(".intro__hit");
-  if (!hit) return;
+    const hit = intro.querySelector(".intro__hit");
+    if (!hit) return;
 
-  let opened = false;
+    // блокируем скролл пока интро видно
+    const prevOverflow = document.documentElement.style.overflow;
+    document.documentElement.style.overflow = "hidden";
 
-  // блокируем скролл пока интро активно
-  const prevOverflowHtml = document.documentElement.style.overflow;
-  const prevOverflowBody = document.body.style.overflow;
-  document.documentElement.style.overflow = "hidden";
-  document.body.style.overflow = "hidden";
+    let opened = false;
 
-  function restoreScroll() {
-    document.documentElement.style.overflow = prevOverflowHtml || "";
-    document.body.style.overflow = prevOverflowBody || "";
-  }
+    const openIntro = () => {
+      if (opened) return;
+      opened = true;
 
-  function finish() {
-    restoreScroll();
-    intro.classList.add("is-hidden");
-    intro.style.pointerEvents = "none";
-    setTimeout(() => intro.remove(), 50);
-  }
+      // важно: чтобы transition точно сработал
+      requestAnimationFrame(() => {
+        intro.classList.add("intro--open");
+      });
 
-  function openIntro() {
-    if (opened) return;
-    opened = true;
+      const finish = () => {
+        document.documentElement.style.overflow = prevOverflow || "";
+        intro.remove();
+      };
 
-    intro.classList.add("is-opening");
+      // ждём именно fade интро
+      const onEnd = (e) => {
+        if (e.target !== intro) return;
+        if (e.propertyName !== "opacity") return;
+        intro.removeEventListener("transitionend", onEnd);
+        finish();
+      };
 
-    const onEnd = (e) => {
-      if (e.target !== intro) return;
-      intro.removeEventListener("transitionend", onEnd);
-      finish();
+      intro.addEventListener("transitionend", onEnd);
+
+      // страховка
+      setTimeout(finish, 1400);
     };
 
-    intro.addEventListener("transitionend", onEnd);
-
-    // страховка
-    setTimeout(finish, 1100);
+    hit.addEventListener("click", openIntro, { passive: true });
+    hit.addEventListener("touchstart", openIntro, { passive: true });
   }
 
-  hit.addEventListener("click", openIntro);
-  hit.addEventListener("touchstart", openIntro, { passive: true });
-
-  console.log("[intro] ready");
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", initIntro);
+  } else {
+    initIntro();
+  }
 })();

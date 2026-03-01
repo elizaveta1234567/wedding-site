@@ -15,16 +15,12 @@
 
 <body>
 <!-- INTRO SCREEN -->
-<div class="intro" id="intro">
-  <svg class="intro__svg" viewBox="0 0 100 100" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+<div class="intro">
+  <svg class="intro__svg" viewBox="0 0 100 100" preserveAspectRatio="xMidYMid slice">
     <defs>
-      <mask id="heart-mask" maskUnits="userSpaceOnUse">
-        <!-- видно всё -->
+      <mask id="heart-mask">
         <rect x="0" y="0" width="100" height="100" fill="white" />
-        <!-- дырка-сердце -->
-        <path
-          class="intro__mask-heart"
-          fill="black"
+        <path class="intro__mask-heart" fill="black"
           d="M50 78
              C50 78, 18 56, 18 36
              C18 24, 28 18, 36 18
@@ -32,18 +28,13 @@
              C50 24, 56 18, 64 18
              C72 18, 82 24, 82 36
              C82 56, 50 78, 50 78
-             Z"
-        />
+             Z"/>
       </mask>
     </defs>
 
-    <rect x="0" y="0" width="100" height="100" fill="#a32323" mask="url(#heart-mask)" />
+    <rect x="0" y="0" width="100" height="100" fill="#a32323" mask="url(#heart-mask)"/>
 
-    <path
-      class="intro__stroke-heart"
-      fill="none"
-      stroke="white"
-      stroke-width="1.8"
+    <path class="intro__stroke-heart" fill="none" stroke="white" stroke-width="1.8"
       d="M50 78
          C50 78, 18 56, 18 36
          C18 24, 28 18, 36 18
@@ -51,21 +42,21 @@
          C50 24, 56 18, 64 18
          C72 18, 82 24, 82 36
          C82 56, 50 78, 50 78
-         Z"
-    />
+         Z"/>
   </svg>
 
-  <div class="intro__content">
-    <!-- ВАЖНО: это именно кнопка, она ЛОВИТ клик -->
-    <button class="intro__hit" type="button" aria-label="Открыть приглашение"></button>
+ <!-- КОНТЕНТ -->
+<div class="intro__content">
+  <div class="intro__hit" aria-label="Открыть приглашение"></div>
 
-    <h2 class="intro__title">ВЫ ПОЛУЧИЛИ <br>ПРИГЛАШЕНИЕ НА СВАДЬБУ!</h2>
-    <p class="intro__hint">нажмите на сердце</p>
+  <h2 class="intro__title">ВЫ ПОЛУЧИЛИ ПРИГЛАШЕНИЕ НА СВАДЬБУ!</h2>
+  <p class="intro__hint">НАЖМИТЕ НА СЕРДЦЕ</p>
+</div>
   </div>
 </div>
-<!-- /INTRO SCREEN -->
-
+</div>
 <script src="intro.js"></script>
+<!-- /INTRO SCREEN -->
   <main class="pages">
     <!-- MUSIC PLAYER (floating) -->
 <div class="music-player" id="musicPlayer">
