@@ -2540,3 +2540,26 @@ details-card{
 .intro.is-hidden{
   display: none !important;
 }
+/* ===============================
+   📱 ТОЛЬКО ТЕЛЕФОНЫ
+   =============================== */
+@media (max-width: 600px) {
+
+  /* Контейнер с текстом */
+  .intro__text{
+    margin-top: -35px; /* ⬆ поднимаем текст к сердцу */
+  }
+
+  /* Заголовок */
+  .intro__title{
+    font-size: clamp(16px, 5vw, 22px); /* ⬆ крупнее на мобилке */
+    line-height: 1.3;
+    margin-bottom: 10px;
+  }
+
+  /* Подсказка */
+  .intro__hint{
+    font-size: 12px; /* чуть читаемее */
+    letter-spacing: 0.14em;
+  }
+}
