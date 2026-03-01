@@ -46,3 +46,21 @@
     }
   });
 })();
+// === SCROLL ANIMATION FOR DATE SECTION ===
+const dateSection = document.querySelector('.date-section');
+
+if (dateSection) {
+  const observer = new IntersectionObserver(
+    ([entry]) => {
+      if (entry.isIntersecting) {
+        dateSection.classList.add('is-visible');
+        observer.disconnect(); // анимация только один раз
+      }
+    },
+    {
+      threshold: 0.3,
+    }
+  );
+
+  observer.observe(dateSection);
+}

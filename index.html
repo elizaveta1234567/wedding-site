@@ -165,11 +165,11 @@ else pause();
 
   </div>
 </section>
- <section class="calendar-section">
+ <!-- <section class="calendar-section">
   <div class="calendar-block">
     <div class="cal-grid">
       <!-- ROW 1: дни недели -->
-      <div class="cal-cell cal-head">ПН</div>
+      <!-- <div class="cal-cell cal-head">ПН</div>
       <div class="cal-cell cal-head">ВТ</div>
       <div class="cal-cell cal-head">СР</div>
       <div class="cal-cell cal-head">ЧТ</div>
@@ -177,15 +177,15 @@ else pause();
       <div class="cal-cell cal-head">СБ</div>
       <div class="cal-cell cal-head">ВС</div>
 
-      <!-- ROW 2: числа -->
+      <!-- ROW 2: числа
       <div class="cal-cell cal-day">3</div>
       <div class="cal-cell cal-day">4</div>
       <div class="cal-cell cal-day">5</div>
 <!-- 6 августа (четверг) -->
-<div class="cal-cell cal-day cal-day--heart">
+<!-- <div class="cal-cell cal-day cal-day--heart">
   <svg class="heart-pin" viewBox="0 0 100 130" aria-hidden="true">
     <!-- ровное сердце -->
-    <path d="
+    <!-- <path d="
       M50 35
       C50 25, 36 15, 24 15
       C10 15, 10 34, 10 34
@@ -199,20 +199,117 @@ else pause();
       stroke-width="4"
       stroke-linecap="round"
       stroke-linejoin="round"
-    />
+    /> -->
     <!-- палочка -->
-    <line x1="50" y1="87" x2="50" y2="130"
+    <!-- <line x1="50" y1="87" x2="50" y2="130"
       stroke="#7C565C" stroke-width="4" stroke-linecap="round"/>
   </svg>
-
-  <span class="cal-num">6</span>
+ -->
+  <!-- <span class="cal-num">6</span>
 </div>
       <div class="cal-cell cal-day">7</div>
       <div class="cal-cell cal-day">8</div>
-      <div class="cal-cell cal-day">9</div>
+      <div class="cal-cell cal-day">9</div>  -->
 
       <!-- ROW 3: месяц (ВАЖНО: это отдельная ячейка сетки) -->
-      <div class="cal-cell cal-month">Август</div>
+      <!-- <div class="cal-cell cal-month">Август</div>
+    </div>
+  </div> -->
+<section class="loveDate" id="date">
+  <div class="loveDate__wrap">
+    <div class="loveDate__title">Дата любви</div>
+
+    <div class="loveDate__week">
+      <span class="loveDate__cell loveDate__cell--week">ПН</span>
+      <span class="loveDate__cell loveDate__cell--week">ВТ</span>
+      <span class="loveDate__cell loveDate__cell--week">СР</span>
+      <span class="loveDate__cell loveDate__cell--week">ЧТ</span>
+      <span class="loveDate__cell loveDate__cell--week">ПТ</span>
+      <span class="loveDate__cell loveDate__cell--week">СБ</span>
+      <span class="loveDate__cell loveDate__cell--week">ВС</span>
+    </div>
+
+    <div class="loveDate__days">
+      <span class="loveDate__cell loveDate__cell--day">3</span>
+      <span class="loveDate__cell loveDate__cell--day">4</span>
+      <span class="loveDate__cell loveDate__cell--day">5</span>
+
+      <!-- сердце ровно в сетке -->
+      <span class="loveDate__cell loveDate__cell--heart" aria-label="6 августа 2026">6</span>
+
+      <span class="loveDate__cell loveDate__cell--day">7</span>
+      <span class="loveDate__cell loveDate__cell--day">8</span>
+      <span class="loveDate__cell loveDate__cell--day">9</span>
+    </div>
+
+    <div class="loveDate__month">Август 2026</div>
+  </div>
+</section>
+ <!-- ЛОКАЦИЯ -->
+<section class="loca" id="location">
+  <div class="loca__wrap">
+    <div class="loca__card loca--reveal">
+
+      <h2 class="loca__title">Место проведения</h2>
+
+      <p class="loca__address">
+        г. Тольятти, ул. Комзина, 6<br>
+        Ресторан «Парк Отель»
+      </p>
+
+      <!-- КНОПКУ НЕ ТРОГАЕМ -->
+      <a class="wloc__btn" href="https://yandex.ru/maps/org/park_otel/1081236889/?ll=49.354816%2C53.474493&z=16" target="_blank">
+        ПОСМОТРЕТЬ НА КАРТЕ
+      </a>
+
+    </div>
+  </div>
+</section>
+<!-- ТАЙМИНГ -->
+<section class="page timing-section" id="timing">
+  <div class="timing-wrap">
+    <h2 class="timing-title">Тайминг</h2>
+
+    <div class="timing-grid">
+      <!-- 1 -->
+      <div class="timing-item">
+        <div class="timing-time">16:00</div>
+        <div class="timing-dot"></div>
+        <div class="timing-content">
+          <div class="timing-name">СБОР ГОСТЕЙ</div>
+          <div class="timing-desc">просим взять с собой улыбки и хорошее настроение</div>
+        </div>
+      </div>
+
+      <!-- 2 -->
+      <div class="timing-item">
+        <div class="timing-time">16:30</div>
+        <div class="timing-dot"></div>
+        <div class="timing-content">
+          <div class="timing-name">ЦЕРЕМОНИЯ</div>
+          <div class="timing-desc">приготовьте платочки для самого трогательного момента</div>
+        </div>
+      </div>
+
+      <!-- 3 -->
+      <div class="timing-item">
+        <div class="timing-time">17:00</div>
+        <div class="timing-dot"></div>
+        <div class="timing-content">
+          <div class="timing-name">НАЧАЛО БАНКЕТА</div>
+          <div class="timing-desc">время вкусной еды, танцев и развлечений</div>
+        </div>
+      </div>
+
+      <!-- 4 -->
+      <div class="timing-item">
+        <div class="timing-time">23:00</div>
+        <div class="timing-dot"></div>
+        <div class="timing-content">
+          <div class="timing-name">ЗАВЕРШЕНИЕ БАНКЕТА</div>
+          <div class="timing-desc">к сожалению, даже такой прекрасный день заканчивается</div>
+        </div>
+      </div>
     </div>
   </div>
 </section>
@@ -293,72 +390,6 @@ else pause();
   setInterval(tick, 1000);
 })();
 </script>
- <!-- ЛОКАЦИЯ -->
-<section class="page location-section" id="location">
-  <div class="location-card">
-    <h2 class="location-title">Локация</h2>
-
-    <p class="location-subtitle">
-      г. Тольятти, ул. Комзина, 6<br>
-      Ресторан "Парк Отель"
-    </p>
-
-    <a class="location-btn"
-       href="https://yandex.ru/maps/org/park_otel/1081236889/?ll=49.354816%2C53.474493&z=16.74"
-       target="_blank" rel="noopener">
-      Посмотреть на карте
-    </a>
-  </div>
-</section>
-
-<!-- ТАЙМИНГ -->
-<section class="page timing-section" id="timing">
-  <div class="timing-wrap">
-    <h2 class="timing-title">Тайминг</h2>
-
-    <div class="timing-grid">
-      <!-- 1 -->
-      <div class="timing-item">
-        <div class="timing-time">16:00</div>
-        <div class="timing-dot"></div>
-        <div class="timing-content">
-          <div class="timing-name">СБОР ГОСТЕЙ</div>
-          <div class="timing-desc">просим взять с собой улыбки и хорошее настроение</div>
-        </div>
-      </div>
-
-      <!-- 2 -->
-      <div class="timing-item">
-        <div class="timing-time">16:30</div>
-        <div class="timing-dot"></div>
-        <div class="timing-content">
-          <div class="timing-name">ЦЕРЕМОНИЯ</div>
-          <div class="timing-desc">приготовьте платочки для самого трогательного момента</div>
-        </div>
-      </div>
-
-      <!-- 3 -->
-      <div class="timing-item">
-        <div class="timing-time">17:00</div>
-        <div class="timing-dot"></div>
-        <div class="timing-content">
-          <div class="timing-name">НАЧАЛО БАНКЕТА</div>
-          <div class="timing-desc">время вкусной еды, танцев и развлечений</div>
-        </div>
-      </div>
-
-      <!-- 4 -->
-      <div class="timing-item">
-        <div class="timing-time">23:00</div>
-        <div class="timing-dot"></div>
-        <div class="timing-content">
-          <div class="timing-name">ЗАВЕРШЕНИЕ БАНКЕТА</div>
-          <div class="timing-desc">к сожалению, даже такой прекрасный день заканчивается</div>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
 <!-- ДРЕСС-КОД -->
 <section class="page dresscode-section" id="dresscode">
   <div class="dresscode-wrap">

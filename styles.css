@@ -2960,7 +2960,7 @@ details-card{
 
 .main-screen {
   min-height: 100vh;
-  background: #f4f3ef;
+  background:  #fbf7f3;
   display: flex;
   align-items: center;
 }
@@ -3061,4 +3061,766 @@ details-card{
     font-size: 16px;
     line-height: 1.65;
   }
+}
+/* === DATE SECTION === */
+.date-section {
+  background: #fbf7f3;
+  padding: clamp(60px, 10vh, 120px) 16px;
+  display: flex;
+  justify-content: center;
+}
+
+/* календарь */
+.date-calendar {
+  text-align: center;
+  color: #2b2b2b;
+}
+
+/* Заголовок */
+.date-title {
+  font-family: "Cormorant Garamond", serif;
+  font-size: clamp(28px, 5vw, 48px);
+  margin-bottom: 24px;
+}
+
+/* Дни недели */
+.date-week {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 12px;
+  font-size: 14px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: #9a9a9a;
+  margin-bottom: 16px;
+}
+
+/* Числа */
+/* ДНИ: одинаковая высота ячеек, чтобы цифры не прыгали */
+.date-days{
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 12px;
+  align-items: center;
+}
+
+/* все ячейки-цифры делаем одинаковыми */
+.date-days > span,
+.date-days > .date-heart{
+  height: 32px;              /* можно 30-34, подгони как нравится */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* сами цифры */
+.date-days > span{
+  font-size: 18px;
+  line-height: 1;            /* ключевое: убирает baseline-прыжки */
+  color: #2b2b2b;
+}
+
+/* сердце (оно чуть выше, поэтому отдельная высота) */
+.date-days > .date-heart{
+  height: 56px;              /* как у тебя */
+  width: 64px;
+  margin: 0 auto;
+}
+
+/* цифра внутри сердца */
+.date-heart .date-day{
+  line-height: 1;
+  color: #fff;
+}
+
+/* ❤️ СЕРДЦЕ */
+.date-heart {
+  position: relative;
+  width: 64px;
+  height: 56px;
+
+  background: #8c2f2b;          /* ← КРАСНОЕ СЕРДЦЕ */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  font-size: 18px;
+  font-weight: 500;
+  margin: 0 auto;
+
+  clip-path: path("M32 52 C32 52 4 34 4 18 C4 8 12 4 18 4 C24 4 32 10 32 10 C32 10 40 4 46 4 C52 4 60 8 60 18 C60 34 32 52 32 52 Z");
+}
+
+/* 🔢 ЦИФРА ВНУТРИ СЕРДЦА */
+.date-heart span {
+  color: #ffffff;               /* ← БЕЛАЯ ТОЛЬКО ЦИФРА */
+  position: relative;
+  z-index: 1;
+}
+
+/* Месяц */
+.date-month {
+  margin-top: 24px;
+  font-family: "Cormorant Garamond", serif;
+  font-size: clamp(24px, 4vw, 36px);
+  color: #8c2f2b;
+}
+
+/* === MOBILE === */
+@media (max-width: 600px) {
+  .date-week,
+  .date-days {
+    gap: 8px;
+  }
+
+  .date-heart {
+    width: 56px;
+    height: 48px;
+    font-size: 16px;
+  }
+}
+
+/* === SCROLL FADE IN (без пропадания) === */
+.date-section {
+  opacity: 1;
+  transform: none;
+}
+
+html.js .date-section {
+  opacity: 0;
+  transform: translateY(40px);
+  transition: opacity 0.9s ease, transform 0.9s ease;
+}
+
+html.js .date-section.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* === HEART PULSE === */
+.date-heart {
+  animation: heart-pulse 2.8s ease-in-out infinite;
+  transform-origin: center;
+}
+
+@keyframes heart-pulse {
+  0% { transform: scale(1); }
+  40% { transform: scale(1.08); }
+  55% { transform: scale(1.02); }
+  100% { transform: scale(1); }
+}
+
+@media (max-width: 600px) {
+  .date-heart {
+    animation-duration: 3.2s;
+  }
+}
+/* ===== FIX: все цифры строго по одной линии ===== */
+.date-days{
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 12px;
+  align-items: center; /* на всякий */
+}
+
+/* все обычные дни — одинаковая ячейка */
+.date-days > span{
+  display: grid;
+  place-items: center;
+  height: 32px;              /* высота ячейки */
+  line-height: 1;            /* убираем baseline-прыжки */
+  margin: 0;
+  padding: 0;
+  position: static !important;
+  top: auto !important;
+  transform: none !important;
+  vertical-align: middle;
+  font-size: 18px;
+  color: #2b2b2b;
+}
+
+/* сердце = тот же span, но другой класс */
+.date-days > span.is-heart{
+  height: 56px;              /* размер сердца */
+  width: 64px;
+  margin: 0 auto;
+  background: #8c2f2b;
+  color: #fff !important;    /* цифра белая */
+  font-weight: 500;
+
+  display: grid;
+  place-items: center;
+
+  /* форма сердца */
+  clip-path: path("M32 52 C32 52 4 34 4 18 C4 8 12 4 18 4 C24 4 32 10 32 10 C32 10 40 4 46 4 C52 4 60 8 60 18 C60 34 32 52 32 52 Z");
+}
+
+/* мобильная подгонка */
+@media (max-width: 600px){
+  .date-days{ gap: 8px; }
+  .date-days > span{ height: 28px; font-size: 16px; }
+  .date-days > span.is-heart{ height: 48px; width: 56px; font-size: 16px; }
+}
+/* =========================================================
+   DATE SECTION (календарь) — чисто, ровно, адаптивно
+   Фон для всех блоков: #fbf7f3
+========================================================= */
+
+:root{
+  --bg: #fbf7f3;
+  --ink: #2b2b2b;
+  --muted: #9a9a9a;
+  --accent: #8c2f2b; /* цвет сердца и акцентов */
+}
+
+.date-section{
+  background: var(--bg);
+  padding: clamp(60px, 10vh, 120px) 16px;
+  display: flex;
+  justify-content: center;
+}
+
+/* контейнер календаря */
+.date-calendar{
+  width: min(920px, 100%);
+  text-align: center;
+  color: var(--ink);
+}
+
+/* заголовок */
+.date-title{
+  font-family: "Cormorant Garamond", serif;
+  font-size: clamp(34px, 4.6vw, 56px);
+  font-weight: 400;
+  margin: 0 0 24px;
+}
+
+/* дни недели */
+.date-week{
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: clamp(10px, 2.2vw, 24px);
+  margin: 0 auto 18px;
+  width: min(720px, 100%);
+}
+
+.date-week > span{
+  font-family: system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
+  font-size: 14px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+/* числа */
+.date-days{
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: clamp(10px, 2.2vw, 24px);
+  align-items: center;
+  justify-items: center;
+
+  margin: 0 auto;
+  width: min(720px, 100%);
+}
+
+/* каждая ячейка = одинаковая высота, никаких baseline-прыжков */
+.date-days > .date-day{
+  display: grid;
+  place-items: center;
+  height: 34px;
+  width: 100%;
+  line-height: 1;
+  margin: 0;
+  padding: 0;
+
+  font-size: 18px;
+  color: var(--ink);
+
+  /* на всякий случай гасим любые "взлёты" от старых стилей */
+  position: static !important;
+  top: auto !important;
+  transform: none !important;
+  vertical-align: middle;
+
+  /* цифры выглядят ровнее */
+  font-variant-numeric: tabular-nums;
+}
+
+/* сердечко — ТА ЖЕ ячейка, просто другая форма */
+.date-days > .date-day.is-heart{
+  width: 64px;
+  height: 56px;
+  background: var(--accent);
+  color: #fff;              /* белая только цифра 6 */
+  font-weight: 500;
+
+  clip-path: path("M32 52 C32 52 4 34 4 18 C4 8 12 4 18 4 C24 4 32 10 32 10 C32 10 40 4 46 4 C52 4 60 8 60 18 C60 34 32 52 32 52 Z");
+}
+
+/* месяц */
+.date-month{
+  margin-top: 26px;
+  font-family: "Cormorant Garamond", serif;
+  font-size: clamp(28px, 4vw, 44px);
+  font-weight: 400;
+  color: var(--accent);
+}
+
+/* ====== Анимация: мягкое появление при скролле (без “пропадания”) ====== */
+/* По умолчанию видно всегда */
+.date-section{ opacity: 1; transform: none; }
+
+/* Если JS поставил класс html.js — включаем эффект */
+html.js .date-section{
+  opacity: 0;
+  transform: translateY(40px);
+  transition: opacity 0.9s ease, transform 0.9s ease;
+}
+
+html.js .date-section.is-visible{
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ====== Пульсация сердца ====== */
+.date-days > .date-day.is-heart{
+  animation: heart-pulse 2.8s ease-in-out infinite;
+  transform-origin: center;
+}
+
+@keyframes heart-pulse{
+  0%{ transform: scale(1); }
+  40%{ transform: scale(1.08); }
+  55%{ transform: scale(1.02); }
+  100%{ transform: scale(1); }
+}
+
+/* ====== Мобилка ====== */
+@media (max-width: 600px){
+  .date-week, .date-days{
+    width: min(420px, 100%);
+    gap: 10px;
+  }
+
+  .date-days > .date-day{
+    height: 30px;
+    font-size: 16px;
+  }
+
+  .date-days > .date-day.is-heart{
+    width: 56px;
+    height: 48px;
+    font-size: 16px;
+    animation-duration: 3.2s;
+  }
+}
+/* ===== FIX: календарь ровно, без влияния глобальных стилей ===== */
+
+/* контейнер: принудительно колонка + центр */
+.date-calendar{
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+  justify-content: flex-start !important;
+  text-align: center !important;
+}
+
+/* сетки одинаковой ширины */
+.date-week,
+.date-days{
+  width: min(720px, 100%) !important;
+  margin-left: auto !important;
+  margin-right: auto !important;
+}
+
+/* ВАЖНО: стилизуем ЛЮБОГО ребёнка, даже если забыли класс date-day */
+.date-days > *{
+  box-sizing: border-box;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+
+  height: 34px !important;
+  line-height: 34px !important;   /* вот это убирает "пляску" */
+  margin: 0 !important;
+  padding: 0 !important;
+
+  font-size: 18px !important;
+  font-variant-numeric: tabular-nums; /* ровные цифры */
+  vertical-align: middle !important;
+
+  position: static !important;
+  top: auto !important;
+  transform: none !important;
+}
+
+/* сердечко — остаётся красным, цифра внутри белая */
+.date-days > .is-heart{
+  width: 64px !important;
+  height: 56px !important;
+  line-height: 56px !important;
+  background: #8c2f2b !important;
+  color: #fff !important;
+
+  clip-path: path("M32 52 C32 52 4 34 4 18 C4 8 12 4 18 4 C24 4 32 10 32 10 C32 10 40 4 46 4 C52 4 60 8 60 18 C60 34 32 52 32 52 Z");
+}
+
+/* месяц: жёстко по центру, чтобы никакие flex/float не утащили */
+.date-month{
+  align-self: center !important;
+  text-align: center !important;
+  float: none !important;
+  margin-left: 0 !important;
+  margin-right: 0 !important;
+  width: auto !important;
+}
+/* =========================
+   LOVE DATE (уникальные классы)
+   ========================= */
+
+.loveDate{
+  background: #fbf7f3;
+  padding: clamp(56px, 9vh, 110px) 16px;
+  display: flex;
+  justify-content: center;
+}
+
+/* контейнер */
+.loveDate__wrap{
+  width: min(860px, 100%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+/* заголовок */
+.loveDate__title{
+  font-family: "Cormorant Garamond", serif;
+  font-size: clamp(30px, 4.2vw, 54px);
+  color: #2b2b2b;
+  margin: 0 0 22px 0;
+}
+
+/* сетки */
+.loveDate__week,
+.loveDate__days{
+  width: min(760px, 100%);
+  display: grid;
+  grid-template-columns: repeat(7, minmax(0, 1fr));
+  column-gap: clamp(10px, 2.2vw, 22px);
+}
+
+/* важное: фиксируем высоту строки, чтобы НИЧЕГО не плясало */
+.loveDate__week{ margin-bottom: 12px; }
+.loveDate__days{
+  grid-auto-rows: 44px; /* <- железная высота строки */
+  align-items: center;
+}
+
+/* общая ячейка: всегда центр и одинаковая математика */
+.loveDate__cell{
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  height: 44px;             /* <- как grid-auto-rows */
+  line-height: 1;           /* <- убирает базовую линию */
+  margin: 0;
+  padding: 0;
+
+  /* чтобы цифры выглядели ровно одинаково */
+  font-variant-numeric: tabular-nums;
+  font-feature-settings: "tnum" 1, "lnum" 1;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: geometricPrecision;
+}
+
+/* дни недели */
+.loveDate__cell--week{
+  height: auto;
+  font-family: inherit;
+  font-size: 12px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: #000000;
+  opacity: 0.95;
+}
+
+/* обычные дни */
+.loveDate__cell--day{
+  font-size: 18px;
+  color: #000000;
+  opacity: 0.9;
+}
+
+/* сердце (красное), цифра внутри (белая) */
+.loveDate__cell--heart{
+  width: 64px;
+  height: 56px; /* сердце выше, но строку не ломаем — оно центрится внутри 44px */
+  margin: 0 auto;
+
+  background: #8c2f2b;
+  color: #fff;
+
+  font-size: 18px;
+  font-weight: 500;
+
+  /* делаем, чтобы сердце НЕ увеличивало ряд */
+  align-self: center;
+  justify-self: center;
+
+  /* визуально вынос вверх/вниз убираем */
+  position: relative;
+  top: 0;
+
+  clip-path: path("M32 52 C32 52 4 34 4 18 C4 8 12 4 18 4 C24 4 32 10 32 10 C32 10 40 4 46 4 C52 4 60 8 60 18 C60 34 32 52 32 52 Z");
+}
+
+/* месяц */
+.loveDate__month{
+  margin-top: 22px;
+  font-family: "Cormorant Garamond", serif;
+  font-size: clamp(28px, 4vw, 44px);
+  color: #8c2f2b;
+}
+
+/* мягкая пульсация */
+.loveDate__cell--heart{
+  transform-origin: center;
+  animation: loveDatePulse 2.8s ease-in-out infinite;
+}
+@keyframes loveDatePulse{
+  0%{ transform: scale(1); }
+  40%{ transform: scale(1.08); }
+  55%{ transform: scale(1.02); }
+  100%{ transform: scale(1); }
+}
+
+/* мобилка */
+@media (max-width: 600px){
+  .loveDate__week,
+  .loveDate__days{
+    column-gap: 10px;
+  }
+
+  .loveDate__days{
+    grid-auto-rows: 40px;
+  }
+
+  .loveDate__cell{
+    height: 40px;
+  }
+
+  .loveDate__cell--day{
+    font-size: 16px;
+  }
+
+  .loveDate__cell--heart{
+    width: 56px;
+    height: 48px;
+    font-size: 16px;
+    animation-duration: 3.2s;
+  }
+}
+/* =========================
+   LOCATION (unique): wloc
+   ========================= */
+
+.wloc{
+  background: #fbf7f3;
+  padding: clamp(56px, 9vh, 110px) 16px;
+}
+
+.wloc__container{
+  max-width: 980px;
+  margin: 0 auto;
+  display: flex;
+  justify-content: center;
+}
+
+/* Карточка */
+.wloc__card{
+  width: min(720px, 100%);
+  padding: clamp(22px, 3.4vw, 38px) clamp(18px, 3vw, 34px);
+  border: 1px solid rgba(40, 40, 40, 0.18);
+  border-radius: 22px;
+  background: rgba(255,255,255,0.32);
+  box-shadow: 0 12px 30px rgba(0,0,0,0.04);
+  text-align: center;
+  backdrop-filter: blur(6px);
+}
+
+/* Заголовок как в стилистике (каллиграфия/акцент) */
+.wloc__title{
+  margin: 0 0 14px;
+  font-family: "Cormorant Garamond", serif;
+  font-weight: 500;
+  font-size: clamp(34px, 4.2vw, 56px);
+  line-height: 1.05;
+  color: #7f2a28; /* винный акцент */
+}
+
+/* Текст адреса */
+.wloc__text{
+  margin: 0 0 22px;
+  font-family: "Cormorant Garamond", serif;
+  font-size: clamp(16px, 1.7vw, 20px);
+  line-height: 1.55;
+  color: rgba(25,25,25,0.78);
+}
+
+/* Кнопка */
+.wloc__btn{
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+
+  height: 46px;
+  padding: 0 22px;
+
+  border-radius: 999px;
+  border: 3px solid #7f2a28;
+  background: transparent;
+
+  font-family: "Cormorant Garamond", serif;
+  font-size: 14px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: black;
+
+  text-decoration: none;
+  transition: transform .18s ease, background .18s ease, border-color .18s ease, color .18s ease;
+}
+
+.wloc__btn:hover{
+  transform: translateY(-1px);
+  background: #7f2a28;
+  border-color:#5d1e1d;
+  color: white;
+}
+
+.wloc__btn:active{
+  transform: translateY(0);
+}
+
+/* Мобилка — чуть компактнее */
+@media (max-width: 480px){
+  .wloc__card{
+    border-radius: 18px;
+  }
+  .wloc__btn{
+    width: 100%;
+    max-width: 320px;
+  }
+}
+
+/* ====== reveal (как у календаря, без “пропадания”) ====== */
+.wloc--reveal{ opacity: 1; transform: none; }
+
+html.js .wloc--reveal{
+  opacity: 0;
+  transform: translateY(28px);
+  transition: opacity .9s ease, transform .9s ease;
+}
+
+html.js .wloc--reveal.is-visible{
+  opacity: 1;
+  transform: translateY(0);
+}
+/* =========================
+   LOCATION ARC STYLE
+   ========================= */
+
+.loca{
+  background: #fbf7f3;
+  padding: clamp(70px, 10vh, 130px) 16px;
+}
+
+.loca__wrap{
+  display: flex;
+  justify-content: center;
+}
+
+/* Волнистая карточка */
+.loca__card{
+  position: relative;
+  max-width: 560px;
+  width: 100%;
+  padding: clamp(36px, 5vw, 56px) 32px 44px;
+
+  text-align: center;
+  background: transparent;
+  border: 1.5px solid rgba(30,30,30,0.65);
+
+  clip-path: path(
+    "M30 10
+     Q280 -20 530 10
+     Q560 180 530 350
+     Q280 390 30 350
+     Q0 180 30 10 Z"
+  );
+}
+
+/* Заголовок — рукописный */
+.loca__title{
+  margin: 0 0 20px;
+  font-family: "Cormorant Garamond", serif;
+  font-size: clamp(34px, 4.5vw, 52px);
+  font-weight: 500;
+  line-height: 1.05;
+  color: #7f2a28;
+}
+
+/* Описание */
+.loca__text{
+  margin: 0 0 18px;
+  font-family: "Cormorant Garamond", serif;
+  font-size: clamp(16px, 2vw, 20px);
+  line-height: 1.6;
+  color: rgba(30,30,30,0.75);
+}
+
+/* Адрес */
+.loca__address{
+  margin: 0 0 26px;
+  font-family: "Cormorant Garamond", serif;
+  font-size: clamp(15px, 1.8vw, 18px);
+  line-height: 1.5;
+  color: black;
+}
+
+/* Мобилка — упрощаем волну */
+@media (max-width: 520px){
+  .loca__card{
+    padding: 34px 22px 40px;
+    clip-path: path(
+      "M20 10
+       Q50 -10 280 0
+       Q520 -10 540 10
+       Q560 180 540 340
+       Q280 380 20 340
+       Q0 180 20 10 Z"
+    );
+  }
+}
+
+/* ===== плавное появление ===== */
+.loca--reveal{
+  opacity: 1;
+  transform: none;
+}
+
+html.js .loca--reveal{
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity .9s ease, transform .9s ease;
+}
+
+html.js .loca--reveal.is-visible{
+  opacity: 1;
+  transform: translateY(0);
 }
