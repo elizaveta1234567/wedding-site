@@ -15,10 +15,14 @@
 
 <body>
 <!-- INTRO SCREEN -->
-<div class="intro">
-  <svg class="intro__svg" viewBox="0 0 100 100" preserveAspectRatio="xMidYMid slice">
+<div class="intro" id="intro">
+  <svg class="intro__svg" viewBox="0 0 100 100" preserveAspectRatio="xMidYMid meet">
     <defs>
-      <mask id="heart-mask">
+      <!-- ВАЖНО: фиксируем единицы, чтобы маска НЕ "уезжала" -->
+      <mask id="heart-mask"
+            maskUnits="userSpaceOnUse"
+            maskContentUnits="userSpaceOnUse"
+            x="0" y="0" width="100" height="100">
         <!-- видно всё -->
         <rect x="0" y="0" width="100" height="100" fill="white" />
         <!-- дырка-сердце -->
@@ -37,14 +41,14 @@
       </mask>
     </defs>
 
-    <!-- Красный фон с маской (сердце = окно, видно страницу под ним) -->
-    <rect x="0" y="0" width="100" height="100" fill="#a32323" mask="url(#heart-mask)" />
+    <!-- Красный слой с прорезью -->
+    <rect x="0" y="0" width="100" height="100" fill="#a32323" mask="url(#heart-mask)"/>
 
-    <!-- Обводка сердца -->
+    <!-- Белая обводка сердца -->
     <path
       class="intro__stroke-heart"
       fill="none"
-      stroke="white"
+      stroke="#ffffff"
       stroke-width="1.8"
       d="M50 78
          C50 78, 18 56, 18 36
@@ -58,14 +62,14 @@
   </svg>
 
   <div class="intro__content">
-    <div class="intro__hit" aria-label="Открыть приглашение" role="button" tabindex="0"></div>
-
+    <button class="intro__hit" type="button" aria-label="Открыть приглашение"></button>
     <h2 class="intro__title">ПРИГЛАШАЕМ НА СВАДЬБУ</h2>
     <p class="intro__hint">нажмите на сердце</p>
   </div>
 </div>
-<script src="intro.js"></script>
 <!-- /INTRO SCREEN -->
+
+<script src="intro.js" defer></script>
   <main class="pages">
     <!-- MUSIC PLAYER (floating) -->
 <div class="music-player" id="musicPlayer">

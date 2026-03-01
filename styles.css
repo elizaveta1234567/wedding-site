@@ -2121,300 +2121,121 @@ details-card{
   .timer-sep{ font-size: 34px; }
   .timer-cell{ min-width: 50px; }
 }
-/* =========================
-   INTRO (сердце как в рефе)
-   ========================= */
-
-/* Полноэкранный оверлей */
+/* ===== INTRO (HEART OPEN) ===== */
 .intro{
   position: fixed;
   inset: 0;
   z-index: 9999;
-  /* фон рисуем SVG-ом, поэтому тут прозрачный */
-  background: transparent;
-  overflow: hidden;
   display: grid;
   place-items: center;
+  background: transparent;
+  overflow: hidden;
+  opacity: 1;
+  pointer-events: auto;
 }
 
-/* лёгкая виньетка поверх красного, как в рефе */
-.intro::before{
-  content:"";
-  position:absolute;
-  inset:0;
-  z-index:1;
-  background: radial-gradient(ellipse at center,
-    rgba(255,255,255,0.08) 0%,
-    rgba(0,0,0,0.18) 55%,
-    rgba(0,0,0,0.35) 100%);
-  pointer-events:none;
-}
-
-/* SVG-слой (красный экран с дыркой-сердцем) */
+/* SVG на весь экран */
 .intro__svg{
-  position:absolute;
-  inset:0;
-  width:100%;
-  height:100%;
-  z-index:0;
+  position: absolute;
+  inset: 0;
+  width: 100vw;
+  height: 100vh;
 }
 
 /* Контент по центру */
 .intro__content{
   position: relative;
   z-index: 2;
-  width: min(920px, 92vw);
-  display: grid;
-  justify-items: center;
-  gap: 16px;
-  text-align: center;
-  transform: translateZ(0);
-}
-
-/* кликабельная зона (по размеру сердца) */
-.intro__hit{
-  position:absolute;
-  left:50%;
-  top:45%;
-  transform: translate(-50%, -50%);
-  width: min(420px, 52vmin);
-  aspect-ratio: 1 / 1;
-  cursor: pointer;
-  z-index: 3;
-  -webkit-tap-highlight-color: transparent;
-}
-
-/* Заголовок + подсказка */
-.intro__title{
-  margin: 0;
-  margin-top: clamp(180px, 26vmin, 260px); /* чтобы текст был ниже сердца */
-  font-family: "Times New Roman", "Georgia", serif;
-  font-weight: 600;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  color: rgba(255,255,255,0.92);
-  font-size: clamp(18px, 2.6vw, 30px);
-}
-
-.intro__hint{
-  margin: 0;
-  font-family: system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
-  font-size: 12px;
-  letter-spacing: 0.16em;
-  text-transform: uppercase;
-  color: rgba(255,255,255,0.75);
-}
-
-/* ---- АНИМАЦИЯ ----
-   Сердце-дырка расширяется, контент уходит в 0, оверлей плавно исчезает
-*/
-.intro{
-  --heartScale: .62;          /* стартовый размер сердца (ВАЖНО!) */
-  --openScale: 30;            /* во что раздуваем при открытии */
-  --dur: 1100ms;
-  --fade: 900ms;
-  --ease: cubic-bezier(.2,.9,.2,1);
-}
-
-/* Маска-сердце (дырка) */
-.intro__mask-heart{
-  transform-box: fill-box;
-  transform-origin: 50% 50%;
-  transform: scale(var(--heartScale));
-  transition: transform var(--dur) var(--ease);
-}
-
-/* Контур сердца */
-.intro__stroke-heart{
-  transform-box: fill-box;
-  transform-origin: 50% 50%;
-  transform: scale(var(--heartScale));
-  transition: transform var(--dur) var(--ease), opacity var(--fade) ease;
-  opacity: .95;
-  filter: drop-shadow(0 14px 18px rgba(0,0,0,0.25));
-}
-
-/* Текст тоже плавно исчезает */
-.intro__content{
-  transition: opacity var(--fade) ease, transform var(--fade) ease;
-}
-
-/* КЛАСС ОТКРЫТИЯ */
-.intro.intro--open{
-  pointer-events: none;
-}
-
-.intro.intro--open{
-  --heartScale: var(--openScale);
-}
-
-.intro.intro--open .intro__stroke-heart{
-  opacity: 0;
-}
-
-.intro.intro--open .intro__content{
-  opacity: 0;
-  transform: translateY(10px);
-}
-
-/* Оверлей исчезает не “кадром”, а после начала раздувания сердца */
-.intro.intro--open{
-  opacity: 0;
-  transition: opacity var(--fade) ease 220ms; /* небольшая задержка как в рефе */
-}
-
-/* Мобилка */
-@media (max-width: 640px){
-  .intro__hit{
-    width: min(380px, 70vmin);
-    top: 44%;
-  }
-  .intro__title{
-    margin-top: clamp(160px, 30vmin, 240px);
-    font-size: 18px;
-  }
-}
-/* =========================
-   INTRO (2-stage animation)
-   ========================= */
-
-.intro{
-  position: fixed;
-  inset: 0;
-  z-index: 9999;
-  background: transparent;
-  overflow: hidden;
   display: grid;
   place-items: center;
-}
-
-/* лёгкая виньетка */
-.intro::before{
-  content:"";
-  position:absolute;
-  inset:0;
-  z-index:1;
-  background: radial-gradient(ellipse at center,
-    rgba(255,255,255,0.08) 0%,
-    rgba(0,0,0,0.18) 55%,
-    rgba(0,0,0,0.35) 100%);
-  pointer-events:none;
-  opacity: 1;
-  transition: opacity 650ms ease;
-}
-
-.intro__svg{
-  position:absolute;
-  inset:0;
-  width:100%;
-  height:100%;
-  z-index:0;
-}
-
-.intro__content{
-  position: relative;
-  z-index: 2;
-  width: min(920px, 92vw);
-  display: grid;
-  justify-items: center;
-  gap: 16px;
   text-align: center;
+  gap: 10px;
   transform: translateZ(0);
-  opacity: 1;
-  transition: opacity 650ms ease, transform 650ms ease;
 }
 
+/* Кликабельная зона (по сути “кнопка” на сердце) */
 .intro__hit{
-  position:absolute;
-  left:50%;
-  top:45%;
-  transform: translate(-50%, -50%);
-  width: min(420px, 52vmin);
-  aspect-ratio: 1 / 1;
+  position: absolute;
+  inset: 0;
+  width: 260px;
+  height: 260px;
+  border: 0;
+  background: transparent;
   cursor: pointer;
   z-index: 3;
-  -webkit-tap-highlight-color: transparent;
 }
 
+/* Тексты */
 .intro__title{
-  margin: 0;
-  margin-top: clamp(180px, 26vmin, 260px);
-  font-family: "Times New Roman", "Georgia", serif;
+  margin-top: 220px; /* подгон под визуал рефа */
+  font-family: "Cormorant Garamond", serif;
   font-weight: 600;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  color: rgba(255,255,255,0.92);
-  font-size: clamp(18px, 2.6vw, 30px);
+  letter-spacing: .08em;
+  color: #fff;
+  font-size: clamp(22px, 3vw, 40px);
 }
 
 .intro__hint{
   margin: 0;
-  font-family: system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
+  color: rgba(255,255,255,.85);
+  font-family: "Cormorant Garamond", serif;
+  letter-spacing: .18em;
   font-size: 12px;
-  letter-spacing: 0.16em;
   text-transform: uppercase;
-  color: rgba(255,255,255,0.75);
 }
 
-/* ---- HEART BASE ---- */
+/* Сердце: базовый размер + одинаковая трансформация для маски и контура */
 .intro{
-  --heartScale: .62; /* старт */
-  --openScale: 30;   /* раздуваем */
-  --dur: 1100ms;
-  --ease: cubic-bezier(.2,.9,.2,1);
+  --heartScale: 1;        /* базовый */
+  --heartGrow: 26;        /* во время открытия */
+  --heartDuration: 1000ms;
+  --fadeDelay: 650ms;
 }
 
-.intro__mask-heart{
-  transform-box: fill-box;
-  transform-origin: 50% 50%;
-  transform: scale(var(--heartScale));
-  transition: transform var(--dur) var(--ease);
-}
-
+.intro__mask-heart,
 .intro__stroke-heart{
   transform-box: fill-box;
-  transform-origin: 50% 50%;
+  transform-origin: center;
   transform: scale(var(--heartScale));
-  opacity: .95;
-  filter: drop-shadow(0 14px 18px rgba(0,0,0,0.25));
-  transition: transform var(--dur) var(--ease), opacity 650ms ease;
+  transition: transform var(--heartDuration) cubic-bezier(.2,.9,.2,1);
+  will-change: transform;
 }
 
-/* ====== STAGE 1: OPEN (только раздувание) ====== */
-.intro.intro--open{
-  pointer-events: none;
-  --heartScale: var(--openScale);
+/* Контур чуть мягче */
+.intro__stroke-heart{
+  filter: drop-shadow(0 10px 25px rgba(0,0,0,.25));
 }
 
-/* НЕ гасим ничего на этой стадии! */
-
-/* ====== STAGE 2: FADE (после раздувания) ====== */
-.intro.intro--fade .intro__content{
+/* Плавно прячем тексты (не раньше, чем стартанёт рост сердца) */
+.intro__content{
+  opacity: 1;
+  transition: opacity 420ms ease var(--fadeDelay), transform 420ms ease var(--fadeDelay);
+}
+.intro.is-opening .intro__content{
   opacity: 0;
-  transform: translateY(10px);
+  transform: translateY(6px);
 }
 
-.intro.intro--fade::before{
-  opacity: 0;
+/* Открытие: растим и маску, и контур ОДИНАКОВО */
+.intro.is-opening{
+  --heartScale: var(--heartGrow);
 }
 
-.intro.intro--fade .intro__stroke-heart{
-  opacity: 0; /* обводка уходит плавно */
+/* Когда сердце уже “раскрыло” экран — плавно гасим весь оверлей */
+.intro.is-opening{
+  transition: opacity 350ms ease calc(var(--fadeDelay) + 350ms);
+}
+.intro.is-opening{
+  opacity: 0; /* уйдёт с задержкой из-за transition выше */
 }
 
-.intro.intro--fade{
-  opacity: 0;                 /* теперь можно гасить весь оверлей */
-  transition: opacity 650ms ease;
+.intro.is-hidden{
+  display: none !important;
 }
 
-/* Мобилка */
-@media (max-width: 640px){
-  .intro__hit{
-    width: min(380px, 70vmin);
-    top: 44%;
-  }
-  .intro__title{
-    margin-top: clamp(160px, 30vmin, 240px);
-    font-size: 18px;
-  }
+/* Адаптив для маленьких экранов */
+@media (max-width: 520px){
+  .intro__hit{ width: 220px; height: 220px; }
+  .intro__title{ margin-top: 190px; }
 }
+/* ===== /INTRO ===== */
