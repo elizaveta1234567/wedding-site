@@ -1705,52 +1705,716 @@ details-card{
     row-gap: 14px;
   }
 }
-/* =========================
-   ТАЙМЕР
-========================= */
-
-.countdown{
+/* ===== TIMER COVER (как на рефе) ===== */
+.timer-cover{
+  position: relative;
+  min-height: 100vh;
+  width: 100%;
   display: grid;
-  grid-template-columns: repeat(5, 1fr);
-  gap: 14px;
-  max-width: 760px;
-  margin: 48px auto 0;
-  padding: 18px 22px;
-  background: rgba(255,255,255,0.45);
-  backdrop-filter: blur(2px);
-  border-radius: 16px;
+  place-items: center;
+  padding: clamp(18px, 4vw, 40px) 12px;
+  overflow: hidden;
 }
 
-.countdown-item{
+/* ФОН-КАРТИНКА (размытая) */
+.timer-cover__bg{
+  position: absolute;
+  inset: 0;
+  background: url("images/bg-timer.jpg") center/cover no-repeat; /* <-- замени путь */
+  filter: blur(10px) saturate(1.05);
+  transform: scale(1.08);
+}
+
+/* лёгкая “дымка”, чтобы текст читался */
+.timer-cover::after{
+  content:"";
+  position:absolute;
+  inset:0;
+  background: radial-gradient(ellipse at center,
+    rgba(255,255,255,.10),
+    rgba(255,255,255,.55)
+  );
+}
+
+/* КАРТОЧКА */
+.timer-card{
+  position: relative;
+  z-index: 2;
+  width: min(420px, 92vw);
+  background: #fbf7f3;               /* бумажный тон */
+  border-radius: 26px;
+  padding: clamp(18px, 4.5vw, 34px) clamp(16px, 4vw, 28px);
+  box-shadow: 0 26px 70px rgba(0,0,0,.18);
+  border: 1px solid rgba(0,0,0,.06);
   text-align: center;
 }
 
-.countdown-item span{
-  display: block;
-  font-family: "Times New Roman", Georgia, serif;
-  font-size: clamp(28px, 4vw, 42px);
-  font-weight: 600;
-  color: #3a2a2a;
+/* “пузырики/блики” — чтобы было похоже на реф */
+.timer-card::before{
+  content:"";
+  position:absolute;
+  inset:-40px -30px;
+  pointer-events:none;
+  opacity:.75;
+  background:
+    radial-gradient(circle at 18% 35%, rgba(255,255,255,.85) 0 18px, transparent 19px),
+    radial-gradient(circle at 76% 40%, rgba(255,255,255,.75) 0 10px, transparent 11px),
+    radial-gradient(circle at 86% 62%, rgba(255,255,255,.65) 0 14px, transparent 15px),
+    radial-gradient(circle at 22% 78%, rgba(255,255,255,.60) 0 12px, transparent 13px);
 }
 
-.countdown-item small{
-  display: block;
-  margin-top: 4px;
-  font-size: 12px;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
+/* Заголовок */
+.timer-card__title{
+  margin: 0 0 10px;
+  font-family: "Segoe Script","Brush Script MT","Pacifico",cursive;
+  font-weight: 400;
+  font-size: clamp(28px, 6.2vw, 44px);
+  line-height: 1.05;
+  color: #6f2e37;
+}
+
+/* Текст */
+.timer-card__text{
+  margin: 0 auto 18px;
+  max-width: 34ch;
+  font-family: "Times New Roman","Georgia",serif;
+  font-size: clamp(14px, 3.4vw, 18px);
+  line-height: 1.55;
   color: rgba(0,0,0,.55);
 }
 
-/* Мобилка */
-@media (max-width: 600px){
-  .countdown{
-    grid-template-columns: repeat(2, 1fr);
-    gap: 18px;
-    padding: 20px 16px;
+/* Таймер “как на рефе”: цифры в строку с двоеточиями */
+.timer-inline{
+  margin-top: 12px;
+}
+
+.timer-inline__digits{
+  font-family: "Times New Roman","Georgia",serif;
+  font-weight: 600;
+  font-size: clamp(26px, 7.5vw, 44px);
+  letter-spacing: .12em;               /* красиво как на рефе */
+  color: #6f2e37;
+}
+
+/* подписи под группами */
+.timer-inline__labels{
+  margin-top: 8px;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 10px;
+  font-family: "Times New Roman","Georgia",serif;
+  font-size: clamp(12px, 3vw, 14px);
+  letter-spacing: .10em;
+  text-transform: lowercase;
+  color: rgba(0,0,0,.55);
+}
+
+/* ===== Мобилка: сохраняем вид 1-в-1 ===== */
+@media (max-width: 380px){
+  .timer-card{ border-radius: 22px; }
+  .timer-inline__digits{ letter-spacing: .08em; }
+}
+/* ===== Таймер (как на рефе) ===== */
+.timer-section{
+  width: 100%;
+  padding: 48px 0 10px;
+}
+
+.timer-wrap{
+  width: min(720px, 92vw);
+  margin: 0 auto;
+  text-align: center;
+}
+
+.timer{
+  display: inline-block;
+}
+
+.timer-row{
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  gap: clamp(10px, 2.2vw, 16px);
+}
+
+.timer-cell{
+  display: grid;
+  grid-template-rows: auto auto;
+  justify-items: center;
+  row-gap: 10px;
+  min-width: clamp(56px, 10vw, 92px);
+}
+
+.timer-num{
+  font-family: "Times New Roman", "Georgia", serif;
+  font-weight: 600;
+  color: #6f2e37;
+  font-size: clamp(44px, 8.8vw, 72px);
+  line-height: 1;
+  letter-spacing: 0.02em;
+  font-variant-numeric: tabular-nums; /* чтобы цифры не прыгали */
+}
+
+.timer-label{
+  font-family: "Times New Roman", "Georgia", serif;
+  font-size: clamp(12px, 2.8vw, 16px);
+  letter-spacing: 0.18em;
+  text-transform: lowercase;
+  color: rgba(0,0,0,.45);
+  line-height: 1;
+}
+
+.timer-sep{
+  font-family: "Times New Roman", "Georgia", serif;
+  font-weight: 400;
+  color: #6f2e37;
+  font-size: clamp(38px, 7vw, 58px);
+  line-height: 1;
+  transform: translateY(-2px);
+  user-select: none;
+}
+
+/* Мобилка — компактнее, но ровно как на рефе */
+@media (max-width: 420px){
+  .timer-section{ padding: 34px 0 6px; }
+  .timer-row{ gap: 10px; }
+  .timer-cell{ min-width: 54px; row-gap: 8px; }
+  .timer-label{ letter-spacing: 0.14em; }
+}
+
+/* Очень узкие экраны — уменьшаем разделители */
+@media (max-width: 360px){
+  .timer-sep{ font-size: 34px; }
+  .timer-cell{ min-width: 50px; }
+}
+/* ===== FIX: таймер по центру на телефонах ===== */
+.timer-section{
+  width: 100%;
+}
+
+.timer-wrap{
+  width: 100%;
+  margin: 0 auto;
+  display: flex;
+  justify-content: center;
+}
+
+.timer{
+  margin: 0 auto;
+  display: inline-block;
+  text-align: center;
+}
+
+/* если вдруг где-то было позиционирование */
+.timer-row{
+  width: auto;
+  margin: 0 auto;
+  justify-content: center;
+}
+
+/* страховка на мобилке */
+@media (max-width: 640px){
+  .timer-section{
+    padding-left: 0 !important;
+    padding-right: 0 !important;
   }
 
-  .countdown-item:last-child{
-    grid-column: span 2;
+  .timer-wrap{
+    padding-left: 12px;
+    padding-right: 12px;
+  }
+
+  .timer{
+    position: relative !important;
+    left: auto !important;
+    right: auto !important;
+    transform: none !important;
+  }
+}
+/* если таймер внутри общей "карточки"/блока */
+#timer, .timer-section{
+  overflow: hidden;
+}
+/* =========================
+   CALENDAR — RESPONSIVE FIX
+   Вставь в самый низ styles.css
+========================= */
+
+/* Секция календаря (фон/отступы) */
+.calendar-section{
+  padding: clamp(24px, 5vw, 64px) 0;
+}
+
+/* Карточка/контейнер календаря (если календарь лежит внутри .card) */
+.calendar-section .card{
+  width: min(760px, 94vw);
+  margin: 0 auto;
+  padding: clamp(22px, 4vw, 48px) clamp(16px, 3vw, 44px);
+  box-sizing: border-box;
+}
+
+/* Сетка календаря */
+.cal-grid{
+  display: grid;
+  grid-template-columns: repeat(7, minmax(0, 1fr));
+  grid-auto-rows: minmax(34px, auto);
+  gap: clamp(12px, 2.2vw, 26px);
+  align-items: center;
+  justify-items: center;
+  width: 100%;
+  margin: clamp(14px, 3vw, 26px) auto 0;
+  box-sizing: border-box;
+}
+
+/* Дни недели */
+.cal-head{
+  font-family: "Times New Roman", "Georgia", serif;
+  font-size: clamp(12px, 2.2vw, 18px);
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: rgba(0,0,0,.35);
+}
+
+/* Числа */
+.cal-day{
+  font-family: "Times New Roman", "Georgia", serif;
+  font-size: clamp(14px, 2.3vw, 20px);
+  color: rgba(0,0,0,.35);
+}
+
+/* Месяц (Август) — отдельной строкой по центру */
+.cal-month{
+  grid-column: 1 / -1;
+  justify-self: center;
+  text-align: center;
+  margin-top: clamp(8px, 1.8vw, 16px);
+  font-family: "Segoe Script", "Brush Script MT", "Pacifico", cursive;
+  font-size: clamp(28px, 6vw, 52px);
+  font-weight: 400;
+  color: #6f2e37;
+}
+
+/* Сердце + палочка (svg) — фиксируем в одной ячейке,
+   чтобы не "плавало" на мобилках */
+.heart-pin{
+  width: clamp(44px, 9vw, 86px);
+  height: clamp(70px, 14vw, 130px);
+  overflow: visible;
+  display: block;
+}
+
+/* Цифра внутри сердца (если это <text> внутри svg) */
+.heart-pin text{
+  dominant-baseline: middle;
+  text-anchor: middle;
+}
+
+/* Если у тебя отдельный span с числом внутри клетки — центрируем */
+.cal-num-in-heart{
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  font-family: "Times New Roman", "Georgia", serif;
+  color: rgba(0,0,0,.55);
+}
+
+/* Подстраховка: чтобы ничего не вылезало за края на маленьких экранах */
+.calendar-section,
+.calendar-section *{
+  box-sizing: border-box;
+}
+
+@media (max-width: 560px){
+  /* меньше расстояния между колонками, чтобы ВС/ПН не улетали */
+  .cal-grid{
+    gap: 12px;
+  }
+
+  /* уменьшаем межбуквенное у дней недели — на телефоне иначе "раздвигает" */
+  .cal-head{
+    letter-spacing: 0.10em;
+  }
+
+  /* карточку делаем чуть шире относительно экрана */
+  .calendar-section .card{
+    width: min(760px, 96vw);
+    padding: 22px 14px;
+  }
+}
+
+@media (max-width: 380px){
+  /* самые узкие телефоны */
+  .cal-grid{ gap: 10px; }
+  .cal-head{ font-size: 12px; }
+  .cal-day{ font-size: 14px; }
+}
+.timer-section{
+  width: 100%;
+  padding: 48px 0 10px;
+}
+
+.timer-wrap{
+  width: min(720px, 92vw);
+  margin: 0 auto;
+  text-align: center;
+}
+
+.timer{
+  display: inline-block;
+}
+
+.timer-row{
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  gap: clamp(10px, 2.2vw, 16px);
+}
+
+.timer-cell{
+  display: grid;
+  grid-template-rows: auto auto;
+  justify-items: center;
+  row-gap: 10px;
+  min-width: clamp(56px, 10vw, 92px);
+}
+
+.timer-num{
+  font-family: "Times New Roman", "Georgia", serif;
+  font-weight: 600;
+  color: #6f2e37;
+  font-size: clamp(44px, 8.8vw, 72px);
+  line-height: 1;
+  letter-spacing: 0.02em;
+  font-variant-numeric: tabular-nums; /* чтобы цифры не прыгали */
+}
+
+.timer-label{
+  font-family: "Times New Roman", "Georgia", serif;
+  font-size: clamp(12px, 2.8vw, 16px);
+  letter-spacing: 0.18em;
+  text-transform: lowercase;
+  color: rgba(0,0,0,.45);
+  line-height: 1;
+}
+
+.timer-sep{
+  font-family: "Times New Roman", "Georgia", serif;
+  font-weight: 400;
+  color: #6f2e37;
+  font-size: clamp(38px, 7vw, 58px);
+  line-height: 1;
+  transform: translateY(-2px);
+  user-select: none;
+}
+
+/* Мобилка — компактнее, но ровно как на рефе */
+@media (max-width: 420px){
+  .timer-section{ padding: 34px 0 6px; }
+  .timer-row{ gap: 10px; }
+  .timer-cell{ min-width: 54px; row-gap: 8px; }
+  .timer-label{ letter-spacing: 0.14em; }
+}
+
+/* Очень узкие экраны — уменьшаем разделители */
+@media (max-width: 360px){
+  .timer-sep{ font-size: 34px; }
+  .timer-cell{ min-width: 50px; }
+}
+/* =========================
+   INTRO (сердце как в рефе)
+   ========================= */
+
+/* Полноэкранный оверлей */
+.intro{
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  /* фон рисуем SVG-ом, поэтому тут прозрачный */
+  background: transparent;
+  overflow: hidden;
+  display: grid;
+  place-items: center;
+}
+
+/* лёгкая виньетка поверх красного, как в рефе */
+.intro::before{
+  content:"";
+  position:absolute;
+  inset:0;
+  z-index:1;
+  background: radial-gradient(ellipse at center,
+    rgba(255,255,255,0.08) 0%,
+    rgba(0,0,0,0.18) 55%,
+    rgba(0,0,0,0.35) 100%);
+  pointer-events:none;
+}
+
+/* SVG-слой (красный экран с дыркой-сердцем) */
+.intro__svg{
+  position:absolute;
+  inset:0;
+  width:100%;
+  height:100%;
+  z-index:0;
+}
+
+/* Контент по центру */
+.intro__content{
+  position: relative;
+  z-index: 2;
+  width: min(920px, 92vw);
+  display: grid;
+  justify-items: center;
+  gap: 16px;
+  text-align: center;
+  transform: translateZ(0);
+}
+
+/* кликабельная зона (по размеру сердца) */
+.intro__hit{
+  position:absolute;
+  left:50%;
+  top:45%;
+  transform: translate(-50%, -50%);
+  width: min(420px, 52vmin);
+  aspect-ratio: 1 / 1;
+  cursor: pointer;
+  z-index: 3;
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* Заголовок + подсказка */
+.intro__title{
+  margin: 0;
+  margin-top: clamp(180px, 26vmin, 260px); /* чтобы текст был ниже сердца */
+  font-family: "Times New Roman", "Georgia", serif;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.92);
+  font-size: clamp(18px, 2.6vw, 30px);
+}
+
+.intro__hint{
+  margin: 0;
+  font-family: system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
+  font-size: 12px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.75);
+}
+
+/* ---- АНИМАЦИЯ ----
+   Сердце-дырка расширяется, контент уходит в 0, оверлей плавно исчезает
+*/
+.intro{
+  --heartScale: .62;          /* стартовый размер сердца (ВАЖНО!) */
+  --openScale: 30;            /* во что раздуваем при открытии */
+  --dur: 1100ms;
+  --fade: 900ms;
+  --ease: cubic-bezier(.2,.9,.2,1);
+}
+
+/* Маска-сердце (дырка) */
+.intro__mask-heart{
+  transform-box: fill-box;
+  transform-origin: 50% 50%;
+  transform: scale(var(--heartScale));
+  transition: transform var(--dur) var(--ease);
+}
+
+/* Контур сердца */
+.intro__stroke-heart{
+  transform-box: fill-box;
+  transform-origin: 50% 50%;
+  transform: scale(var(--heartScale));
+  transition: transform var(--dur) var(--ease), opacity var(--fade) ease;
+  opacity: .95;
+  filter: drop-shadow(0 14px 18px rgba(0,0,0,0.25));
+}
+
+/* Текст тоже плавно исчезает */
+.intro__content{
+  transition: opacity var(--fade) ease, transform var(--fade) ease;
+}
+
+/* КЛАСС ОТКРЫТИЯ */
+.intro.intro--open{
+  pointer-events: none;
+}
+
+.intro.intro--open{
+  --heartScale: var(--openScale);
+}
+
+.intro.intro--open .intro__stroke-heart{
+  opacity: 0;
+}
+
+.intro.intro--open .intro__content{
+  opacity: 0;
+  transform: translateY(10px);
+}
+
+/* Оверлей исчезает не “кадром”, а после начала раздувания сердца */
+.intro.intro--open{
+  opacity: 0;
+  transition: opacity var(--fade) ease 220ms; /* небольшая задержка как в рефе */
+}
+
+/* Мобилка */
+@media (max-width: 640px){
+  .intro__hit{
+    width: min(380px, 70vmin);
+    top: 44%;
+  }
+  .intro__title{
+    margin-top: clamp(160px, 30vmin, 240px);
+    font-size: 18px;
+  }
+}
+/* =========================
+   INTRO (2-stage animation)
+   ========================= */
+
+.intro{
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  background: transparent;
+  overflow: hidden;
+  display: grid;
+  place-items: center;
+}
+
+/* лёгкая виньетка */
+.intro::before{
+  content:"";
+  position:absolute;
+  inset:0;
+  z-index:1;
+  background: radial-gradient(ellipse at center,
+    rgba(255,255,255,0.08) 0%,
+    rgba(0,0,0,0.18) 55%,
+    rgba(0,0,0,0.35) 100%);
+  pointer-events:none;
+  opacity: 1;
+  transition: opacity 650ms ease;
+}
+
+.intro__svg{
+  position:absolute;
+  inset:0;
+  width:100%;
+  height:100%;
+  z-index:0;
+}
+
+.intro__content{
+  position: relative;
+  z-index: 2;
+  width: min(920px, 92vw);
+  display: grid;
+  justify-items: center;
+  gap: 16px;
+  text-align: center;
+  transform: translateZ(0);
+  opacity: 1;
+  transition: opacity 650ms ease, transform 650ms ease;
+}
+
+.intro__hit{
+  position:absolute;
+  left:50%;
+  top:45%;
+  transform: translate(-50%, -50%);
+  width: min(420px, 52vmin);
+  aspect-ratio: 1 / 1;
+  cursor: pointer;
+  z-index: 3;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.intro__title{
+  margin: 0;
+  margin-top: clamp(180px, 26vmin, 260px);
+  font-family: "Times New Roman", "Georgia", serif;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.92);
+  font-size: clamp(18px, 2.6vw, 30px);
+}
+
+.intro__hint{
+  margin: 0;
+  font-family: system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
+  font-size: 12px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.75);
+}
+
+/* ---- HEART BASE ---- */
+.intro{
+  --heartScale: .62; /* старт */
+  --openScale: 30;   /* раздуваем */
+  --dur: 1100ms;
+  --ease: cubic-bezier(.2,.9,.2,1);
+}
+
+.intro__mask-heart{
+  transform-box: fill-box;
+  transform-origin: 50% 50%;
+  transform: scale(var(--heartScale));
+  transition: transform var(--dur) var(--ease);
+}
+
+.intro__stroke-heart{
+  transform-box: fill-box;
+  transform-origin: 50% 50%;
+  transform: scale(var(--heartScale));
+  opacity: .95;
+  filter: drop-shadow(0 14px 18px rgba(0,0,0,0.25));
+  transition: transform var(--dur) var(--ease), opacity 650ms ease;
+}
+
+/* ====== STAGE 1: OPEN (только раздувание) ====== */
+.intro.intro--open{
+  pointer-events: none;
+  --heartScale: var(--openScale);
+}
+
+/* НЕ гасим ничего на этой стадии! */
+
+/* ====== STAGE 2: FADE (после раздувания) ====== */
+.intro.intro--fade .intro__content{
+  opacity: 0;
+  transform: translateY(10px);
+}
+
+.intro.intro--fade::before{
+  opacity: 0;
+}
+
+.intro.intro--fade .intro__stroke-heart{
+  opacity: 0; /* обводка уходит плавно */
+}
+
+.intro.intro--fade{
+  opacity: 0;                 /* теперь можно гасить весь оверлей */
+  transition: opacity 650ms ease;
+}
+
+/* Мобилка */
+@media (max-width: 640px){
+  .intro__hit{
+    width: min(380px, 70vmin);
+    top: 44%;
+  }
+  .intro__title{
+    margin-top: clamp(160px, 30vmin, 240px);
+    font-size: 18px;
   }
 }

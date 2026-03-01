@@ -14,7 +14,159 @@
 </head>
 
 <body>
+  <!-- INTRO SCREEN -->
+<div class="intro">
+  <!-- SVG МАСКА (сердце-прорезь) -->
+  <svg
+    class="intro__svg"
+    viewBox="0 0 100 100"
+    preserveAspectRatio="xMidYMid slice"
+  >
+    <defs>
+      <!-- Маска: белое = видно, чёрное = закрыто -->
+     <mask id="heart-mask">
+  <!-- было black, делаем white (видно всё) -->
+  <rect x="0" y="0" width="100" height="100" fill="white" />
+
+  <!-- было white, делаем black (дырка-сердце) -->
+  <path
+    class="intro__mask-heart"
+    fill="black"
+    d="M50 78
+       C50 78, 18 56, 18 36
+       C18 24, 28 18, 36 18
+       C44 18, 50 24, 50 24
+       C50 24, 56 18, 64 18
+       C72 18, 82 24, 82 36
+       C82 56, 50 78, 50 78
+       Z"
+  />
+</mask>
+    </defs>
+
+    <!-- Красный фон с маской -->
+    <rect
+      x="0"
+      y="0"
+      width="100"
+      height="100"
+      fill="#a32323"
+      mask="url(#heart-mask)"
+    />
+
+    <!-- Контур сердца (белая обводка) -->
+    <path
+      class="intro__stroke-heart"
+      fill="none"
+      stroke="white"
+      stroke-width="1.8"
+      d="
+        M50 78
+        C50 78, 18 56, 18 36
+        C18 24, 28 18, 36 18
+        C44 18, 50 24, 50 24
+        C50 24, 56 18, 64 18
+        C72 18, 82 24, 82 36
+        C82 56, 50 78, 50 78
+        Z
+      "
+    />
+  </svg>
+
+  <!-- КОНТЕНТ -->
+  <div class="intro__content">
+    <!-- Кликабельная зона -->
+    <div class="intro__hit" aria-label="Открыть приглашение"></div>
+
+    <h2 class="intro__title">ПРИГЛАШАЕМ НА СВАДЬБУ</h2>
+    <p class="intro__hint">нажмите на сердце</p>
+  </div>
+</div>
+<script src="intro.js"></script>
+<!-- /INTRO SCREEN -->
+ <script>(() => {
+  const intro = document.querySelector(".intro");
+  if (!intro) return;
+
+  const hit = intro.querySelector(".intro__hit");
+  const maskHeart = intro.querySelector(".intro__mask-heart");
+  const strokeHeart = intro.querySelector(".intro__stroke-heart");
+
+  let opened = false;
+
+  // Блокируем скролл, пока интро не закрыто
+  const prevOverflow = document.documentElement.style.overflow;
+  document.documentElement.style.overflow = "hidden";
+
+  function openIntro() {
+    if (opened) return;
+    opened = true;
+
+    // Запускаем анимации через классы (CSS должен это поддерживать)
+    intro.classList.add("is-opening");
+
+    // Если браузер не сработал (вдруг transitionend не пришёл) — подстраховка
+    const fallback = setTimeout(() => {
+      finish();
+    }, 1400);
+
+    function onEnd(e) {
+      // Ждём конец анимации именно у интро (opacity/transform) или у svg-элементов
+      // чтобы точно не отстрелило на чем-то другом
+      if (
+        e.target === intro ||
+        e.target === maskHeart ||
+        e.target === strokeHeart
+      ) {
+        cleanup();
+        clearTimeout(fallback);
+        finish();
+      }
+    }
+
+    function cleanup() {
+      intro.removeEventListener("transitionend", onEnd);
+      if (maskHeart) maskHeart.removeEventListener("transitionend", onEnd);
+      if (strokeHeart) strokeHeart.removeEventListener("transitionend", onEnd);
+    }
+
+    function finish() {
+      // Убираем экран полностью
+      intro.classList.add("is-hidden");
+      intro.style.pointerEvents = "none";
+
+      // Возвращаем скролл
+      document.documentElement.style.overflow = prevOverflow || "";
+
+      // Можно вообще удалить из DOM, чтобы не мешал
+      setTimeout(() => {
+        intro.remove();
+      }, 50);
+    }
+
+    // Слушаем завершение переходов
+    intro.addEventListener("transitionend", onEnd);
+    if (maskHeart) maskHeart.addEventListener("transitionend", onEnd);
+    if (strokeHeart) strokeHeart.addEventListener("transitionend", onEnd);
+  }
+
+  // Клик/тап
+  hit?.addEventListener("click", openIntro);
+  hit?.addEventListener("touchstart", openIntro, { passive: true });
+
+  // Enter/Space для доступности (если фокус попадёт)
+  hit?.addEventListener("keydown", (e) => {
+    if (e.key === "Enter" || e.key === " ") {
+      e.preventDefault();
+      openIntro();
+    }
+  });
+
+  // На всякий — если у кого-то интро случайно уже открыто (из кэша)
+  // можно добавить автооткрытие, но сейчас НЕ делаем.
+})();</script>
   </header>
+
 
   <main class="pages">
     <!-- MUSIC PLAYER (floating) -->
@@ -96,59 +248,6 @@ else pause();
     </div>
   </div>
 </section>
-<!-- ТАЙМЕР -->
-<div class="countdown">
-  <div class="countdown-item">
-    <span id="weeks">00</span>
-    <small>недель</small>
-  </div>
-  <div class="countdown-item">
-    <span id="days">00</span>
-    <small>дней</small>
-  </div>
-  <div class="countdown-item">
-    <span id="hours">00</span>
-    <small>часов</small>
-  </div>
-  <div class="countdown-item">
-    <span id="minutes">00</span>
-    <small>минут</small>
-  </div>
-  <div class="countdown-item">
-    <span id="seconds">00</span>
-    <small>секунд</small>
-  </div>
-</div>
-<script>
-  const targetDate = new Date("2026-08-06T00:00:00").getTime();
-
-  function updateCountdown(){
-    const now = new Date().getTime();
-    const diff = targetDate - now;
-
-    if(diff <= 0){
-      document.querySelector('.countdown').innerHTML =
-        "<strong>Сегодня наш день 🤍</strong>";
-      return;
-    }
-
-    const totalSeconds = Math.floor(diff / 1000);
-    const weeks = Math.floor(totalSeconds / (7 * 24 * 60 * 60));
-    const days = Math.floor((totalSeconds % (7 * 24 * 60 * 60)) / (24 * 60 * 60));
-    const hours = Math.floor((totalSeconds % (24 * 60 * 60)) / (60 * 60));
-    const minutes = Math.floor((totalSeconds % (60 * 60)) / 60);
-    const seconds = totalSeconds % 60;
-
-    document.getElementById("weeks").textContent = weeks.toString().padStart(2, "0");
-    document.getElementById("days").textContent = days.toString().padStart(2, "0");
-    document.getElementById("hours").textContent = hours.toString().padStart(2, "0");
-    document.getElementById("minutes").textContent = minutes.toString().padStart(2, "0");
-    document.getElementById("seconds").textContent = seconds.toString().padStart(2, "0");
-  }
-
-  updateCountdown();
-  setInterval(updateCountdown, 1000);
-</script>
 
 <section class="calendar-section" id="calendar">
   <div class="invite-wrap">
@@ -209,6 +308,83 @@ else pause();
     </div>
   </div>
 </section>
+<section class="timer-section" id="timer">
+  <div class="timer-wrap">
+    <div class="timer" aria-label="Обратный отсчет до 6 августа 2026">
+      
+      <div class="timer-row" role="group" aria-label="Таймер">
+        <div class="timer-cell">
+          <div class="timer-num" id="tDays">00</div>
+          <div class="timer-label">дней</div>
+        </div>
+
+        <div class="timer-sep" aria-hidden="true">·</div>
+
+        <div class="timer-cell">
+          <div class="timer-num" id="tHours">00</div>
+          <div class="timer-label">часы</div>
+        </div>
+
+        <div class="timer-sep" aria-hidden="true">·</div>
+
+        <div class="timer-cell">
+          <div class="timer-num" id="tMins">00</div>
+          <div class="timer-label">минуты</div>
+        </div>
+
+        <div class="timer-sep" aria-hidden="true">·</div>
+
+        <div class="timer-cell">
+          <div class="timer-num" id="tSecs">00</div>
+          <div class="timer-label">секунды</div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<script>
+(function () {
+  // Цель: 6 августа 2026, 00:00 (локальное время пользователя)
+  const target = new Date(2026, 7, 6, 0, 0, 0); // месяцы: 0=янв ... 7=авг
+
+  const elDays  = document.getElementById("tDays");
+  const elHours = document.getElementById("tHours");
+  const elMins  = document.getElementById("tMins");
+  const elSecs  = document.getElementById("tSecs");
+
+  const pad2 = (n) => String(n).padStart(2, "0");
+
+  function tick() {
+    const now = new Date();
+    let diff = target - now;
+
+    if (diff <= 0) {
+      elDays.textContent  = "00";
+      elHours.textContent = "00";
+      elMins.textContent  = "00";
+      elSecs.textContent  = "00";
+      return;
+    }
+
+    const totalSeconds = Math.floor(diff / 1000);
+
+    const days  = Math.floor(totalSeconds / 86400);
+    const hours = Math.floor((totalSeconds % 86400) / 3600);
+    const mins  = Math.floor((totalSeconds % 3600) / 60);
+    const secs  = totalSeconds % 60;
+
+    elDays.textContent  = String(days).padStart(2, "0"); // дни могут быть 3 цифры
+    elHours.textContent = pad2(hours);
+    elMins.textContent  = pad2(mins);
+    elSecs.textContent  = pad2(secs);
+  }
+
+  tick();
+  setInterval(tick, 1000);
+})();
+</script>
  <!-- ЛОКАЦИЯ -->
 <section class="page location-section" id="location">
   <div class="location-card">
@@ -430,5 +606,6 @@ else pause();
     });
   })();
 </script>
+
 </body>
 </html>
