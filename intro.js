@@ -9,30 +9,37 @@
   const prevOverflow = document.documentElement.style.overflow;
   document.documentElement.style.overflow = "hidden";
 
-  function cleanup() {
+  const cleanup = () => {
     document.documentElement.style.overflow = prevOverflow || "";
     intro.remove();
-  }
+  };
 
-  function openIntro() {
+  const openIntro = () => {
     if (opened) return;
     opened = true;
 
-    // Стадия 1 — сердце раздувается
+    // 1) сердце раздувается
     intro.classList.add("intro--open");
 
-    // Стадия 2 — начинаем плавно гасить экран и текст
-    // (в этот момент сердце уже “открывает” страницу)
-    const FADE_START = 650; // можно 550–750, под вкус
+    // 2) чуть позже гасим текст и сам красный экран
+    const FADE_START = 650;
     setTimeout(() => {
       intro.classList.add("intro--fade");
     }, FADE_START);
 
-    // Удаляем после полного фейда
-    const REMOVE_AT = 1400; // fade 650 + запас
+    // удаляем после фейда
+    const REMOVE_AT = 1400;
     setTimeout(cleanup, REMOVE_AT);
-  }
+  };
 
   hit?.addEventListener("click", openIntro);
   hit?.addEventListener("touchstart", openIntro, { passive: true });
+
+  // enter/space
+  hit?.addEventListener("keydown", (e) => {
+    if (e.key === "Enter" || e.key === " ") {
+      e.preventDefault();
+      openIntro();
+    }
+  });
 })();
