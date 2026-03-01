@@ -2495,12 +2495,12 @@ details-card{
 
 /* Текст */
 .intro__title{
-  margin-top: min(32vh, 230px);
+  margin-top: 15px;
   font-family: "Cormorant Garamond", serif;
   font-weight: 600;
   letter-spacing: 0.08em;
   color: #fff;
-  font-size: clamp(20px, 2.2vw, 34px);
+  font-size: clamp(14px, 2vw, 23px);
 }
 
 .intro__hint{
