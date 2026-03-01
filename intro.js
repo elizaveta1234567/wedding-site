@@ -1,9 +1,9 @@
-
 (() => {
   const intro = document.querySelector(".intro");
   if (!intro) return;
 
   const hit = intro.querySelector(".intro__hit");
+  if (!hit) return;
 
   let opened = false;
 
@@ -13,15 +13,15 @@
   document.documentElement.style.overflow = "hidden";
   document.body.style.overflow = "hidden";
 
-  function finish() {
-    intro.classList.add("is-hidden");
-    intro.style.pointerEvents = "none";
-
-    // возвращаем скролл
+  function restoreScroll() {
     document.documentElement.style.overflow = prevOverflowHtml || "";
     document.body.style.overflow = prevOverflowBody || "";
+  }
 
-    // удаляем
+  function finish() {
+    restoreScroll();
+    intro.classList.add("is-hidden");
+    intro.style.pointerEvents = "none";
     setTimeout(() => intro.remove(), 50);
   }
 
@@ -31,7 +31,6 @@
 
     intro.classList.add("is-opening");
 
-    // ждём завершения анимации opacity
     const onEnd = (e) => {
       if (e.target !== intro) return;
       intro.removeEventListener("transitionend", onEnd);
@@ -40,10 +39,12 @@
 
     intro.addEventListener("transitionend", onEnd);
 
-    // страховка (если transitionend не сработал)
+    // страховка
     setTimeout(finish, 1100);
   }
 
-  // клик/тап
   hit.addEventListener("click", openIntro);
+  hit.addEventListener("touchstart", openIntro, { passive: true });
+
+  console.log("[intro] ready");
 })();
