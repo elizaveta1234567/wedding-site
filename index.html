@@ -16,16 +16,16 @@
 <body>
 <!-- INTRO SCREEN -->
 <div class="intro" id="intro">
-  <svg class="intro__svg" viewBox="0 0 100 100" preserveAspectRatio="xMidYMid meet" aria-hidden="true">
+  <svg class="intro__svg" viewBox="0 0 100 100" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
     <defs>
-      <mask id="heart-mask"
-            maskUnits="userSpaceOnUse"
-            maskContentUnits="userSpaceOnUse"
-            x="0" y="0" width="100" height="100">
+      <!-- УНИКАЛЬНЫЙ ID (важно!) -->
+      <mask id="intro-heart-mask" x="0" y="0" width="100" height="100" maskUnits="userSpaceOnUse">
         <!-- видно всё -->
-        <rect x="0" y="0" width="100" height="100" fill="white"/>
+        <rect x="0" y="0" width="100" height="100" fill="white"></rect>
+
         <!-- дырка-сердце -->
-        <path class="intro__heart"
+        <path
+          class="intro__heart"
           fill="black"
           d="M50 78
              C50 78, 18 56, 18 36
@@ -34,16 +34,19 @@
              C50 24, 56 18, 64 18
              C72 18, 82 24, 82 36
              C82 56, 50 78, 50 78
-             Z"/>
+             Z"></path>
       </mask>
     </defs>
 
-    <!-- красный фон -->
-    <rect class="intro__bg" x="0" y="0" width="100" height="100" fill="#a32323" mask="url(#heart-mask)"/>
+    <!-- красный фон с дыркой-сердцем -->
+    <rect x="0" y="0" width="100" height="100" fill="#a32323" mask="url(#intro-heart-mask)"></rect>
 
     <!-- обводка сердца -->
-    <path class="intro__stroke"
-      fill="none" stroke="#fff" stroke-width="1.8"
+    <path
+      class="intro__stroke"
+      fill="none"
+      stroke="#fff"
+      stroke-width="1.8"
       d="M50 78
          C50 78, 18 56, 18 36
          C18 24, 28 18, 36 18
@@ -51,7 +54,7 @@
          C50 24, 56 18, 64 18
          C72 18, 82 24, 82 36
          C82 56, 50 78, 50 78
-         Z"/>
+         Z"></path>
   </svg>
 
   <button class="intro__hit" type="button" aria-label="Открыть приглашение"></button>
@@ -63,6 +66,7 @@
 </div>
 <!-- /INTRO SCREEN -->
 
+<!-- ВАЖНО: только это подключение, без второго inline-скрипта -->
 <script src="intro.js" defer></script>
   <main class="pages">
     <!-- MUSIC PLAYER (floating) -->
