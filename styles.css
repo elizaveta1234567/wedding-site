@@ -1705,3 +1705,52 @@ details-card{
     row-gap: 14px;
   }
 }
+/* =========================
+   ТАЙМЕР
+========================= */
+
+.countdown{
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 14px;
+  max-width: 760px;
+  margin: 48px auto 0;
+  padding: 18px 22px;
+  background: rgba(255,255,255,0.45);
+  backdrop-filter: blur(2px);
+  border-radius: 16px;
+}
+
+.countdown-item{
+  text-align: center;
+}
+
+.countdown-item span{
+  display: block;
+  font-family: "Times New Roman", Georgia, serif;
+  font-size: clamp(28px, 4vw, 42px);
+  font-weight: 600;
+  color: #3a2a2a;
+}
+
+.countdown-item small{
+  display: block;
+  margin-top: 4px;
+  font-size: 12px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: rgba(0,0,0,.55);
+}
+
+/* Мобилка */
+@media (max-width: 600px){
+  .countdown{
+    grid-template-columns: repeat(2, 1fr);
+    gap: 18px;
+    padding: 20px 16px;
+  }
+
+  .countdown-item:last-child{
+    grid-column: span 2;
+  }
+}
