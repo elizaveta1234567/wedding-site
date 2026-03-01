@@ -2492,14 +2492,18 @@ details-card{
 }
 
 /* анимации для сердца */
-.intro__mask-heart,
-.intro__stroke-heart{
+/* Масштабируем ВЕСЬ SVG сердца */
+.intro__heart{
   transform-origin: 50% 50%;
-  transform-box: fill-box;
   transition:
     transform var(--introDur) var(--introEase),
     opacity   var(--introDur) ease;
   will-change: transform, opacity;
+}
+
+/* Маска — ТОЛЬКО исчезает */
+.intro__mask-heart{
+  transition: opacity var(--introDur) ease;
 }
 
 /* анимация для текста */
