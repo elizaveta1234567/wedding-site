@@ -2239,3 +2239,109 @@ details-card{
   .intro__title{ margin-top: 190px; }
 }
 /* ===== /INTRO ===== */
+/* ===== INTRO ===== */
+.intro{
+  position: fixed;
+  inset: 0;
+  z-index: 99999;
+  background: transparent;          /* важно: чтобы дырка показывала сайт */
+  overflow: hidden;
+  display: grid;
+  place-items: center;
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.intro__svg{
+  position: absolute;
+  inset: 0;
+  width: 100vw;
+  height: 100vh;
+}
+
+.intro__hit{
+  position: absolute;
+  inset: 0;
+  border: 0;
+  background: transparent;
+  cursor: pointer;
+  z-index: 3;
+}
+
+/* Текст */
+.intro__content{
+  position: relative;
+  z-index: 4;
+  text-align: center;
+  display: grid;
+  gap: 10px;
+  margin-top: 240px;
+  opacity: 1;
+  transition: opacity 400ms ease 520ms, transform 400ms ease 520ms;
+}
+
+.intro__title{
+  margin: 0;
+  font-family: "Cormorant Garamond", serif;
+  font-weight: 600;
+  letter-spacing: .08em;
+  color: #fff;
+  font-size: clamp(22px, 3vw, 40px);
+}
+
+.intro__hint{
+  margin: 0;
+  color: rgba(255,255,255,.85);
+  font-family: "Cormorant Garamond", serif;
+  letter-spacing: .18em;
+  font-size: 12px;
+  text-transform: uppercase;
+}
+
+/* Сердце/маска и обводка масштабируются одинаково */
+.intro__heart,
+.intro__stroke{
+  transform-box: fill-box;
+  transform-origin: center;
+  transform: scale(1);
+  will-change: transform;
+}
+
+.intro__stroke{
+  filter: drop-shadow(0 12px 26px rgba(0,0,0,.25));
+}
+
+/* Анимации — keyframes (не зависят от transitionend) */
+@keyframes heartGrow {
+  0%   { transform: scale(1); }
+  100% { transform: scale(26); }
+}
+
+@keyframes introFade {
+  0%   { opacity: 1; }
+  100% { opacity: 0; }
+}
+
+.intro.is-opening .intro__heart,
+.intro.is-opening .intro__stroke{
+  animation: heartGrow 1000ms cubic-bezier(.2,.9,.2,1) forwards;
+}
+
+.intro.is-opening .intro__content{
+  opacity: 0;
+  transform: translateY(6px);
+}
+
+.intro.is-fading{
+  animation: introFade 420ms ease forwards;
+}
+
+.intro.is-hidden{
+  display: none !important;
+}
+
+/* Мобилка */
+@media (max-width: 520px){
+  .intro__content{ margin-top: 200px; }
+}
+/* ===== /INTRO ===== */

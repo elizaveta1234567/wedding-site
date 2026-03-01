@@ -1,60 +1,40 @@
 (() => {
-  const intro = document.querySelector(".intro");
+  const intro = document.getElementById("intro");
   if (!intro) return;
 
   const hit = intro.querySelector(".intro__hit");
-  const maskHeart = intro.querySelector(".intro__mask-heart");
 
   let opened = false;
 
-  // блокируем скролл, пока интро активно
+  // блокируем скролл пока интро висит
   const prevOverflow = document.documentElement.style.overflow;
   document.documentElement.style.overflow = "hidden";
 
-  const finish = () => {
+  function finish() {
     intro.classList.add("is-hidden");
     document.documentElement.style.overflow = prevOverflow || "";
-    // на всякий — реально вычищаем
     setTimeout(() => intro.remove(), 50);
-  };
+  }
 
-  const openIntro = () => {
+  function openIntro() {
     if (opened) return;
     opened = true;
 
-    // Триггерим переход гарантированно (чтобы браузер не схлопнул в 1 кадр)
-    requestAnimationFrame(() => {
-      intro.classList.add("is-opening");
-    });
+    // 1) растим сердце + прячем текст
+    intro.classList.add("is-opening");
 
-    // Ждём именно трансформ маски (самое важное)
-    let done = false;
-    const onEnd = (e) => {
-      if (done) return;
-      // интересует конец transform у маски/сердца
-      if (e.target === maskHeart && e.propertyName === "transform") {
-        done = true;
-        cleanup();
-        // даём немного времени на fade overlay (он с задержкой)
-        setTimeout(finish, 420);
-      }
-    };
-
-    const cleanup = () => {
-      maskHeart?.removeEventListener("transitionend", onEnd);
-    };
-
-    maskHeart?.addEventListener("transitionend", onEnd);
-
-    // fallback, если transitionend не прилетит
+    // 2) после роста сердца — плавно уводим весь экран
     setTimeout(() => {
-      if (done) return;
-      done = true;
-      cleanup();
-      finish();
-    }, 1800);
-  };
+      intro.classList.add("is-fading");
+    }, 980); // почти конец heartGrow
 
-  hit?.addEventListener("click", openIntro);
-  hit?.addEventListener("touchstart", openIntro, { passive: true });
+    // 3) убираем из DOM после fade
+    setTimeout(finish, 980 + 460);
+  }
+
+  hit.addEventListener("click", openIntro);
+  hit.addEventListener("touchstart", openIntro, { passive: true });
+
+  // DEBUG (можешь удалить потом)
+  console.log("[intro] loaded OK");
 })();
