@@ -2465,3 +2465,74 @@ details-card{
   touch-action: manipulation;
 }
 .intro__hit:active{ background: transparent; }
+/* ================================
+   INTRO: плавное увеличение сердца + одновременное исчезание текста
+   ВСТАВЬ В КОНЕЦ styles.css
+================================ */
+
+/* скорость/плавность (можешь менять) */
+:root{
+  --introDur: 1600ms;            /* общая длительность */
+  --introEase: cubic-bezier(.4,0,.2,1);
+  --introScale: 1.45;            /* насколько увеличивается сердце */
+}
+
+/* убираем серый квадрат при тапе и выделение */
+.intro, .intro *{
+  -webkit-tap-highlight-color: transparent;
+}
+.intro__hit{
+  background: transparent;
+  outline: none;
+  border: 0;
+  user-select: none;
+  -webkit-user-select: none;
+  -webkit-touch-callout: none;
+  touch-action: manipulation;
+}
+
+/* анимации для сердца */
+.intro__mask-heart,
+.intro__stroke-heart{
+  transform-origin: 50% 50%;
+  transform-box: fill-box;
+  transition:
+    transform var(--introDur) var(--introEase),
+    opacity   var(--introDur) ease;
+  will-change: transform, opacity;
+}
+
+/* анимация для текста */
+.intro__title,
+.intro__hint{
+  transition: opacity var(--introDur) ease;
+  will-change: opacity;
+}
+
+/* само "уходящее" интро (фон) */
+.intro{
+  opacity: 1;
+  transition: opacity var(--introDur) ease;
+}
+
+/* запуск анимации (по клику) */
+.intro.is-opening .intro__mask-heart,
+.intro.is-opening .intro__stroke-heart{
+  transform: scale(var(--introScale));
+  opacity: 0;
+}
+
+.intro.is-opening .intro__title,
+.intro.is-opening .intro__hint{
+  opacity: 0;
+}
+
+/* фон тоже плавно исчезает */
+.intro.is-opening{
+  opacity: 0;
+}
+
+/* финально скрыто */
+.intro.is-hidden{
+  display: none !important;
+}

@@ -1,52 +1,48 @@
 (() => {
-  function initIntro() {
-    const intro = document.querySelector(".intro");
-    if (!intro) return;
+  const intro = document.querySelector(".intro");
+  if (!intro) return;
 
-    const hit = intro.querySelector(".intro__hit");
-    if (!hit) return;
+  const hit = intro.querySelector(".intro__hit");
+  if (!hit) return;
 
-    // блокируем скролл пока интро видно
-    const prevOverflow = document.documentElement.style.overflow;
-    document.documentElement.style.overflow = "hidden";
+  let opened = false;
 
-    let opened = false;
+  // блокируем скролл пока интро активно
+  const prevOverflow = document.documentElement.style.overflow;
+  document.documentElement.style.overflow = "hidden";
 
-    const openIntro = () => {
-      if (opened) return;
-      opened = true;
+  // сколько длится анимация (должно совпадать с CSS var(--introDur))
+  const DURATION = 1600;
 
-      // важно: чтобы transition точно сработал
-      requestAnimationFrame(() => {
-        intro.classList.add("intro--open");
-      });
-
-      const finish = () => {
-        document.documentElement.style.overflow = prevOverflow || "";
-        intro.remove();
-      };
-
-      // ждём именно fade интро
-      const onEnd = (e) => {
-        if (e.target !== intro) return;
-        if (e.propertyName !== "opacity") return;
-        intro.removeEventListener("transitionend", onEnd);
-        finish();
-      };
-
-      intro.addEventListener("transitionend", onEnd);
-
-      // страховка
-      setTimeout(finish, 1400);
-    };
-
-    hit.addEventListener("click", openIntro, { passive: true });
-    hit.addEventListener("touchstart", openIntro, { passive: true });
+  function finish() {
+    intro.classList.add("is-hidden");
+    document.documentElement.style.overflow = prevOverflow || "";
+    // на всякий — полностью убираем из DOM
+    setTimeout(() => intro.remove(), 50);
   }
 
-  if (document.readyState === "loading") {
-    document.addEventListener("DOMContentLoaded", initIntro);
-  } else {
-    initIntro();
+  function openIntro() {
+    if (opened) return;
+    opened = true;
+
+    intro.classList.add("is-opening");
+
+    // гарантированный финал (не зависит от transitionend)
+    setTimeout(() => {
+      finish();
+    }, DURATION + 80);
   }
+
+  // клик/тап
+  hit.addEventListener("click", openIntro);
+  hit.addEventListener("touchstart", openIntro, { passive: true });
+
+  // чтобы на клавиатуре тоже работало
+  hit.setAttribute("tabindex", "0");
+  hit.addEventListener("keydown", (e) => {
+    if (e.key === "Enter" || e.key === " ") {
+      e.preventDefault();
+      openIntro();
+    }
+  });
 })();
