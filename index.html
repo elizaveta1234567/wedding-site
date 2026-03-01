@@ -18,14 +18,12 @@
 <div class="intro" id="intro">
   <svg class="intro__svg" viewBox="0 0 100 100" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
     <defs>
-      <!-- УНИКАЛЬНЫЙ ID (важно!) -->
-      <mask id="intro-heart-mask" x="0" y="0" width="100" height="100" maskUnits="userSpaceOnUse">
+      <mask id="heart-mask" maskUnits="userSpaceOnUse">
         <!-- видно всё -->
-        <rect x="0" y="0" width="100" height="100" fill="white"></rect>
-
+        <rect x="0" y="0" width="100" height="100" fill="white" />
         <!-- дырка-сердце -->
         <path
-          class="intro__heart"
+          class="intro__mask-heart"
           fill="black"
           d="M50 78
              C50 78, 18 56, 18 36
@@ -34,18 +32,17 @@
              C50 24, 56 18, 64 18
              C72 18, 82 24, 82 36
              C82 56, 50 78, 50 78
-             Z"></path>
+             Z"
+        />
       </mask>
     </defs>
 
-    <!-- красный фон с дыркой-сердцем -->
-    <rect x="0" y="0" width="100" height="100" fill="#a32323" mask="url(#intro-heart-mask)"></rect>
+    <rect x="0" y="0" width="100" height="100" fill="#a32323" mask="url(#heart-mask)" />
 
-    <!-- обводка сердца -->
     <path
-      class="intro__stroke"
+      class="intro__stroke-heart"
       fill="none"
-      stroke="#fff"
+      stroke="white"
       stroke-width="1.8"
       d="M50 78
          C50 78, 18 56, 18 36
@@ -54,20 +51,21 @@
          C50 24, 56 18, 64 18
          C72 18, 82 24, 82 36
          C82 56, 50 78, 50 78
-         Z"></path>
+         Z"
+    />
   </svg>
 
-  <button class="intro__hit" type="button" aria-label="Открыть приглашение"></button>
-
   <div class="intro__content">
+    <!-- ВАЖНО: это именно кнопка, она ЛОВИТ клик -->
+    <button class="intro__hit" type="button" aria-label="Открыть приглашение"></button>
+
     <h2 class="intro__title">ПРИГЛАШАЕМ НА СВАДЬБУ</h2>
     <p class="intro__hint">нажмите на сердце</p>
   </div>
 </div>
 <!-- /INTRO SCREEN -->
 
-<!-- ВАЖНО: только это подключение, без второго inline-скрипта -->
-<script src="intro.js" defer></script>
+<script src="intro.js"></script>
   <main class="pages">
     <!-- MUSIC PLAYER (floating) -->
 <div class="music-player" id="musicPlayer">
@@ -495,7 +493,7 @@ else pause();
 <!-- </section> -->
   </main>
 
-  <script src="telegram.js"></script>
+<!-- <script src="telegram.js"></script> -->
   <script>
   (function () {
     const env = document.getElementById('env');
