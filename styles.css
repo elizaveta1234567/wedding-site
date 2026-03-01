@@ -2460,8 +2460,8 @@ details-card{
 .intro__svg{
   position: absolute;
   inset: 0;
-  width: 100%;
-  height: 100%;
+  width: min(48vmin,420 px);
+  height:  min(48vmin,420 px);
   /* КЛЮЧ: SVG НЕ должен перехватывать клики */
   pointer-events: none;
 }
@@ -2518,11 +2518,12 @@ details-card{
   transition: opacity 700ms ease;
 }
 
-/* сердце “увеличивается” (маска) + обводка */
+/* сердце (маска) + обводка — базовый размер */
 .intro .intro__mask-heart,
 .intro .intro__stroke-heart{
-  transform-origin: 50px 50px;
   transform-box: fill-box;
+  transform-origin: center;
+  transform: scale(0.52);              /* <-- вот тут размер, уменьшаешь/увеличиваешь */
   transition: transform 900ms ease, opacity 700ms ease;
 }
 
@@ -2530,10 +2531,10 @@ details-card{
   opacity: 0;
 }
 
-/* увеличиваем сердце, чтобы “съело” экран */
+/* при открытии — сердце “уходит” (можно оставить только масштаб без opacity) */
 .intro.is-opening .intro__mask-heart,
 .intro.is-opening .intro__stroke-heart{
-  transform: scale(26);
+  transform: scale(0);                 /* можно 0.02 если в ноль глючит в старых браузерах */
   opacity: 0;
 }
 
