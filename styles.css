@@ -2563,3 +2563,502 @@ details-card{
     letter-spacing: 0.14em;
   }
 }
+/* =========================
+   HERO (главная как референс)
+   ========================= */
+
+.hero{
+  min-height: 100vh;
+  background: #f4f1ec; /* тёплый светлый */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: clamp(24px, 5vw, 64px) 16px;
+}
+
+.hero__inner{
+  width: min(1100px, 100%);
+  display: grid;
+  grid-template-columns: 1fr 320px;
+  gap: clamp(18px, 4vw, 48px);
+  align-items: center;
+}
+
+/* Центр */
+.hero__center{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.hero__kicker{
+  font-size: 14px;
+  letter-spacing: 0.08em;
+  color: rgba(0,0,0,0.55);
+  margin-bottom: 18px;
+}
+
+/* Большая типографика */
+.hero__headline{
+  margin: 0;
+  font-family: "Cormorant Garamond", serif;
+  font-weight: 500;
+  line-height: 0.95;
+  letter-spacing: 0.02em;
+  font-size: clamp(44px, 6vw, 88px);
+  color: #1d1b18;
+}
+
+.hero__headline span{
+  display: block;
+}
+
+.hero__headline .is-accent{
+  color: #8a2c2c; /* красный акцент как на референсе */
+}
+
+/* Нижний текст */
+.hero__info{
+  margin-top: clamp(18px, 3vw, 28px);
+  font-size: 14px;
+  line-height: 1.6;
+  color: rgba(0,0,0,0.55);
+}
+
+.hero__info b{
+  color: rgba(0,0,0,0.75);
+  font-weight: 600;
+}
+
+/* Правая часть */
+.hero__right{
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 22px;
+}
+
+.hero__chandelier{
+  width: 100%;
+  max-width: 280px;
+  height: auto;
+  opacity: 0.9;
+  filter: contrast(1.05);
+}
+
+/* Music блок */
+.hero__music{
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  color: rgba(0,0,0,0.55);
+}
+
+.hero__music-circle{
+  width: 44px;
+  height: 44px;
+  border-radius: 999px;
+  display: grid;
+  place-items: center;
+  border: 1px solid rgba(0,0,0,0.2);
+  font-family: "Cormorant Garamond", serif;
+  font-weight: 600;
+}
+
+.hero__music-title{
+  font-family: "Cormorant Garamond", serif;
+  font-size: 16px;
+  color: rgba(0,0,0,0.65);
+  margin-bottom: 2px;
+}
+
+.hero__music-sub{
+  font-size: 12px;
+  line-height: 1.35;
+}
+
+/* Адаптив */
+@media (max-width: 900px){
+  .hero__inner{
+    grid-template-columns: 1fr;
+    justify-items: center;
+  }
+  .hero__right{
+    order: -1; /* на мобиле люстра сверху */
+  }
+  .hero__chandelier{
+    max-width: 220px;
+  }
+}
+/* ===== Блок "Все это и не только..." как в референсе ===== */
+
+.main__note{
+  margin: 22px 0 0;
+  max-width: 320px;              /* чтобы текст был компактным, как в рефе */
+  font-family: system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
+  font-size: clamp(14px, 1.2vw, 18px);
+  line-height: 1.7;
+  color: rgba(0,0,0,0.55);        /* лёгкий серый */
+  font-weight: 400;
+  letter-spacing: 0.01em;
+  text-align: left;
+}
+
+.main__note-date{
+  font-weight: 500;               /* дата чуть выразительнее */
+  color: rgba(0,0,0,0.72);
+}
+
+/* На телефонах обычно этот блок лучше смотрится по центру */
+@media (max-width: 640px){
+  .main__note{
+    max-width: 92vw;
+    text-align: center;
+    margin: 18px auto 0;
+  }
+}
+/* === HERO: левое выравнивание как в референсе === */
+
+.hero_center{
+  align-items: flex-start;
+  text-align: left;
+}
+
+/* Заголовок */
+.hero_headline{
+  text-align: left;
+}
+
+/* Нижний текст */
+.hero_info,
+.main_note{
+  text-align: left;
+  margin-left: 0;
+}
+
+/* Ограничиваем ширину, чтобы было "колонкой", а не растянуто */
+.hero_headline,
+.hero_info{
+  max-width: 520px;
+}
+@media (max-width: 768px){
+  .hero_center{
+    align-items: center;
+    text-align: center;
+  }
+
+  .hero_headline,
+  .hero_info,
+  .main_note{
+    text-align: center;
+  }
+}
+.hero_headline span{
+  display: block;
+  line-height: 1.15;
+}
+/* ===============================
+   HERO FIX: ПК — колонка слева, мобилка — по центру
+   ВСТАВИТЬ В КОНЕЦ styles.css
+================================ */
+
+/* 1) Делаем hero_center колонкой и запрещаем центровку */
+.hero .hero_inner .hero_center{
+  display: flex !important;
+  flex-direction: column !important;
+
+  align-items: flex-start !important;
+  text-align: left !important;
+
+  width: min(520px, 92vw) !important;
+  margin: 0 !important;          /* важно: убирает margin: 0 auto */
+}
+
+/* 2) Если родитель центрировал — заставляем начинать слева */
+.hero .hero_inner{
+  display: flex !important;
+  justify-content: flex-start !important;
+}
+
+/* 3) Всё текстовое — влево */
+.hero .hero_inner .hero_headline,
+.hero .hero_inner .hero_info,
+.hero .hero_inner .main_note{
+  text-align: left !important;
+}
+
+/* 4) На телефонах обратно по центру (как у тебя было “норм”) */
+@media (max-width: 768px){
+  .hero .hero_inner{
+    justify-content: center !important;
+  }
+
+  .hero .hero_inner .hero_center{
+    align-items: center !important;
+    text-align: center !important;
+    margin: 0 auto !important;
+  }
+
+  .hero .hero_inner .hero_headline,
+  .hero .hero_inner .hero_info,
+  .hero .hero_inner .main_note{
+    text-align: center !important;
+  }
+}
+/* ===============================
+   HERO: ПК — слева, мобилка — центр
+================================ */
+
+/* GRID-родитель */
+.hero_inner{
+  display: grid !important;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  align-items: center;
+}
+
+/* ЛЕВАЯ колонка — контент */
+.hero_center{
+  justify-self: start !important;   /* ключевая строка */
+  text-align: left !important;
+
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+
+  max-width: 520px;
+}
+
+/* Заголовок */
+.hero_headline span{
+  display: block;
+  text-align: left;
+}
+
+/* Нижний текст */
+.hero_info,
+.main_note{
+  text-align: left;
+}
+
+/* ===============================
+   МОБИЛКИ — всё по центру
+================================ */
+@media (max-width: 768px){
+  .hero_inner{
+    grid-template-columns: 1fr;
+    justify-items: center;
+  }
+
+  .hero_center{
+    justify-self: center !important;
+    align-items: center;
+    text-align: center;
+  }
+
+  .hero_headline span,
+  .hero_info,
+  .main_note{
+    text-align: center;
+  }
+}
+/* =========================
+   MAIN SCREEN (главная)
+   ========================= */
+
+.main-screen {
+  min-height: 100vh;
+  background: #f4f3ef;
+  display: flex;
+  align-items: center;
+}
+
+.main-screen__inner {
+  width: 100%;
+  max-width: 1200px;
+  padding: clamp(40px, 8vh, 120px) 24px;
+  margin: 0 auto;
+}
+
+/* верхняя строка */
+.main-screen__eyebrow {
+  font-size: 14px;
+  letter-spacing: 0.12em;
+  color: #777;
+  margin-bottom: 32px;
+}
+
+/* большой заголовок */
+.main-screen__title {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+
+  font-family: "Cormorant Garamond", serif;
+  font-weight: 500;
+  font-size: clamp(42px, 7vw, 96px);
+  line-height: 1.05;
+  letter-spacing: 0.02em;
+
+  color: #1f1f1f;
+  margin: 0 0 40px;
+}
+
+.main-screen__title span {
+  display: block;
+}
+
+.main-screen__title .accent {
+  color: #8b3a3a;
+}
+
+/* нижний текст на главной */
+.main-screen__note {
+  max-width: 520px;
+
+  font-family: "Inter", sans-serif; /* или твой основной */
+  font-size: clamp(16px, 2vw, 20px); /* ⬅ заметно крупнее */
+  line-height: 1.7;
+  color: #5f5f5f;
+
+  margin-top: 12px;
+}
+
+/* дата — акцент, как ЖЕНИХ / НЕВЕСТА */
+.main-screen__note .date {
+  color: #8b3a3a;       /* тот же цвет */
+  font-weight: 500;
+}
+/* =========================
+   MOBILE
+   ========================= */
+
+@media (max-width: 768px) {
+  .main-screen {
+    align-items: flex-start;
+  }
+
+  .main-screen__inner {
+    padding-top: 80px;
+  }
+
+  .main-screen__title {
+    font-size: clamp(36px, 10vw, 56px);
+  }
+
+  @media (max-width: 768px) {
+  .main-screen__note {
+    font-size: 16px;
+    line-height: 1.65;
+  }
+}
+  }
+/* =========================
+   MAIN SCREEN (главная)
+   ========================= */
+
+.main-screen {
+  min-height: 100vh;
+  background: #f4f3ef;
+  display: flex;
+  align-items: center;
+}
+
+.main-screen__inner {
+  width: 100%;
+  max-width: 1200px;
+  padding: clamp(40px, 8vh, 120px) 24px;
+  margin: 0 auto;
+}
+
+/* верхняя строка */
+.main-screen__eyebrow {
+  font-size: 14px;
+  letter-spacing: 0.12em;
+  color: #777;
+  margin-bottom: 32px;
+}
+
+/* большой заголовок */
+.main-screen__title {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+
+  font-family: "Cormorant Garamond", serif;
+  font-weight: 500;
+  font-size: clamp(42px, 7vw, 96px);
+  line-height: 1.05;
+  letter-spacing: 0.02em;
+
+  color: #1f1f1f;
+  margin: 0 0 40px;
+}
+
+.main-screen__title span {
+  display: block;
+}
+
+.main-screen__title .accent {
+  color: #8b3a3a;
+}
+
+/* текст снизу */
+.main-screen__note {
+  max-width: 420px;
+
+  font-size: 15px;
+  line-height: 1.6;
+  color: #555;
+}
+
+.main-screen__note .date {
+  font-weight: 600;
+  color: #1f1f1f;
+}
+
+/* =========================
+   MOBILE
+   ========================= */
+
+@media (max-width: 768px) {
+  .main-screen {
+    align-items: flex-start;
+  }
+
+  .main-screen__inner {
+    padding-top: 80px;
+  }
+
+  .main-screen__title {
+    font-size: clamp(36px, 10vw, 56px);
+  }
+
+  .main-screen__note {
+    font-size: 14px;
+  }
+}
+/* нижний текст на главной */
+.main-screen__note {
+  max-width: 520px;
+
+  font-family: "Inter", sans-serif; /* или твой основной */
+  font-size: clamp(16px, 2vw, 20px); /* ⬅ заметно крупнее */
+  line-height: 1.7;
+  color: #5f5f5f;
+
+  margin-top: 12px;
+}
+
+/* дата — акцент, как ЖЕНИХ / НЕВЕСТА */
+.main-screen__note .date {
+  color: #8b3a3a;       /* тот же цвет */
+  font-weight: 500;
+}
+@media (max-width: 768px) {
+  .main-screen__note {
+    font-size: 16px;
+    line-height: 1.65;
+  }
+}
