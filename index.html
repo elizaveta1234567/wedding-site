@@ -167,7 +167,7 @@ else pause();
     <div class="main-screen__media">
       <img
         class="main-screen__img"
-        src="couple.png"
+        src="couplelove.png"
         alt="Владислав и Елизавета"
         loading="lazy"
         decoding="async"
@@ -258,134 +258,73 @@ else pause();
   </div>
 </section>
 <!-- ТАЙМИНГ -->
-<section class="page timing-section" id="timing">
-  <div class="timing-wrap">
-    <h2 class="timing-title">Тайминг</h2>
+<section class="day-plan" id="day-plan">
+  <div class="day-plan__inner">
 
-    <div class="timing-grid">
+    <h2 class="day-plan__title reveal-y">Расписание дня</h2>
+
+    <div class="day-plan__list">
+
       <!-- 1 -->
-      <div class="timing-item">
-        <div class="timing-time">16:00</div>
-        <div class="timing-dot"></div>
-        <div class="timing-content">
-          <div class="timing-name">СБОР ГОСТЕЙ</div>
-          <div class="timing-desc">просим взять с собой улыбки и хорошее настроение</div>
+      <div class="day-plan__row reveal-wave">
+        <img class="day-plan__icon"
+             src="sbor.png"
+             alt=""
+             loading="lazy">
+
+        <div class="day-plan__text">
+          <div class="day-plan__name">Сбор гостей</div>
+          <div class="day-plan__time">12:00</div>
         </div>
       </div>
+
+      <img class="day-plan__arrow reveal-y"
+           src="line1.png"
+           alt=""
+           loading="lazy">
 
       <!-- 2 -->
-      <div class="timing-item">
-        <div class="timing-time">16:30</div>
-        <div class="timing-dot"></div>
-        <div class="timing-content">
-          <div class="timing-name">ЦЕРЕМОНИЯ</div>
-          <div class="timing-desc">приготовьте платочки для самого трогательного момента</div>
+      <div class="day-plan__row day-plan__row--right reveal-wave">
+        <div class="day-plan__text">
+          <div class="day-plan__name">Церемония</div>
+          <div class="day-plan__time">14:00</div>
         </div>
+
+        <img class="day-plan__icon"
+             src="rings.png"
+             alt=""
+             loading="lazy">
       </div>
+
+      <img class="day-plan__arrow reveal-y"
+           src="line2.png"
+           alt=""
+           loading="lazy">
 
       <!-- 3 -->
-      <div class="timing-item">
-        <div class="timing-time">17:00</div>
-        <div class="timing-dot"></div>
-        <div class="timing-content">
-          <div class="timing-name">НАЧАЛО БАНКЕТА</div>
-          <div class="timing-desc">время вкусной еды, танцев и развлечений</div>
-        </div>
-      </div>
+      <div class="day-plan__row reveal-wave">
+        <img class="day-plan__icon"
+             src="cake.png"
+             alt=""
+             loading="lazy">
 
-      <!-- 4 -->
-      <div class="timing-item">
-        <div class="timing-time">23:00</div>
-        <div class="timing-dot"></div>
-        <div class="timing-content">
-          <div class="timing-name">ЗАВЕРШЕНИЕ БАНКЕТА</div>
-          <div class="timing-desc">к сожалению, даже такой прекрасный день заканчивается</div>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-<section class="timer-section" id="timer">
-  <div class="timer-wrap">
-    <div class="timer" aria-label="Обратный отсчет до 6 августа 2026">
-      
-      <div class="timer-row" role="group" aria-label="Таймер">
-        <div class="timer-cell">
-          <div class="timer-num" id="tDays">00</div>
-          <div class="timer-label">дней</div>
-        </div>
-
-        <div class="timer-sep" aria-hidden="true">·</div>
-
-        <div class="timer-cell">
-          <div class="timer-num" id="tHours">00</div>
-          <div class="timer-label">часы</div>
-        </div>
-
-        <div class="timer-sep" aria-hidden="true">·</div>
-
-        <div class="timer-cell">
-          <div class="timer-num" id="tMins">00</div>
-          <div class="timer-label">минуты</div>
-        </div>
-
-        <div class="timer-sep" aria-hidden="true">·</div>
-
-        <div class="timer-cell">
-          <div class="timer-num" id="tSecs">00</div>
-          <div class="timer-label">секунды</div>
+        <div class="day-plan__text">
+          <div class="day-plan__name">Банкет</div>
+          <div class="day-plan__time">18:00</div>
         </div>
       </div>
 
     </div>
+
   </div>
 </section>
 
-<script>
-(function () {
-  // Цель: 6 августа 2026, 00:00 (локальное время пользователя)
-  const target = new Date(2026, 7, 6, 0, 0, 0); // месяцы: 0=янв ... 7=авг
-
-  const elDays  = document.getElementById("tDays");
-  const elHours = document.getElementById("tHours");
-  const elMins  = document.getElementById("tMins");
-  const elSecs  = document.getElementById("tSecs");
-
-  const pad2 = (n) => String(n).padStart(2, "0");
-
-  function tick() {
-    const now = new Date();
-    let diff = target - now;
-
-    if (diff <= 0) {
-      elDays.textContent  = "00";
-      elHours.textContent = "00";
-      elMins.textContent  = "00";
-      elSecs.textContent  = "00";
-      return;
-    }
-
-    const totalSeconds = Math.floor(diff / 1000);
-
-    const days  = Math.floor(totalSeconds / 86400);
-    const hours = Math.floor((totalSeconds % 86400) / 3600);
-    const mins  = Math.floor((totalSeconds % 3600) / 60);
-    const secs  = totalSeconds % 60;
-
-    elDays.textContent  = String(days).padStart(2, "0"); // дни могут быть 3 цифры
-    elHours.textContent = pad2(hours);
-    elMins.textContent  = pad2(mins);
-    elSecs.textContent  = pad2(secs);
-  }
-
-  tick();
-  setInterval(tick, 1000);
-})();
-</script>
+<!-- ДРЕСС-КОД -->
 <!-- ДРЕСС-КОД -->
 <section class="page dresscode-section" id="dresscode">
   <div class="dresscode-wrap">
-    <h2 class="dresscode-title">Дресс-код</h2>
+ <h2 class="loca__title">Дресс-код</h2>
+
 
     <p class="dresscode-text">
       Для нас самое главное - ваше присутствие!<br>
@@ -400,15 +339,10 @@ else pause();
       <span class="swatch s4" aria-hidden="true"></span>
       <span class="swatch s5" aria-hidden="true"></span>
       <span class="swatch s6" aria-hidden="true"></span>
-      <span class="swatch s7" aria-hidden="true"></span>
-      <span class="swatch s8" aria-hidden="true"></span>
     </div>
   </div>
     </div>
-</section>
-<!-- Пример образов дресс-кода -->
- 
-<div class="dresscode-look">
+    <div class="dresscode-look">
   <img
     src="Dresscode.png"
     alt="Примеры образов дресс-кода"
@@ -416,6 +350,8 @@ else pause();
     loading="lazy"
   />
 </div>
+</section>
+
 <!-- ДЕТАЛИ -->
 <section class="page details-section" id="details">
   <div class="details-card">
@@ -501,7 +437,83 @@ else pause();
         </form>
       </div>
     </section>
+<section class="timer-section" id="timer">
+  <div class="timer-wrap">
+    <div class="timer" aria-label="Обратный отсчет до 6 августа 2026">
+      
+      <div class="timer-row" role="group" aria-label="Таймер">
+        <div class="timer-cell">
+          <div class="timer-num" id="tDays">00</div>
+          <div class="timer-label">дней</div>
+        </div>
 
+        <div class="timer-sep" aria-hidden="true">·</div>
+
+        <div class="timer-cell">
+          <div class="timer-num" id="tHours">00</div>
+          <div class="timer-label">часы</div>
+        </div>
+
+        <div class="timer-sep" aria-hidden="true">·</div>
+
+        <div class="timer-cell">
+          <div class="timer-num" id="tMins">00</div>
+          <div class="timer-label">минуты</div>
+        </div>
+
+        <div class="timer-sep" aria-hidden="true">·</div>
+
+        <div class="timer-cell">
+          <div class="timer-num" id="tSecs">00</div>
+          <div class="timer-label">секунды</div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<script>
+(function () {
+  // Цель: 6 августа 2026, 00:00 (локальное время пользователя)
+  const target = new Date(2026, 7, 6, 0, 0, 0); // месяцы: 0=янв ... 7=авг
+
+  const elDays  = document.getElementById("tDays");
+  const elHours = document.getElementById("tHours");
+  const elMins  = document.getElementById("tMins");
+  const elSecs  = document.getElementById("tSecs");
+
+  const pad2 = (n) => String(n).padStart(2, "0");
+
+  function tick() {
+    const now = new Date();
+    let diff = target - now;
+
+    if (diff <= 0) {
+      elDays.textContent  = "00";
+      elHours.textContent = "00";
+      elMins.textContent  = "00";
+      elSecs.textContent  = "00";
+      return;
+    }
+
+    const totalSeconds = Math.floor(diff / 1000);
+
+    const days  = Math.floor(totalSeconds / 86400);
+    const hours = Math.floor((totalSeconds % 86400) / 3600);
+    const mins  = Math.floor((totalSeconds % 3600) / 60);
+    const secs  = totalSeconds % 60;
+
+    elDays.textContent  = String(days).padStart(2, "0"); // дни могут быть 3 цифры
+    elHours.textContent = pad2(hours);
+    elMins.textContent  = pad2(mins);
+    elSecs.textContent  = pad2(secs);
+  }
+
+  tick();
+  setInterval(tick, 1000);
+})();
+</script>
    <!-- КОНТАКТЫ -->
 <!-- <section class="page contacts-section" id="contacts">
   <div class="contacts-card">

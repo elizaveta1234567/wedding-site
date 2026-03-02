@@ -793,14 +793,12 @@ body{
 }
 
 /* Базовые цвета (можешь менять под свою палитру) */
-.swatch.s1{ background: #b7c6a8; } /* светлый шалфей */
-.swatch.s2{ background: #a9ba9a; } /* зелёный */
-.swatch.s3{ background: #768a63; } /* тёмный оливковый */
-.swatch.s4{ background: #9fb0a3; } /* серо-зелёный */
-.swatch.s5{ background: #e9dfd3; } /* молочный */
-.swatch.s6{ background: #bbb1aa; } /* пудра */
-.swatch.s7{ background: #a37f60; } /* карамель */
-.swatch.s8{ background: #b5daff; } /* серебро */
+.swatch.s1{ background:#fac4d2; } /* светлый шалфей */
+.swatch.s2{ background: #f9ecc8; } /* зелёный */
+.swatch.s3{ background: #966441; } /* тёмный оливковый */
+.swatch.s4{ background: #603e32; } /* серо-зелёный */
+.swatch.s5{ background: #8c8d53; } /* молочный */
+.swatch.s6{ background: #c2d7ea; } /* пудра */
 
 /* Чуть меньше на маленьких экранах */
 @media (max-width: 480px){
@@ -3001,7 +2999,7 @@ details-card{
 }
 
 .main-screen__title .accent {
-  color:#b80a00;
+  color:#791c27;
 }
 
 /* текст снизу */
@@ -3053,7 +3051,7 @@ details-card{
 
 /* дата — акцент, как ЖЕНИХ / НЕВЕСТА */
 .main-screen__note .date {
-  color: #b80a00;       /* тот же цвет */
+  color: #791c27;       /* тот же цвет */
   font-weight: 500;
 }
 @media (max-width: 768px) {
@@ -4261,4 +4259,258 @@ html.js .date-section.is-visible{
   .main-screen__img {
     width: min(360px, 100%);
   }
+}
+/* ====== DAY PLAN (как на рефе) ====== */
+.day-plan{
+  background: #fbf7f3;
+  /* в рефе блок не “бесконечный”, поэтому меньше отступов */
+  padding: 64px 0 92px;
+}
+
+.day-plan__inner{
+  max-width: 980px;
+  margin: 0 auto;
+  padding: 0 24px;
+  text-align: center;
+}
+
+/* Заголовок — заметный, но без лишней “дыры” вниз */
+.day-plan__title{
+  margin: 0 0 100px;
+  font-size: clamp(34px, 4.2vw, 56px);
+  line-height: 1.1;
+}
+
+/* Список: плотный вертикальный ритм */
+.day-plan__list{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  /* ключевое: общий шаг между группами меньше */
+  gap: -170px;
+}
+
+/* Ряд (иконка + текст) */
+.day-plan__row{
+  width: 100%;
+  max-width: 760px;
+
+  display: grid;
+  grid-template-columns: 240px 1fr;
+  align-items: center;
+  column-gap: 1px;
+
+  /* чуть поднимаем строку визуально, чтобы стрелки были ближе */
+  margin: 0;
+}
+
+/* Лёгкая “ручная” асимметрия как в рефе */
+.day-plan__row:nth-of-type(1){
+  transform: translateX(-14px);
+}
+.day-plan__row--right{
+  grid-template-columns: 1fr 240px;
+  text-align: right;
+  transform: translateX(14px);
+}
+.day-plan__row:nth-of-type(5){
+  transform: translateX(-10px);
+}
+
+/* Иконки (PNG) — крупные, но без раздувания пустоты */
+.day-plan__icon{
+  width: 400px;
+  height: auto;
+  display: block;
+  margin: 0 auto;
+}
+
+/* Текст */
+.day-plan__text{
+  min-width: 0;
+}
+
+.day-plan__name{
+  font-size: clamp(22px, 2.6vw, 34px);
+  line-height: 1.12;
+}
+
+.day-plan__time{
+  margin-top: 8px;
+  font-size: 40px;
+  color: #791c27;
+  letter-spacing: 0.02em;
+}
+
+/* Стрелки (PNG) — ближе к блокам, чуть “не по центру” как в рефе */
+.day-plan__arrow{
+  width: 220px;
+  height: auto;
+  display: block;
+
+  /* прибираем пустоту сверху/снизу вокруг стрелки */
+  margin: -300px 0 -250px;
+
+  opacity: 0.95;
+}
+
+/* Чуть разные смещения стрелок — создаёт “ручной” вид */
+.day-plan__arrow:nth-of-type(2){ /* стрелка между 1 и 2 */
+  transform: translateX(-18px);
+}
+.day-plan__arrow:nth-of-type(4){ /* стрелка между 2 и 3 */
+  transform: translateX(18px);
+}
+
+/* ====== АДАПТИВ (телефон) ====== */
+@media (max-width: 760px){
+  .day-plan{
+    padding: 56px 0 80px;
+  }
+
+  .day-plan__inner{
+    padding: 0 18px;
+    text-align: left;
+  }
+
+  .day-plan__title{
+    text-align: center;
+    margin-bottom: 42px;
+  }
+
+  .day-plan__list{
+    gap: 30px;
+  }
+
+  /* Все строки в одну схему: иконка слева, текст справа */
+  .day-plan__row,
+  .day-plan__row--right{
+    max-width: 560px;
+    grid-template-columns: 96px 1fr;
+    column-gap: 16px;
+    text-align: left;
+    transform: none;
+  }
+
+  .day-plan__icon{
+    width: 96px;
+    margin: 0;
+  }
+
+  .day-plan__name{
+    font-size: 20px;
+  }
+
+  .day-plan__time{
+    font-size: 15px;
+    margin-top: 6px;
+  }
+
+  /* стрелки по центру и компактнее */
+  .day-plan__arrow{
+    width: 58px;
+    margin: -8px 0 -2px;
+    transform: none !important;
+  }
+}
+.reveal-y{
+  opacity: 0;
+  transform: translateY(-18px);
+  filter: blur(8px);
+  transition: opacity 750ms ease, transform 750ms ease, filter 750ms ease;
+  will-change: opacity, transform, filter;
+}
+.reveal-y.is-inview{
+  opacity: 1;
+  transform: translateY(0);
+  filter: blur(0);
+}
+
+.reveal-wave{
+  opacity: 0;
+  transform: translateX(-22px);
+  filter: blur(8px);
+  transition: opacity 1100ms ease, transform 750ms ease, filter 750ms ease;
+  will-change: opacity, transform, filter;
+}
+.reveal-wave.wave-right{
+  transform: translateX(22px);
+}
+.reveal-wave.is-inview{
+  opacity: 1;
+  transform: translateX(0);
+  filter: blur(0);
+}
+/* ====== DRESSCODE IMAGE BLOCK ====== */
+
+.dresscode-look{
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  padding: clamp(60px, 8vw, 140px) 24px;
+  box-sizing: border-box;
+}
+
+.dresscode-image{
+  display: block;
+
+  width: 100%;
+  max-width: 1200px;   /* регулируешь максимальный размер */
+  height: auto;
+
+  object-fit: contain;
+}
+
+/* ====== АДАПТИВ ====== */
+
+@media (max-width: 1024px){
+  .dresscode-image{
+    max-width: 900px;
+  }
+}
+
+@media (max-width: 768px){
+  .dresscode-look{
+    padding: 50px 20px;
+  }
+
+  .dresscode-image{
+    max-width: 100%;
+  }
+}
+
+@media (max-width: 480px){
+  .dresscode-look{
+    padding: 40px 16px;
+  }
+
+  .dresscode-image{
+    width: 110%;     /* чуть больше на мобилке, чтобы не казалась мелкой */
+    max-width: none;
+  }
+}
+.dresscode-section,
+.dresscode-look{
+  background: #fbf7f3 !important;
+}
+
+.dresscode-image{
+  background: transparent !important;
+}
+.dresscode-section{
+  background: #fbf7f3;
+  padding-bottom: 0; /* если нужно убрать лишний “переход” */
+}
+
+.dresscode-look{
+  background: #fbf7f3; /* чтобы блок с картинкой точно был на том же фоне */
+  margin-top: 48px;
+  padding-bottom: clamp(40px, 6vw, 90px);
+}
+
+.dresscode-image{
+  display: block; /* убирает возможную линию снизу от inline img */
 }
