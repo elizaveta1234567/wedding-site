@@ -4273,6 +4273,7 @@ html.js .date-section.is-visible{
 @media (max-width: 820px) {
   .main-screen__inner {
     grid-template-columns: 1fr;
+    padding-top: clamp(48px, 12vw, 80px);
   }
 
   .main-screen__media {
@@ -4281,6 +4282,20 @@ html.js .date-section.is-visible{
 
   .main-screen__img {
     width: min(360px, 100%);
+  }
+
+  .main-screen__note {
+    margin-top: 24px;
+  }
+}
+
+@media (max-width: 480px) {
+  .main-screen__inner {
+    padding-top: 56px;
+  }
+
+  .main-screen__note {
+    margin-top: 28px;
   }
 }
 /* ====== DAY PLAN (как на рефе) ====== */
