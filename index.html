@@ -9,7 +9,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&family=Marck+Script&display=swap" rel="stylesheet">
-<link rel="icon" type="image/png" sizes="32x32" href="icon.jpg">
+<link rel="icon" type="image/jpeg" sizes="32x32" href="images/icon.jpg">
   <link rel="stylesheet" href="styles.css" />
 </head>
 
@@ -53,7 +53,6 @@
   <p class="intro__hint">НАЖМИТЕ НА СЕРДЦЕ</p>
 </div>
   </div>
-</div>
 </div>
 <script src="intro.js"></script>
 <!-- /INTRO SCREEN -->
@@ -125,11 +124,11 @@ else pause();
     </p>
    
 
-    <Без даты: этот блок мы просто НЕ добавляем -->
+    <!-- Без даты: этот блок мы просто НЕ добавляем -->
 
     <!-- <div class="hero__media">
         <img
-        src="photo_main.jpg"
+        src="images/photo_main.jpg"
         alt="Владислав и Елизавета"
         class="hero__video"
         loading="eager"
@@ -167,7 +166,7 @@ else pause();
     <div class="main-screen__media">
       <img
         class="main-screen__img"
-        src="couplelove.png"
+        src="images/couplelove.png"
         alt="Владислав и Елизавета"
         loading="lazy"
         decoding="async"
@@ -230,7 +229,7 @@ else pause();
   <div class="love-cal__frame">
     <img
       class="love-cal__img"
-      src="callendarlove.png"
+      src="images/callendarlove.png"
       alt="Дата любви: 6 августа 2026"
       loading="lazy"
       decoding="async"
@@ -257,65 +256,99 @@ else pause();
     </div>
   </div>
 </section>
-<!-- ТАЙМИНГ -->
-<section class="day-plan" id="day-plan">
-  <div class="day-plan__inner">
+<section class="section timing-section" id="timing" aria-labelledby="timing-heading">
+  <div class="container timing-section__container">
+    <h2 id="timing-heading" class="timing-section__title">ТАЙМИНГ</h2>
 
-    <h2 class="day-plan__title reveal-y">Расписание дня</h2>
+    <ol class="timing-section__list">
 
-    <div class="day-plan__list">
+      <li class="timing-event">
+        <span class="timing-event__decor timing-event__decor--left">
+          <img class="timing-event__img" src="images/timing-1.png" alt="">
+        </span>
 
-      <!-- 1 -->
-      <div class="day-plan__row reveal-wave">
-        <img class="day-plan__icon"
-             src="sbor.png"
-             alt=""
-             loading="lazy">
-
-        <div class="day-plan__text">
-          <div class="day-plan__name">Сбор гостей</div>
-          <div class="day-plan__time">12:00</div>
-        </div>
-      </div>
-
-      <img class="day-plan__arrow reveal-y"
-           src="line1.png"
-           alt=""
-           loading="lazy">
-
-      <!-- 2 -->
-      <div class="day-plan__row day-plan__row--right reveal-wave">
-        <div class="day-plan__text">
-          <div class="day-plan__name">Церемония</div>
-          <div class="day-plan__time">14:00</div>
+        <div class="timing-event__content">
+          <h3 class="timing-event__subtitle">сбор гостей у ЗАГСа</h3>
+          <p class="timing-event__time-wrap">
+            <time class="timing-event__time">11:00</time>
+          </p>
+          <p class="timing-event__note">встречаемся, обнимаемся</p>
         </div>
 
-        <img class="day-plan__icon"
-             src="rings.png"
-             alt=""
-             loading="lazy">
-      </div>
+        <span class="timing-event__decor timing-event__decor--right"></span>
+      </li>
 
-      <img class="day-plan__arrow reveal-y"
-           src="line2.png"
-           alt=""
-           loading="lazy">
 
-      <!-- 3 -->
-      <div class="day-plan__row reveal-wave">
-        <img class="day-plan__icon"
-             src="cake.png"
-             alt=""
-             loading="lazy">
+      <li class="timing-event">
+        <span class="timing-event__decor timing-event__decor--left"></span>
 
-        <div class="day-plan__text">
-          <div class="day-plan__name">Банкет</div>
-          <div class="day-plan__time">18:00</div>
+        <div class="timing-event__content">
+          <h3 class="timing-event__subtitle">регистрация</h3>
+          <p class="timing-event__time-wrap">
+            <time class="timing-event__time">11:30</time>
+          </p>
+          <p class="timing-event__note">два «я» переплетаются в одно «навсегда»</p>
         </div>
-      </div>
 
-    </div>
+        <span class="timing-event__decor timing-event__decor--right">
+          <img class="timing-event__img" src="images/timing-2.png" alt="">
+        </span>
+      </li>
 
+
+      <li class="timing-event">
+        <span class="timing-event__decor timing-event__decor--left">
+          <img class="timing-event__img" src="images/timing-3.png" alt="">
+        </span>
+
+        <div class="timing-event__content">
+          <h3 class="timing-event__subtitle">сбор гостей на банкет</h3>
+          <p class="timing-event__time-wrap">
+            <time class="timing-event__time">15:00</time>
+          </p>
+          <p class="timing-event__note">готовим аппетит и тосты</p>
+        </div>
+
+        <span class="timing-event__decor timing-event__decor--right"></span>
+      </li>
+
+
+      <li class="timing-event">
+        <span class="timing-event__decor timing-event__decor--left"></span>
+
+        <div class="timing-event__content">
+          <h3 class="timing-event__subtitle">банкет</h3>
+          <p class="timing-event__time-wrap">
+            <time class="timing-event__time">16:00</time>
+          </p>
+          <p class="timing-event__note">время вкусной еды и развлечений</p>
+        </div>
+
+        <span class="timing-event__decor timing-event__decor--right">
+          <img class="timing-event__img" src="images/timing-4.png" alt="">
+        </span>
+      </li>
+
+
+      <li class="timing-event">
+        <span class="timing-event__decor timing-event__decor--left">
+          <img class="timing-event__img" src="images/timing-5.png" alt="">
+        </span>
+
+        <div class="timing-event__content">
+          <h3 class="timing-event__subtitle">торт</h3>
+          <p class="timing-event__time-wrap">
+            <time class="timing-event__time">22:00</time>
+          </p>
+          <p class="timing-event__note">сладкий символ нашей новой жизни</p>
+        </div>
+
+        <span class="timing-event__decor timing-event__decor--right">
+          <img class="timing-event__img" src="images/timing-6.png" alt="">
+        </span>
+      </li>
+
+    </ol>
   </div>
 </section>
 
@@ -341,10 +374,9 @@ else pause();
       <span class="swatch s6" aria-hidden="true"></span>
     </div>
   </div>
-    </div>
     <div class="dresscode-look">
   <img
-    src="Dresscode.png"
+    src="images/Dresscode.png"
     alt="Примеры образов дресс-кода"
     class="dresscode-image"
     loading="lazy"
@@ -359,12 +391,12 @@ else pause();
 
     <div class="details-media">
       <img
-        src="bubble.png"
+        src="images/bubble.png"
         alt="Вино"
         class="bottle bottle-left"
       />
       <img
-        src="bubble.png"
+        src="images/bubble.png"
         alt="Шампанское"
         class="bottle bottle-right"
       />
@@ -389,7 +421,7 @@ else pause();
         <div class="card__header">
          <div class="invite-wrap">
     <h2 class="invite-title">Анкета гостя</h2>
-          <p class="text muted">Подтвердите присутствие — тgак мы всё красиво спланируем!</p>
+          <p class="text muted">Подтвердите присутствие — так мы всё красиво спланируем!</p>
         </div>
 
         <!-- Netlify form -->
@@ -539,16 +571,6 @@ else pause();
   </main>
 
 <!-- <script src="telegram.js"></script> -->
-  <script>
-  (function () {
-    const env = document.getElementById('env');
-    if (!env) return;
-
-    env.addEventListener('click', () => {
-      env.classList.toggle('is-open');
-    });
-  })();
-</script>
 
 </body>
 </html>

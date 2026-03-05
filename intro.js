@@ -136,3 +136,30 @@ const stepDelay = 420;
 
   io.observe(section);
 });
+// REVEAL (Day plan + любые .reveal-y / .reveal-wave)
+(() => {
+  const items = document.querySelectorAll('.reveal-y, .reveal-wave');
+  if (!items.length) return;
+
+  // Для правых рядов — направление "справа"
+  document.querySelectorAll('.day-plan__row--right.reveal-wave')
+    .forEach(el => el.classList.add('wave-right'));
+
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (!entry.isIntersecting) return;
+
+      // Волна: небольшая задержка по индексу внутри секции
+      const el = entry.target;
+      const parent = el.closest('.day-plan__list') || document;
+      const siblings = [...parent.querySelectorAll('.reveal-y, .reveal-wave')];
+      const idx = Math.max(0, siblings.indexOf(el));
+      el.style.transitionDelay = `calc(var(--revealDelayStep) * ${idx})`;
+
+      el.classList.add('is-inview');
+      io.unobserve(el);
+    });
+  }, { threshold: 0.18 });
+
+  items.forEach(el => io.observe(el));
+})();
