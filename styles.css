@@ -4190,21 +4190,29 @@ html.js .date-section.is-visible{
 
 .love-cal {
   width: 100%;
-  padding: clamp(12px, 2vw, 24px);
-
-  /* один фон для всего блока */
+  padding: clamp(24px, 5vw, 56px) clamp(20px, 4vw, 48px);
   background: #fbf7f3;
 }
 
 /* сама “карточка” */
 .love-cal__frame {
-  width: min(1000px, 100%);
+  width: min(1100px, 100%);
   margin: 0 auto;
+  max-width: 100%;
 }
 
 @media (max-width: 900px) {
   .love-cal__frame {
     width: 100%;
+  }
+  .love-cal {
+    padding: clamp(20px, 4vw, 40px) clamp(16px, 3vw, 24px);
+  }
+}
+
+@media (max-width: 480px) {
+  .love-cal {
+    padding: 20px 16px;
   }
 }
 
@@ -4212,7 +4220,9 @@ html.js .date-section.is-visible{
 .love-cal__img {
   display: block;
   width: 100%;
-  height: auto;          /* важно */
+  height: auto;
+  max-width: 100%;
+  object-fit: contain;
 }
 .main-screen {
   width: 100%;
