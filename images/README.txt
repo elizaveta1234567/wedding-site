@@ -6,7 +6,7 @@
 - callendarlove.png (календарь)
 - timing-1.png ... timing-6.png (иконки тайминга)
 - Dresscode.png (дресс-код)
-- bubble.png (детали, бутылки)
+- details.jpg (блок «Детали» — одна картинка)
 - contacts-left.jpg, contacts-right.jpg (контакты)
 - envelope-bg.jpg, envelope-top.png, envelope-bottom.png, envelope-paper.png (конверт)
 - bg-timer.jpg (фон таймера)
