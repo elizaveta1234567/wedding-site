@@ -199,6 +199,40 @@ body{
   gap: 14px;
   position: relative;
 }
+
+.form--rsvp {
+  margin-top: 28px;
+  max-width: 480px;
+}
+
+.form--rsvp .label__text {
+  font-size: 0.95em;
+  color: var(--muted);
+}
+
+/* Встроенная Google Form — на всю ширину карточки, адаптивная высота */
+.google-form-embed {
+  width: 100%;
+  margin-top: 20px;
+  min-height: 600px;
+  border: none;
+  overflow: hidden;
+}
+.google-form-embed iframe {
+  display: block;
+  width: 100%;
+  min-height: 600px;
+  height: 800px;
+  border: none;
+}
+@media (max-width: 768px) {
+  .google-form-embed,
+  .google-form-embed iframe {
+    min-height: 700px;
+    height: 900px;
+  }
+}
+
 .label{
   display: grid;
   gap: 8px;
@@ -220,6 +254,133 @@ body{
 }
 .form__hint{
   font-size: 14px;
+}
+
+/* ===== Анкета по референсу (минимализм, подчёркивания, радиокнопки) ===== */
+.anketa-section {
+  background: #fbf7f3;
+}
+
+.anketa {
+  max-width: 520px;
+  margin: 0 auto;
+  padding: clamp(32px, 5vw, 56px) 24px;
+}
+
+.anketa__title {
+  margin: 0 0 24px;
+  font-family: "Cormorant Garamond", serif;
+  font-size: var(--section-title-size);
+  font-weight: 500;
+  line-height: 1.15;
+  color: #8b3a3a;
+  text-align: center;
+}
+
+.anketa__intro {
+  margin: 0 0 40px;
+  font-size: clamp(15px, 2.2vw, 17px);
+  line-height: 1.5;
+  color: #6f2e37;
+  text-align: center;
+}
+
+.anketa-form {
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+}
+
+.anketa-field {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.anketa-field__label {
+  font-size: 16px;
+  color: #1a1a1a;
+}
+
+.anketa-field__label--question {
+  color: #6f2e37;
+  font-weight: 500;
+  margin-bottom: 4px;
+}
+
+.anketa-field__input {
+  width: 100%;
+  padding: 10px 0 12px;
+  font-family: inherit;
+  font-size: 17px;
+  color: #1a1a1a;
+  background: transparent;
+  border: none;
+  border-bottom: 1px solid #1a1a1a;
+  outline: none;
+  transition: border-color 0.2s;
+}
+
+.anketa-field__input::placeholder {
+  color: #999;
+}
+
+.anketa-field__input:focus {
+  border-bottom-color: #6f2e37;
+}
+
+.anketa-fieldset {
+  margin: 0;
+  padding: 0;
+  border: none;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.anketa-fieldset > .anketa-field__label--question {
+  display: block;
+  margin-bottom: 6px;
+}
+
+.anketa-radio {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  cursor: pointer;
+  font-size: 16px;
+  color: #1a1a1a;
+}
+
+.anketa-radio input {
+  width: 18px;
+  height: 18px;
+  accent-color: #6f2e37;
+  cursor: pointer;
+}
+
+.anketa-radio span {
+  flex: 1;
+}
+
+.anketa__submit {
+  margin-top: 16px;
+  align-self: center;
+  padding: 14px 48px;
+  font-family: "Cormorant Garamond", serif;
+  font-size: 18px;
+  font-weight: 500;
+  color: #fff;
+  background: #2a2420;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  letter-spacing: 0.03em;
+  transition: background 0.2s;
+}
+
+.anketa__submit:hover {
+  background: #3d3530;
 }
 
 .hidden{
@@ -833,8 +994,13 @@ body{
 /* ===== ДЕТАЛИ (бутылки + анимация) ===== */
 .details-section{
   background: #fbf7f3;
-  padding: 110px 18px 140px;
+  padding: clamp(48px, 8vw, 110px) clamp(16px, 4vw, 24px) clamp(64px, 10vw, 140px);
   overflow: hidden;
+}
+
+.details-card{
+  max-width: 1100px;
+  margin: 0 auto;
 }
 
 .details-wrap{
@@ -843,33 +1009,38 @@ body{
   display: grid;
   grid-template-columns: 1fr 1fr;
   align-items: center;
-  gap: 60px;
+  gap: clamp(32px, 4vw, 60px);
 }
 
 /* Левая часть — бутылки */
 .details-media{
   position: relative;
-  height: 360px;
+  height: clamp(220px, 28vw, 360px);
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
 }
 
 /* Общие стили бутылок */
 .bottle{
   position: absolute;
   bottom: 0;
-  width: 180px;
+  width: clamp(100px, 14vw, 180px);
   height: auto;
   transform-origin: bottom center;
 }
 
 /* Левая бутылка */
 .bottle-left{
-  left: 40px;
+  left: 50%;
+  transform: translateX(calc(-100% - 12px));
   animation: bottleLeft 3.6s ease-in-out infinite;
 }
 
 /* Правая бутылка */
 .bottle-right{
-  left: 180px;
+  left: 50%;
+  transform: translateX(12px);
   animation: bottleRight 3.6s ease-in-out infinite;
 }
 
@@ -893,55 +1064,98 @@ body{
   font-size: clamp(16px, 2.1vw, 20px);
   line-height: 1.55;
   color: rgba(0,0,0,.45);
+  margin: 0;
 }
 
 /* ===== АНИМАЦИЯ “чокнуться” ===== */
 @keyframes bottleLeft{
-  0%, 42%, 100% { transform: rotate(0deg) translateX(0); }
-  52% { transform: rotate(10deg) translateX(16px); }  /* идём на встречу */
-  56% { transform: rotate(11deg) translateX(18px); }  /* момент касания */
-  70% { transform: rotate(0deg) translateX(0); }
+  0%, 42%, 100% { transform: translateX(calc(-100% - 12px)) rotate(0deg) translateX(0); }
+  52% { transform: translateX(calc(-100% - 12px)) rotate(10deg) translateX(16px); }
+  56% { transform: translateX(calc(-100% - 12px)) rotate(11deg) translateX(18px); }
+  70% { transform: translateX(calc(-100% - 12px)) rotate(0deg) translateX(0); }
 }
 
 @keyframes bottleRight{
-  0%, 42%, 100% { transform: rotate(0deg) translateX(0); }
-  52% { transform: rotate(-10deg) translateX(-16px); } /* идём на встречу */
-  56% { transform: rotate(-11deg) translateX(-18px); } /* момент касания */
-  70% { transform: rotate(0deg) translateX(0); }
+  0%, 42%, 100% { transform: translateX(12px) rotate(0deg) translateX(0); }
+  52% { transform: translateX(12px) rotate(-10deg) translateX(-16px); }
+  56% { transform: translateX(12px) rotate(-11deg) translateX(-18px); }
+  70% { transform: translateX(12px) rotate(0deg) translateX(0); }
 }
 
-/* Мобилка */
-@media (max-width: 768px){
+/* Планшет: колонка, бутылки сверху по центру */
+@media (max-width: 900px){
   .details-wrap{
     grid-template-columns: 1fr;
+    gap: 40px;
     text-align: center;
   }
 
   .details-media{
-    height: 300px;
-    margin-bottom: 24px;
+    height: clamp(200px, 35vw, 280px);
+    margin-bottom: 0;
   }
-
-  .bottle{
-    position: absolute;
-  bottom: 0;
-  width: 180px;
-  height: auto;
-  transform-origin: 50% 12%; /* было bottom center */
-  }
-
-  .bottle-left{
-  left: 300px; /* было 40px */
-  animation: bottleLeft 3.6s ease-in-out infinite;
-}
-
-.bottle-right{
-  left: 250px; /* было 180px */
-  animation: bottleRight 3.6s ease-in-out infinite;
-}
 
   .details-content{
     margin: 0 auto;
+    max-width: 100%;
+    padding: 0 16px;
+  }
+
+  .details-text{
+    text-align: center;
+  }
+}
+
+/* Телефон */
+@media (max-width: 600px){
+  .details-section{
+    padding: 40px 16px 64px;
+  }
+
+  .details-wrap{
+    gap: 32px;
+  }
+
+  .details-media{
+    height: 200px;
+  }
+
+  .bottle{
+    width: clamp(80px, 22vw, 120px);
+  }
+
+  .bottle-left{
+    transform: translateX(calc(-100% - 8px));
+  }
+
+  .bottle-right{
+    transform: translateX(8px);
+  }
+}
+
+@media (max-width: 480px){
+  .details-section{
+    padding: 32px 12px 56px;
+  }
+
+  .details-media{
+    height: 180px;
+  }
+
+  .bottle{
+    width: 72px;
+  }
+
+  .bottle-left{
+    transform: translateX(calc(-100% - 6px));
+  }
+
+  .bottle-right{
+    transform: translateX(6px);
+  }
+
+  .details-content{
+    padding: 0 8px;
   }
 }
 /* ===== КОНТАКТЫ как на рефе (карточка + жемчуг + боковые фото) ===== */
@@ -1078,17 +1292,15 @@ margin: 0 auto 38px;
     padding: 46px 20px 42px;
   }
 }
-details-card{
+.details-card{
   position: relative;
   z-index: 2;
-  width: min(520px, 92vw);
+  width: min(980px, 92vw);
   margin: 0 auto;
-  padding: 46px 28px 40px;
+  padding: clamp(24px, 4vw, 46px) clamp(20px, 4vw, 28px) clamp(24px, 4vw, 40px);
   background: #fbf7f3;
-  border: 1.5px solid rgba(124, 86, 92, 0.55);
   border-radius: 22px;
   text-align: center;
-  box-shadow: #fbf7f3;
 }
 /* ===== Split Envelope Hero ===== */
 .env-hero{

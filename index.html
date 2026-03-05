@@ -415,60 +415,67 @@ else pause();
   </div>
   </div>
 </section>
-    <!-- АНКЕТА (ВАЖНО: это Netlify Form, НЕ уводит на make.com) -->
-    <section class="page" id="rsvp">
-      <div class="card card--rsvp">
-        <div class="card__header">
-         <div class="invite-wrap">
-    <h2 class="invite-title">Анкета гостя</h2>
-          <p class="text muted">Подтвердите присутствие — так мы всё красиво спланируем!</p>
-        </div>
+    <!-- Анкета по референсу: минималистичный вид, Formspree -->
+    <section class="page anketa-section" id="rsvp">
+      <div class="anketa">
+        <h2 class="anketa__title">АНКЕТА</h2>
+        <p class="anketa__intro">Подтвердите свое присутствие, заполните анкету ниже:</p>
 
-        <!-- Netlify form -->
-        <form class="form"
+        <form class="anketa-form" id="rsvp-form"
               name="rsvp"
               method="POST"
-              action="/success.html"
-              data-netlify="true"
-              netlify-honeypot="bot-field">
+              action="https://formspree.io/f/xqeyzybj">
 
-          <!-- обязательное скрытое поле для Netlify -->
-          <input type="hidden" name="form-name" value="rsvp" />
-
-          <!-- honeypot -->
-          <p class="hidden">
-            <label>Don’t fill this out: <input name="bot-field" /></label>
+          <input type="hidden" name="_next" id="formspree-next" value="" />
+          <input type="hidden" name="_subject" value="Новый ответ: Анкета гостя на свадьбу" />
+          <p class="hidden" aria-hidden="true">
+            <label>Не заполняйте: <input name="_gotcha" tabindex="-1" autocomplete="off" /></label>
           </p>
 
-          <!-- created_at (заполним JS-ом) -->
-          <input type="hidden" name="created_at" id="created_at" value="" />
-
-          <label class="label">
-            <input class="input" type="text" name="name" placeholder="Имя и Фамилия" required />
+          <label class="anketa-field">
+            <span class="anketa-field__label">Ваше имя:</span>
+            <input class="anketa-field__input" type="text" name="name" required />
           </label>
 
-          <label class="label">
-            Будете?
-            <select class="select" name="status" required>
-              <option value="" disabled selected>Выберите вариант</option>
-              <option value="Да, приду">Да, приду</option>
-              <option value="К сожалению, не смогу">К сожалению, не смогу</option>
-            </select>
+          <fieldset class="anketa-fieldset">
+            <span class="anketa-field__label anketa-field__label--question">Планируете ли вы присутствовать?</span>
+            <label class="anketa-radio">
+              <input type="radio" name="attendance" value="Да! С удовольствием!" required />
+              <span>Да! С удовольствием!</span>
+            </label>
+            <label class="anketa-radio">
+              <input type="radio" name="attendance" value="К сожалению, не смогу" />
+              <span>К сожалению, не смогу</span>
+            </label>
+          </fieldset>
+
+          <fieldset class="anketa-fieldset">
+            <span class="anketa-field__label anketa-field__label--question">С кем вы придете?</span>
+            <label class="anketa-radio">
+              <input type="radio" name="with_whom" value="Буду один/одна" required />
+              <span>Буду один/одна</span>
+            </label>
+            <label class="anketa-radio">
+              <input type="radio" name="with_whom" value="Буду с парой" />
+              <span>Буду с парой</span>
+            </label>
+          </fieldset>
+
+          <label class="anketa-field">
+            <span class="anketa-field__label anketa-field__label--question">Какой алкоголь планируете пить?</span>
+            <input class="anketa-field__input" type="text" name="alcohol" />
           </label>
 
-          <label class="label">
-            Комментарий (аллергии / предпочтения)
-            <textarea class="textarea" name="comment" rows="3" placeholder="Не ем рыбу / без орехов / пью шампанское..."></textarea>
-          </label>
-
-          <button class="btn btn--primary" type="submit" id="submitBtn">
-            Отправить
-          </button>
-
-          <div class="form__hint muted" id="formHint">После отправки вы увидите страницу подтверждения.</div>
+          <button class="anketa__submit" type="submit">отправить</button>
         </form>
       </div>
     </section>
+    <script>
+      (function() {
+        var next = document.getElementById('formspree-next');
+        if (next) next.value = window.location.origin + '/success.html';
+      })();
+    </script>
 <section class="timer-section" id="timer">
   <div class="timer-wrap">
     <div class="timer" aria-label="Обратный отсчет до 6 августа 2026">
