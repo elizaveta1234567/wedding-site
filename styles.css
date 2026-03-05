@@ -763,14 +763,16 @@ body{
   display: flex;
   justify-content: center;
   align-items: center;
-  gap: clamp(10px, 2vw, 22px);
-  flex-wrap: wrap;
+  gap: clamp(6px, 1.5vw, 22px);
+  flex-wrap: nowrap;
 }
 
 /* Один кружок “сатин” */
 .swatch{
-  width: clamp(56px, 8.2vw, 92px);
-  height: clamp(56px, 8.2vw, 92px);
+  width: clamp(32px, 5.5vw, 92px);
+  height: clamp(32px, 5.5vw, 92px);
+  min-width: 32px;
+  min-height: 32px;
   border-radius: 50%;
   box-shadow: 0 10px 24px rgba(0,0,0,.12);
   position: relative;
@@ -802,6 +804,13 @@ body{
 @media (max-width: 480px){
   .dresscode-section{ padding: 70px 14px 90px; }
   .dresscode-text{ margin-bottom: 34px; }
+  .dresscode-palette{ gap: 6px; }
+  .swatch{
+    width: 36px;
+    height: 36px;
+    min-width: 36px;
+    min-height: 36px;
+  }
 }
 .dresscode-look{
   margin-top: 48px;
