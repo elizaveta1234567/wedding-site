@@ -286,14 +286,15 @@ body{
   text-align: center;
 }
 
-/* Заголовок (рукописный) */
+/* Заголовок секции (единый стиль с таймингом) */
 .invite-title{
-  margin: 0 0 18px;
-  font-family: "Segoe Script", "Brush Script MT", "Pacifico", cursive;
-  font-size: clamp(44px, 6vw, 76px);
-  font-weight: 400;
-  color: #6f2e37;;
-  letter-spacing: 0.5px;
+  margin: 0 0 24px;
+  font-family: "Cormorant Garamond", serif;
+  font-size: clamp(34px, 6vw, 56px);
+  font-weight: 500;
+  line-height: 1.15;
+  color: #8b3a3a;
+  text-align: center;
 }
 
 /* Текст под заголовком */
@@ -738,14 +739,15 @@ body{
   text-align: center;
 }
 
-/* Заголовок (каллиграфия) */
+/* Заголовок секции (единый стиль с таймингом) */
 .dresscode-title{
-  margin: 0 0 22px;
-  font-family: "Segoe Script","Brush Script MT","Pacifico",cursive;
-  font-weight: 400;
-  font-size: clamp(44px, 6.5vw, 86px);
-  color: #6f2e37; /* благородный бордовый */
-  letter-spacing: .01em;
+  margin: 0 0 24px;
+  font-family: "Cormorant Garamond", serif;
+  font-size: clamp(34px, 6vw, 56px);
+  font-weight: 500;
+  line-height: 1.15;
+  color: #8b3a3a;
+  text-align: center;
 }
 
 /* Текст */
@@ -875,11 +877,13 @@ body{
 }
 
 .details-title{
-  margin: 0 0 22px;
-  font-family: "Segoe Script","Brush Script MT","Pacifico",cursive;
-  font-weight: 400;
-  font-size: clamp(42px, 6vw, 72px);
-  color: #6f2e37;
+  margin: 0 0 24px;
+  font-family: "Cormorant Garamond", serif;
+  font-size: clamp(34px, 6vw, 56px);
+  font-weight: 500;
+  line-height: 1.15;
+  color: #8b3a3a;
+  text-align: center;
 }
 
 .details-text{
@@ -988,13 +992,15 @@ body{
 
 
 
-/* заголовок */
+/* Заголовок секции (единый стиль с таймингом) */
 .contacts-title{
-  margin: 0 0 22px;
-  font-family: "Segoe Script","Brush Script MT","Pacifico",cursive;
-  font-weight: 400;
-  font-size: clamp(44px, 6.5vw, 84px);
-  color: #6f2e37;
+  margin: 0 0 24px;
+  font-family: "Cormorant Garamond", serif;
+  font-size: clamp(34px, 6vw, 56px);
+  font-weight: 500;
+  line-height: 1.15;
+  color: #8b3a3a;
+  text-align: center;
   position: relative;
   z-index: 1;
 }
@@ -3770,14 +3776,15 @@ html.js .wloc--reveal.is-visible{
   );
 }
 
-/* Заголовок — рукописный */
+/* Заголовок секции (единый стиль с таймингом) */
 .loca__title{
-  margin: 0 0 20px;
+  margin: 0 0 24px;
   font-family: "Cormorant Garamond", serif;
-  font-size: clamp(34px, 4.5vw, 52px);
+  font-size: clamp(34px, 6vw, 56px);
   font-weight: 500;
-  line-height: 1.05;
-  color: #7f2a28;
+  line-height: 1.15;
+  color: #8b3a3a;
+  text-align: center;
 }
 
 /* Описание */
@@ -5011,7 +5018,7 @@ html.js .date-section.is-visible{
   font-family: "Cormorant Garamond", serif;
   font-size: clamp(34px, 6vw, 56px);
   line-height: 1.15;
-  color: #2f4f2f;
+  color: #8b3a3a;
   text-align: center;
   margin-bottom: 56px;
 }
