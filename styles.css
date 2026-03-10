@@ -1,0 +1,5267 @@
+:root{
+  --paper: #f5f1e8;
+  --ink: #2a2420;
+  --muted: rgba(42,36,32,.66);
+  --stroke: rgba(42,36,32,.18);
+  --shadow: 0 22px 60px rgba(0,0,0,.14);
+  --radius: 28px;
+  /* единый размер заголовков секций (как у Тайминг) */
+  --section-title-size: clamp(34px, 6vw, 56px);
+}
+
+/* На телефонах — ещё крупнее заголовки и текст */
+@media (max-width: 480px){
+  :root{
+    --section-title-size: 46px;
+  }
+  html{ font-size: 20px; }
+  .loca__address{ font-size: 20px; line-height: 1.55; }
+  .details-text{ font-size: 20px; }
+  .dresscode-text{ font-size: 20px; }
+  .anketa__intro{ font-size: 19px; }
+  .anketa-field__label,
+  .anketa-field__label--question{ font-size: 19px; }
+  .anketa-radio{ font-size: 19px; }
+  .anketa-field__input{ font-size: 19px; }
+  .timer-num{ font-size: clamp(48px, 14vw, 64px); }
+  .timer-label{ font-size: 16px; }
+  .anketa__submit{ font-size: 20px; padding: 16px 56px; }
+  .page{ padding-top: 40px; padding-bottom: 40px; }
+  .loca__text{ font-size: 19px; }
+}
+
+*{ box-sizing: border-box; }
+html{ scroll-behavior: smooth; }
+body{
+  margin: 0;
+  color: var(--ink);
+  font-family: "Cormorant Garamond", serif;
+  background: #ffffff;
+}
+
+/* фон в стиле “фото + мягкая дымка” без картинок */
+.bg{
+  position: fixed;
+  inset: 0;
+  background: #fbf7f3;
+  z-index: -2;
+}
+.bg::after{
+  content:"";
+  position:absolute;
+  inset:0;
+  background:  #fbf7f3;
+  z-index:-1;
+}
+
+/* верхняя панель */
+.topbar{
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  backdrop-filter: blur(10px);
+  background: rgba(0, 0, 0, 0.25);
+  border-bottom: 1px solid rgba(255,255,255,.08);
+}
+.topbar__inner{
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 12px 16px;
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  justify-content: space-between;
+}
+.topbar__title{
+  font-family: "Marck Script", cursive;
+  font-size: 22px;
+  color: rgba(255,255,255,.92);
+  letter-spacing: .2px;
+}
+.topbar__nav{
+  display: flex;
+  gap: 14px;
+  flex-wrap: wrap;
+}
+.topbar__nav a{
+  color: rgba(255,255,255,.86);
+  text-decoration: none;
+  font-size: 14px;
+  border-bottom: 1px solid transparent;
+}
+.topbar__nav a:hover{
+  border-bottom-color: rgba(255,255,255,.55);
+}
+
+/* ✅ ГЛАВНОЕ: одна длинная страница, без “дёрганого” снапа */
+.pages{
+  height: auto;
+  overflow: visible;
+}
+
+/* секции идут друг за другом */
+.page{
+  padding: 34px 16px;
+}
+
+/* карточка */
+.card{
+  width: min(980px, 100%);
+  margin: 0 auto;
+  background: var(--paper);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  border: 1px solid rgba(255,255,255,.3);
+  padding: 26px 22px;
+  position: relative;
+  overflow: hidden;
+}
+
+/* немного “жемчужности” */
+.card::before{
+  content:"";
+  position:absolute;
+  inset:-2px;
+  background:
+    radial-gradient(16px 16px at 14% 24%, rgba(255,255,255,.55), transparent 60%),
+    radial-gradient(22px 22px at 82% 18%, rgba(255,255,255,.45), transparent 62%),
+    radial-gradient(18px 18px at 72% 74%, rgba(255,255,255,.35), transparent 62%),
+    radial-gradient(24px 24px at 18% 78%, rgba(255,255,255,.35), transparent 62%);
+  opacity: .55;
+  pointer-events:none;
+}
+
+.card__header{
+  margin-bottom: 14px;
+  position: relative;
+}
+
+.title{
+  margin: 0 0 10px 0;
+  font-family: "Marck Script", cursive;
+  font-size: 46px;
+  line-height: 1;
+  letter-spacing: .2px;
+}
+
+.text{
+  margin: 0;
+  font-size: 18px;
+  line-height: 1.45;
+}
+
+.muted{ color: var(--muted); }
+
+.divider{
+  height: 1px;
+  background: var(--stroke);
+  margin: 18px 0;
+}
+
+/* кнопки */
+.btn{
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  font-family: inherit;
+  cursor: pointer;
+  text-decoration: none;
+  user-select: none;
+  border-radius: 999px;
+  border: 1px solid var(--stroke);
+  padding: 12px 18px;
+  background: transparent;
+  color: var(--ink);
+  font-size: 18px;
+  transition: transform .08s ease, background .2s ease;
+}
+.btn:active{ transform: scale(.99); }
+.btn--wide{ width: 100%; }
+
+.btn--primary{
+  background: rgba(255, 255, 255, 0.92);
+  color: rgba(0, 0, 0, 0.96);
+  border-color: transparent;
+}
+
+/* тайминг */
+.timeline{
+  display: grid;
+  gap: 14px;
+  margin-top: 4px;
+}
+.timeline__row{
+  display: grid;
+  grid-template-columns: 78px 14px 1fr;
+  align-items: start;
+  gap: 12px;
+}
+.timeline__time{
+  font-size: 20px;
+  font-style: italic;
+  font-weight: 600;
+}
+.timeline__dot{
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  margin-top: 7px;
+  background: rgba(255, 255, 255, 0.35);
+}
+.timeline__content{ padding-bottom: 6px; border-bottom: 1px solid rgba(42,36,32,.10); }
+.timeline__row:last-child .timeline__content{ border-bottom: none; }
+.timeline__name{ font-size: 20px; font-weight: 600; }
+.timeline__desc{ font-size: 16px; margin-top: 2px; }
+
+/* форма */
+.form{
+  display: grid;
+  gap: 14px;
+  position: relative;
+}
+
+.form--rsvp {
+  margin-top: 28px;
+  max-width: 480px;
+}
+
+.form--rsvp .label__text {
+  font-size: 0.95em;
+  color: var(--muted);
+}
+
+/* Встроенная Google Form — на всю ширину карточки, адаптивная высота */
+.google-form-embed {
+  width: 100%;
+  margin-top: 20px;
+  min-height: 600px;
+  border: none;
+  overflow: hidden;
+}
+.google-form-embed iframe {
+  display: block;
+  width: 100%;
+  min-height: 600px;
+  height: 800px;
+  border: none;
+}
+@media (max-width: 768px) {
+  .google-form-embed,
+  .google-form-embed iframe {
+    min-height: 700px;
+    height: 900px;
+  }
+}
+
+.label{
+  display: grid;
+  gap: 8px;
+  font-size: 18px;
+}
+.input, .select, .textarea{
+  width: 100%;
+  font-family: inherit;
+  font-size: 18px;
+  padding: 12px 14px;
+  border-radius: 14px;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  background: rgba(255,255,255,.55);
+  outline: none;
+}
+.input:focus, .select:focus, .textarea:focus{
+  border-color: rgba(255, 255, 255, 0.35);
+  box-shadow: 0 0 0 4px rgba(42,36,32,.08);
+}
+.form__hint{
+  font-size: 14px;
+}
+
+/* ===== Анкета по референсу (минимализм, подчёркивания, радиокнопки) ===== */
+.anketa-section {
+  background: #fbf7f3;
+}
+
+.anketa {
+  max-width: 520px;
+  margin: 0 auto;
+  padding: clamp(24px, 4vw, 40px) 24px;
+}
+
+.anketa__title {
+  margin: 0 0 24px;
+  font-family: "Cormorant Garamond", serif;
+  font-size: var(--section-title-size);
+  font-weight: 500;
+  line-height: 1.15;
+  color: #1a1a1a;
+  text-align: center;
+}
+
+.anketa__intro {
+  margin: 0 0 40px;
+  font-size: clamp(15px, 2.2vw, 17px);
+  line-height: 1.5;
+  color: #6f2e37;
+  text-align: center;
+}
+
+.anketa-form {
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+}
+
+.anketa-field {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.anketa-field__label {
+  font-size: 16px;
+  color: #1a1a1a;
+}
+
+.anketa-field__label--question {
+  color: #6f2e37;
+  font-weight: 500;
+  margin-bottom: 4px;
+}
+
+.anketa-field__input {
+  width: 100%;
+  padding: 10px 0 12px;
+  font-family: inherit;
+  font-size: 17px;
+  color: #1a1a1a;
+  background: transparent;
+  border: none;
+  border-bottom: 1px solid #1a1a1a;
+  outline: none;
+  transition: border-color 0.2s;
+}
+
+.anketa-field__input::placeholder {
+  color: #999;
+}
+
+.anketa-field__input:focus {
+  border-bottom-color: #6f2e37;
+}
+
+.anketa-fieldset {
+  margin: 0;
+  padding: 0;
+  border: none;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.anketa-fieldset > .anketa-field__label--question {
+  display: block;
+  margin-bottom: 6px;
+}
+
+.anketa-radio {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  cursor: pointer;
+  font-size: 16px;
+  color: #1a1a1a;
+}
+
+.anketa-radio input {
+  width: 18px;
+  height: 18px;
+  accent-color: #6f2e37;
+  cursor: pointer;
+}
+
+.anketa-radio span {
+  flex: 1;
+}
+
+.anketa__submit {
+  margin-top: 16px;
+  align-self: center;
+  padding: 14px 48px;
+  font-family: "Cormorant Garamond", serif;
+  font-size: 18px;
+  font-weight: 500;
+  color: #fff;
+  background: #2a2420;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  letter-spacing: 0.03em;
+  transition: background 0.2s;
+}
+
+.anketa__submit:hover {
+  background: #3d3530;
+}
+
+.hidden{
+  position: absolute;
+  left: -9999px;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+}
+
+/* контакты */
+.contacts{
+  display: grid;
+  gap: 12px;
+}
+.contacts__label{ font-size: 14px; }
+.contacts__value{
+  font-size: 20px;
+  text-decoration: none;
+  color: var(--ink);
+}
+.contacts__value:hover{
+  text-decoration: underline;
+}
+
+.brand{
+  text-align: center;
+  font-size: 20px;
+  letter-spacing: 1px;
+}
+
+/* футер */
+.footer{
+  max-width: 980px;
+  margin: 0 auto;
+  padding: 18px 16px 42px;
+  text-align: center;
+}
+
+/* success */
+.successWrap{
+  min-height: 100dvh;
+  display: grid;
+  place-items: center;
+  padding: 28px 16px;
+}
+.successCard{
+  width: min(720px, 100%);
+  text-align: center;
+}
+
+/* адаптив */
+@media (max-width: 640px){
+  .title{ font-size: 40px; }
+  .timeline__row{ grid-template-columns: 70px 14px 1fr; }
+}
+/* Блок приглашения с календарём */
+.invite-block{
+  padding: 60px 18px;
+  background: #fbf7f3; /* тёплый светлый фон */
+}
+
+.invite-wrap{
+  max-width: 920px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+/* Заголовок секции (единый стиль с таймингом) */
+.invite-title{
+  margin: 0 0 24px;
+  font-family: "Cormorant Garamond", serif;
+  font-size: var(--section-title-size);
+  font-weight: 500;
+  line-height: 1.15;
+  color: #1a1a1a;
+  text-align: center;
+}
+
+/* Текст под заголовком */
+.invite-text{
+  margin: 0 auto 34px;
+  max-width: 560px;
+  font-family: system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
+  font-size: clamp(16px, 2.2vw, 22px);
+  line-height: 1.55;
+  color: rgba(0,0,0,.45);
+}
+
+/* Календарь */
+.calendar{
+  margin: 0 auto;
+  width: min(780px, 100%);
+  position: relative;
+}
+
+/* сетка 7 колонок */
+.calendar-row{
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  column-gap: clamp(16px, 3vw, 46px);
+  align-items: center;
+  justify-items: center;
+}
+
+.calendar-head{
+  margin-top: 10px;
+  padding-bottom: 18px;
+  font-family: system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
+  font-size: clamp(18px, 2.6vw, 34px);
+  letter-spacing: 0.08em;
+  color: rgba(0,0,0,.55);
+}
+
+.calendar-days{
+  font-family: system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
+  font-size: clamp(18px, 2.6vw, 34px);
+  letter-spacing: 0.04em;
+  color: rgba(0,0,0,.35);
+}
+
+.calendar-days > span{
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 64px;
+}
+
+/* Ячейка с сердцем */
+.day-heart{
+  position: relative;
+  width: 150px;
+  height: 120px;
+  color: #8a3c4b; /* бордово-розовый как на рефе */
+  transform: translateY(10px); /* чуть ниже строки */
+}
+
+/* число внутри сердца */
+.day-num{
+  position: absolute;
+  top: 47px;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: clamp(18px, 2.6vw, 34px);
+  color: rgba(0,0,0,.45);
+  font-weight: 500;
+}
+
+/* SVG сердце */
+.heart-svg{
+  position: absolute;
+  inset: 0;
+  width: 120px;
+  height: 120px;
+  margin: auto;
+}
+
+/* Подпись “Сентябрь” */
+.month{
+  position: absolute;
+  left: 55%;
+  top: 112px;
+  transform: translateX(0);
+  font-family: "Segoe Script", "Brush Script MT", "Pacifico", cursive;
+  font-size: clamp(18px, 2.4vw, 32px);
+  color: #8a3c4b;
+  white-space: nowrap;
+}
+
+/* Чуть компактнее на маленьких экранах */
+@media (max-width: 480px){
+  .day-heart{
+    width: 96px;
+    height: 96px;
+  }
+  .heart-svg{
+    width: 96px;
+    height: 96px;
+  }
+  .month{
+    top: 94px;
+    left: 54%;
+  }
+  .calendar-row{
+    column-gap: 14px;
+  }
+}
+/* ===== HERO как на референсе ===== */
+.hero{
+  padding: 56px 18px 120px; /* ⬅️ большой отступ снизу */
+  display: flex;
+  justify-content: center;
+}
+
+.hero__wrap{
+  width: min(980px, 100%);
+  text-align: center;
+}
+
+/* Имена */
+.hero__title{
+  margin-top: 12px;
+}
+
+.hero__name-top{
+  font-family: "Times New Roman", "Georgia", serif;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  font-size: clamp(44px, 7vw, 84px);
+  color: #1a1a1a;
+  line-height: 1.05;
+  text-transform: uppercase;
+}
+
+.hero__amp{
+  font-family: "Times New Roman", "Georgia", serif;
+  font-weight: 400;
+  letter-spacing: 0;
+  margin: 0 8px;
+  opacity: 0.9;
+}
+
+.hero__name-bottom{
+  margin-top: -6px;
+  font-family: "Segoe Script", "Brush Script MT", "Pacifico", cursive;
+  font-weight: 400;
+  font-size: clamp(44px, 7.5vw, 92px);
+  color: #1a1a1a;
+  line-height: 1;
+}
+
+/* Цитата */
+.hero__quote{
+  margin: 18px auto 30px;
+  max-width: 780px;
+  font-family: "Times New Roman", "Georgia", serif;
+  font-size: clamp(14px, 2.2vw, 22px);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  line-height: 1.55;
+}
+
+/* Видео как на фото (закругление, мягкая тень) */
+.hero__media{
+  width: min(920px, 100%);
+  margin: 0 auto;
+  border-radius: 28px;
+  overflow: hidden;
+}
+
+/* Важно: убрать “полосы” вокруг видео */
+.hero__video{
+  display: block;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 16 / 10; /* похоже на реф */
+  object-fit: cover;
+}
+
+/* Мобилка: чуть компактнее отступы */
+@media (max-width: 480px){
+  .hero{
+    padding-top: 46px;
+  }
+  .hero__media{
+    border-radius: 22px;
+  }
+  .hero__video{
+    aspect-ratio: 4 / 5; /* на мобилке выглядит ближе к рефу */
+  }
+}
+/* =========================
+   СЕКЦИЯ ЛОКАЦИИ
+========================= */
+
+.location-section{
+  position: relative;
+  display: flex;
+  justify-content: center;
+  padding: 80px 20px;
+  background: transparent;
+}
+
+/* Центральная карточка */
+.location-card{
+  position: relative;
+  z-index: 2;
+  width: 100%;
+  max-width: 520px;
+  margin: 0 auto;
+  padding: 46px 28px 40px;
+  background: #fbf7f3;
+  border: 1.5px solid rgba(124, 86, 92, 0.55);
+  border-radius: 22px;
+  text-align: center;
+  box-sizing: border-box;
+}
+
+/* Заголовок */
+.location-title{
+  margin: 0 0 18px;
+  font-family: "Segoe Script", "Brush Script MT", "Pacifico", cursive;
+  font-size: clamp(36px, 6vw, 56px);
+  font-weight: 400;
+  color: #6f2e37;
+}
+
+/* Текст адреса */
+.location-subtitle{
+  margin: 0 0 26px;
+  font-family: "Times New Roman", "Georgia", serif;
+  font-size: clamp(16px, 2.2vw, 20px);
+  line-height: 1.55;
+  color: rgba(0,0,0,.55);
+}
+
+/* Кнопка */
+.location-btn{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  max-width: 420px;
+  height: 54px;
+  margin: 0 auto;
+  border-radius: 999px;
+  border: 1.5px solid rgba(124, 86, 92, 0.7);
+  color: rgba(0,0,0,.55);
+  text-decoration: none;
+  font-family: system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
+  font-size: 15px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  background: transparent;
+  transition: transform .15s ease, background .15s ease;
+  box-sizing: border-box;
+}
+
+.location-btn:hover{
+  background: rgba(124, 86, 92, 0.08);
+  transform: translateY(-1px);
+}
+
+/* =========================
+   МОБИЛЬНАЯ АДАПТАЦИЯ
+========================= */
+
+@media (max-width: 640px){
+  .location-section{
+    padding: 56px 14px;
+  }
+
+  .location-card{
+    padding: 32px 18px 28px;
+    border-radius: 18px;
+  }
+
+  .location-title{
+    font-size: 34px;
+    margin-bottom: 14px;
+  }
+
+  .location-subtitle{
+    font-size: 15px;
+    margin-bottom: 22px;
+  }
+
+  .location-btn{
+    height: 52px;
+    font-size: 14px;
+    letter-spacing: 0.07em;
+  }
+}
+
+@media (max-width: 360px){
+  .location-btn{
+    font-size: 13px;
+    padding: 0 14px;
+    white-space: normal;
+    line-height: 1.2;
+  }
+}
+/* ===== ТАЙМИНГ как на рефе (время слева + линия + точки + текст справа) ===== */
+.timing-section{
+  background: #fbf7f3;
+  padding: 90px 18px 120px;
+  position: relative;
+  overflow: hidden;
+}
+
+.timing-wrap{
+  max-width: 980px;
+  margin: 0 auto;
+}
+
+/* Заголовок */
+.timing-title{
+  text-align: center;
+  margin: 0 0 44px;
+  font-family: "Segoe Script","Brush Script MT","Pacifico",cursive;
+  font-weight: 400;
+  font-size: clamp(44px, 6.5vw, 82px);
+  color: #6f2e37;;
+}
+
+/* Сетка всего тайминга */
+.timing-grid{
+  width: min(820px, 100%);
+  margin: 0 auto;
+  position: relative;
+}
+
+/* Центральная вертикальная линия */
+.timing-grid::before{
+  content:"";
+  position: absolute;
+  left: 210px;            /* место линии (под время) */
+  top: 10px;
+  bottom: 10px;
+  width: 2px;
+  background: rgba(124, 86, 92, 0.55);
+  border-radius: 2px;
+}
+
+/* Одна строка тайминга */
+.timing-item{
+  display: grid;
+  grid-template-columns: 180px 60px 1fr; /* время | линия/точка | текст */
+  align-items: start;
+  column-gap: 0;
+  padding: 18px 0;
+}
+
+/* Время — крупное, “каллиграфическое” */
+.timing-time{
+  text-align: right;
+  padding-right: 24px;
+  font-family: "Times New Roman","Georgia",serif;
+  font-style: italic;
+  font-size: clamp(34px, 4.4vw, 64px);
+  line-height: 1;
+  color: #6f2e37;;
+}
+
+/* Точка на линии */
+.timing-dot{
+  position: relative;
+  height: 100%;
+}
+.timing-dot::before{
+  content:"";
+  position: absolute;
+  left: 75px;           /* совпадает с линией */
+  top: 20px;
+  transform: translateX(-50%);
+  width: 12px;
+  height: 12px;
+  background: #8a3c4b;
+  border-radius: 50%;
+  box-shadow: #fbf7f3;
+}
+
+/* Текст справа */
+.timing-content{
+  padding-left: 54px;    /* чтобы не липло к линии */
+}
+
+.timing-name{
+  font-family: system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  font-size: clamp(16px, 1.8vw, 22px);
+  color: rgba(0,0,0,.55);
+  margin-bottom: 6px;
+}
+
+.timing-desc{
+  font-family: system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
+  font-size: clamp(14px, 1.6vw, 18px);
+  line-height: 1.45;
+  color: rgba(0,0,0,.42);
+}
+
+/* Мобильная адаптация */
+@media (max-width: 640px){
+  .timing-grid::before{ left: 118px; }
+
+  .timing-item{
+    grid-template-columns: 92px 34px 1fr;
+    padding: 16px 0;
+  }
+
+  .timing-time{
+    padding-right: 14px;
+  }
+
+  .timing-dot::before{
+    left: 118px;
+    top: 14px;
+    width: 10px;
+    height: 10px;
+  }
+
+  .timing-content{
+    padding-left: 28px;
+  }
+}
+/* ===== ДРЕСС-КОД как на рефе ===== */
+.dresscode-section{
+  background: #fbf7f3;
+  padding: 90px 18px 120px;
+  position: relative;
+  overflow: hidden;
+}
+
+.dresscode-wrap{
+  max-width: 980px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+/* Заголовок секции (единый стиль с таймингом) */
+.dresscode-title{
+  margin: 0 0 24px;
+  font-family: "Cormorant Garamond", serif;
+  font-size: var(--section-title-size);
+  font-weight: 500;
+  line-height: 1.15;
+  color: #1a1a1a;
+  text-align: center;
+}
+
+/* Текст */
+.dresscode-text{
+  margin: 0 auto 44px;
+  max-width: 760px;
+  font-family: system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
+  font-size: clamp(16px, 2.2vw, 22px);
+  line-height: 1.55;
+  color: rgba(0,0,0,.45);
+}
+
+/* Палитра кружочков */
+.dresscode-palette{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: clamp(6px, 1.5vw, 22px);
+  flex-wrap: nowrap;
+}
+
+/* Один кружок “сатин” */
+.swatch{
+  width: clamp(32px, 5.5vw, 92px);
+  height: clamp(32px, 5.5vw, 92px);
+  min-width: 32px;
+  min-height: 32px;
+  border-radius: 50%;
+  box-shadow: 0 10px 24px rgba(0,0,0,.12);
+  position: relative;
+  overflow: hidden;
+  transform: rotate(-6deg);
+}
+
+/* “Сатиновый блик” */
+.swatch::before{
+  content:"";
+  position: absolute;
+  inset: -20%;
+  background:
+    radial-gradient(closest-side at 30% 30%, rgba(255,255,255,.65), rgba(255,255,255,0) 60%),
+    radial-gradient(closest-side at 70% 70%, rgba(0,0,0,.16), rgba(0,0,0,0) 65%),
+    linear-gradient(135deg, rgba(255,255,255,.15), rgba(0,0,0,.12));
+  filter: blur(.2px);
+}
+
+/* Базовые цвета (можешь менять под свою палитру) */
+.swatch.s1{ background:#fac4d2; } /* светлый шалфей */
+.swatch.s2{ background: #f9ecc8; } /* зелёный */
+.swatch.s3{ background: #966441; } /* тёмный оливковый */
+.swatch.s4{ background: #603e32; } /* серо-зелёный */
+.swatch.s5{ background: #8c8d53; } /* молочный */
+.swatch.s6{ background: #c2d7ea; } /* пудра */
+
+/* Чуть меньше на маленьких экранах */
+@media (max-width: 480px){
+  .dresscode-section{ padding: 70px 14px 90px; }
+  .dresscode-text{ margin-bottom: 34px; }
+  .dresscode-palette{ gap: 6px; }
+  .swatch{
+    width: 36px;
+    height: 36px;
+    min-width: 36px;
+    min-height: 36px;
+  }
+}
+.dresscode-look{
+  margin-top: 48px;
+  display: flex;
+  justify-content: center;
+}
+
+.dresscode-image{
+  width: 100%;
+  max-width: 920px;     /* ⬅️ ограничиваем ширину */
+  height: auto;         /* ⬅️ запрещаем растяжение */
+  object-fit: contain;  /* ⬅️ сохраняет пропорции */
+  border-radius: 16px;  /* мягко, как в дизайне */
+}
+
+/* ===== ДЕТАЛИ (бутылки + анимация) ===== */
+.details-section{
+  background: #fbf7f3;
+  padding: clamp(48px, 8vw, 110px) clamp(16px, 4vw, 24px) clamp(24px, 4vw, 48px);
+  overflow: hidden;
+}
+
+.details-card{
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+.details-wrap{
+  max-width: 1100px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: clamp(32px, 4vw, 48px);
+}
+
+/* Блок с картинкой */
+.details-media{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.details-img{
+  width: 100%;
+  max-width: 280px;
+  height: auto;
+  display: block;
+  border-radius: 16px;
+  object-fit: contain;
+}
+
+/* Текст */
+.details-content{
+  max-width: 420px;
+}
+
+.details-title{
+  margin: 0 0 24px;
+  font-family: "Cormorant Garamond", serif;
+  font-size: var(--section-title-size);
+  font-weight: 500;
+  line-height: 1.15;
+  color: #1a1a1a;
+  text-align: center;
+}
+
+.details-text{
+  font-family: system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
+  font-size: clamp(16px, 2.1vw, 20px);
+  line-height: 1.55;
+  color: rgba(0,0,0,.45);
+  margin: 0;
+}
+
+/* ===== АНИМАЦИЯ “чокнуться” ===== */
+
+@media (max-width: 900px){
+  .details-wrap{
+    gap: 40px;
+    text-align: center;
+  }
+
+  .details-img{
+    max-width: 240px;
+  }
+
+  .details-content{
+    margin: 0 auto;
+    max-width: 100%;
+    padding: 0 16px;
+  }
+
+  .details-text{
+    text-align: center;
+  }
+}
+
+/* Телефон */
+@media (max-width: 600px){
+  .details-section{
+    padding: 40px 16px 32px;
+  }
+
+  .details-wrap{
+    gap: 32px;
+  }
+
+  .details-img{
+    max-width: 200px;
+  }
+}
+
+@media (max-width: 480px){
+  .details-section{
+    padding: 32px 12px 28px;
+  }
+
+  .details-content{
+    padding: 0 8px;
+  }
+}
+/* ===== КОНТАКТЫ как на рефе (карточка + жемчуг + боковые фото) ===== */
+.contacts-section{
+  position: relative;
+  background: #fbf7f3;
+  padding: 110px 18px 140px;
+  overflow: hidden;
+}
+
+/* боковые фото (как в рефе) */
+.contacts-section::before,
+.contacts-section::after{
+  content:"";
+  position:absolute;
+  top:50%;
+  width: 46vw;
+  max-width: 560px;
+  height: 82vh;
+  max-height: 760px;
+  transform: translateY(-50%);
+  background-size: cover;
+  background-position: center;
+  filter: blur(2.5px);
+  opacity: .9;
+  pointer-events: none;
+}
+
+.contacts-section::before{
+  left: -12vw;
+  background-image: url("images/contacts-left.jpg"); /* левое фото контактов */
+}
+
+.contacts-section::after{
+  right: -12vw;
+  background-image: url("images/contacts-right.jpg"); /* правое фото контактов */
+}
+
+/* центральная карточка */
+.contacts-card{
+  position: relative;
+  z-index: 2;
+  width: min(560px, 92vw);
+  margin: 0 auto;
+  padding: 56px 30px 48px;
+  text-align: center;
+  background: #fbf7f3;
+  overflow: hidden;
+}
+
+
+
+/* Заголовок секции (единый стиль с таймингом) */
+.contacts-title{
+  margin: 0 0 24px;
+  font-family: "Cormorant Garamond", serif;
+  font-size: var(--section-title-size);
+  font-weight: 500;
+  line-height: 1.15;
+  color: #1a1a1a;
+  text-align: center;
+  position: relative;
+  z-index: 1;
+}
+
+.contacts-subtitle{
+  margin: 0 auto 28px;
+  max-width: 420px;
+  font-family: system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
+  font-size: clamp(16px, 2.1vw, 20px);
+  line-height: 1.55;
+  color: rgba(0,0,0,.45);
+  position: relative;
+  z-index: 1;
+}
+
+.contacts-lines{
+  display: grid;
+  gap: 10px;
+margin: 0 auto 38px;
+  position: relative;
+  z-index: 1;
+}
+
+.contacts-link{
+  font-family: system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
+  font-size: 16px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: rgba(0,0,0,.55);
+  text-decoration: none;
+}
+
+.contacts-link:hover{
+  text-decoration: underline;
+}
+
+/* бренд */
+.contacts-brand{
+  margin-top: 10px;
+  position: relative;
+  z-index: 1;
+}
+
+.brand-name{
+  font-family: "Times New Roman","Georgia",serif;
+  font-size: clamp(28px, 3vw, 38px);
+  letter-spacing: 0.08em;
+  color: rgba(0,0,0,.75);
+}
+
+.brand-sub{
+  margin-top: 6px;
+  font-family: system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
+  font-size: 14px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: rgba(0,0,0,.45);
+}
+
+/* мобилка: боковые фото сильно приглушаем */
+@media (max-width: 640px){
+  .contacts-section::before,
+  .contacts-section::after{
+    opacity: .22;
+    filter: blur(3px);
+    width: 64vw;
+    height: 70vh;
+  }
+  .contacts-section::before{ left: -28vw; }
+  .contacts-section::after{ right: -28vw; }
+
+  .contacts-card{
+    padding: 46px 20px 42px;
+  }
+}
+.details-card{
+  position: relative;
+  z-index: 2;
+  width: min(980px, 92vw);
+  margin: 0 auto;
+  padding: clamp(24px, 4vw, 46px) clamp(20px, 4vw, 28px) clamp(24px, 4vw, 40px);
+  background: #fbf7f3;
+  border-radius: 22px;
+  text-align: center;
+}
+/* ===== Split Envelope Hero ===== */
+.env-hero{
+  min-height: 100vh;
+  background:url("images/envelope-bg.jpg");
+  display: grid;
+  place-items: center;
+  padding: 70px 18px 90px;
+}
+
+.env-stage{
+  width: min(520px, 92vw);
+  position: relative;
+}
+
+/* Опционально: фон размытой фоткой */
+.env-bg{
+  position: absolute;
+  inset: -80px -80px -80px -80px;
+  background: url("images/envelope-bg.jpg");
+  filter: blur(8px);
+  opacity: .28;
+  pointer-events: none;
+}
+
+/* Кнопка-конверт */
+.env{
+  position: relative;
+  width: 100%;
+  aspect-ratio: 3 / 4;      /* как на рефе под телефон */
+  border: 0;
+  padding: 0;
+  cursor: pointer;
+  background: transparent;
+  border-radius: 28px;
+  overflow: hidden;
+  z-index: 2;
+}
+
+/* 2 половинки */
+
+/* Подсказка на закрытом конверте */
+.env-hint{
+  position: absolute;
+  left: 50%;
+  bottom: 18%;
+  transform: translateX(-50%);
+  width: 88%;
+  text-align: center;
+  font-family: "Segoe Script","Brush Script MT","Pacifico",cursive;
+  font-size: clamp(16px, 2.5vw, 22px);
+  pointer-events: none;
+  transition: opacity 300ms ease;
+}
+
+/* Контент внутри (появляется после открытия) */
+.env-content{
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  gap: 10px;
+  opacity: 0;
+  transform: translateY(6px);
+  transition: opacity 450ms ease 350ms, transform 450ms ease 350ms;
+  pointer-events: none;
+}
+
+.env-title{
+  font-family: "Segoe Script","Brush Script MT","Pacifico",cursive;
+  font-size: clamp(34px, 5.4vw, 54px);
+  color: #6f2e37;
+}
+
+.env-text{
+  font-family: system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
+  font-size: clamp(14px, 2.2vw, 18px);
+  color: rgba(0,0,0,.48);
+}
+
+.env-cta{
+  margin-top: 8px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  height: 46px;
+  padding: 0 18px;
+  border-radius: 999px;
+  font-family: system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
+  font-size: 12px;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  background:url("images/envelope-bg.jpg")
+}
+
+/* ===== ОТКРЫТОЕ СОСТОЯНИЕ ===== */
+/* ===== Адаптивный split-конверт с НАХЛЁСТОМ и исчезанием ===== */
+
+/* Контейнер (лучше не слишком “длинный”) */
+.env{
+  width: min(520px, 92vw);
+  aspect-ratio: 3 / 4;          /* универсально для мобил/десктоп */
+  position: relative;
+  overflow: hidden;
+  border: 0;
+  background: url("images/envelope-bg.jpg");
+  border-radius: 28px;
+}
+
+/* Половинки */
+.env-half{
+  position: absolute;
+  left: 0;
+  width: 100%;
+  height: 56%;                   /* >50% = есть нахлёст */
+  background-size: cover;
+  background-position: center;
+  will-change: transform, opacity, filter;
+  transition:
+    transform 900ms cubic-bezier(.2,.8,.2,1),
+    opacity 650ms ease,
+    filter 650ms ease;
+}
+
+/* Верхняя половина — всегда поверх */
+.env-top{
+  top: 0;
+  z-index: 5;
+  background-image: url("images/envelope-top.png");
+}
+
+/* Нижняя половина — поднимаем вверх, чтобы верх “наезжал” */
+.env-bottom{
+  bottom: 0;
+  z-index: 4;
+  /* нахлёст адаптивно (в процентах от своей высоты) */
+  transform: translateY(-14%);
+  background-image: url("images/envelope-bottom.png");
+}
+
+/* В закрытом состоянии можно добавить лёгкую тень на линии нахлёста */
+.env::after{
+  content:"";
+  position:absolute;
+  left: 8%;
+  right: 8%;
+  top: 50%;
+  height: 2px;
+  transform: translateY(-50%);
+  background: url("images/envelope-bg.jpg");
+  filter: blur(.6px);
+  opacity: .35;
+  pointer-events:none;
+  transition: opacity 650ms ease;
+}
+
+/* ===== Открытое состояние: разъезд + исчезание ===== */
+/*
+  Вместо px используем:
+  - translateY в % (от высоты половинки)
+  - плюс небольшой адаптивный “добавочный” разъезд через clamp()
+*/
+.env.is-open .env-top{
+  transform: translateY(calc(-62% - clamp(10px, 2.2vh, 26px)));
+  opacity: 0;
+  filter: blur(0.6px);
+}
+
+.env.is-open .env-bottom{
+  /* важный момент: у нижней уже есть -14% в закрытом состоянии,
+     при открытии задаём новое значение полностью */
+  transform: translateY(calc(62% + clamp(10px, 2.2vh, 26px)));
+  opacity: 0;
+  filter: blur(0.6px);
+}
+
+/* линия разреза уходит */
+.env.is-open::after{
+  opacity: 0;
+}
+/* Бумага/фон под половинками */
+.env-paper{
+  position: absolute;
+  inset: 0;
+  z-index: 1; /* ВАЖНО: под половинками */
+  background: url("images/envelope-paper.png") center/cover no-repeat;
+  opacity: 1;
+  transition: opacity 650ms ease, filter 650ms ease;
+  will-change: opacity, filter;
+}
+
+/* Половинки должны быть выше */
+.env-half{ z-index: 4; }
+.env-top{ z-index: 5; }
+
+/* Контент должен быть под половинками, но может быть выше бумаги */
+.env-content{ z-index: 2; }
+
+/* При открытии: бумага тоже исчезает */
+.env.is-open .env-paper{
+  opacity: 0;
+  filter: blur(0.6px);
+}
+
+/* Если у пользователя включено “уменьшение анимации” */
+@media (prefers-reduced-motion: reduce){
+  .env-half, .env-content, .env-hint{
+    transition: none !important;
+  }
+}
+/* ===== Floating music player ===== */
+.music-player{
+  position: fixed;
+  right: 16px;
+  top: 16px;
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 12px;
+  border-radius: 999px;
+  background: rgba(236,231,225,.72);
+  border: 1px solid rgba(124, 86, 92, 0.35);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  box-shadow: 0 12px 34px rgba(0,0,0,.12);
+}
+
+.music-btn{
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  border: 1.5px solid rgba(124, 86, 92, 0.55);
+  background: rgba(251,247,243,.8);
+  color: rgba(0,0,0,.55);
+  font-size: 18px;
+  cursor: pointer;
+  display: grid;
+  place-items: center;
+  transition: transform .15s ease, background .15s ease;
+}
+
+.music-btn:hover{
+  transform: translateY(-1px);
+  background: rgba(124,86,92,.08);
+}
+
+.music-meta{
+  min-width: 160px;
+  max-width: 220px;
+  text-align: left;
+  line-height: 1.1;
+}
+
+.music-title{
+  font-family: system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
+  font-size: 12px;
+  letter-spacing: .10em;
+  text-transform: uppercase;
+  color: rgba(0,0,0,.55);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.music-status{
+  margin-top: 4px;
+  font-family: system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
+  font-size: 12px;
+  color: rgba(0,0,0,.42);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* когда играет — лёгкая “пульсация” */
+.music-player.is-playing .music-btn{
+  animation: musicPulse 1.2s ease-in-out infinite;
+}
+
+@keyframes musicPulse{
+  0%,100%{ transform: scale(1); }
+  50%{ transform: scale(1.06); }
+}
+
+@media (max-width: 420px){
+  .music-meta{ display:none; } /* на маленьких экранах оставим только кнопку */
+}
+/* ===== Календарь: ровные колонки + месяц снизу ===== */
+.calendar-block{
+  width: min(920px, 92vw);
+  margin: 26px auto 10px;
+  text-align: center;
+}
+
+.cal-grid{
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: clamp(10px, 2vw, 26px);
+  align-items: center;
+  justify-items: center;
+}
+
+/* общий стиль ячеек */
+.cal-cell{
+  font-family: system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
+  color: rgba(0,0,0,.42);
+}
+
+/* дни недели */
+.cal-head{
+  font-size: clamp(14px, 2vw, 22px);
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+
+/* числа */
+.cal-day{
+  font-size: clamp(16px, 2.2vw, 22px);
+  letter-spacing: 0.02em;
+  min-height: 54px;                 /* чтобы ряд был одной высоты */
+  display: grid;
+  place-items: center;
+  position: relative;
+}
+
+/* сердечко вокруг числа */
+.cal-day.is-heart .cal-num{
+  position: relative;
+  z-index: 2;
+  font-weight: 500;
+  color: rgba(0,0,0,.55);
+}
+
+/* рисуем сердечко CSS */
+.cal-day.is-heart .cal-heart{
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 64px;
+  height: 56px;
+  transform: translate(-50%, -52%);
+  border: 2px solid rgba(124, 86, 92, 0.85);
+  border-top: 0;
+  border-right: 0;
+  border-radius: 18px 18px 60px 60px;
+  rotate: -45deg;
+}
+
+/* “хвостик” сердечка вниз */
+.cal-day.is-heart::after{
+  content:"";
+  position:absolute;
+  left:50%;
+  top: calc(50% + 26px);
+  width: 2px;
+  height: 18px;
+  transform: translateX(-50%);
+  background: rgba(124, 86, 92, 0.85);
+  border-radius: 2px;
+}
+
+/* месяц снизу */
+.cal-month{
+  margin-top: 10px;
+  font-family: "Segoe Script","Brush Script MT","Pacifico",cursive;
+  font-size: clamp(24px, 3.4vw, 40px);
+  color: rgba(124, 86, 92, 0.95);
+}
+
+/* На очень узких экранах чуть уменьшаем сердечко */
+@media (max-width: 420px){
+  .cal-day.is-heart .cal-heart{
+    width: 54px;
+    height: 48px;
+  }
+  .cal-day.is-heart::after{
+    top: calc(50% + 22px);
+    height: 16px;
+  }
+}
+/* ===== СЕКЦИЯ КАЛЕНДАРЯ (аккуратные отступы) ===== */
+.calendar-section{
+  padding: 60px 0 70px;   /* чтобы не было «полотна» */
+  background: #ece7e1;
+}
+
+.calendar-block{
+  width: min(920px, 92vw);
+  margin: 0 auto;
+  text-align: center;
+}
+
+/* 3 ряда: дни недели / числа / месяц */
+.cal-grid{
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  grid-template-rows: auto auto auto;
+  row-gap: 22px;
+  column-gap: clamp(12px, 2.5vw, 30px);
+  align-items: center;
+  justify-items: center;
+}
+
+/* общие */
+.cal-cell{
+  font-family: system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
+  color: rgba(0,0,0,.38);
+}
+
+/* дни недели */
+.cal-head{
+  font-size: clamp(14px, 2vw, 22px);
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+}
+
+/* числа */
+.cal-day{
+  font-size: clamp(16px, 2.4vw, 22px);
+  min-height: 60px;
+  display: grid;
+  place-items: center;
+  position: relative;
+}
+
+/* ===== Сердечко и цифра по центру ===== */
+.cal-day.is-heart .cal-num{
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -56%);
+  z-index: 3;
+  font-weight: 500;
+  color: rgba(0,0,0,.60);
+  line-height: 1;
+}
+
+
+/* ===== СТАБИЛЬНОЕ СЕРДЦЕ + ПАЛОЧКА (SVG) ===== */
+.cal-day.is-heart{
+  position: relative;
+  min-height: 90px; /* чуть выше чтобы палочка влезала */
+}
+
+.cal-day.is-heart .heart-pin{
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: clamp(62px, 7.2vw, 84px);
+  height: auto;
+  transform: translate(-50%, -52%); /* центрируем как в рефе */
+  z-index: 1;
+  pointer-events: none;
+}
+
+/* цифра строго по центру сердца */
+.cal-day.is-heart .cal-num{
+  position: absolute;
+  left: 50%;
+  top: calc(50% - 8px); /* важный сдвиг для центра сердца */
+  transform: translate(-50%, -50%);
+  z-index: 2;
+  font-weight: 500;
+  color: rgba(0,0,0,.60);
+  line-height: 1;
+}
+
+/* месяц чуть ближе к палочке */
+.cal-month{
+  margin-top: -14px;
+}
+/* ===== Месяц: в колонке ЧТ, смещён вправо от палочки (как в рефе) ===== */
+.cal-month{
+  grid-column: 4;              /* ЧТ */
+  justify-self: start;         /* чтобы слово было справа */
+  padding-left: 22px;          /* сдвиг вправо от палочки */
+  margin-top: -10px;           /* поднимаем ближе, чтобы палочка "втыкалась" */
+  font-family: "Segoe Script","Brush Script MT","Pacifico",cursive;
+  font-size: clamp(26px, 3.6vw, 42px);
+  color: rgba(124, 86, 92, 0.95);
+  line-height: 1;
+}
+.cal-day.is-heart{
+  position: relative;
+  min-height: 110px;
+}
+
+.cal-day.is-heart .heart-pin{
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: clamp(64px, 7vw, 86px);
+  height: auto;
+  transform: translate(-50%, -55%);
+  z-index: 1;
+  pointer-events: none;
+}
+
+/* 6 строго по центру сердца */
+.cal-day.is-heart .cal-num{
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -62%);
+  z-index: 2;
+  font-weight: 500;
+  font-size: clamp(16px, 2.2vw, 20px);
+  color: rgba(0,0,0,.60);
+  line-height: 1;
+}
+/* Ячейка календаря должна быть относительной, чтобы позиционировать сердце внутри */
+.cal-cell.cal-day{
+  position: relative;
+  min-height: 70px;
+}
+
+/* Ячейка с сердцем — выше, чтобы влезла палочка */
+.cal-cell.cal-day--heart{
+  min-height: 120px;
+}
+
+/* Само сердце — строго ограничиваем размер, чтобы не растягивалось */
+.heart-pin{
+  position: absolute;
+  left: 50%;
+  top: 10px;
+  transform: translateX(-50%);
+  width: clamp(44px, 6vw, 64px);
+  height: auto;
+  display: block;
+  pointer-events: none;
+}
+
+/* Цифра 6 — в центре сердечка */
+.cal-day--heart .cal-num{
+  position: absolute;
+  left: 50%;
+  top: 44px;                 /* центр сердечка */
+  transform: translate(-50%, -50%);
+  font-size: clamp(14px, 2vw, 18px);
+  line-height: 1;
+  color: rgba(0,0,0,.55);
+  font-weight: 500;
+}
+/* мобильная подстройка */
+@media (max-width: 420px){
+  .cal-grid{ row-gap: 18px; }
+  .cal-day.is-heart::after{ height: 52px; }
+  .cal-month{ padding-left: 18px; margin-top: -8px; }
+}
+/* ===== КАЛЕНДАРЬ: адаптивная сетка 7 колонок ===== */
+.calendar-block{
+  width: min(720px, 92vw);
+  margin: 28px auto 40px;
+  text-align: center;
+}
+
+/* сетка: 7 одинаковых колонок */
+.calendar-grid{
+  width: 100%;
+  display: grid;
+  grid-template-columns: repeat(7, minmax(0, 1fr));
+  row-gap: 18px;
+  align-items: center;
+  justify-items: center;
+}
+
+/* дни недели */
+.calendar-grid .cal-dow{
+  font-family: system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
+  font-size: clamp(14px, 2.6vw, 22px);
+  letter-spacing: .18em;
+  text-transform: uppercase;
+  color: rgba(0,0,0,.35);
+  white-space: nowrap; /* чтобы "ВС" не переносилось */
+}
+
+/* числа */
+.calendar-grid .cal-num{
+  font-family: system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
+  font-size: clamp(16px, 3vw, 26px);
+  color: rgba(0,0,0,.30);
+}
+
+/* ячейка с сердцем (там где "6") */
+.calendar-grid .cal-heart{
+  position: relative;
+  width: 100%;
+  display: grid;
+  place-items: center;
+}
+
+/* само svg сердца */
+.calendar-grid .cal-heart svg{
+  width: clamp(54px, 12vw, 84px);
+  height: auto;
+  display: block;
+}
+
+/* цифра внутри сердца — строго по центру */
+.calendar-grid .cal-heart .heart-num{
+  position: absolute;
+  top: 43%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-family: system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
+  font-size: clamp(14px, 3vw, 20px);
+  color: rgba(0,0,0,.45);
+}
+
+/* подпись месяца */
+.calendar-month{
+  margin-top: 14px;
+  font-family: "Segoe Script", "Brush Script MT", "Pacifico", cursive;
+  font-size: clamp(26px, 6vw, 44px);
+  color: #7c565c;
+}
+
+/* мобильная докрутка: чуть больше воздуха и меньше “жмёт” */
+@media (max-width: 520px){
+  .calendar-block{
+    width: 92vw;
+    margin: 18px auto 30px;
+  }
+  .calendar-grid{
+    row-gap: 14px;
+  }
+}
+/* ===== TIMER COVER (как на рефе) ===== */
+.timer-cover{
+  position: relative;
+  min-height: 100vh;
+  width: 100%;
+  display: grid;
+  place-items: center;
+  padding: clamp(18px, 4vw, 40px) 12px;
+  overflow: hidden;
+}
+
+/* ФОН-КАРТИНКА (размытая) */
+.timer-cover__bg{
+  position: absolute;
+  inset: 0;
+  background: url("images/bg-timer.jpg") center/cover no-repeat;
+  filter: blur(10px) saturate(1.05);
+  transform: scale(1.08);
+}
+
+/* лёгкая “дымка”, чтобы текст читался */
+.timer-cover::after{
+  content:"";
+  position:absolute;
+  inset:0;
+  background: radial-gradient(ellipse at center,
+    rgba(255,255,255,.10),
+    rgba(255,255,255,.55)
+  );
+}
+
+/* КАРТОЧКА */
+.timer-card{
+  position: relative;
+  z-index: 2;
+  width: min(420px, 92vw);
+  background: #fbf7f3;               /* бумажный тон */
+  border-radius: 26px;
+  padding: clamp(18px, 4.5vw, 34px) clamp(16px, 4vw, 28px);
+  box-shadow: 0 26px 70px rgba(0,0,0,.18);
+  border: 1px solid rgba(0,0,0,.06);
+  text-align: center;
+}
+
+/* “пузырики/блики” — чтобы было похоже на реф */
+.timer-card::before{
+  content:"";
+  position:absolute;
+  inset:-40px -30px;
+  pointer-events:none;
+  opacity:.75;
+  background:
+    radial-gradient(circle at 18% 35%, rgba(255,255,255,.85) 0 18px, transparent 19px),
+    radial-gradient(circle at 76% 40%, rgba(255,255,255,.75) 0 10px, transparent 11px),
+    radial-gradient(circle at 86% 62%, rgba(255,255,255,.65) 0 14px, transparent 15px),
+    radial-gradient(circle at 22% 78%, rgba(255,255,255,.60) 0 12px, transparent 13px);
+}
+
+/* Заголовок */
+.timer-card__title{
+  margin: 0 0 10px;
+  font-family: "Segoe Script","Brush Script MT","Pacifico",cursive;
+  font-weight: 400;
+  font-size: clamp(28px, 6.2vw, 44px);
+  line-height: 1.05;
+  color: #6f2e37;
+}
+
+/* Текст */
+.timer-card__text{
+  margin: 0 auto 18px;
+  max-width: 34ch;
+  font-family: "Times New Roman","Georgia",serif;
+  font-size: clamp(14px, 3.4vw, 18px);
+  line-height: 1.55;
+  color: rgba(0,0,0,.55);
+}
+
+/* Таймер “как на рефе”: цифры в строку с двоеточиями */
+.timer-inline{
+  margin-top: 12px;
+}
+
+.timer-inline__digits{
+  font-family: "Times New Roman","Georgia",serif;
+  font-weight: 600;
+  font-size: clamp(26px, 7.5vw, 44px);
+  letter-spacing: .12em;               /* красиво как на рефе */
+  color: #6f2e37;
+}
+
+/* подписи под группами */
+.timer-inline__labels{
+  margin-top: 8px;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 10px;
+  font-family: "Times New Roman","Georgia",serif;
+  font-size: clamp(12px, 3vw, 14px);
+  letter-spacing: .10em;
+  text-transform: lowercase;
+  color: rgba(0,0,0,.55);
+}
+
+/* ===== Мобилка: сохраняем вид 1-в-1 ===== */
+@media (max-width: 380px){
+  .timer-card{ border-radius: 22px; }
+  .timer-inline__digits{ letter-spacing: .08em; }
+}
+/* ===== Таймер — в одной стилистике с сайтом ===== */
+.timer-section{
+  width: 100%;
+  background: #fbf7f3;
+  padding: clamp(48px, 8vw, 80px) clamp(16px, 4vw, 24px) clamp(56px, 8vw, 90px);
+  text-align: center;
+}
+
+.timer-wrap{
+  width: min(720px, 92vw);
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.timer-section__title{
+  font-family: "Cormorant Garamond", serif;
+  font-size: var(--section-title-size);
+  font-weight: 500;
+  line-height: 1.15;
+  color: #1a1a1a;
+  margin: 0 0 32px;
+  width: 100%;
+  text-align: center;
+  order: -1;
+}
+
+.timer{
+  display: inline-block;
+}
+
+.timer-row{
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  gap: clamp(10px, 2.2vw, 16px);
+}
+
+.timer-cell{
+  display: grid;
+  grid-template-rows: auto auto;
+  justify-items: center;
+  row-gap: 10px;
+  min-width: clamp(56px, 10vw, 92px);
+}
+
+.timer-num{
+  font-family: "Times New Roman", "Georgia", serif;
+  font-weight: 600;
+  color: #8b3a3a;
+  font-size: clamp(44px, 8.8vw, 72px);
+  line-height: 1;
+  letter-spacing: 0.02em;
+  font-variant-numeric: tabular-nums;
+}
+
+.timer-label{
+  font-family: "Times New Roman", "Georgia", serif;
+  font-size: clamp(12px, 2.8vw, 16px);
+  letter-spacing: 0.18em;
+  text-transform: lowercase;
+  color: var(--muted);
+  line-height: 1;
+}
+
+.timer-sep{
+  font-family: "Times New Roman", "Georgia", serif;
+  font-weight: 400;
+  color: #8b3a3a;
+  font-size: clamp(38px, 7vw, 58px);
+  line-height: 1;
+  transform: translateY(-2px);
+  user-select: none;
+}
+
+/* Мобилка — компактнее, но ровно как на рефе */
+@media (max-width: 420px){
+  .timer-section{ padding: 34px 0 6px; }
+  .timer-row{ gap: 10px; }
+  .timer-cell{ min-width: 54px; row-gap: 8px; }
+  .timer-label{ letter-spacing: 0.14em; }
+}
+
+/* Очень узкие экраны — уменьшаем разделители */
+@media (max-width: 360px){
+  .timer-sep{ font-size: 34px; }
+  .timer-cell{ min-width: 50px; }
+}
+/* ===== FIX: таймер по центру на телефонах ===== */
+.timer-section{
+  width: 100%;
+}
+
+.timer-wrap{
+  width: 100%;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.timer{
+  margin: 0 auto;
+  display: inline-block;
+  text-align: center;
+}
+
+/* если вдруг где-то было позиционирование */
+.timer-row{
+  width: auto;
+  margin: 0 auto;
+  justify-content: center;
+}
+
+/* страховка на мобилке */
+@media (max-width: 640px){
+  .timer-section{
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+  }
+
+  .timer-wrap{
+    padding-left: 12px;
+    padding-right: 12px;
+  }
+
+  .timer{
+    position: relative !important;
+    left: auto !important;
+    right: auto !important;
+    transform: none !important;
+  }
+}
+/* если таймер внутри общей "карточки"/блока */
+#timer, .timer-section{
+  overflow: hidden;
+}
+/* =========================
+   CALENDAR — RESPONSIVE FIX
+   Вставь в самый низ styles.css
+========================= */
+
+/* Секция календаря (фон/отступы) */
+.calendar-section{
+  padding: clamp(24px, 5vw, 64px) 0;
+}
+
+/* Карточка/контейнер календаря (если календарь лежит внутри .card) */
+.calendar-section .card{
+  width: min(760px, 94vw);
+  margin: 0 auto;
+  padding: clamp(22px, 4vw, 48px) clamp(16px, 3vw, 44px);
+  box-sizing: border-box;
+}
+
+/* Сетка календаря */
+.cal-grid{
+  display: grid;
+  grid-template-columns: repeat(7, minmax(0, 1fr));
+  grid-auto-rows: minmax(34px, auto);
+  gap: clamp(12px, 2.2vw, 26px);
+  align-items: center;
+  justify-items: center;
+  width: 100%;
+  margin: clamp(14px, 3vw, 26px) auto 0;
+  box-sizing: border-box;
+}
+
+/* Дни недели */
+.cal-head{
+  font-family: "Times New Roman", "Georgia", serif;
+  font-size: clamp(12px, 2.2vw, 18px);
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: rgba(0,0,0,.35);
+}
+
+/* Числа */
+.cal-day{
+  font-family: "Times New Roman", "Georgia", serif;
+  font-size: clamp(14px, 2.3vw, 20px);
+  color: rgba(0,0,0,.35);
+}
+
+/* Месяц (Август) — отдельной строкой по центру */
+.cal-month{
+  grid-column: 1 / -1;
+  justify-self: center;
+  text-align: center;
+  margin-top: clamp(8px, 1.8vw, 16px);
+  font-family: "Segoe Script", "Brush Script MT", "Pacifico", cursive;
+  font-size: clamp(28px, 6vw, 52px);
+  font-weight: 400;
+  color: #6f2e37;
+}
+
+/* Сердце + палочка (svg) — фиксируем в одной ячейке,
+   чтобы не "плавало" на мобилках */
+.heart-pin{
+  width: clamp(44px, 9vw, 86px);
+  height: clamp(70px, 14vw, 130px);
+  overflow: visible;
+  display: block;
+}
+
+/* Цифра внутри сердца (если это <text> внутри svg) */
+.heart-pin text{
+  dominant-baseline: middle;
+  text-anchor: middle;
+}
+
+/* Если у тебя отдельный span с числом внутри клетки — центрируем */
+.cal-num-in-heart{
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  font-family: "Times New Roman", "Georgia", serif;
+  color: rgba(0,0,0,.55);
+}
+
+/* Подстраховка: чтобы ничего не вылезало за края на маленьких экранах */
+.calendar-section,
+.calendar-section *{
+  box-sizing: border-box;
+}
+
+@media (max-width: 560px){
+  /* меньше расстояния между колонками, чтобы ВС/ПН не улетали */
+  .cal-grid{
+    gap: 12px;
+  }
+
+  /* уменьшаем межбуквенное у дней недели — на телефоне иначе "раздвигает" */
+  .cal-head{
+    letter-spacing: 0.10em;
+  }
+
+  /* карточку делаем чуть шире относительно экрана */
+  .calendar-section .card{
+    width: min(760px, 96vw);
+    padding: 22px 14px;
+  }
+}
+
+@media (max-width: 380px){
+  /* самые узкие телефоны */
+  .cal-grid{ gap: 10px; }
+  .cal-head{ font-size: 12px; }
+  .cal-day{ font-size: 14px; }
+}
+/* Очень узкие экраны — таймер */
+@media (max-width: 360px){
+  .timer-sep{ font-size: 34px; }
+  .timer-cell{ min-width: 50px; }
+}
+/* =========================
+   INTRO (сердце-окно)
+   ========================= */
+
+.intro {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  display: block;
+  background: #a32323;
+  overflow: hidden;
+
+  /* Настройки */
+  --baseHeart: 0.42;           /* ← стартовый размер сердца (делай меньше/больше) */
+  --maskScale: 1;              /* а это уже анимационный множитель */
+  --hitSize: clamp(220px, 44vmin, 360px);
+
+  --fadeDur: 700ms;
+  --scaleDur: 1100ms;
+  --ease: cubic-bezier(.2,.9,.2,1);
+}
+
+/* Виньетка (как в рефе) */
+.intro::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(ellipse at center,
+      rgba(255,255,255,0.08) 0%,
+      rgba(0,0,0,0.25) 60%,
+      rgba(0,0,0,0.45) 100%);
+  pointer-events: none;
+}
+
+/* SVG на весь экран (делает “дырку”-сердце) */
+.intro__svg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+}
+
+/* Контент — привязываем к центру экрана */
+.intro__content {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+}
+
+/* Кликабельная зона (по центру) */
+.intro__hit {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: var(--hitSize);
+  aspect-ratio: 1 / 1;
+  transform: translate(-50%, -50%);
+  cursor: pointer;
+  z-index: 5;
+
+  background: transparent !important;
+  border: 0;
+  outline: none;
+
+  /* убираем серый тап-квадрат на iOS/Android */
+  -webkit-tap-highlight-color: transparent;
+  -webkit-touch-callout: none;
+  user-select: none;
+  touch-action: manipulation;
+}
+
+.intro__hit:active,
+.intro__hit:focus,
+.intro__hit:focus-visible {
+  outline: none;
+  background: transparent !important;
+}
+
+/* ТЕКСТ — всегда относительно сердца/центра */
+.intro__title {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, calc(-50% + (var(--hitSize) * 0.22)));
+  margin: 0;
+
+  font-family: "Cormorant Garamond", serif;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.92);
+
+  /* уменьши текст тут */
+  font-size: clamp(16px, 2.2vw, 26px);
+  text-align: center;
+  white-space: nowrap;
+}
+
+.intro__hint {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, calc(-50% + (var(--hitSize) * 0.34)));
+  margin: 0;
+
+  font-family: system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
+  font-size: 12px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.75);
+  text-align: center;
+
+  /* чтобы не было выделения/подсветки */
+  -webkit-tap-highlight-color: transparent;
+  user-select: none;
+}
+
+/* СЕРДЦЕ В МАСКЕ — базовый размер * анимационный множитель */
+.intro__mask-heart {
+  transform-box: fill-box;
+  transform-origin: 50% 50%;
+  transform: scale(calc(var(--baseHeart) * var(--maskScale)));
+  transition: transform var(--scaleDur) var(--ease);
+}
+
+/* ОБВОДКА СЕРДЦА — базовый размер */
+.intro__stroke-heart {
+  transform-box: fill-box;
+  transform-origin: 50% 50%;
+  transform: scale(var(--baseHeart));
+  transition: transform var(--scaleDur) var(--ease), opacity var(--fadeDur) ease;
+  opacity: 0.95;
+  filter: drop-shadow(0 14px 18px rgba(0,0,0,0.25));
+}
+
+/* Плавное исчезновение ТЕКСТА вместе с сердцем */
+.intro__title,
+.intro__hint {
+  transition: opacity var(--fadeDur) ease, transform var(--fadeDur) ease;
+}
+
+/* ОТКРЫТИЕ: сердце “раздувает” дырку + всё плавно растворяется */
+.intro.intro--open {
+  opacity: 0;
+  transition: opacity var(--fadeDur) ease;
+  pointer-events: none;
+  --maskScale: 26;
+}
+
+.intro.intro--open .intro__stroke-heart {
+  transform: scale(calc(var(--baseHeart) * 1.12));
+  opacity: 0;
+}
+
+.intro.intro--open .intro__title,
+.intro.intro--open .intro__hint {
+  opacity: 0;
+  transform: translate(-50%, calc(-50% + (var(--hitSize) * 0.22))) scale(0.98);
+}
+
+/* На телефонах чуть по-другому (если надо) */
+@media (max-width: 640px) {
+  .intro {
+    --textShift: -10px; /* мобильная подстройка */
+  }
+
+  
+}
+
+/* Заголовок */
+.intro__title{
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, calc(-50% + var(--textShift)));
+  margin: 0;
+
+  font-family: "Cormorant Garamond", serif;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.92);
+
+  font-size: clamp(14px, 2vw, 22px);
+  line-height: 1.25;
+  text-align: center;
+
+  max-width: min(92vw, 900px);
+  pointer-events: none;
+}
+
+/* Подсказка */
+.intro__hint{
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(
+    -50%,
+    calc(-50% + var(--textShift) + 42px)
+  );
+  margin: 0;
+
+  font-size: 11px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.75);
+  text-align: center;
+
+  pointer-events: none;
+  -webkit-tap-highlight-color: transparent;
+  user-select: none;
+}
+/* ===== INTRO: текст снизу под сердцем (адаптив) ===== */
+
+.intro__content{
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-end; /* текст уходит вниз */
+  padding: clamp(18px, 4vh, 44px) 16px;
+  gap: clamp(10px, 2vh, 16px);
+  z-index: 2;
+}
+
+/* Кликабельная зона поверх сердца (оставь как было, НО добавь это) */
+.intro__hit{
+  -webkit-tap-highlight-color: transparent;
+  -webkit-touch-callout: none;
+  user-select: none;
+  touch-action: manipulation;
+}
+.intro__hit:active{ background: transparent; }
+
+/* Блок текста снизу */
+.intro__text{
+  width: min(92vw, 900px);
+  text-align: center;
+  pointer-events: none; /* чтобы клик уходил в сердце */
+}
+
+/* Заголовок */
+.intro__title{
+  margin: 0;
+  font-family: "Cormorant Garamond", serif;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.92);
+
+  font-size: clamp(14px, 2.2vw, 24px);
+  line-height: 1.25;
+}
+
+/* Подсказка */
+.intro__hint{
+  margin: clamp(6px, 1.2vh, 10px) 0 0;
+  font-size: clamp(10px, 1.4vw, 12px);
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.75);
+}
+
+/* На очень маленьких экранах — чуть компактнее */
+@media (max-width: 420px){
+  .intro__content{ padding-bottom: 18px; }
+  .intro__title{ letter-spacing: 0.06em; }
+}
+/* === HOTFIX: выносим текст ПОД сердце и убиваем старые absolute-правила === */
+
+.intro__content{
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-end;
+
+  /* ⬇️ ВОТ ЭТО ГЛАВНОЕ */
+  padding-bottom: clamp(12px, 2.5vh, 22px);
+
+  padding-left: 16px;
+  padding-right: 16px;
+  z-index: 2;
+}
+
+.intro__text{
+  width: min(92vw, 900px);
+  text-align: center;
+  pointer-events: none;
+  margin-top: -165px; /* ← поднимает текст к сердцу */
+}
+/* ВАЖНО: сброс любых старых position/top/transform */
+.intro__title,
+.intro__hint{
+  position: static !important;
+  left: auto !important;
+  top: auto !important;
+  right: auto !important;
+  bottom: auto !important;
+  transform: none !important;
+}
+
+/* Адаптивный заголовок под любые экраны */
+.intro__title{
+  /* размер шрифта под экран */
+  font-size: clamp(14px, 3.6vw, 26px);
+  line-height: 1.15;
+
+  /* важно: разрешаем перенос */
+  white-space: normal;
+  text-wrap: balance;          /* если поддерживается */
+  overflow-wrap: anywhere;     /* если вдруг не влазит */
+  word-break: normal;
+
+  /* ограничиваем ширину, чтобы красиво переносилось */
+  max-width: min(88vw, 520px);
+
+  /* выравнивание */
+  text-align: center;
+  margin: 0;
+
+  /* чтобы не было “расползания” букв на мобиле */
+  letter-spacing: clamp(0.04em, 0.35vw, 0.08em);
+}
+.intro__hint{
+  margin: clamp(6px, 1.2vh, 10px) 0 0 !important;
+  font-size: clamp(10px, 1.4vw, 12px);
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.75);
+}
+
+/* убираем серый “квадрат” тап-хайлайта на iOS/Android */
+.intro__hit{
+  -webkit-tap-highlight-color: transparent;
+  -webkit-touch-callout: none;
+  user-select: none;
+  touch-action: manipulation;
+}
+.intro__hit:active{ background: transparent; }
+/* ================================
+   INTRO: плавное увеличение сердца + одновременное исчезание текста
+   ВСТАВЬ В КОНЕЦ styles.css
+================================ */
+
+/* скорость/плавность (можешь менять) */
+:root{
+  --introDur: 1600ms;            /* общая длительность */
+  --introEase: cubic-bezier(.4,0,.2,1);
+  --introScale: 1.45;            /* насколько увеличивается сердце */
+}
+
+/* убираем серый квадрат при тапе и выделение */
+.intro, .intro *{
+  -webkit-tap-highlight-color: transparent;
+}
+.intro__hit{
+  background: transparent;
+  outline: none;
+  border: 0;
+  user-select: none;
+  -webkit-user-select: none;
+  -webkit-touch-callout: none;
+  touch-action: manipulation;
+}
+
+/* анимации для сердца */
+/* Масштабируем ВЕСЬ SVG сердца */
+.intro__heart{
+  transform-origin: 50% 50%;
+  transition:
+    transform var(--introDur) var(--introEase),
+    opacity   var(--introDur) ease;
+  will-change: transform, opacity;
+}
+
+/* Маска — ТОЛЬКО исчезает */
+.intro__mask-heart{
+  transition: opacity var(--introDur) ease;
+}
+
+/* анимация для текста */
+.intro__title,
+.intro__hint{
+  transition: opacity var(--introDur) ease;
+  will-change: opacity;
+}
+
+/* само "уходящее" интро (фон) */
+.intro{
+  opacity: 1;
+  transition: opacity var(--introDur) ease;
+}
+
+/* запуск анимации (по клику) */
+.intro.is-opening .intro__mask-heart,
+.intro.is-opening .intro__stroke-heart{
+  transform: scale(var(--introScale));
+  opacity: 0;
+}
+
+.intro.is-opening .intro__title,
+.intro.is-opening .intro__hint{
+  opacity: 0;
+}
+
+/* фон тоже плавно исчезает */
+.intro.is-opening{
+  opacity: 0;
+}
+
+/* финально скрыто */
+.intro.is-hidden{
+  display: none !important;
+}
+/* ===============================
+   📱 ТОЛЬКО ТЕЛЕФОНЫ
+   =============================== */
+@media (max-width: 600px) {
+
+  /* Контейнер с текстом */
+  .intro__text{
+    margin-top: -35px; /* ⬆ поднимаем текст к сердцу */
+  }
+
+  /* Заголовок */
+  .intro__title{
+    font-size: clamp(16px, 5vw, 22px); /* ⬆ крупнее на мобилке */
+    line-height: 1.3;
+    margin-bottom: 10px;
+  }
+
+  /* Подсказка */
+  .intro__hint{
+    font-size: 12px; /* чуть читаемее */
+    letter-spacing: 0.14em;
+  }
+}
+/* =========================
+   HERO (главная как референс)
+   ========================= */
+
+.hero{
+  min-height: 100vh;
+  background: #f4f1ec; /* тёплый светлый */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: clamp(24px, 5vw, 64px) 16px;
+}
+
+.hero__inner{
+  width: min(1100px, 100%);
+  display: grid;
+  grid-template-columns: 1fr 320px;
+  gap: clamp(18px, 4vw, 48px);
+  align-items: center;
+}
+
+/* Центр */
+.hero__center{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.hero__kicker{
+  font-size: 14px;
+  letter-spacing: 0.08em;
+  color: rgba(0,0,0,0.55);
+  margin-bottom: 18px;
+}
+
+/* Большая типографика */
+.hero__headline{
+  margin: 0;
+  font-family: "Cormorant Garamond", serif;
+  font-weight: 500;
+  line-height: 0.95;
+  letter-spacing: 0.02em;
+  font-size: clamp(44px, 6vw, 88px);
+  color: #1d1b18;
+}
+
+.hero__headline span{
+  display: block;
+}
+
+.hero__headline .is-accent{
+  color: #8a2c2c; /* красный акцент как на референсе */
+}
+
+/* Нижний текст */
+.hero__info{
+  margin-top: clamp(18px, 3vw, 28px);
+  font-size: 14px;
+  line-height: 1.6;
+  color: rgba(0,0,0,0.55);
+}
+
+.hero__info b{
+  color: rgba(0,0,0,0.75);
+  font-weight: 600;
+}
+
+/* Правая часть */
+.hero__right{
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 22px;
+}
+
+.hero__chandelier{
+  width: 100%;
+  max-width: 280px;
+  height: auto;
+  opacity: 0.9;
+  filter: contrast(1.05);
+}
+
+/* Music блок */
+.hero__music{
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  color: rgba(0,0,0,0.55);
+}
+
+.hero__music-circle{
+  width: 44px;
+  height: 44px;
+  border-radius: 999px;
+  display: grid;
+  place-items: center;
+  border: 1px solid rgba(0,0,0,0.2);
+  font-family: "Cormorant Garamond", serif;
+  font-weight: 600;
+}
+
+.hero__music-title{
+  font-family: "Cormorant Garamond", serif;
+  font-size: 16px;
+  color: rgba(0,0,0,0.65);
+  margin-bottom: 2px;
+}
+
+.hero__music-sub{
+  font-size: 12px;
+  line-height: 1.35;
+}
+
+/* Адаптив */
+@media (max-width: 900px){
+  .hero__inner{
+    grid-template-columns: 1fr;
+    justify-items: center;
+  }
+  .hero__right{
+    order: -1; /* на мобиле люстра сверху */
+  }
+  .hero__chandelier{
+    max-width: 220px;
+  }
+}
+/* ===== Блок "Все это и не только..." как в референсе ===== */
+
+.main__note{
+  margin: 22px 0 0;
+  max-width: 320px;              /* чтобы текст был компактным, как в рефе */
+  font-family: system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
+  font-size: clamp(14px, 1.2vw, 18px);
+  line-height: 1.7;
+  color: rgba(0,0,0,0.55);        /* лёгкий серый */
+  font-weight: 400;
+  letter-spacing: 0.01em;
+  text-align: left;
+}
+
+.main__note-date{
+  font-weight: 500;               /* дата чуть выразительнее */
+  color: rgba(0,0,0,0.72);
+}
+
+/* На телефонах обычно этот блок лучше смотрится по центру */
+@media (max-width: 640px){
+  .main__note{
+    max-width: 92vw;
+    text-align: center;
+    margin: 18px auto 0;
+  }
+}
+/* === HERO: левое выравнивание как в референсе === */
+
+.hero_center{
+  align-items: flex-start;
+  text-align: left;
+}
+
+/* Заголовок */
+.hero_headline{
+  text-align: left;
+}
+
+/* Нижний текст */
+.hero_info,
+.main_note{
+  text-align: left;
+  margin-left: 0;
+}
+
+/* Ограничиваем ширину, чтобы было "колонкой", а не растянуто */
+.hero_headline,
+.hero_info{
+  max-width: 520px;
+}
+@media (max-width: 768px){
+  .hero_center{
+    align-items: center;
+    text-align: center;
+  }
+
+  .hero_headline,
+  .hero_info,
+  .main_note{
+    text-align: center;
+  }
+}
+.hero_headline span{
+  display: block;
+  line-height: 1.15;
+}
+/* ===============================
+   HERO FIX: ПК — колонка слева, мобилка — по центру
+   ВСТАВИТЬ В КОНЕЦ styles.css
+================================ */
+
+/* 1) Делаем hero_center колонкой и запрещаем центровку */
+.hero .hero_inner .hero_center{
+  display: flex !important;
+  flex-direction: column !important;
+
+  align-items: flex-start !important;
+  text-align: left !important;
+
+  width: min(520px, 92vw) !important;
+  margin: 0 !important;          /* важно: убирает margin: 0 auto */
+}
+
+/* 2) Если родитель центрировал — заставляем начинать слева */
+.hero .hero_inner{
+  display: flex !important;
+  justify-content: flex-start !important;
+}
+
+/* 3) Всё текстовое — влево */
+.hero .hero_inner .hero_headline,
+.hero .hero_inner .hero_info,
+.hero .hero_inner .main_note{
+  text-align: left !important;
+}
+
+/* 4) На телефонах обратно по центру (как у тебя было “норм”) */
+@media (max-width: 768px){
+  .hero .hero_inner{
+    justify-content: center !important;
+  }
+
+  .hero .hero_inner .hero_center{
+    align-items: center !important;
+    text-align: center !important;
+    margin: 0 auto !important;
+  }
+
+  .hero .hero_inner .hero_headline,
+  .hero .hero_inner .hero_info,
+  .hero .hero_inner .main_note{
+    text-align: center !important;
+  }
+}
+/* ===============================
+   HERO: ПК — слева, мобилка — центр
+================================ */
+
+/* GRID-родитель */
+.hero_inner{
+  display: grid !important;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  align-items: center;
+}
+
+/* ЛЕВАЯ колонка — контент */
+.hero_center{
+  justify-self: start !important;   /* ключевая строка */
+  text-align: left !important;
+
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+
+  max-width: 520px;
+}
+
+/* Заголовок */
+.hero_headline span{
+  display: block;
+  text-align: left;
+}
+
+/* Нижний текст */
+.hero_info,
+.main_note{
+  text-align: left;
+}
+
+/* ===============================
+   МОБИЛКИ — всё по центру
+================================ */
+@media (max-width: 768px){
+  .hero_inner{
+    grid-template-columns: 1fr;
+    justify-items: center;
+  }
+
+  .hero_center{
+    justify-self: center !important;
+    align-items: center;
+    text-align: center;
+  }
+
+  .hero_headline span,
+  .hero_info,
+  .main_note{
+    text-align: center;
+  }
+}
+/* =========================
+   MAIN SCREEN (главная)
+   ========================= */
+
+.main-screen {
+  min-height: 100vh;
+  background: #f4f3ef;
+  display: flex;
+  align-items: center;
+}
+
+.main-screen__inner {
+  width: 100%;
+  max-width: 1200px;
+  padding: clamp(40px, 8vh, 120px) 24px;
+  margin: 0 auto;
+}
+
+/* верхняя строка */
+.main-screen__eyebrow {
+  font-size: 14px;
+  letter-spacing: 0.12em;
+  color: #777;
+  margin-bottom: 32px;
+}
+
+/* большой заголовок */
+.main-screen__title {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+
+  font-family: "Cormorant Garamond", serif;
+  font-weight: 500;
+  font-size: clamp(42px, 7vw, 96px);
+  line-height: 1.05;
+  letter-spacing: 0.02em;
+
+  color: #1f1f1f;
+  margin: 0 0 40px;
+}
+
+.main-screen__title span {
+  display: block;
+}
+
+.main-screen__title .accent {
+  color: #1a1a1a;
+}
+
+/* нижний текст на главной */
+.main-screen__note {
+  max-width: 520px;
+
+  font-family: "Inter", sans-serif; /* или твой основной */
+  font-size: clamp(16px, 2vw, 20px); /* ⬅ заметно крупнее */
+  line-height: 1.7;
+  color: #5f5f5f;
+
+  margin-top: 12px;
+}
+
+/* дата — акцент, как ЖЕНИХ / НЕВЕСТА */
+.main-screen__note .date {
+  color: #1a1a1a;       /* тот же цвет */
+  font-weight: 500;
+}
+/* =========================
+   MOBILE
+   ========================= */
+
+@media (max-width: 768px) {
+  .main-screen {
+    align-items: flex-start;
+  }
+
+  .main-screen__inner {
+    padding-top: 80px;
+  }
+
+  .main-screen__title {
+    font-size: clamp(36px, 10vw, 56px);
+  }
+
+  @media (max-width: 768px) {
+  .main-screen__note {
+    font-size: 16px;
+    line-height: 1.65;
+  }
+}
+  }
+/* =========================
+   MAIN SCREEN (главная)
+   ========================= */
+
+.main-screen {
+  min-height: 100vh;
+  background:  #fbf7f3;
+  display: flex;
+  align-items: center;
+}
+
+.main-screen__inner {
+  width: 100%;
+  max-width: 1200px;
+  padding: clamp(40px, 8vh, 120px) 24px;
+  margin: 0 auto;
+}
+
+/* верхняя строка */
+.main-screen__eyebrow {
+  font-size: 14px;
+  letter-spacing: 0.12em;
+  color: #777;
+  margin-bottom: 32px;
+}
+
+/* большой заголовок */
+.main-screen__title {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+
+  font-family: "Cormorant Garamond", serif;
+  font-weight: 500;
+  font-size: clamp(42px, 7vw, 96px);
+  line-height: 1.05;
+  letter-spacing: 0.02em;
+
+  color: #1f1f1f;
+  margin: 0 0 40px;
+}
+
+.main-screen__title span {
+  display: block;
+}
+
+.main-screen__title .accent {
+  color:#791c27;
+}
+
+/* текст снизу */
+.main-screen__note {
+  max-width: 420px;
+
+  font-size: 15px;
+  line-height: 1.6;
+  color: #555;
+}
+
+.main-screen__note .date {
+  font-weight: 600;
+  color: #1f1f1f;
+}
+
+/* =========================
+   MOBILE
+   ========================= */
+
+@media (max-width: 768px) {
+  .main-screen {
+    align-items: flex-start;
+  }
+
+  .main-screen__inner {
+    padding-top: 80px;
+  }
+
+  .main-screen__title {
+    font-size: clamp(36px, 10vw, 56px);
+  }
+
+  .main-screen__note {
+    font-size: 14px;
+  }
+}
+/* нижний текст на главной */
+.main-screen__note {
+  max-width: 520px;
+
+  font-family: "Inter", sans-serif; /* или твой основной */
+  font-size: clamp(16px, 2vw, 20px); /* ⬅ заметно крупнее */
+  line-height: 1.7;
+  color: #5f5f5f;
+
+  margin-top: 12px;
+}
+
+/* дата — акцент, как ЖЕНИХ / НЕВЕСТА */
+.main-screen__note .date {
+  color: #791c27;       /* тот же цвет */
+  font-weight: 500;
+}
+@media (max-width: 768px) {
+  .main-screen__note {
+    font-size: 16px;
+    line-height: 1.65;
+  }
+}
+/* === DATE SECTION === */
+.date-section {
+  background: #fbf7f3;
+  padding: clamp(60px, 10vh, 120px) 16px;
+  display: flex;
+  justify-content: center;
+}
+
+/* календарь */
+.date-calendar {
+  text-align: center;
+  color: #2b2b2b;
+}
+
+/* Заголовок */
+.date-title {
+  font-family: "Cormorant Garamond", serif;
+  font-size: clamp(28px, 5vw, 48px);
+  margin-bottom: 24px;
+}
+
+/* Дни недели */
+.date-week {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 12px;
+  font-size: 14px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: #9a9a9a;
+  margin-bottom: 16px;
+}
+
+/* Числа */
+/* ДНИ: одинаковая высота ячеек, чтобы цифры не прыгали */
+.date-days{
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 12px;
+  align-items: center;
+}
+
+/* все ячейки-цифры делаем одинаковыми */
+.date-days > span,
+.date-days > .date-heart{
+  height: 32px;              /* можно 30-34, подгони как нравится */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* сами цифры */
+.date-days > span{
+  font-size: 18px;
+  line-height: 1;            /* ключевое: убирает baseline-прыжки */
+  color: #2b2b2b;
+}
+
+/* сердце (оно чуть выше, поэтому отдельная высота) */
+.date-days > .date-heart{
+  height: 56px;              /* как у тебя */
+  width: 64px;
+  margin: 0 auto;
+}
+
+/* цифра внутри сердца */
+.date-heart .date-day{
+  line-height: 1;
+  color: #fff;
+}
+
+/* ❤️ СЕРДЦЕ */
+.date-heart {
+  position: relative;
+  width: 64px;
+  height: 56px;
+
+  background: #8c2f2b;          /* ← КРАСНОЕ СЕРДЦЕ */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  font-size: 18px;
+  font-weight: 500;
+  margin: 0 auto;
+
+  clip-path: path("M32 52 C32 52 4 34 4 18 C4 8 12 4 18 4 C24 4 32 10 32 10 C32 10 40 4 46 4 C52 4 60 8 60 18 C60 34 32 52 32 52 Z");
+}
+
+/* 🔢 ЦИФРА ВНУТРИ СЕРДЦА */
+.date-heart span {
+  color: #ffffff;               /* ← БЕЛАЯ ТОЛЬКО ЦИФРА */
+  position: relative;
+  z-index: 1;
+}
+
+/* Месяц */
+.date-month {
+  margin-top: 24px;
+  font-family: "Cormorant Garamond", serif;
+  font-size: clamp(24px, 4vw, 36px);
+  color: #8c2f2b;
+}
+
+/* === MOBILE === */
+@media (max-width: 600px) {
+  .date-week,
+  .date-days {
+    gap: 8px;
+  }
+
+  .date-heart {
+    width: 56px;
+    height: 48px;
+    font-size: 16px;
+  }
+}
+
+/* === SCROLL FADE IN (без пропадания) === */
+.date-section {
+  opacity: 1;
+  transform: none;
+}
+
+html.js .date-section {
+  opacity: 0;
+  transform: translateY(40px);
+  transition: opacity 0.9s ease, transform 0.9s ease;
+}
+
+html.js .date-section.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* === HEART PULSE === */
+.date-heart {
+  animation: heart-pulse 2.8s ease-in-out infinite;
+  transform-origin: center;
+}
+
+@keyframes heart-pulse {
+  0% { transform: scale(1); }
+  40% { transform: scale(1.08); }
+  55% { transform: scale(1.02); }
+  100% { transform: scale(1); }
+}
+
+@media (max-width: 600px) {
+  .date-heart {
+    animation-duration: 3.2s;
+  }
+}
+/* ===== FIX: все цифры строго по одной линии ===== */
+.date-days{
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 12px;
+  align-items: center; /* на всякий */
+}
+
+/* все обычные дни — одинаковая ячейка */
+.date-days > span{
+  display: grid;
+  place-items: center;
+  height: 32px;              /* высота ячейки */
+  line-height: 1;            /* убираем baseline-прыжки */
+  margin: 0;
+  padding: 0;
+  position: static !important;
+  top: auto !important;
+  transform: none !important;
+  vertical-align: middle;
+  font-size: 18px;
+  color: #2b2b2b;
+}
+
+/* сердце = тот же span, но другой класс */
+.date-days > span.is-heart{
+  height: 56px;              /* размер сердца */
+  width: 64px;
+  margin: 0 auto;
+  background: #8c2f2b;
+  color: #fff !important;    /* цифра белая */
+  font-weight: 500;
+
+  display: grid;
+  place-items: center;
+
+  /* форма сердца */
+  clip-path: path("M32 52 C32 52 4 34 4 18 C4 8 12 4 18 4 C24 4 32 10 32 10 C32 10 40 4 46 4 C52 4 60 8 60 18 C60 34 32 52 32 52 Z");
+}
+
+/* мобильная подгонка */
+@media (max-width: 600px){
+  .date-days{ gap: 8px; }
+  .date-days > span{ height: 28px; font-size: 16px; }
+  .date-days > span.is-heart{ height: 48px; width: 56px; font-size: 16px; }
+}
+/* =========================================================
+   DATE SECTION (календарь) — чисто, ровно, адаптивно
+   Фон для всех блоков: #fbf7f3
+========================================================= */
+
+:root{
+  --bg: #fbf7f3;
+  --ink: #2b2b2b;
+  --muted: #9a9a9a;
+  --accent: #8c2f2b; /* цвет сердца и акцентов */
+}
+
+.date-section{
+  background: var(--bg);
+  padding: clamp(60px, 10vh, 120px) 16px;
+  display: flex;
+  justify-content: center;
+}
+
+/* контейнер календаря */
+.date-calendar{
+  width: min(920px, 100%);
+  text-align: center;
+  color: var(--ink);
+}
+
+/* заголовок */
+.date-title{
+  font-family: "Cormorant Garamond", serif;
+  font-size: clamp(34px, 4.6vw, 56px);
+  font-weight: 400;
+  margin: 0 0 24px;
+}
+
+/* дни недели */
+.date-week{
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: clamp(10px, 2.2vw, 24px);
+  margin: 0 auto 18px;
+  width: min(720px, 100%);
+}
+
+.date-week > span{
+  font-family: system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
+  font-size: 14px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+/* числа */
+.date-days{
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: clamp(10px, 2.2vw, 24px);
+  align-items: center;
+  justify-items: center;
+
+  margin: 0 auto;
+  width: min(720px, 100%);
+}
+
+/* каждая ячейка = одинаковая высота, никаких baseline-прыжков */
+.date-days > .date-day{
+  display: grid;
+  place-items: center;
+  height: 34px;
+  width: 100%;
+  line-height: 1;
+  margin: 0;
+  padding: 0;
+
+  font-size: 18px;
+  color: var(--ink);
+
+  /* на всякий случай гасим любые "взлёты" от старых стилей */
+  position: static !important;
+  top: auto !important;
+  transform: none !important;
+  vertical-align: middle;
+
+  /* цифры выглядят ровнее */
+  font-variant-numeric: tabular-nums;
+}
+
+/* сердечко — ТА ЖЕ ячейка, просто другая форма */
+.date-days > .date-day.is-heart{
+  width: 64px;
+  height: 56px;
+  background: var(--accent);
+  color: #fff;              /* белая только цифра 6 */
+  font-weight: 500;
+
+  clip-path: path("M32 52 C32 52 4 34 4 18 C4 8 12 4 18 4 C24 4 32 10 32 10 C32 10 40 4 46 4 C52 4 60 8 60 18 C60 34 32 52 32 52 Z");
+}
+
+/* месяц */
+.date-month{
+  margin-top: 26px;
+  font-family: "Cormorant Garamond", serif;
+  font-size: clamp(28px, 4vw, 44px);
+  font-weight: 400;
+  color: var(--accent);
+}
+
+/* ====== Анимация: мягкое появление при скролле (без “пропадания”) ====== */
+/* По умолчанию видно всегда */
+.date-section{ opacity: 1; transform: none; }
+
+/* Если JS поставил класс html.js — включаем эффект */
+html.js .date-section{
+  opacity: 0;
+  transform: translateY(40px);
+  transition: opacity 0.9s ease, transform 0.9s ease;
+}
+
+html.js .date-section.is-visible{
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ====== Пульсация сердца ====== */
+.date-days > .date-day.is-heart{
+  animation: heart-pulse 2.8s ease-in-out infinite;
+  transform-origin: center;
+}
+
+@keyframes heart-pulse{
+  0%{ transform: scale(1); }
+  40%{ transform: scale(1.08); }
+  55%{ transform: scale(1.02); }
+  100%{ transform: scale(1); }
+}
+
+/* ====== Мобилка ====== */
+@media (max-width: 600px){
+  .date-week, .date-days{
+    width: min(420px, 100%);
+    gap: 10px;
+  }
+
+  .date-days > .date-day{
+    height: 30px;
+    font-size: 16px;
+  }
+
+  .date-days > .date-day.is-heart{
+    width: 56px;
+    height: 48px;
+    font-size: 16px;
+    animation-duration: 3.2s;
+  }
+}
+/* ===== FIX: календарь ровно, без влияния глобальных стилей ===== */
+
+/* контейнер: принудительно колонка + центр */
+.date-calendar{
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+  justify-content: flex-start !important;
+  text-align: center !important;
+}
+
+/* сетки одинаковой ширины */
+.date-week,
+.date-days{
+  width: min(720px, 100%) !important;
+  margin-left: auto !important;
+  margin-right: auto !important;
+}
+
+/* ВАЖНО: стилизуем ЛЮБОГО ребёнка, даже если забыли класс date-day */
+.date-days > *{
+  box-sizing: border-box;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+
+  height: 34px !important;
+  line-height: 34px !important;   /* вот это убирает "пляску" */
+  margin: 0 !important;
+  padding: 0 !important;
+
+  font-size: 18px !important;
+  font-variant-numeric: tabular-nums; /* ровные цифры */
+  vertical-align: middle !important;
+
+  position: static !important;
+  top: auto !important;
+  transform: none !important;
+}
+
+/* сердечко — остаётся красным, цифра внутри белая */
+.date-days > .is-heart{
+  width: 64px !important;
+  height: 56px !important;
+  line-height: 56px !important;
+  background: #8c2f2b !important;
+  color: #fff !important;
+
+  clip-path: path("M32 52 C32 52 4 34 4 18 C4 8 12 4 18 4 C24 4 32 10 32 10 C32 10 40 4 46 4 C52 4 60 8 60 18 C60 34 32 52 32 52 Z");
+}
+
+/* месяц: жёстко по центру, чтобы никакие flex/float не утащили */
+.date-month{
+  align-self: center !important;
+  text-align: center !important;
+  float: none !important;
+  margin-left: 0 !important;
+  margin-right: 0 !important;
+  width: auto !important;
+}
+/* =========================
+   LOVE DATE (уникальные классы)
+   ========================= */
+
+.loveDate{
+  background: #fbf7f3;
+  padding: clamp(56px, 9vh, 110px) 16px;
+  display: flex;
+  justify-content: center;
+}
+
+/* контейнер */
+.loveDate__wrap{
+  width: min(860px, 100%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+/* заголовок */
+.loveDate__title{
+  font-family: "Cormorant Garamond", serif;
+  font-size: clamp(30px, 4.2vw, 54px);
+  color: #2b2b2b;
+  margin: 0 0 22px 0;
+}
+
+/* сетки */
+.loveDate__week,
+.loveDate__days{
+  width: min(760px, 100%);
+  display: grid;
+  grid-template-columns: repeat(7, minmax(0, 1fr));
+  column-gap: clamp(10px, 2.2vw, 22px);
+}
+
+/* важное: фиксируем высоту строки, чтобы НИЧЕГО не плясало */
+.loveDate__week{ margin-bottom: 12px; }
+.loveDate__days{
+  grid-auto-rows: 44px; /* <- железная высота строки */
+  align-items: center;
+}
+
+/* общая ячейка: всегда центр и одинаковая математика */
+.loveDate__cell{
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  height: 44px;             /* <- как grid-auto-rows */
+  line-height: 1;           /* <- убирает базовую линию */
+  margin: 0;
+  padding: 0;
+
+  /* чтобы цифры выглядели ровно одинаково */
+  font-variant-numeric: tabular-nums;
+  font-feature-settings: "tnum" 1, "lnum" 1;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: geometricPrecision;
+}
+
+/* дни недели */
+.loveDate__cell--week{
+  height: auto;
+  font-family: inherit;
+  font-size: 12px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: #000000;
+  opacity: 0.95;
+}
+
+/* обычные дни */
+.loveDate__cell--day{
+  font-size: 18px;
+  color: #000000;
+  opacity: 0.9;
+}
+
+/* сердце (красное), цифра внутри (белая) */
+.loveDate__cell--heart{
+  width: 64px;
+  height: 56px; /* сердце выше, но строку не ломаем — оно центрится внутри 44px */
+  margin: 0 auto;
+
+  background: #8c2f2b;
+  color: #fff;
+
+  font-size: 18px;
+  font-weight: 500;
+
+  /* делаем, чтобы сердце НЕ увеличивало ряд */
+  align-self: center;
+  justify-self: center;
+
+  /* визуально вынос вверх/вниз убираем */
+  position: relative;
+  top: 0;
+
+  clip-path: path("M32 52 C32 52 4 34 4 18 C4 8 12 4 18 4 C24 4 32 10 32 10 C32 10 40 4 46 4 C52 4 60 8 60 18 C60 34 32 52 32 52 Z");
+}
+
+/* месяц */
+.loveDate__month{
+  margin-top: 22px;
+  font-family: "Cormorant Garamond", serif;
+  font-size: clamp(28px, 4vw, 44px);
+  color: #8c2f2b;
+}
+
+/* мягкая пульсация */
+.loveDate__cell--heart{
+  transform-origin: center;
+  animation: loveDatePulse 2.8s ease-in-out infinite;
+}
+@keyframes loveDatePulse{
+  0%{ transform: scale(1); }
+  40%{ transform: scale(1.08); }
+  55%{ transform: scale(1.02); }
+  100%{ transform: scale(1); }
+}
+
+/* мобилка */
+@media (max-width: 600px){
+  .loveDate__week,
+  .loveDate__days{
+    column-gap: 10px;
+  }
+
+  .loveDate__days{
+    grid-auto-rows: 40px;
+  }
+
+  .loveDate__cell{
+    height: 40px;
+  }
+
+  .loveDate__cell--day{
+    font-size: 16px;
+  }
+
+  .loveDate__cell--heart{
+    width: 56px;
+    height: 48px;
+    font-size: 16px;
+    animation-duration: 3.2s;
+  }
+}
+/* =========================
+   LOCATION (unique): wloc
+   ========================= */
+
+.wloc{
+  background: #fbf7f3;
+  padding: clamp(56px, 9vh, 110px) 16px;
+}
+
+.wloc__container{
+  max-width: 980px;
+  margin: 0 auto;
+  display: flex;
+  justify-content: center;
+}
+
+/* Карточка */
+.wloc__card{
+  width: min(720px, 100%);
+  padding: clamp(22px, 3.4vw, 38px) clamp(18px, 3vw, 34px);
+  border: 1px solid rgba(40, 40, 40, 0.18);
+  border-radius: 22px;
+  background: rgba(255,255,255,0.32);
+  box-shadow: 0 12px 30px rgba(0,0,0,0.04);
+  text-align: center;
+  backdrop-filter: blur(6px);
+}
+
+/* Заголовок как в стилистике (каллиграфия/акцент) */
+.wloc__title{
+  margin: 0 0 14px;
+  font-family: "Cormorant Garamond", serif;
+  font-weight: 500;
+  font-size: clamp(34px, 4.2vw, 56px);
+  line-height: 1.05;
+  color: #7f2a28; /* винный акцент */
+}
+
+/* Текст адреса */
+.wloc__text{
+  margin: 0 0 22px;
+  font-family: "Cormorant Garamond", serif;
+  font-size: clamp(16px, 1.7vw, 20px);
+  line-height: 1.55;
+  color: rgba(25,25,25,0.78);
+}
+
+/* Кнопка */
+.wloc__btn{
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+
+  height: 46px;
+  padding: 0 22px;
+
+  border-radius: 999px;
+  border: 3px solid #7f2a28;
+  background: transparent;
+
+  font-family: "Cormorant Garamond", serif;
+  font-size: 14px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: black;
+
+  text-decoration: none;
+  transition: transform .18s ease, background .18s ease, border-color .18s ease, color .18s ease;
+}
+
+.wloc__btn:hover{
+  transform: translateY(-1px);
+  background: #7f2a28;
+  border-color:#5d1e1d;
+  color: white;
+}
+
+.wloc__btn:active{
+  transform: translateY(0);
+}
+
+/* Мобилка — чуть компактнее */
+@media (max-width: 480px){
+  .wloc__card{
+    border-radius: 18px;
+  }
+  .wloc__btn{
+    width: 100%;
+    max-width: 320px;
+  }
+}
+
+/* ====== reveal (как у календаря, без “пропадания”) ====== */
+.wloc--reveal{ opacity: 1; transform: none; }
+
+html.js .wloc--reveal{
+  opacity: 0;
+  transform: translateY(28px);
+  transition: opacity .9s ease, transform .9s ease;
+}
+
+html.js .wloc--reveal.is-visible{
+  opacity: 1;
+  transform: translateY(0);
+}
+/* =========================
+   LOCATION ARC STYLE
+   ========================= */
+
+.loca{
+  background: #fbf7f3;
+  padding: clamp(70px, 10vh, 130px) 16px;
+}
+
+.loca__wrap{
+  display: flex;
+  justify-content: center;
+}
+
+/* Волнистая карточка */
+.loca__card{
+  position: relative;
+  max-width: 560px;
+  width: 100%;
+  padding: clamp(36px, 5vw, 56px) 32px 44px;
+
+  text-align: center;
+  background: transparent;
+  border: 1.5px solid rgba(30,30,30,0.65);
+
+  clip-path: path(
+    "M30 10
+     Q280 -20 530 10
+     Q560 180 530 350
+     Q280 390 30 350
+     Q0 180 30 10 Z"
+  );
+}
+
+/* Заголовок секции (единый стиль с таймингом) */
+.loca__title{
+  margin: 0 0 24px;
+  font-family: "Cormorant Garamond", serif;
+  font-size: var(--section-title-size);
+  font-weight: 500;
+  line-height: 1.15;
+  color: #1a1a1a;
+  text-align: center;
+}
+
+/* Описание */
+.loca__text{
+  margin: 0 0 18px;
+  font-family: "Cormorant Garamond", serif;
+  font-size: clamp(16px, 2vw, 20px);
+  line-height: 1.6;
+  color: rgba(30,30,30,0.75);
+}
+
+/* Адрес */
+.loca__address{
+  margin: 0 0 26px;
+  font-family: "Cormorant Garamond", serif;
+  font-size: clamp(15px, 1.8vw, 18px);
+  line-height: 1.5;
+  color: black;
+}
+
+/* Мобилка — упрощаем волну */
+@media (max-width: 520px){
+  .loca__card{
+    padding: 34px 22px 40px;
+    clip-path: path(
+      "M20 10
+       Q50 -10 280 0
+       Q520 -10 540 10
+       Q560 180 540 340
+       Q280 380 20 340
+       Q0 180 20 10 Z"
+    );
+  }
+}
+
+/* ===== плавное появление ===== */
+.loca--reveal{
+  opacity: 1;
+  transform: none;
+}
+
+html.js .loca--reveal{
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity .9s ease, transform .9s ease;
+}
+
+html.js .loca--reveal.is-visible{
+  opacity: 1;
+  transform: translateY(0);
+}
+/* === MOBILE FIX FOR CALENDAR HEART === */
+@media (max-width: 480px) {
+  .date-days {
+    grid-template-columns: repeat(7, minmax(0, 1fr));
+  }
+
+  /* обычные цифры */
+  .date-days span {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 14px;
+  }
+
+  /* сердце */
+  .date-heart {
+    width: 38px;
+    height: 34px;
+    margin: 0 auto;
+  }
+
+  .date-heart span {
+    font-size: 13px;
+    line-height: 1;
+  }
+}
+@media (max-width: 480px) {
+  .date-heart {
+    transform: translateY(-2px);
+  }
+}
+/* ====== CALENDAR: HARD RESPONSIVE FIX (ALL SCREENS) ====== */
+
+/* сетки: всегда ужимаются, без вылезаний */
+.date-week,
+.date-days{
+  grid-template-columns: repeat(7, minmax(0, 1fr));
+  gap: clamp(6px, 1.6vw, 12px);
+}
+
+/* чтобы все элементы в ячейках стояли ровно по центру */
+.date-week span,
+.date-days span{
+  display: grid;
+  place-items: center;
+  min-width: 0;
+}
+
+/* цифры — одинаковая “высота строки”, чтоб не плясали */
+.date-days span{
+  line-height: 1;
+  font-size: clamp(14px, 2.2vw, 18px);
+}
+
+/* СЕРДЦЕ: больше НЕТ фиксированных 64px — оно всегда влезает в колонку */
+.date-heart{
+  /* вписываемся в ширину колонки (100%), но держим красивый размер через clamp */
+  width: min(clamp(34px, 9vw, 56px), 100%);
+  height: min(clamp(30px, 8vw, 50px), 100%);
+
+  margin: 0;
+  justify-self: center;
+  align-self: center;
+
+  background: #8c2f2b; /* красное сердце */
+  display: grid;
+  place-items: center;
+
+  /* убираем то, что могло ломать сетку */
+  max-width: 100%;
+  min-width: 0;
+
+  clip-path: path("M32 52 C32 52 4 34 4 18 C4 8 12 4 18 4 C24 4 32 10 32 10 C32 10 40 4 46 4 C52 4 60 8 60 18 C60 34 32 52 32 52 Z");
+}
+
+/* цифра внутри сердца — белая, сердце остаётся красным */
+.date-heart span{
+  color: #fff;
+  font-size: clamp(13px, 2.2vw, 18px);
+  line-height: 1;
+  font-weight: 500;
+}
+
+/* на всякий — если где-то остался старый класс */
+.date-day.is-heart{
+  color: #fff !important;
+}
+/* ===== LOVE CALENDAR (NO-CONFLICT VERSION) ===== */
+.loveCal{
+  background: #fbf7f3;
+  padding: clamp(60px, 10vh, 120px) 16px;
+  display: flex;
+  justify-content: center;
+}
+/* === HEART (SVG, UNIVERSAL) === */
+.loveCal__heart{
+  position: relative !important;
+  display: grid !important;
+  place-items: center !important;
+
+  width: min(clamp(34px, 9vw, 56px), 100%) !important;
+  height: min(clamp(30px, 8vw, 50px), 100%) !important;
+
+  line-height: 1 !important;
+  justify-self: center !important;
+  align-self: center !important;
+}
+
+.loveCal__heartSvg{
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.loveCal__heartSvg path{
+  fill: #8c2f2b; /* красное сердце */
+}
+
+.loveCal__heartNum{
+  position: relative;
+  z-index: 1;
+  color: #fff; /* белая цифра */
+  font-weight: 500;
+  font-size: clamp(14px, 2.2vw, 18px);
+}
+
+.loveCal__box{
+  width: min(720px, 100%);
+  text-align: center;
+  color: #2b2b2b;
+}
+
+.loveCal__title{
+  font-family: "Cormorant Garamond", serif;
+  font-size: clamp(28px, 5vw, 48px);
+  margin: 0 0 24px;
+}
+
+/* 7 колонок, которые реально ужимаются */
+.loveCal__week,
+.loveCal__days{
+  display: grid !important;
+  grid-template-columns: repeat(7, minmax(0, 1fr)) !important;
+  gap: clamp(6px, 1.6vw, 12px) !important;
+  width: min(560px, 100%);
+  margin: 0 auto;
+}
+
+/* фиксируем “ячейку” по высоте — чтобы цифры НЕ плясали */
+.loveCal__week > span,
+.loveCal__days > span{
+  display: grid !important;
+  place-items: center !important;
+  min-width: 0 !important;
+  line-height: 1 !important;
+  height: clamp(22px, 3.6vw, 30px);
+}
+
+.loveCal__week{
+  font-size: 14px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: #9a9a9a;
+  margin-bottom: 14px;
+}
+
+.loveCal__days{
+  margin-bottom: 24px;
+}
+
+.loveCal__days > span{
+  font-size: clamp(14px, 2.2vw, 18px);
+  color: #2b2b2b;
+}
+
+/* сердце — ВЛЕЗАЕТ ВСЕГДА (не шире своей колонки) */
+.loveCal__heart{
+  justify-self: center !important;
+  align-self: center !important;
+
+  width: min(clamp(34px, 9vw, 56px), 100%) !important;
+  height: min(clamp(30px, 8vw, 50px), 100%) !important;
+
+  background: #8c2f2b !important; /* красное сердце */
+  color: #fff !important;        /* белая цифра 6 */
+
+  font-weight: 500;
+  clip-path: path("M32 52 C32 52 4 34 4 18 C4 8 12 4 18 4 C24 4 32 10 32 10 C32 10 40 4 46 4 C52 4 60 8 60 18 C60 34 32 52 32 52 Z");
+}
+
+.loveCal__month{
+  margin-top: 0;
+  font-family: "Cormorant Garamond", serif;
+  font-size: clamp(24px, 4vw, 36px);
+  color: #8c2f2b;
+}
+
+/* на очень узких — чуть плотнее */
+@media (max-width: 380px){
+  .loveCal__week, .loveCal__days{
+    gap: 6px !important;
+  }
+}
+/* =========================
+   DATE / CALENDAR (FIXED)
+   ========================= */
+
+.date-section{
+  background:#fbf7f3;
+  padding: clamp(50px, 8vh, 110px) 16px;
+  display:flex;
+  justify-content:center;
+}
+
+.date-calendar{
+  text-align:center;
+  color:#2b2b2b;
+  width:min(760px, 100%);
+}
+
+/* Заголовок */
+.date-title{
+  font-family:"Cormorant Garamond", serif;
+  font-size: clamp(28px, 5vw, 48px);
+  margin: 0 0 22px;
+}
+
+/* Неделя */
+.date-week{
+  display:grid;
+  grid-template-columns: repeat(7, minmax(0, 1fr));
+  gap: clamp(6px, 2vw, 12px);
+  font-size: 14px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color:#9a9a9a;
+  margin: 0 0 14px;
+}
+
+.date-week > span{
+  justify-self:center;
+  min-width:0;
+}
+
+/* Дни */
+.date-days{
+  display:grid;
+  grid-template-columns: repeat(7, minmax(0, 1fr));
+  gap: clamp(6px, 2vw, 12px);
+  align-items:center;
+  justify-items:center;
+  margin: 0 auto;
+  /* ВАЖНО: не даём контейнеру резать контент */
+  overflow: visible;
+}
+
+.date-days > span,
+.date-days > div{
+  justify-self:center;
+  align-self:center;
+  min-width:0;
+  line-height:1;
+}
+
+/* Обычные цифры */
+.date-days span{
+  font-size: clamp(14px, 3.2vw, 18px);
+  color:#2b2b2b;
+}
+
+/* Месяц */
+.date-month{
+  margin-top: 22px;
+  font-family:"Cormorant Garamond", serif;
+  font-size: clamp(24px, 4vw, 36px);
+  color:#8c2f2b;
+}
+
+/* =========================
+   HEART (UNIVERSAL via mask)
+   Работает стабильнее, чем clip-path:path()
+   ========================= */
+
+.date-heart{
+  position:relative;
+  display:grid;
+  place-items:center;
+
+  width: clamp(28px, 8vw, 56px);
+  aspect-ratio: 64 / 56;
+  height:auto;
+
+  margin:0;          /* важно, чтобы не ломало сетку */
+  overflow:visible;  /* чтобы ничего не обрезалось */
+}
+
+/* Рисуем сердце через маску */
+.date-heart::before{
+  content:"";
+  position:absolute;
+  inset:0;
+  background:#8c2f2b;
+
+  /* SVG heart как маска */
+  -webkit-mask: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 56'><path d='M32 52 C32 52 4 34 4 18 C4 8 12 4 18 4 C24 4 32 10 32 10 C32 10 40 4 46 4 C52 4 60 8 60 18 C60 34 32 52 32 52 Z'/></svg>") no-repeat center / contain;
+  mask: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 56'><path d='M32 52 C32 52 4 34 4 18 C4 8 12 4 18 4 C24 4 32 10 32 10 C32 10 40 4 46 4 C52 4 60 8 60 18 C60 34 32 52 32 52 Z'/></svg>") no-repeat center / contain;
+}
+
+/* Цифра внутри сердца */
+.date-heart > span{
+  position:relative;
+  z-index:1;
+  color:#fff !important;
+  font-size: clamp(13px, 2.8vw, 18px);
+  font-weight: 500;
+  line-height:1;
+}
+
+/* Пульсация сердца (мягкая) */
+.date-heart{
+  transform-origin:center;
+  animation: heart-pulse 2.8s ease-in-out infinite;
+}
+
+@keyframes heart-pulse{
+  0%{ transform: scale(1); }
+  40%{ transform: scale(1.08); }
+  55%{ transform: scale(1.02); }
+  100%{ transform: scale(1); }
+}
+
+/* Чуть медленнее на маленьких */
+@media (max-width:600px){
+  .date-heart{ animation-duration: 3.2s; }
+}
+
+/* =========================
+   SCROLL FADE-IN (safe)
+   ========================= */
+.date-section{ opacity:1; transform:none; }
+
+html.js .date-section{
+  opacity:0;
+  transform: translateY(40px);
+  transition: opacity 0.9s ease, transform 0.9s ease;
+}
+
+html.js .date-section.is-visible{
+  opacity:1;
+  transform: translateY(0);
+}
+/* базовая защита от “съездов” */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+.love-cal {
+  width: 100%;
+  padding: clamp(24px, 5vw, 56px) clamp(12px, 2vw, 48px);
+  background: #fbf7f3;
+}
+
+/* сама “карточка” */
+.love-cal__frame {
+  width: 100%;
+  max-width: min(1100px, 100%);
+  margin: 0 auto;
+}
+
+@media (max-width: 900px) {
+  .love-cal {
+    padding: clamp(24px, 4vw, 48px) 8px;
+  }
+}
+
+@media (max-width: 600px) {
+  .love-cal {
+    padding: 20px 0;
+  }
+  .love-cal__img {
+    min-height: 280px;
+    object-fit: contain;
+    object-position: center;
+  }
+}
+
+@media (max-width: 480px) {
+  .love-cal {
+    padding: 16px 0;
+  }
+  .love-cal__img {
+    min-height: 320px;
+  }
+}
+
+@media (max-width: 380px) {
+  .love-cal {
+    padding: 12px 0;
+  }
+  .love-cal__img {
+    min-height: 300px;
+  }
+}
+
+.love-cal__img {
+  display: block;
+  width: 100%;
+  height: auto;
+  max-width: 100%;
+  object-fit: contain;
+}
+.main-screen {
+  width: 100%;
+}
+
+/* если у тебя уже есть контейнер/отступы — подстрой значения тут */
+.main-screen__inner {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: clamp(16px, 3vw, 40px);
+
+  display: grid;
+  grid-template-columns: 1.15fr 0.85fr; /* текст шире, картинка чуть уже */
+  align-items: center;
+   gap: clamp(24px, 4vw, 100px);
+}
+
+/* текстовая часть */
+.main-screen__content {
+  min-width: 0; /* важно для grid, чтобы ничего не “выталкивало” */
+}
+
+.main-screen__title {
+  margin: 0;
+}
+
+/* блок с картинкой */
+.main-screen__media {
+  display: flex;
+  justify-content: flex-end; /* картинка справа */
+  align-items: center;
+  min-width: 0;
+}
+
+.main-screen__img {
+  width: min(420px, 100%); /* меняй это число — меняется размер картинки */
+  height: auto;
+  display: block;
+}
+
+/* 📱 Мобильная адаптация: картинка переносится вниз, крупнее текст */
+@media (max-width: 820px) {
+  .main-screen__inner {
+    grid-template-columns: 1fr;
+    padding-top: clamp(48px, 12vw, 80px);
+  }
+
+  .main-screen__media {
+    justify-content: flex-start;
+  }
+
+  .main-screen__img {
+    width: min(360px, 100%);
+  }
+
+  .main-screen__title {
+    font-size: clamp(44px, 13vw, 56px) !important;
+  }
+
+  .main-screen__note {
+    margin-top: 24px;
+    font-size: 20px !important;
+    line-height: 1.6;
+  }
+
+  .main-screen__note .date {
+    font-size: 1.15em;
+  }
+}
+
+@media (max-width: 480px) {
+  .main-screen__inner {
+    padding-top: 56px;
+    padding-left: 20px;
+    padding-right: 20px;
+  }
+
+  .main-screen__title {
+    font-size: clamp(42px, 13vw, 52px) !important;
+  }
+
+  .main-screen__note {
+    margin-top: 28px;
+    font-size: 21px !important;
+  }
+
+  .main-screen__img {
+    width: min(340px, 100%);
+  }
+}
+/* ====== DAY PLAN (как на рефе) ====== */
+.day-plan{
+  background: #fbf7f3;
+  /* в рефе блок не “бесконечный”, поэтому меньше отступов */
+  padding: 64px 0 92px;
+}
+
+.day-plan__inner{
+  max-width: 980px;
+  margin: 0 auto;
+  padding: 0 24px;
+  text-align: center;
+}
+
+/* Заголовок — заметный, но без лишней “дыры” вниз */
+.day-plan__title{
+  margin: 0 0 100px;
+  font-size: clamp(34px, 4.2vw, 56px);
+  line-height: 1.1;
+}
+
+/* Список: плотный вертикальный ритм */
+.day-plan__list{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  /* ключевое: общий шаг между группами меньше */
+  gap: -170px;
+}
+
+/* Ряд (иконка + текст) */
+.day-plan__row{
+  width: 100%;
+  max-width: 760px;
+
+  display: grid;
+  grid-template-columns: 240px 1fr;
+  align-items: center;
+  column-gap: 1px;
+
+  /* чуть поднимаем строку визуально, чтобы стрелки были ближе */
+  margin: 0;
+}
+
+/* Лёгкая “ручная” асимметрия как в рефе */
+.day-plan__row:nth-of-type(1){
+  transform: translateX(-14px);
+}
+.day-plan__row--right{
+  grid-template-columns: 1fr 240px;
+  text-align: right;
+  transform: translateX(14px);
+}
+.day-plan__row:nth-of-type(5){
+  transform: translateX(-10px);
+}
+
+/* Иконки (PNG) — крупные, но без раздувания пустоты */
+.day-plan__icon{
+  width: 400px;
+  height: auto;
+  display: block;
+  margin: 0 auto;
+}
+
+/* Текст */
+.day-plan__text{
+  min-width: 0;
+}
+
+.day-plan__name{
+  font-size: clamp(22px, 2.6vw, 34px);
+  line-height: 1.12;
+}
+
+.day-plan__time{
+  margin-top: 8px;
+  font-size: 40px;
+  color: #791c27;
+  letter-spacing: 0.02em;
+}
+
+/* Стрелки (PNG) — ближе к блокам, чуть “не по центру” как в рефе */
+.day-plan__arrow{
+  width: 220px;
+  height: auto;
+  display: block;
+
+  /* прибираем пустоту сверху/снизу вокруг стрелки */
+  margin: -300px 0 -250px;
+
+  opacity: 0.95;
+}
+
+/* Чуть разные смещения стрелок — создаёт “ручной” вид */
+.day-plan__arrow:nth-of-type(2){ /* стрелка между 1 и 2 */
+  transform: translateX(-18px);
+}
+.day-plan__arrow:nth-of-type(4){ /* стрелка между 2 и 3 */
+  transform: translateX(18px);
+}
+
+/* ====== АДАПТИВ (телефон) ====== */
+@media (max-width: 760px){
+  .day-plan{
+    padding: 56px 0 80px;
+  }
+
+  .day-plan__inner{
+    padding: 0 18px;
+    text-align: left;
+  }
+
+  .day-plan__title{
+    text-align: center;
+    margin-bottom: 42px;
+  }
+
+  .day-plan__list{
+    gap: 30px;
+  }
+
+  /* Все строки в одну схему: иконка слева, текст справа */
+  .day-plan__row,
+  .day-plan__row--right{
+    max-width: 560px;
+    grid-template-columns: 96px 1fr;
+    column-gap: 16px;
+    text-align: left;
+    transform: none;
+  }
+
+  .day-plan__icon{
+    width: 96px;
+    margin: 0;
+  }
+
+  .day-plan__name{
+    font-size: 20px;
+  }
+
+  .day-plan__time{
+    font-size: 15px;
+    margin-top: 6px;
+  }
+
+  /* стрелки по центру и компактнее */
+  .day-plan__arrow{
+    width: 58px;
+    margin: -8px 0 -2px;
+    transform: none !important;
+  }
+}
+.reveal-y{
+  opacity: 0;
+  transform: translateY(-18px);
+  filter: blur(8px);
+  transition: opacity 750ms ease, transform 750ms ease, filter 750ms ease;
+  will-change: opacity, transform, filter;
+}
+.reveal-y.is-inview{
+  opacity: 1;
+  transform: translateY(0);
+  filter: blur(0);
+}
+
+.reveal-wave{
+  opacity: 0;
+  transform: translateX(-22px);
+  filter: blur(8px);
+  transition: opacity 1100ms ease, transform 750ms ease, filter 750ms ease;
+  will-change: opacity, transform, filter;
+}
+.reveal-wave.wave-right{
+  transform: translateX(22px);
+}
+.reveal-wave.is-inview{
+  opacity: 1;
+  transform: translateX(0);
+  filter: blur(0);
+}
+/* ====== DRESSCODE IMAGE BLOCK ====== */
+
+.dresscode-look{
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  padding: clamp(60px, 8vw, 140px) 24px;
+  box-sizing: border-box;
+}
+
+.dresscode-image{
+  display: block;
+
+  width: 100%;
+  max-width: 1200px;   /* регулируешь максимальный размер */
+  height: auto;
+
+  object-fit: contain;
+}
+
+/* ====== АДАПТИВ ====== */
+
+@media (max-width: 1024px){
+  .dresscode-image{
+    max-width: 900px;
+  }
+}
+
+@media (max-width: 768px){
+  .dresscode-look{
+    padding: 50px 20px;
+  }
+
+  .dresscode-image{
+    max-width: 100%;
+  }
+}
+
+@media (max-width: 480px){
+  .dresscode-look{
+    padding: 40px 16px;
+  }
+
+  .dresscode-image{
+    width: 110%;     /* чуть больше на мобилке, чтобы не казалась мелкой */
+    max-width: none;
+  }
+}
+.dresscode-section,
+.dresscode-look{
+  background: #fbf7f3 !important;
+}
+
+.dresscode-image{
+  background: transparent !important;
+}
+.dresscode-section{
+  background: #fbf7f3;
+  padding-bottom: 0; /* если нужно убрать лишний “переход” */
+}
+
+.dresscode-look{
+  background: #fbf7f3; /* чтобы блок с картинкой точно был на том же фоне */
+  margin-top: 48px;
+  padding-bottom: clamp(40px, 6vw, 90px);
+}
+
+.dresscode-image{
+  display: block; /* убирает возможную линию снизу от inline img */
+}
+/* =========================================
+   DAY PLAN — MOBILE FIX (вставить в конец)
+   ========================================= */
+
+/* Базовые переменные — тут удобно крутить размеры */
+:root{
+  --dp-icon-desktop: 260px;  /* размер иконок на ПК */
+  --dp-arrow-desktop: 170px; /* размер стрелок на ПК */
+
+  --dp-icon-mobile: 92px;    /* размер иконок на телефоне */
+  --dp-arrow-mobile: 56px;   /* размер стрелок на телефоне */
+
+  --dp-title-gap-desktop: 56px;
+  --dp-title-gap-mobile: 28px;
+
+  --dp-row-gap-mobile: 18px; /* расстояние между блоками на мобилке */
+}
+
+/* Секция */
+.day-plan{
+  background: #fbf7f3;
+  padding: 70px 0 90px;
+}
+
+.day-plan__inner{
+  max-width: 980px;
+  margin: 0 auto;
+  padding: 0 18px;
+}
+
+/* Заголовок */
+.day-plan__title{
+  text-align: center;
+  margin: 0 0 var(--dp-title-gap-desktop);
+  font-size: clamp(34px, 4.2vw, 56px);
+  line-height: 1.1;
+}
+
+/* Список */
+.day-plan__list{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 18px; /* нормальный gap вместо отрицательных/больших марджинов */
+}
+
+/* Ряды */
+.day-plan__row{
+  width: 100%;
+  max-width: 760px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  align-items: center;
+  column-gap: 22px;
+  margin: 0;
+  transform: none;
+}
+
+.day-plan__row--right{
+  grid-template-columns: 1fr 1fr;
+  text-align: right;
+  transform: none;
+}
+
+/* Иконки */
+.day-plan__icon{
+  width: var(--dp-icon-desktop);
+  max-width: 100%;
+  height: auto;
+  display: block;
+  margin: 0 auto;
+}
+
+/* Текст */
+.day-plan__text{ min-width: 0; }
+
+.day-plan__name{
+  font-size: clamp(20px, 2.2vw, 32px);
+  line-height: 1.15;
+}
+
+.day-plan__time{
+  margin-top: 8px;
+  font-size: clamp(18px, 2vw, 28px);
+  color: #791c27;
+  letter-spacing: 0.02em;
+}
+
+/* Стрелки (десктоп) — БЕЗ гигантских отрицательных марджинов */
+.day-plan__arrow{
+  width: var(--dp-arrow-desktop);
+  height: auto;
+  display: block;
+  margin: 10px 0;
+  opacity: 0.95;
+  transform: none;
+}
+
+/* =========================
+   📱 МОБИЛКА (главный фикс)
+   ========================= */
+@media (max-width: 768px){
+
+  .day-plan{
+    padding: 54px 0 70px;
+  }
+
+  .day-plan__title{
+    margin-bottom: var(--dp-title-gap-mobile) !important;
+  }
+
+  /* делаем плотный ритм */
+  .day-plan__list{
+    gap: var(--dp-row-gap-mobile) !important;
+    align-items: stretch;
+  }
+
+  /* Все строки одинаковые: иконка слева, текст справа */
+  .day-plan__row,
+  .day-plan__row--right{
+    max-width: 560px;
+    margin: 0 auto;
+    grid-template-columns: var(--dp-icon-mobile) 1fr !important;
+    column-gap: 14px !important;
+    text-align: left !important;
+    transform: none !important;
+  }
+
+  /* Иконки меньше */
+  .day-plan__icon{
+    width: var(--dp-icon-mobile) !important;
+    margin: 0 !important;
+  }
+
+  /* Текст компактнее */
+  .day-plan__name{
+    font-size: 20px !important;
+  }
+
+  .day-plan__time{
+    font-size: 15px !important;
+    margin-top: 6px !important;
+  }
+
+  /* Стрелки строго по центру и близко */
+  .day-plan__arrow{
+    width: var(--dp-arrow-mobile) !important;
+    margin: 6px auto 6px !important;
+    display: block !important;
+    transform: none !important;
+  }
+}
+/* ================================
+   DAY PLAN — FINAL (REPLACE ALL)
+   ================================ */
+
+.day-plan{
+  background: #fbf7f3 !important;
+  padding: 80px 0 90px !important;
+}
+
+.day-plan__inner{
+  max-width: 980px !important;
+  margin: 0 auto !important;
+  padding: 0 24px !important;
+  text-align: center !important;
+}
+
+.day-plan__title{
+  margin: 0 0 60px !important;   /* ⬅️ расстояние от заголовка до 1 блока */
+  font-size: clamp(34px, 4.2vw, 56px) !important;
+  line-height: 1.1 !important;
+}
+
+/* Список без “полотна” */
+.day-plan__list{
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+  gap: 12px !important;          /* ⬅️ общий ритм */
+}
+
+/* Ряд */
+.day-plan__row{
+  width: 100% !important;
+  max-width: 760px !important;
+  display: grid !important;
+  grid-template-columns: 320px 1fr !important; /* ⬅️ колонка под иконку */
+  align-items: center !important;
+  column-gap: 28px !important;
+  margin: 0 !important;
+  transform: none !important;
+}
+
+/* Правый ряд */
+.day-plan__row--right{
+  grid-template-columns: 1fr 320px !important;
+  text-align: right !important;
+  transform: none !important;
+}
+
+/* Иконки — как на рефе, крупно */
+.day-plan__icon{
+  width: 320px !important;       /* ⬅️ размер иконки на ПК */
+  height: auto !important;
+  display: block !important;
+  margin: 0 auto !important;
+}
+
+/* Текст */
+.day-plan__name{
+  font-size: clamp(22px, 2.6vw, 34px) !important;
+  line-height: 1.12 !important;
+}
+
+.day-plan__time{
+  margin-top: 8px !important;
+  font-size: clamp(18px, 2.2vw, 28px) !important;
+  color: #791c27 !important;
+}
+
+/* Стрелки — близко, без гигантских отступов */
+.day-plan__arrow{
+  width: 180px !important;       /* ⬅️ размер стрелки на ПК */
+  height: auto !important;
+  display: block !important;
+  margin: 6px 0 6px !important;  /* ⬅️ расстояние между блоками через стрелку */
+  opacity: 1 !important;
+  transform: none !important;
+}
+
+/* ====================
+   MOBILE
+   ==================== */
+@media (max-width: 768px){
+
+  .day-plan{
+    padding: 56px 0 70px !important;
+  }
+
+  .day-plan__inner{
+    padding: 0 18px !important;
+    text-align: left !important;
+  }
+
+  .day-plan__title{
+    text-align: center !important;
+    margin: 0 0 34px !important; /* ⬅️ плотнее как на рефе */
+  }
+
+  .day-plan__list{
+    gap: 14px !important;        /* ⬅️ общий шаг на мобилке */
+    align-items: stretch !important;
+  }
+
+  /* ВСЕ ряды в один формат: иконка слева, текст справа */
+  .day-plan__row,
+  .day-plan__row--right{
+    max-width: 560px !important;
+    margin: 0 auto !important;
+    grid-template-columns: 92px 1fr !important;
+    column-gap: 14px !important;
+    text-align: left !important;
+    transform: none !important;
+  }
+
+  .day-plan__icon{
+    width: 92px !important;      /* ⬅️ размер иконки на мобилке */
+    margin: 0 !important;
+  }
+
+  .day-plan__name{
+    font-size: 20px !important;
+  }
+
+  .day-plan__time{
+    font-size: 15px !important;
+    margin-top: 6px !important;
+  }
+
+  .day-plan__arrow{
+    width: 54px !important;      /* ⬅️ размер стрелки на мобилке */
+    margin: 4px auto 4px !important;
+  }
+}
+/* =========================
+   DAY PLAN (Расписание дня) — FIX
+   Вставь в самый конец styles.css
+========================= */
+
+.day-plan{
+  background: #fbf7f3;
+  padding: clamp(56px, 8vh, 96px) 0;
+  overflow: hidden;
+
+  /* Настройки, которые ты можешь крутить */
+  --dp-max: 860px;                           /* ширина блока */
+  --dp-row-gap: clamp(22px, 5vh, 44px);      /* вертикальный шаг между рядами */
+  --dp-icon: clamp(140px, 18vw, 230px);      /* размер иконок на ПК */
+  --dp-arrow: clamp(70px, 9vw, 140px);       /* размер стрелок на ПК */
+  --dp-col-gap: clamp(18px, 4vw, 54px);      /* расстояние между иконкой и текстом */
+}
+
+.day-plan__inner{
+  max-width: var(--dp-max);
+  margin: 0 auto;
+  padding: 0 20px;
+  text-align: center;
+}
+
+.day-plan__title{
+  margin: 0 0 clamp(26px, 5vh, 46px);
+  font-family: "Cormorant Garamond", serif;
+  font-weight: 500;
+  font-size: clamp(34px, 4.2vw, 56px);
+  line-height: 1.1;
+}
+
+/* список */
+.day-plan__list{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--dp-row-gap);
+}
+
+/* ряд */
+.day-plan__row{
+  width: 100%;
+  display: grid;
+  grid-template-columns: minmax(160px, var(--dp-icon)) 1fr;
+  align-items: center;
+  column-gap: var(--dp-col-gap);
+}
+
+/* правый ряд (как в рефе) */
+.day-plan__row--right{
+  grid-template-columns: 1fr minmax(160px, var(--dp-icon));
+  text-align: right;
+}
+
+/* иконки */
+.day-plan__icon{
+  width: var(--dp-icon);
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
+/* текст */
+.day-plan__text{ min-width: 0; }
+
+.day-plan__name{
+  font-family: "Cormorant Garamond", serif;
+  font-weight: 500;
+  font-size: clamp(22px, 2.6vw, 36px);
+  line-height: 1.12;
+  color: #1f1f1f;
+}
+
+.day-plan__time{
+  margin-top: clamp(6px, 1.2vh, 10px);
+  font-family: "Cormorant Garamond", serif;
+  font-weight: 500;
+  font-size: clamp(16px, 2vw, 22px);
+  color: #791c27;
+  letter-spacing: 0.02em;
+}
+
+/* стрелки */
+.day-plan__arrow{
+  width: var(--dp-arrow);
+  max-width: 100%;
+  height: auto;
+  display: block;
+
+  /* компактно между блоками */
+  margin: calc(var(--dp-row-gap) * -0.35) 0 calc(var(--dp-row-gap) * -0.25);
+  opacity: 0.95;
+}
+
+/* лёгкая “ручная” асимметрия (как в рефе), но без разъезда на мобилке */
+@media (min-width: 900px){
+  .day-plan__row:nth-of-type(1){ transform: translateX(-12px); }
+  .day-plan__row--right{ transform: translateX(12px); }
+  .day-plan__row:nth-of-type(5){ transform: translateX(-10px); }
+
+  .day-plan__arrow:nth-of-type(2){ transform: translateX(-14px); }
+  .day-plan__arrow:nth-of-type(4){ transform: translateX(14px); }
+}
+
+/* =========================
+   MOBILE (телефон)
+========================= */
+@media (max-width: 720px){
+  .day-plan{
+    --dp-max: 560px;
+    --dp-row-gap: 22px;
+    --dp-icon: 110px;     /* 👈 размер иконок на телефоне */
+    --dp-arrow: 64px;     /* 👈 размер стрелок на телефоне */
+    --dp-col-gap: 16px;
+    padding: 52px 0 72px;
+  }
+
+  .day-plan__inner{
+    text-align: left;
+  }
+
+  .day-plan__title{
+    text-align: center;
+    margin-bottom: 28px;
+  }
+
+  /* все ряды одинаково: иконка слева, текст справа */
+  .day-plan__row,
+  .day-plan__row--right{
+    grid-template-columns: var(--dp-icon) 1fr;
+    text-align: left;
+    transform: none !important;
+  }
+
+  .day-plan__arrow{
+    margin: -4px 0 -2px;
+    transform: none !important;
+  }
+}
+
+/* =========================
+   REVEAL анимация (скорость регулируется переменными)
+========================= */
+:root{
+  --revealDur: 900ms;      /* 👈 скорость появления */
+  --revealDelayStep: 120ms;/* 👈 “волна” между элементами */
+  --revealEase: cubic-bezier(.2,.8,.2,1);
+}
+
+.reveal-y{
+  opacity: 0;
+  transform: translateY(18px);
+  filter: blur(10px);
+  transition: opacity var(--revealDur) var(--revealEase),
+              transform var(--revealDur) var(--revealEase),
+              filter var(--revealDur) var(--revealEase);
+  will-change: opacity, transform, filter;
+}
+.reveal-y.is-inview{
+  opacity: 1;
+  transform: translateY(0);
+  filter: blur(0);
+}
+
+.reveal-wave{
+  opacity: 0;
+  transform: translateX(-22px);
+  filter: blur(10px);
+  transition: opacity var(--revealDur) var(--revealEase),
+              transform var(--revealDur) var(--revealEase),
+              filter var(--revealDur) var(--revealEase);
+  will-change: opacity, transform, filter;
+}
+.reveal-wave.wave-right{ transform: translateX(22px); }
+.reveal-wave.is-inview{
+  opacity: 1;
+  transform: translateX(0);
+  filter: blur(0);
+}
+.timing-section {
+  background: #fbf7f3;
+  padding: clamp(48px, 8vw, 80px) 0;
+}
+
+.timing-section__container {
+  max-width: 640px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+.timing-section__title {
+  font-family: "Cormorant Garamond", serif;
+  font-size: clamp(36px, 6vw, 48px);
+  font-weight: 500;
+  line-height: 1.2;
+  color: #1a1a1a;
+  text-align: center;
+  margin: 0 0 clamp(40px, 8vw, 64px);
+}
+
+.timing-section__list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: clamp(40px, 8vw, 64px);
+}
+
+.timing-event {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.timing-event__line {
+  margin: 0 0 20px;
+  font-size: clamp(20px, 3.5vw, 26px);
+  font-weight: 500;
+  color: #1a1a1a;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  letter-spacing: 0.02em;
+}
+
+.timing-event__time {
+  font-weight: 600;
+}
+
+.timing-event__dash {
+  margin: 0 0.2em;
+}
+
+.timing-event__name {
+  font-weight: 500;
+}
+
+.timing-event__img-wrap {
+  width: 100%;
+  max-width: 200px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.timing-event__img {
+  width: 100%;
+  height: auto;
+  object-fit: contain;
+}
+
+@media (max-width: 480px) {
+  .timing-event__line {
+    font-size: 22px;
+  }
+  .timing-event__img-wrap {
+    max-width: 160px;
+  }
+}

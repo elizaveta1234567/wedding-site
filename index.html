@@ -1,0 +1,524 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Приглашение на свадьбу</title>
+  <!-- обновление: принудительный деплой -->
+  <!-- Шрифты (под “элегантную” эстетику как на референсе) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&family=Marck+Script&display=swap" rel="stylesheet">
+<link rel="icon" type="image/jpeg" sizes="32x32" href="images/icon.jpg">
+  <link rel="stylesheet" href="styles.css" />
+</head>
+
+<body>
+<!-- INTRO SCREEN -->
+<div class="intro">
+  <svg class="intro__svg" viewBox="0 0 100 100" preserveAspectRatio="xMidYMid slice">
+    <defs>
+      <mask id="heart-mask">
+        <rect x="0" y="0" width="100" height="100" fill="white" />
+        <path class="intro__mask-heart" fill="black"
+          d="M50 78
+             C50 78, 18 56, 18 36
+             C18 24, 28 18, 36 18
+             C44 18, 50 24, 50 24
+             C50 24, 56 18, 64 18
+             C72 18, 82 24, 82 36
+             C82 56, 50 78, 50 78
+             Z"/>
+      </mask>
+    </defs>
+
+    <rect x="0" y="0" width="100" height="100" fill="#a32323" mask="url(#heart-mask)"/>
+
+    <path class="intro__stroke-heart" fill="none" stroke="white" stroke-width="1.8"
+      d="M50 78
+         C50 78, 18 56, 18 36
+         C18 24, 28 18, 36 18
+         C44 18, 50 24, 50 24
+         C50 24, 56 18, 64 18
+         C72 18, 82 24, 82 36
+         C82 56, 50 78, 50 78
+         Z"/>
+  </svg>
+
+ <!-- КОНТЕНТ -->
+<div class="intro__content">
+  <div class="intro__hit" aria-label="Открыть приглашение"></div>
+
+  <h2 class="intro__title">ВЫ ПОЛУЧИЛИ ПРИГЛАШЕНИЕ НА СВАДЬБУ!</h2>
+  <p class="intro__hint">НАЖМИТЕ НА СЕРДЦЕ</p>
+</div>
+  </div>
+</div>
+<script src="intro.js"></script>
+<!-- /INTRO SCREEN -->
+  <main class="pages">
+    <!-- MUSIC PLAYER (floating) -->
+<div class="music-player" id="musicPlayer">
+  <button class="music-btn" id="musicToggle" type="button" aria-label="Включить музыку">
+    ♪
+  </button>
+  <div class="music-meta">
+    <div class="music-title" id="musicTitle">Музыка</div>
+    <div class="music-status" id="musicStatus">нажмите, чтобы включить</div>
+  </div>
+
+  <audio id="bgMusic" preload="metadata">
+    <source src="music.mp3" type="audio/mpeg">
+  </audio>
+</div>
+<script>
+(function(){
+const audio = document.getElementById('bgMusic');
+const toggle = document.getElementById('musicToggle');
+const player = document.getElementById('musicPlayer');
+const status = document.getElementById('musicStatus');
+
+if (!audio || !toggle || !player || !status) return;
+
+audio.volume = 0.6;
+audio.loop = true;
+
+async function play(){
+try{
+await audio.play();
+player.classList.add('is-playing');
+toggle.setAttribute('aria-label', 'Пауза');
+status.textContent = 'играет';
+}catch(e){
+status.textContent = 'нажмите ещё раз';
+console.log('Audio play blocked:', e);
+}
+}
+
+function pause(){
+audio.pause();
+player.classList.remove('is-playing');
+toggle.setAttribute('aria-label', 'Включить музыку');
+status.textContent = 'пауза';
+}
+
+toggle.addEventListener('click', () => {
+if (audio.paused) play();
+else pause();
+});
+})();
+</script>
+<!-- </section>
+    <section class="page" id="location">
+      <div class="card">
+        <div class="card__header">
+        <section class="hero">
+  <div class="hero__wrap">
+    <div class="hero__title">
+      <div class="hero__name-top">Владислав<span class="hero__amp">&</span></div>
+      <div class="hero__name-bottom">Елизавета</div>
+    </div>
+<p class="dresscode-text">
+      НЕ ИМЕЕТ СМЫСЛА ЛЮБИТЬ, ЕСЛИ НЕ ИМЕЕШЬ<br>
+      НАМЕРЕНИЯ СДЕЛАТЬ ЭТУ ЛЮБОВЬ ВЕЧНОЙ
+    </p>
+   
+
+    <!-- Без даты: этот блок мы просто НЕ добавляем -->
+
+    <!-- <div class="hero__media">
+        <img
+        src="images/photo_main.jpg"
+        alt="Владислав и Елизавета"
+        class="hero__video"
+        loading="eager"
+   />
+    </div>
+  </div>
+</section>
+
+<section class="calendar-section" id="calendar">
+  <div class="invite-wrap">
+    <h2 class="invite-title">Дорогие гости!</h2>
+    <p class="dresscode-text">
+     Мы приглашаем вас разделить с нами наш счастливый день, в который мы станем одной семьей!
+    </p>  -->
+<section class="main-screen">
+  <div class="main-screen__inner reveal-y">
+
+    <div class="main-screen__content">
+      <h1 class="main-screen__title">
+        <span>ЛЮБОВЬ.</span>
+        <span>КОКТЕЙЛИ.</span>
+        <span class="accent">ЖЕНИХ.</span>
+        <span class="accent">НЕВЕСТА.</span>
+        <span>ПОЦЕЛУИ.</span>
+      </h1>
+
+      <p class="main-screen__note">
+        Все это и не только
+        ждет вас <span class="date">16.08.2026</span> года<br>
+        На празднике по случаю
+        нашей свадьбы!
+      </p>
+    </div>
+
+    <div class="main-screen__media">
+      <img
+        class="main-screen__img"
+        src="images/couplelove.png"
+        alt="Владислав и Елизавета"
+        loading="lazy"
+        decoding="async"
+      />
+    </div>
+
+  </div>
+</section>
+ <!-- <section class="calendar-section">
+  <div class="calendar-block">
+    <div class="cal-grid">
+      <!-- ROW 1: дни недели -->
+      <!-- <div class="cal-cell cal-head">ПН</div>
+      <div class="cal-cell cal-head">ВТ</div>
+      <div class="cal-cell cal-head">СР</div>
+      <div class="cal-cell cal-head">ЧТ</div>
+      <div class="cal-cell cal-head">ПТ</div>
+      <div class="cal-cell cal-head">СБ</div>
+      <div class="cal-cell cal-head">ВС</div>
+
+      <!-- ROW 2: числа
+      <div class="cal-cell cal-day">3</div>
+      <div class="cal-cell cal-day">4</div>
+      <div class="cal-cell cal-day">5</div>
+<!-- 6 августа (четверг) -->
+<!-- <div class="cal-cell cal-day cal-day--heart">
+  <svg class="heart-pin" viewBox="0 0 100 130" aria-hidden="true">
+    <!-- ровное сердце -->
+    <!-- <path d="
+      M50 35
+      C50 25, 36 15, 24 15
+      C10 15, 10 34, 10 34
+      C10 55, 33 70, 50 87
+      C67 70, 90 55, 90 34
+      C90 34, 90 15, 76 15
+      C64 15, 50 25, 50 35
+      Z"
+      fill="none"
+      stroke="#7C565C"
+      stroke-width="4"
+      stroke-linecap="round"
+      stroke-linejoin="round"
+    /> -->
+    <!-- палочка -->
+    <!-- <line x1="50" y1="87" x2="50" y2="130"
+      stroke="#7C565C" stroke-width="4" stroke-linecap="round"/>
+  </svg>
+ -->
+  <!-- <span class="cal-num">6</span>
+</div>
+      <div class="cal-cell cal-day">7</div>
+      <div class="cal-cell cal-day">8</div>
+      <div class="cal-cell cal-day">9</div>  -->
+
+      <!-- ROW 3: месяц (ВАЖНО: это отдельная ячейка сетки) -->
+      <!-- <div class="cal-cell cal-month">Август</div>
+    </div>
+  </div> -->
+<section class="love-cal" aria-label="Календарь: 6 августа 2026">
+  <div class="love-cal__frame reveal-y">
+    <img
+      class="love-cal__img"
+      src="images/callendarlove.png"
+      alt="Дата любви: 6 августа 2026"
+      loading="lazy"
+      decoding="async"
+    />
+  </div>
+</section>
+ <!-- ЛОКАЦИЯ -->
+<section class="loca" id="location">
+  <div class="loca__wrap">
+    <div class="loca__card loca--reveal reveal-y">
+
+      <h2 class="loca__title">Место проведения</h2>
+
+      <p class="loca__address">
+        г. Тольятти, ул. Комзина, 6<br>
+        Ресторан «Парк Отель»
+      </p>
+
+      <!-- КНОПКУ НЕ ТРОГАЕМ -->
+      <a class="wloc__btn" href="https://yandex.ru/maps/org/park_otel/1081236889/?ll=49.354816%2C53.474493&z=16" target="_blank">
+        ПОСМОТРЕТЬ НА КАРТЕ
+      </a>
+
+    </div>
+  </div>
+</section>
+<section class="section timing-section" id="timing" aria-labelledby="timing-heading">
+  <div class="container timing-section__container reveal-y">
+    <h2 id="timing-heading" class="timing-section__title">Тайминг:</h2>
+
+    <ol class="timing-section__list">
+      <li class="timing-event">
+        <p class="timing-event__line">
+          <time class="timing-event__time">16:00</time>
+          <span class="timing-event__dash"> – </span>
+          <span class="timing-event__name">Сбор гостей</span>
+        </p>
+        <div class="timing-event__img-wrap">
+          <img class="timing-event__img" src="images/sbor.png" alt="">
+        </div>
+      </li>
+
+      <li class="timing-event">
+        <p class="timing-event__line">
+          <time class="timing-event__time">16:45</time>
+          <span class="timing-event__dash"> – </span>
+          <span class="timing-event__name">Церемония любви</span>
+        </p>
+        <div class="timing-event__img-wrap">
+          <img class="timing-event__img" src="images/rings.png" alt="">
+        </div>
+      </li>
+
+      <li class="timing-event">
+        <p class="timing-event__line">
+          <time class="timing-event__time">17:30</time>
+          <span class="timing-event__dash"> – </span>
+          <span class="timing-event__name">Свадебный ужин</span>
+        </p>
+        <div class="timing-event__img-wrap">
+          <img class="timing-event__img" src="images/cake.png" alt="">
+        </div>
+      </li>
+    </ol>
+  </div>
+</section>
+
+<!-- ДРЕСС-КОД -->
+<!-- ДРЕСС-КОД -->
+<section class="page dresscode-section" id="dresscode">
+  <div class="dresscode-wrap reveal-y">
+ <h2 class="loca__title">Дресс-код</h2>
+
+
+    <p class="dresscode-text">
+      Для нас самое главное - ваше присутствие!<br>
+      Но мы будем очень благодарны, если вы поддержите<br>
+      цветовую гамму спокойных природных оттенков
+    </p>
+
+    <div class="dresscode-palette" aria-label="Палитра дресс-кода">
+      <span class="swatch s1" aria-hidden="true"></span>
+      <span class="swatch s2" aria-hidden="true"></span>
+      <span class="swatch s3" aria-hidden="true"></span>
+      <span class="swatch s4" aria-hidden="true"></span>
+      <span class="swatch s5" aria-hidden="true"></span>
+      <span class="swatch s6" aria-hidden="true"></span>
+    </div>
+  </div>
+    <div class="dresscode-look">
+  <img
+    src="images/Dresscode.png"
+    alt="Примеры образов дресс-кода"
+    class="dresscode-image"
+    loading="lazy"
+  />
+</div>
+</section>
+
+<!-- ДЕТАЛИ -->
+<section class="page details-section" id="details">
+  <div class="details-card reveal-y">
+  <div class="details-wrap">
+
+    <div class="details-content">
+      <h2 class="details-title">Детали</h2>
+
+      <p class="details-text">
+        Если вы планировали взять с собой букет цветов,
+        то бутылочка вина с вашей подписью будет
+        лучшей заменой!
+      </p>
+    </div>
+
+    <div class="details-media">
+      <img
+        src="images/details.png"
+        alt="Две бутылки — тост за праздник"
+        class="details-img"
+        loading="lazy"
+      />
+    </div>
+
+  </div>
+  </div>
+</section>
+    <!-- Анкета по референсу: минималистичный вид, Formspree -->
+    <section class="page anketa-section" id="rsvp">
+      <div class="anketa reveal-y">
+        <h2 class="anketa__title">АНКЕТА</h2>
+        <p class="anketa__intro">Подтвердите свое присутствие, заполните анкету ниже:</p>
+
+        <form class="anketa-form" id="rsvp-form"
+              name="rsvp"
+              method="POST"
+              action="https://formspree.io/f/xqeyzybj">
+
+          <input type="hidden" name="_next" id="formspree-next" value="" />
+          <input type="hidden" name="_subject" value="Новый ответ: Анкета гостя на свадьбу" />
+          <p class="hidden" aria-hidden="true">
+            <label>Не заполняйте: <input name="_gotcha" tabindex="-1" autocomplete="off" /></label>
+          </p>
+
+          <label class="anketa-field">
+            <span class="anketa-field__label">Ваше имя:</span>
+            <input class="anketa-field__input" type="text" name="name" required />
+          </label>
+
+          <fieldset class="anketa-fieldset">
+            <span class="anketa-field__label anketa-field__label--question">Планируете ли вы присутствовать?</span>
+            <label class="anketa-radio">
+              <input type="radio" name="attendance" value="Да! С удовольствием!" required />
+              <span>Да! С удовольствием!</span>
+            </label>
+            <label class="anketa-radio">
+              <input type="radio" name="attendance" value="К сожалению, не смогу" />
+              <span>К сожалению, не смогу</span>
+            </label>
+          </fieldset>
+
+          <fieldset class="anketa-fieldset">
+            <span class="anketa-field__label anketa-field__label--question">С кем вы придете?</span>
+            <label class="anketa-radio">
+              <input type="radio" name="with_whom" value="Буду один/одна" required />
+              <span>Буду один/одна</span>
+            </label>
+            <label class="anketa-radio">
+              <input type="radio" name="with_whom" value="Буду с парой" />
+              <span>Буду с парой</span>
+            </label>
+          </fieldset>
+
+          <label class="anketa-field">
+            <span class="anketa-field__label anketa-field__label--question">Какой алкоголь планируете пить?</span>
+            <input class="anketa-field__input" type="text" name="alcohol" />
+          </label>
+
+          <button class="anketa__submit" type="submit">отправить</button>
+        </form>
+      </div>
+    </section>
+    <script>
+      (function() {
+        var next = document.getElementById('formspree-next');
+        if (next) next.value = window.location.origin + '/success.html';
+      })();
+    </script>
+<section class="timer-section" id="timer">
+  <div class="timer-wrap reveal-y">
+    <h2 class="timer-section__title">Встретимся с вами через:</h2>
+    <div class="timer" aria-label="Обратный отсчет до 6 августа 2026">
+      <div class="timer-row" role="group" aria-label="Таймер">
+        <div class="timer-cell">
+          <div class="timer-num" id="tDays">00</div>
+          <div class="timer-label">дней</div>
+        </div>
+
+        <div class="timer-sep" aria-hidden="true">·</div>
+
+        <div class="timer-cell">
+          <div class="timer-num" id="tHours">00</div>
+          <div class="timer-label">часы</div>
+        </div>
+
+        <div class="timer-sep" aria-hidden="true">·</div>
+
+        <div class="timer-cell">
+          <div class="timer-num" id="tMins">00</div>
+          <div class="timer-label">минуты</div>
+        </div>
+
+        <div class="timer-sep" aria-hidden="true">·</div>
+
+        <div class="timer-cell">
+          <div class="timer-num" id="tSecs">00</div>
+          <div class="timer-label">секунды</div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<script>
+(function () {
+  // Цель: 6 августа 2026, 00:00 (локальное время пользователя)
+  const target = new Date(2026, 7, 6, 0, 0, 0); // месяцы: 0=янв ... 7=авг
+
+  const elDays  = document.getElementById("tDays");
+  const elHours = document.getElementById("tHours");
+  const elMins  = document.getElementById("tMins");
+  const elSecs  = document.getElementById("tSecs");
+
+  const pad2 = (n) => String(n).padStart(2, "0");
+
+  function tick() {
+    const now = new Date();
+    let diff = target - now;
+
+    if (diff <= 0) {
+      elDays.textContent  = "00";
+      elHours.textContent = "00";
+      elMins.textContent  = "00";
+      elSecs.textContent  = "00";
+      return;
+    }
+
+    const totalSeconds = Math.floor(diff / 1000);
+
+    const days  = Math.floor(totalSeconds / 86400);
+    const hours = Math.floor((totalSeconds % 86400) / 3600);
+    const mins  = Math.floor((totalSeconds % 3600) / 60);
+    const secs  = totalSeconds % 60;
+
+    elDays.textContent  = String(days).padStart(2, "0"); // дни могут быть 3 цифры
+    elHours.textContent = pad2(hours);
+    elMins.textContent  = pad2(mins);
+    elSecs.textContent  = pad2(secs);
+  }
+
+  tick();
+  setInterval(tick, 1000);
+})();
+</script>
+   <!-- КОНТАКТЫ -->
+<!-- <section class="page contacts-section" id="contacts">
+  <div class="contacts-card">
+    <h2 class="contacts-title">Контакты</h2>
+
+    <p class="contacts-subtitle">
+      По возникающим вопросам можете<br>
+      обращаться к организатору нашего<br>
+      мероприятия
+    </p>
+
+    <div class="contacts-lines">
+      <a class="contacts-link" href="tel:+79033358106">+7 (903) 335-81-06 Валерия</a>
+      <a class="contacts-link" href="https://t.me/+79033358106" target="_blank" rel="noopener">Telegram организатора</a>
+    </div>
+
+    <div class="contacts-brand">
+      <div class="brand-name">WEDI</div>
+      <div class="brand-sub">event agency</div>
+    </div>
+  </div> -->
+<!-- </section> -->
+  </main>
+
+<!-- <script src="telegram.js"></script> -->
+
+</body>
+</html>
