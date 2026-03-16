@@ -3097,7 +3097,7 @@ margin: 0 auto 38px;
 
 .main-screen {
   min-height: 100vh;
-  background:  #fbf7f3;
+  background: #fbf7f3;
   display: flex;
   align-items: center;
 }
@@ -3882,24 +3882,22 @@ html.js .wloc--reveal.is-visible{
   justify-content: center;
 }
 
-/* Волнистая карточка */
+/* Карточка с рамкой-бантikom */
 .loca__card{
   position: relative;
   max-width: 560px;
   width: 100%;
-  padding: clamp(36px, 5vw, 56px) 32px 44px;
+  /* даём рамке больше “воздуха” вокруг текста и кнопки */
+  padding: clamp(64px, 8vw, 90px) 56px clamp(72px, 8vw, 96px);
 
   text-align: center;
   background: transparent;
-  border: 1.5px solid rgba(30,30,30,0.65);
+  border: none;
 
-  clip-path: path(
-    "M30 10
-     Q280 -20 530 10
-     Q560 180 530 350
-     Q280 390 30 350
-     Q0 180 30 10 Z"
-  );
+  background-image: url("frame_clean.svg");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 100% 100%;
 }
 
 /* Заголовок секции (единый стиль с таймингом) */
@@ -3934,15 +3932,8 @@ html.js .wloc--reveal.is-visible{
 /* Мобилка — упрощаем волну */
 @media (max-width: 520px){
   .loca__card{
-    padding: 34px 22px 40px;
-    clip-path: path(
-      "M20 10
-       Q50 -10 280 0
-       Q520 -10 540 10
-       Q560 180 540 340
-       Q280 380 20 340
-       Q0 180 20 10 Z"
-    );
+    padding: 52px 28px 64px;
+    background-size: 100% 100%;
   }
 }
 
@@ -5190,6 +5181,25 @@ html.js .date-section.is-visible{
   padding: clamp(48px, 8vw, 80px) 0;
 }
 
+.timing-program{
+  position: relative;
+  max-width: 760px;
+  margin: 0 auto;
+  padding: clamp(40px, 7vw, 70px) clamp(20px, 6vw, 48px);
+  border-radius: 32px;
+  background: #fbf7f3;
+}
+
+@media (min-width: 768px){
+  .timing-program{
+    background-image: url("images/timing-line.svg");
+    background-repeat: no-repeat;
+    /* чуть сдвигаем линию левее, чтобы не наезжала на картинки */
+    background-position: 38% 0;
+    background-size: auto 100%;
+  }
+}
+
 .timing-section__container {
   max-width: 640px;
   margin: 0 auto;
@@ -5212,14 +5222,14 @@ html.js .date-section.is-visible{
   margin: 0;
   display: flex;
   flex-direction: column;
-  gap: clamp(40px, 8vw, 64px);
+  gap: clamp(34px, 6vw, 54px);
 }
 
 .timing-event {
   display: flex;
   flex-direction: column;
-  align-items: center;
-  text-align: center;
+  align-items: flex-start;
+  text-align: left;
 }
 
 .timing-event__line {
@@ -5227,16 +5237,24 @@ html.js .date-section.is-visible{
   font-size: clamp(20px, 3.5vw, 26px);
   font-weight: 500;
   color: #1a1a1a;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
-  letter-spacing: 0.02em;
+  font-family: "Cormorant Garamond", serif;
+  letter-spacing: 0.06em;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  /* базовый сдвиг вниз для мобильной/общей версии, на десктопе переопределяем */
+  transform: translateY(14px);
 }
 
 .timing-event__time {
-  font-weight: 600;
+  font-weight: 500;
+  font-size: clamp(28px, 4.3vw, 34px);
+  color: #a32323;
 }
 
 .timing-event__dash {
-  margin: 0 0.2em;
+  display: none;
 }
 
 .timing-event__name {
@@ -5245,16 +5263,17 @@ html.js .date-section.is-visible{
 
 .timing-event__img-wrap {
   width: 100%;
-  max-width: 200px;
+  max-width: 260px;
   display: flex;
   justify-content: center;
   align-items: center;
 }
 
 .timing-event__img {
-  width: 100%;
+  width: 115%;
   height: auto;
   object-fit: contain;
+  transform: translateX(6%);
 }
 
 @media (max-width: 480px) {
@@ -5263,5 +5282,80 @@ html.js .date-section.is-visible{
   }
   .timing-event__img-wrap {
     max-width: 160px;
+  }
+}
+
+@media (min-width: 768px){
+  /* На десктопе оставляем три "колонки": левая (текст/картинка), центр — линия, правая (картинка/текст) */
+  .timing-program{
+    max-width: 880px;
+    padding-left: clamp(40px, 7vw, 80px);
+    padding-right: clamp(40px, 7vw, 80px);
+  }
+
+  .timing-event{
+    display: flex;
+    align-items: center;
+    gap: clamp(24px, 4vw, 40px);
+  }
+
+  .timing-event__line{
+    margin-bottom: 0;
+    max-width: 40%;
+    /* на десктопе выравниваем текст по центру относительно строки с картинкой */
+    transform: translateY(0);
+  }
+
+  .timing-event__img-wrap{
+    max-width: 220px;
+  }
+
+  /* 1-й и 3-й пункты: текст слева, картинка справа от линии */
+  .timing-event:nth-child(1),
+  .timing-event:nth-child(3){
+    flex-direction: row;
+    justify-content: space-between;
+  }
+
+  .timing-event:nth-child(1) .timing-event__line,
+  .timing-event:nth-child(3) .timing-event__line{
+    margin-right: auto;
+    /* лёгкий сдвиг влево от линии, вертикаль остаётся по центру */
+    transform: translateX(-14px);
+  }
+
+  .timing-event:nth-child(1) .timing-event__img-wrap,
+  .timing-event:nth-child(3) .timing-event__img-wrap{
+    justify-content: flex-end;
+    padding-left: clamp(44px, 6vw, 60px); /* увеличенный зазор от линии */
+  }
+
+  .timing-event:nth-child(1) .timing-event__img,
+  .timing-event:nth-child(3) .timing-event__img{
+    transform: translate(12%, 6px); /* уводим правее и слегка опускаем, чтобы было напротив текста */
+  }
+
+  /* 2-й пункт: картинка слева от линии, текст справа;
+     просто подвигаем кольца ближе к тексту, не меняя их местами */
+  .timing-event:nth-child(2){
+    flex-direction: row-reverse;
+    justify-content: space-between;
+  }
+
+  .timing-event:nth-child(2) .timing-event__img-wrap{
+    justify-content: flex-start;
+    /* ещё ближе к тексту, но всё ещё слева от линии */
+    padding-right: clamp(14px, 3vw, 24px);
+    padding-left: 0;
+  }
+
+  .timing-event:nth-child(2) .timing-event__line{
+    /* лёгкий сдвиг вправо от линии, без вертикального смещения */
+    transform: translateX(4px);
+  }
+
+  .timing-event:nth-child(2) .timing-event__img{
+    /* сдвигаем кольца ещё правее к тексту */
+    transform: translateX(4%);
   }
 }

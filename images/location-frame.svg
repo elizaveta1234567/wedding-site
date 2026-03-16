@@ -1,0 +1,65 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 520" preserveAspectRatio="none">
+  <defs>
+    <linearGradient id="locFrameGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#a32323"/>
+      <stop offset="50%" stop-color="#b83733"/>
+      <stop offset="100%" stop-color="#a32323"/>
+    </linearGradient>
+  </defs>
+
+  <!-- >;=8AB0O @0<:0 -->
+  <path
+    d="
+      M 30 40
+      C 20 20, 20 10, 40 20
+      C 80 40, 120 10, 160 24
+      C 200 38, 240 14, 280 26
+      C 320 38, 360 18, 370 30
+      C 380 42, 380 70, 372 90
+      C 364 110, 384 140, 378 160
+      C 372 180, 380 210, 372 230
+      C 364 250, 382 280, 374 300
+      C 366 320, 378 350, 370 370
+      C 362 390, 382 420, 370 436
+      C 358 452, 330 460, 300 456
+      C 270 452, 240 478, 210 472
+      C 180 466, 150 488, 120 478
+      C 90 468, 60 486, 46 474
+      C 32 462, 26 440, 30 420
+      C 34 400, 22 380, 26 360
+      C 30 340, 18 320, 24 300
+      C 30 280, 20 260, 24 240
+      C 28 220, 18 200, 24 180
+      C 30 160, 20 140, 24 118
+      C 28 96, 18 80, 24 62
+      C 30 44, 30 40, 30 40
+      Z
+    "
+    fill="none"
+    stroke="url(#locFrameGrad)"
+    stroke-width="4"
+    stroke-linecap="round"
+    stroke-linejoin="round"
+  />
+
+  <!-- 0=B8: A25@EC -->
+  <path
+    d="
+      M 160 58
+      C 145 40, 130 36, 118 44
+      C 106 52, 108 70, 122 76
+      C 136 82, 150 72, 160 62
+      C 170 72, 184 82, 198 76
+      C 212 70, 214 52, 202 44
+      C 190 36, 175 40, 160 58
+    "
+    fill="none"
+    stroke="url(#locFrameGrad)"
+    stroke-width="3.2"
+    stroke-linecap="round"
+    stroke-linejoin="round"
+  />
+
+  <!-- #75;>: 10=B8:0 -->
+  <circle cx="160" cy="62" r="2.4" fill="#a32323"/>
+</svg>

@@ -1,0 +1,64 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 80 800" preserveAspectRatio="none">
+  <defs>
+    <linearGradient id="timing-line-grad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#a32323" stop-opacity="0.06"/>
+      <stop offset="50%" stop-color="#a32323" stop-opacity="0.55"/>
+      <stop offset="100%" stop-color="#a32323" stop-opacity="0.06"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Верхний сегмент до текста 16:00 -->
+  <path
+    d="
+      M 40 0
+      C 10 60, 10 120, 40 180
+    "
+    fill="none"
+    stroke="url(#timing-line-grad)"
+    stroke-width="3"
+    stroke-linecap="round"
+    stroke-linejoin="round"
+  />
+
+  <!-- Участок рядом с блоком 16:00 “Сбор гостей” — делаем линию светлее, но не слишком бледной -->
+  <path
+    d="
+      M 40 180
+      C 70 240, 70 300, 40 360
+    "
+    fill="none"
+    stroke="url(#timing-line-grad)"
+    stroke-width="3"
+    stroke-opacity="0.45"
+    stroke-linecap="round"
+    stroke-linejoin="round"
+  />
+
+  <!-- Средний сегмент (зона колец) — делаем линию визуально легче, но не слишком бледной -->
+  <path
+    d="
+      M 40 360
+      C 10 420, 10 480, 40 540
+    "
+    fill="none"
+    stroke="url(#timing-line-grad)"
+    stroke-width="3"
+    stroke-opacity="0.45"
+    stroke-linecap="round"
+    stroke-linejoin="round"
+  />
+
+  <!-- Нижний сегмент -->
+  <path
+    d="
+      M 40 540
+      C 70 600, 70 660, 40 720
+      C 10 780, 10 840, 40 900
+    "
+    fill="none"
+    stroke="url(#timing-line-grad)"
+    stroke-width="3"
+    stroke-linecap="round"
+    stroke-linejoin="round"
+  />
+</svg>
