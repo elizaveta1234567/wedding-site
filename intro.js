@@ -5,6 +5,45 @@
   const hit = intro.querySelector(".intro__hit");
   if (!hit) return;
 
+  /** Высота в px для интро: innerHeight + visualViewport (без screen — иначе слой выше экрана и съезжает центр) */
+  function computeIntroHeightPx() {
+    const vv = window.visualViewport;
+    let h = window.innerHeight || document.documentElement.clientHeight || 0;
+    if (vv) {
+      h = Math.max(
+        h,
+        document.documentElement.clientHeight,
+        vv.height + Math.max(0, vv.offsetTop)
+      );
+    }
+    return Math.max(h, 1);
+  }
+
+  function applyIntroViewport() {
+    if (intro.classList.contains("is-hidden")) return;
+    document.documentElement.style.setProperty(
+      "--intro-vhpx",
+      `${computeIntroHeightPx()}px`
+    );
+  }
+
+  const onViewportChange = () => applyIntroViewport();
+
+  applyIntroViewport();
+  window.addEventListener("resize", onViewportChange, { passive: true });
+  window.addEventListener("orientationchange", onViewportChange, { passive: true });
+  if (window.visualViewport) {
+    window.visualViewport.addEventListener("resize", onViewportChange, { passive: true });
+    window.visualViewport.addEventListener("scroll", onViewportChange, { passive: true });
+  }
+  requestAnimationFrame(() => {
+    applyIntroViewport();
+    requestAnimationFrame(applyIntroViewport);
+  });
+
+  const themeMeta = document.getElementById("theme-color-meta");
+  if (themeMeta) themeMeta.setAttribute("content", "#a32323");
+
   let opened = false;
 
   // блокируем скролл пока интро активно
@@ -15,6 +54,15 @@
   const DURATION = 3600;
 
   function finish() {
+    window.removeEventListener("resize", onViewportChange);
+    window.removeEventListener("orientationchange", onViewportChange);
+    if (window.visualViewport) {
+      window.visualViewport.removeEventListener("resize", onViewportChange);
+      window.visualViewport.removeEventListener("scroll", onViewportChange);
+    }
+    document.documentElement.style.removeProperty("--intro-vhpx");
+    if (themeMeta) themeMeta.setAttribute("content", "#ffffff");
+
     intro.classList.add("is-hidden");
     document.documentElement.style.overflow = prevOverflow || "";
     setTimeout(() => intro.remove(), 50);

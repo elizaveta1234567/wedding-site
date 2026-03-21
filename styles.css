@@ -52,6 +52,11 @@ body:has(> .intro:not(.is-hidden)) main.pages{
   user-select: none;
 }
 
+/* Если fixed-слой всё же короче вьюпорта — не белая «щель» у адресной строки */
+body:has(> .intro:not(.is-hidden)){
+  background: #a32323;
+}
+
 /* фон в стиле “фото + мягкая дымка” без картинок */
 .bg{
   position: fixed;
@@ -2277,16 +2282,17 @@ margin: 0 auto 38px;
 
 .intro {
   position: fixed;
-  /* На мобильных inset:0 иногда не покрывает зону под статус-баром / панелью браузера */
   left: 0;
   right: 0;
-  top: 0;
-  bottom: 0;
+  /* iOS: заходим под статус-бар / индикатор «домой»; высота = JS --intro-vhpx + safe-area */
+  top: calc(0px - env(safe-area-inset-top, 0px));
   width: 100%;
-  height: 100%;
-  min-height: 100vh;
-  min-height: 100dvh;
-  min-height: -webkit-fill-available;
+  height: calc(
+    var(--intro-vhpx, 100dvh) + env(safe-area-inset-top, 0px) + env(safe-area-inset-bottom, 0px)
+  );
+  min-height: calc(
+    var(--intro-vhpx, 100dvh) + env(safe-area-inset-top, 0px) + env(safe-area-inset-bottom, 0px)
+  );
   z-index: 9999;
   display: block;
   opacity: 1;
@@ -2318,9 +2324,6 @@ margin: 0 auto 38px;
   bottom: 0;
   width: 100%;
   height: 100%;
-  min-height: 100%;
-  min-height: 100dvh;
-  min-height: -webkit-fill-available;
   z-index: 1;
 }
 
