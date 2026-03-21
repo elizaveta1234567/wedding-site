@@ -2327,28 +2327,32 @@ margin: 0 auto 38px;
   display: none;
 }
 
-/* Запас под нижнюю панель Safari/Chrome: красная полоса под SVG (маска только на сердце) */
-.intro::after {
-  content: "";
-  position: absolute;
-  left: 0;
-  right: 0;
-  bottom: -200px;
-  height: 200px;
-  background: #a32323;
-  z-index: 0;
-  pointer-events: none;
-}
-
-/* SVG на весь экран (делает “дырку”-сердце) */
+/*
+  Два SVG-слоя с одной и той же маской сердца:
+  --under: только красная заливка (подстраховка композитинга Safari снизу)
+  --over: заливка + белая обводка сердца
+  Оба fixed на весь вьюпорт — исчезают вместе с .intro (opacity / is-opening).
+*/
 .intro__svg {
-  position: absolute;
+  position: fixed;
   left: 0;
   right: 0;
   top: 0;
   bottom: 0;
   width: 100%;
   height: 100%;
+  min-height: 100%;
+  min-height: -webkit-fill-available;
+  min-height: 100dvh;
+  min-height: 100lvh;
+  pointer-events: none;
+}
+
+.intro__svg--under {
+  z-index: 0;
+}
+
+.intro__svg--over {
   z-index: 1;
 }
 
