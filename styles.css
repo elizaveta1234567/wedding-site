@@ -31,9 +31,16 @@
 }
 
 *{ box-sizing: border-box; }
-html{ scroll-behavior: smooth; }
+html{
+  scroll-behavior: smooth;
+  /* iOS: даём странице реальную высоту экрана (иначе fixed-оверлеи «короче» вьюпорта) */
+  min-height: 100%;
+  min-height: -webkit-fill-available;
+}
 body{
   margin: 0;
+  min-height: 100%;
+  min-height: -webkit-fill-available;
   color: var(--ink);
   font-family: "Cormorant Garamond", serif;
   background: #ffffff;
@@ -2270,7 +2277,16 @@ margin: 0 auto 38px;
 
 .intro {
   position: fixed;
-  inset: 0;
+  /* На мобильных inset:0 иногда не покрывает зону под статус-баром / панелью браузера */
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  width: 100%;
+  height: 100%;
+  min-height: 100vh;
+  min-height: 100dvh;
+  min-height: -webkit-fill-available;
   z-index: 9999;
   display: block;
   opacity: 1;
@@ -2296,9 +2312,15 @@ margin: 0 auto 38px;
 /* SVG на весь экран (делает “дырку”-сердце) */
 .intro__svg {
   position: absolute;
-  inset: 0;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
   width: 100%;
   height: 100%;
+  min-height: 100%;
+  min-height: 100dvh;
+  min-height: -webkit-fill-available;
   z-index: 1;
 }
 
