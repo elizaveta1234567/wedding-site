@@ -2363,37 +2363,31 @@ margin: 0 auto 38px;
 }
 
 /*
-  Центр зоны тапа = середина вьюпорта (как у SVG-сердца).
-  Текст только ниже, с большим отступом — не перекрывает сердце.
+  Абсолютное позиционирование: flex+padding-top:50vh оставлял в потоке полную высоту
+  зоны тапа — блок текста уезжал ниже экрана на ПК. Здесь центр тапа = 50%/50%, текст — ниже.
 */
 .intro__content {
   position: fixed;
   inset: 0;
   z-index: 2;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  /* «якорь» по вертикали совпадает с центром экрана */
-  padding-top: 50vh;
-  padding-top: 50dvh;
   padding-left: max(16px, env(safe-area-inset-left, 0px));
   padding-right: max(16px, env(safe-area-inset-right, 0px));
   padding-bottom: max(16px, env(safe-area-inset-bottom, 0px));
+  padding-top: max(12px, env(safe-area-inset-top, 0px));
   box-sizing: border-box;
   pointer-events: none;
-  overflow-y: auto;
-  overflow-x: hidden;
-  -webkit-overflow-scrolling: touch;
+  overflow: visible;
 }
 
 .intro__heart-wrap {
-  flex-shrink: 0;
-  transform: translateY(-50%);
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
   pointer-events: none;
 }
 
 .intro__hit {
-  flex-shrink: 0;
   width: var(--hitSize);
   aspect-ratio: 1 / 1;
   margin: 0;
@@ -2418,15 +2412,18 @@ margin: 0 auto 38px;
   background: transparent !important;
 }
 
-/* Текст под сердцем: единая ширина и интервалы */
+/* Текст под сердцем: от центра экрана на половину hit + зазор */
 .intro__text {
+  position: absolute;
+  left: 50%;
+  top: calc(50% + var(--hitSize) / 2 + var(--intro-heart-to-text));
+  transform: translateX(-50%);
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: var(--intro-text-gap);
   width: min(100%, 32rem);
   max-width: min(92vw, 520px);
-  margin-top: var(--intro-heart-to-text);
   pointer-events: none;
 }
 
@@ -2511,15 +2508,18 @@ margin: 0 auto 38px;
   transform: scale(0.98);
 }
 
-/* Очень низкий экран: меньше отступ, но текст всё равно под сердцем */
-@media (max-height: 520px) {
+/* Низкий экран: меньше зазор и чуть выше «центр» сердца, чтобы текст влезал */
+@media (max-height: 560px) {
   .intro {
-    --intro-heart-to-text: clamp(20px, 5vmin, 40px);
+    --intro-heart-to-text: clamp(16px, 4vmin, 36px);
     --intro-text-gap: clamp(6px, 1.2vmin, 10px);
+    --hitSize: clamp(160px, 36vmin, 280px);
   }
-  .intro__content {
-    padding-top: 48vh;
-    padding-top: 48dvh;
+  .intro__heart-wrap {
+    top: 46%;
+  }
+  .intro__text {
+    top: calc(46% + var(--hitSize) / 2 + var(--intro-heart-to-text));
   }
 }
 
