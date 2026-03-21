@@ -40,14 +40,13 @@ html{
 
 /* Пока интро: единый красный фон под всем документом (просвет снизу у нижней панели) */
 html.intro-active{
-  background: #a32323 !important;
+  background: #a32323;
   height: 100%;
   min-height: 100vh;
   min-height: -webkit-fill-available;
   overscroll-behavior: none;
 }
 html.intro-active body{
-  background: #a32323 !important;
   min-height: 100%;
   min-height: -webkit-fill-available;
   overscroll-behavior: none;
@@ -2328,47 +2327,12 @@ margin: 0 auto 38px;
   display: none;
 }
 
-/* Хост маски в DOM (невидимый); #heart-mask используют .intro-shroud и .intro__svg */
-.intro__mask-host {
-  position: absolute;
-  left: -9999px;
-  top: 0;
-  width: 100px;
-  height: 100px;
-  overflow: visible;
-  pointer-events: none;
-  opacity: 0;
-}
-
 /*
-  Полноэкранный красный слой с той же SVG-маской, что и заливка сердца:
-  закрывает полоски снизу/сверху; дырка совпадает с маской; уходит с opacity .intro
+  Два SVG-слоя с одной и той же маской сердца:
+  --under: только красная заливка (подстраховка композитинга Safari снизу)
+  --over: заливка + белая обводка сердца
+  Оба fixed на весь вьюпорт — исчезают вместе с .intro (opacity / is-opening).
 */
-.intro-shroud {
-  position: fixed;
-  z-index: 0;
-  /* запас за пределы вьюпорта — не остаётся «полоски» у панелей браузера */
-  top: -60vh;
-  left: -60vw;
-  right: -60vw;
-  bottom: -60vh;
-  width: auto;
-  height: auto;
-  min-width: 220vw;
-  min-height: 220vh;
-  margin: 0;
-  background: #a32323;
-  pointer-events: none;
-  -webkit-mask: url(#heart-mask);
-  mask: url(#heart-mask);
-  -webkit-mask-size: 100vw 100vh;
-  mask-size: 100vw 100vh;
-  -webkit-mask-position: center center;
-  mask-position: center center;
-  -webkit-mask-repeat: no-repeat;
-  mask-repeat: no-repeat;
-}
-
 .intro__svg {
   position: fixed;
   left: 0;
@@ -2381,8 +2345,15 @@ margin: 0 auto 38px;
   min-height: -webkit-fill-available;
   min-height: 100dvh;
   min-height: 100lvh;
-  z-index: 1;
   pointer-events: none;
+}
+
+.intro__svg--under {
+  z-index: 0;
+}
+
+.intro__svg--over {
+  z-index: 1;
 }
 
 /*
