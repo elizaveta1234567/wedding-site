@@ -2320,7 +2320,8 @@ margin: 0 auto 38px;
   --intro-title-size: clamp(13px, 3.35vmin, 22px);
   --intro-hint-size: clamp(10px, 2.35vmin, 12px);
   --intro-text-gap: clamp(8px, 1.5vmin, 14px);
-  --intro-heart-to-text: clamp(12px, 2.8vmin, 26px);
+  /* заметный зазор под зоной тапа — текст не наезжает на SVG-сердце */
+  --intro-heart-to-text: clamp(36px, 8vmin, 88px);
 
   --fadeDur: 700ms;
   --scaleDur: 1100ms;
@@ -2362,8 +2363,8 @@ margin: 0 auto 38px;
 }
 
 /*
-  Сердце по центру экрана, блок текста строго под ним (колонка).
-  fixed + вьюпорт: не зависит от высоты .intro; vmin — стабильный масштаб везде.
+  Центр зоны тапа = середина вьюпорта (как у SVG-сердца).
+  Текст только ниже, с большим отступом — не перекрывает сердце.
 */
 .intro__content {
   position: fixed;
@@ -2372,11 +2373,22 @@ margin: 0 auto 38px;
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
-  gap: var(--intro-heart-to-text);
-  padding: max(12px, env(safe-area-inset-top, 0px)) max(16px, env(safe-area-inset-right, 0px))
-    max(12px, env(safe-area-inset-bottom, 0px)) max(16px, env(safe-area-inset-left, 0px));
+  /* «якорь» по вертикали совпадает с центром экрана */
+  padding-top: 50vh;
+  padding-top: 50dvh;
+  padding-left: max(16px, env(safe-area-inset-left, 0px));
+  padding-right: max(16px, env(safe-area-inset-right, 0px));
+  padding-bottom: max(16px, env(safe-area-inset-bottom, 0px));
   box-sizing: border-box;
+  pointer-events: none;
+  overflow-y: auto;
+  overflow-x: hidden;
+  -webkit-overflow-scrolling: touch;
+}
+
+.intro__heart-wrap {
+  flex-shrink: 0;
+  transform: translateY(-50%);
   pointer-events: none;
 }
 
@@ -2414,6 +2426,7 @@ margin: 0 auto 38px;
   gap: var(--intro-text-gap);
   width: min(100%, 32rem);
   max-width: min(92vw, 520px);
+  margin-top: var(--intro-heart-to-text);
   pointer-events: none;
 }
 
@@ -2498,11 +2511,15 @@ margin: 0 auto 38px;
   transform: scale(0.98);
 }
 
-/* Очень низкий экран: чуть плотнее, те же переменные */
+/* Очень низкий экран: меньше отступ, но текст всё равно под сердцем */
 @media (max-height: 520px) {
   .intro {
-    --intro-heart-to-text: clamp(8px, 2vmin, 16px);
+    --intro-heart-to-text: clamp(20px, 5vmin, 40px);
     --intro-text-gap: clamp(6px, 1.2vmin, 10px);
+  }
+  .intro__content {
+    padding-top: 48vh;
+    padding-top: 48dvh;
   }
 }
 

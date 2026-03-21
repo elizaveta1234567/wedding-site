@@ -13,6 +13,8 @@ def main() -> None:
 
     if '<div class="intro__text">' not in html:
         errors.append("Нет обёртки .intro__text")
+    if "intro__heart-wrap" not in html:
+        errors.append("Нет обёртки .intro__heart-wrap вокруг зоны тапа")
     if html.find("intro__hit") > html.find("intro__text"):
         errors.append("intro__hit должен идти в DOM раньше .intro__text (сердце выше текста)")
     if "intro__title" in html:
