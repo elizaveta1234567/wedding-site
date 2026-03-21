@@ -17,10 +17,10 @@
 <body>
 <!-- INTRO SCREEN -->
 <div class="intro">
-  <!-- Дубль красной заливки с той же маской сердца (под основным слоем) — закрывает просветы снизу в Safari; исчезает с интро -->
-  <svg class="intro__svg intro__svg--under" viewBox="0 0 100 100" preserveAspectRatio="xMidYMid slice" aria-hidden="true" focusable="false">
+  <!-- Одна маска #heart-mask: и для SVG, и для полноэкранного красного слоя (без щелей снизу) -->
+  <svg class="intro__mask-host" width="1" height="1" aria-hidden="true" focusable="false">
     <defs>
-      <mask id="heart-mask-bg">
+      <mask id="heart-mask" maskUnits="userSpaceOnUse" maskContentUnits="userSpaceOnUse" x="0" y="0" width="100" height="100">
         <rect x="0" y="0" width="100" height="100" fill="white" />
         <path class="intro__mask-heart" fill="black"
           d="M50 78
@@ -33,27 +33,13 @@
              Z"/>
       </mask>
     </defs>
-    <rect x="0" y="0" width="100" height="100" fill="#a32323" mask="url(#heart-mask-bg)"/>
   </svg>
 
-  <svg class="intro__svg intro__svg--over" viewBox="0 0 100 100" preserveAspectRatio="xMidYMid slice">
-    <defs>
-      <mask id="heart-mask">
-        <rect x="0" y="0" width="100" height="100" fill="white" />
-        <path class="intro__mask-heart" fill="black"
-          d="M50 78
-             C50 78, 18 56, 18 36
-             C18 24, 28 18, 36 18
-             C44 18, 50 24, 50 24
-             C50 24, 56 18, 64 18
-             C72 18, 82 24, 82 36
-             C82 56, 50 78, 50 78
-             Z"/>
-      </mask>
-    </defs>
+  <!-- Красный «штора» на весь экран + та же дырка-сердце; исчезает вместе с .intro -->
+  <div class="intro-shroud" aria-hidden="true"></div>
 
+  <svg class="intro__svg" viewBox="0 0 100 100" preserveAspectRatio="xMidYMid slice">
     <rect x="0" y="0" width="100" height="100" fill="#a32323" mask="url(#heart-mask)"/>
-
     <path class="intro__stroke-heart" fill="none" stroke="white" stroke-width="1.8"
       d="M50 78
          C50 78, 18 56, 18 36
