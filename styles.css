@@ -41,9 +41,14 @@ html{
 /* Пока интро: единый красный фон под всем документом (просвет снизу у нижней панели) */
 html.intro-active{
   background: #a32323;
+  height: 100%;
+  min-height: 100vh;
+  min-height: -webkit-fill-available;
   overscroll-behavior: none;
 }
 html.intro-active body{
+  min-height: 100%;
+  min-height: -webkit-fill-available;
   overscroll-behavior: none;
 }
 body{
@@ -2291,27 +2296,25 @@ margin: 0 auto 38px;
 
 .intro {
   position: fixed;
-  left: 0;
-  right: 0;
-  /* iOS: заходим под статус-бар / индикатор «домой»; высота = JS --intro-vhpx + safe-area */
+  /* Safari: тянемся ко всем краям вьюпорта + заходим в safe-area (без JS-высоты — центр не «плывёт») */
+  left: calc(0px - env(safe-area-inset-left, 0px));
+  right: calc(0px - env(safe-area-inset-right, 0px));
   top: calc(0px - env(safe-area-inset-top, 0px));
-  width: 100%;
-  height: calc(
-    var(--intro-vhpx, 100dvh) + env(safe-area-inset-top, 0px) + env(safe-area-inset-bottom, 0px)
-  );
-  min-height: calc(
-    var(--intro-vhpx, 100dvh) + env(safe-area-inset-top, 0px) + env(safe-area-inset-bottom, 0px)
-  );
-  z-index: 9999;
+  bottom: calc(0px - env(safe-area-inset-bottom, 0px));
+  width: auto;
+  height: auto;
+  min-height: 100%;
+  min-height: -webkit-fill-available;
+  min-height: 100dvh;
+  z-index: 10000;
   display: block;
   opacity: 1;
-  /* прозрачный фон: сквозь «дырку» сердца в маске виден сайт под слоем (как на maryinvite) */
   background: transparent;
-  overflow: hidden;
+  overflow: visible;
 
   /* Настройки */
-  --baseHeart: 0.42;           /* ← стартовый размер сердца (делай меньше/больше) */
-  --maskScale: 1;              /* а это уже анимационный множитель */
+  --baseHeart: 0.42;
+  --maskScale: 1;
   --hitSize: clamp(220px, 44vmin, 360px);
 
   --fadeDur: 700ms;
@@ -2319,9 +2322,22 @@ margin: 0 auto 38px;
   --ease: cubic-bezier(.2,.9,.2,1);
 }
 
-/* Виньетку отключили: иначе она перекрывала бы просвет сердца */
+/* Виньетку отключили */
 .intro::before {
   display: none;
+}
+
+/* Запас под нижнюю панель Safari/Chrome: красная полоса под SVG (маска только на сердце) */
+.intro::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -200px;
+  height: 200px;
+  background: #a32323;
+  z-index: 0;
+  pointer-events: none;
 }
 
 /* SVG на весь экран (делает “дырку”-сердце) */
@@ -2336,29 +2352,38 @@ margin: 0 auto 38px;
   z-index: 1;
 }
 
-/* Контент — привязываем к центру экрана */
+/*
+  Текст и зона тапа: fixed + flex по центру ВЬЮПОРТА (не высоты .intro),
+  чтобы в Safari не «плыло» при подгонке высоты слоя.
+*/
 .intro__content {
-  position: absolute;
+  position: fixed;
   inset: 0;
   z-index: 2;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: clamp(10px, 2.2dvh, 18px);
+  padding: max(12px, env(safe-area-inset-top, 0px)) 16px max(12px, env(safe-area-inset-bottom, 0px));
+  box-sizing: border-box;
+  pointer-events: none;
 }
 
-/* Кликабельная зона (по центру) */
 .intro__hit {
-  position: absolute;
-  left: 50%;
-  top: 50%;
+  flex-shrink: 0;
+  order: 2;
   width: var(--hitSize);
   aspect-ratio: 1 / 1;
-  transform: translate(-50%, -50%);
+  margin: 0;
+  padding: 0;
   cursor: pointer;
+  pointer-events: auto;
+  position: relative;
   z-index: 5;
-
   background: transparent !important;
   border: 0;
   outline: none;
-
-  /* убираем серый тап-квадрат на iOS/Android */
   -webkit-tap-highlight-color: transparent;
   -webkit-touch-callout: none;
   user-select: none;
@@ -2372,43 +2397,43 @@ margin: 0 auto 38px;
   background: transparent !important;
 }
 
-/* ТЕКСТ — всегда относительно сердца/центра */
 .intro__title {
-  position: absolute;
-  left: 50%;
-  top: 50%;
-  transform: translate(-50%, calc(-50% + (var(--hitSize) * 0.22)));
+  order: 1;
   margin: 0;
-
+  max-width: min(88vw, 520px);
   font-family: "Cormorant Garamond", serif;
   font-weight: 600;
-  letter-spacing: 0.08em;
+  letter-spacing: clamp(0.04em, 0.35vw, 0.08em);
   text-transform: uppercase;
-  color: rgba(255,255,255,0.92);
-
-  /* уменьши текст тут */
-  font-size: clamp(16px, 2.2vw, 26px);
   text-align: center;
-  white-space: nowrap;
+  color: rgba(255, 255, 255, 0.92);
+  font-size: clamp(14px, 3.6vw, 26px);
+  line-height: 1.15;
+  white-space: normal;
+  text-wrap: balance;
+  overflow-wrap: anywhere;
+  word-break: normal;
+  pointer-events: none;
+  text-shadow:
+    0 0 12px rgba(163, 35, 35, 0.95),
+    0 1px 4px rgba(0, 0, 0, 0.45);
 }
 
 .intro__hint {
-  position: absolute;
-  left: 50%;
-  top: 50%;
-  transform: translate(-50%, calc(-50% + (var(--hitSize) * 0.34)));
+  order: 3;
   margin: 0;
-
   font-family: system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
-  font-size: 12px;
+  font-size: clamp(10px, 1.4vw, 12px);
   letter-spacing: 0.16em;
   text-transform: uppercase;
-  color: rgba(255,255,255,0.75);
   text-align: center;
-
-  /* чтобы не было выделения/подсветки */
+  color: rgba(255, 255, 255, 0.75);
+  pointer-events: none;
   -webkit-tap-highlight-color: transparent;
   user-select: none;
+  text-shadow:
+    0 0 10px rgba(163, 35, 35, 0.9),
+    0 1px 3px rgba(0, 0, 0, 0.4);
 }
 
 /* СЕРДЦЕ В МАСКЕ — базовый размер * анимационный множитель */
@@ -2429,10 +2454,10 @@ margin: 0 auto 38px;
   filter: drop-shadow(0 14px 18px rgba(0,0,0,0.25));
 }
 
-/* Плавное исчезновение ТЕКСТА вместе с сердцем */
+/* Плавное исчезновение текста */
 .intro__title,
 .intro__hint {
-  transition: opacity var(--fadeDur) ease, transform var(--fadeDur) ease;
+  transition: opacity var(--fadeDur) ease;
 }
 
 /* ОТКРЫТИЕ: сердце “раздувает” дырку + всё плавно растворяется */
@@ -2451,199 +2476,20 @@ margin: 0 auto 38px;
 .intro.intro--open .intro__title,
 .intro.intro--open .intro__hint {
   opacity: 0;
-  transform: translate(-50%, calc(-50% + (var(--hitSize) * 0.22))) scale(0.98);
+  transform: scale(0.98);
 }
 
-/* На телефонах чуть по-другому (если надо) */
-@media (max-width: 640px) {
-  .intro {
-    --textShift: -10px; /* мобильная подстройка */
+@media (max-width: 420px) {
+  .intro__content {
+    gap: 8px;
+    padding-left: 14px;
+    padding-right: 14px;
   }
-
-  
+  .intro__title {
+    letter-spacing: 0.06em;
+  }
 }
 
-/* Заголовок */
-.intro__title{
-  position: absolute;
-  left: 50%;
-  top: 50%;
-  transform: translate(-50%, calc(-50% + var(--textShift)));
-  margin: 0;
-
-  font-family: "Cormorant Garamond", serif;
-  font-weight: 600;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  color: rgba(255,255,255,0.92);
-
-  font-size: clamp(14px, 2vw, 22px);
-  line-height: 1.25;
-  text-align: center;
-
-  max-width: min(92vw, 900px);
-  pointer-events: none;
-}
-
-/* Подсказка */
-.intro__hint{
-  position: absolute;
-  left: 50%;
-  top: 50%;
-  transform: translate(
-    -50%,
-    calc(-50% + var(--textShift) + 42px)
-  );
-  margin: 0;
-
-  font-size: 11px;
-  letter-spacing: 0.16em;
-  text-transform: uppercase;
-  color: rgba(255,255,255,0.75);
-  text-align: center;
-
-  pointer-events: none;
-  -webkit-tap-highlight-color: transparent;
-  user-select: none;
-}
-/* ===== INTRO: текст снизу под сердцем (адаптив) ===== */
-
-.intro__content{
-  position: absolute;
-  inset: 0;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: flex-end; /* текст уходит вниз */
-  padding: clamp(18px, 4vh, 44px) 16px;
-  gap: clamp(10px, 2vh, 16px);
-  z-index: 2;
-}
-
-/* Кликабельная зона поверх сердца (оставь как было, НО добавь это) */
-.intro__hit{
-  -webkit-tap-highlight-color: transparent;
-  -webkit-touch-callout: none;
-  user-select: none;
-  touch-action: manipulation;
-}
-.intro__hit:active{ background: transparent; }
-
-/* Блок текста снизу */
-.intro__text{
-  width: min(92vw, 900px);
-  text-align: center;
-  pointer-events: none; /* чтобы клик уходил в сердце */
-}
-
-/* Заголовок */
-.intro__title{
-  margin: 0;
-  font-family: "Cormorant Garamond", serif;
-  font-weight: 600;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  color: rgba(255,255,255,0.92);
-
-  font-size: clamp(14px, 2.2vw, 24px);
-  line-height: 1.25;
-}
-
-/* Подсказка */
-.intro__hint{
-  margin: clamp(6px, 1.2vh, 10px) 0 0;
-  font-size: clamp(10px, 1.4vw, 12px);
-  letter-spacing: 0.16em;
-  text-transform: uppercase;
-  color: rgba(255,255,255,0.75);
-}
-
-/* На очень маленьких экранах — чуть компактнее */
-@media (max-width: 420px){
-  .intro__content{ padding-bottom: 18px; }
-  .intro__title{ letter-spacing: 0.06em; }
-}
-/* === HOTFIX: выносим текст ПОД сердце и убиваем старые absolute-правила === */
-
-.intro__content{
-  position: absolute;
-  inset: 0;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: flex-end;
-
-  /* ⬇️ ВОТ ЭТО ГЛАВНОЕ */
-  padding-bottom: clamp(12px, 2.5vh, 22px);
-
-  padding-left: 16px;
-  padding-right: 16px;
-  z-index: 2;
-}
-
-.intro__text{
-  width: min(92vw, 900px);
-  text-align: center;
-  pointer-events: none;
-  margin-top: -165px; /* ← поднимает текст к сердцу */
-}
-/* ВАЖНО: сброс любых старых position/top/transform */
-.intro__title,
-.intro__hint{
-  position: static !important;
-  left: auto !important;
-  top: auto !important;
-  right: auto !important;
-  bottom: auto !important;
-  transform: none !important;
-}
-
-/* Адаптивный заголовок под любые экраны */
-.intro__title{
-  /* размер шрифта под экран */
-  font-size: clamp(14px, 3.6vw, 26px);
-  line-height: 1.15;
-
-  /* важно: разрешаем перенос */
-  white-space: normal;
-  text-wrap: balance;          /* если поддерживается */
-  overflow-wrap: anywhere;     /* если вдруг не влазит */
-  word-break: normal;
-
-  /* ограничиваем ширину, чтобы красиво переносилось */
-  max-width: min(88vw, 520px);
-
-  /* выравнивание */
-  text-align: center;
-  margin: 0;
-
-  /* чтобы не было “расползания” букв на мобиле */
-  letter-spacing: clamp(0.04em, 0.35vw, 0.08em);
-
-  /* читаемость поверх просвечивающего сайта */
-  text-shadow:
-    0 0 12px rgba(163, 35, 35, 0.95),
-    0 1px 4px rgba(0, 0, 0, 0.45);
-}
-.intro__hint{
-  margin: clamp(6px, 1.2vh, 10px) 0 0 !important;
-  font-size: clamp(10px, 1.4vw, 12px);
-  letter-spacing: 0.16em;
-  text-transform: uppercase;
-  color: rgba(255,255,255,0.75);
-  text-shadow:
-    0 0 10px rgba(163, 35, 35, 0.9),
-    0 1px 3px rgba(0, 0, 0, 0.4);
-}
-
-/* убираем серый “квадрат” тап-хайлайта на iOS/Android */
-.intro__hit{
-  -webkit-tap-highlight-color: transparent;
-  -webkit-touch-callout: none;
-  user-select: none;
-  touch-action: manipulation;
-}
-.intro__hit:active{ background: transparent; }
 /* ================================
    INTRO: плавное увеличение сердца + одновременное исчезание текста
    ВСТАВЬ В КОНЕЦ styles.css
@@ -2795,22 +2641,13 @@ margin: 0 auto 38px;
    📱 ТОЛЬКО ТЕЛЕФОНЫ
    =============================== */
 @media (max-width: 600px) {
-
-  /* Контейнер с текстом */
-  .intro__text{
-    margin-top: -35px; /* ⬆ поднимаем текст к сердцу */
-  }
-
-  /* Заголовок */
-  .intro__title{
-    font-size: clamp(16px, 5vw, 22px); /* ⬆ крупнее на мобилке */
+  .intro__title {
+    font-size: clamp(16px, 5vw, 22px);
     line-height: 1.3;
-    margin-bottom: 10px;
   }
 
-  /* Подсказка */
-  .intro__hint{
-    font-size: 12px; /* чуть читаемее */
+  .intro__hint {
+    font-size: 12px;
     letter-spacing: 0.14em;
   }
 }
