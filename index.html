@@ -258,25 +258,6 @@ else pause();
     />
   </div>
 </section>
- <!-- ЛОКАЦИЯ -->
-<section class="loca" id="location">
-  <div class="loca__wrap">
-    <div class="loca__card loca--reveal reveal-y">
-      <div class="loca__card-inner">
-        <h2 class="loca__title">Место проведения</h2>
-
-        <p class="loca__address">
-          г. Тольятти, ул. Комзина, 6<br>
-          Ресторан «Парк Отель»
-        </p>
-
-        <a class="wloc__btn loca__map-btn" href="https://yandex.ru/maps/org/park_otel/1081236889/?ll=49.354816%2C53.474493&z=16" target="_blank" rel="noopener noreferrer">
-          На карту
-        </a>
-      </div>
-    </div>
-  </div>
-</section>
 <section class="section timing-section" id="timing" aria-labelledby="timing-heading">
   <div class="container timing-section__container reveal-y">
     <h2 id="timing-heading" class="timing-section__title">Тайминг:</h2>
@@ -320,11 +301,50 @@ else pause();
   </div>
 </section>
 
+<!-- ЛОКАЦИЯ -->
+<section class="loca" id="location" aria-labelledby="loca-heading">
+  <div class="loca__wrap">
+    <header class="loca__header loca__header--above-frame reveal-y">
+      <h2 id="loca-heading" class="loca__heading">Место проведения</h2>
+    </header>
+
+    <div class="loca__panel bow-frame reveal-y">
+      <span class="bow-frame__corner bow-frame__corner--tl" aria-hidden="true"></span>
+      <span class="bow-frame__corner bow-frame__corner--tr" aria-hidden="true"></span>
+      <span class="bow-frame__corner bow-frame__corner--bl" aria-hidden="true"></span>
+      <span class="bow-frame__corner bow-frame__corner--br" aria-hidden="true"></span>
+
+      <div class="bow-frame__content">
+        <div class="loca__stage">
+          <div class="loca__frame">
+            <div class="loca__photo" role="img" aria-label="Площадка торжества"></div>
+            <aside class="loca__side">
+              <div class="loca__card">
+                <h3 class="loca__venue">
+                  <span class="loca__venue-line">Ресторан</span>
+                  <span class="loca__venue-line">«Парк Отель»</span>
+                </h3>
+                <p class="loca__address">г. Тольятти, ул. Комзина, 6</p>
+                <a
+                  class="loca__route-btn"
+                  href="https://yandex.ru/maps/org/park_otel/1081236889/?ll=49.354816%2C53.474493&z=16"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >Построить маршрут</a>
+              </div>
+            </aside>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
 <!-- ДРЕСС-КОД -->
 <!-- ДРЕСС-КОД -->
 <section class="page dresscode-section" id="dresscode">
   <div class="dresscode-wrap reveal-y">
- <h2 class="loca__title">Дресс-код</h2>
+ <h2 class="dresscode-title">Дресс-код</h2>
 
 
     <p class="dresscode-text">
