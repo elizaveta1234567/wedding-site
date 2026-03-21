@@ -11,13 +11,12 @@
   const prevOverflow = document.documentElement.style.overflow;
   document.documentElement.style.overflow = "hidden";
 
-  // сколько длится анимация (должно совпадать с CSS var(--introDur))
-  const DURATION = 1600;
+  /* max: --introOverlayDelay + --introOverlayFade ≈ 3s + запас */
+  const DURATION = 3600;
 
   function finish() {
     intro.classList.add("is-hidden");
     document.documentElement.style.overflow = prevOverflow || "";
-    // на всякий — полностью убираем из DOM
     setTimeout(() => intro.remove(), 50);
   }
 
@@ -25,12 +24,15 @@
     if (opened) return;
     opened = true;
 
-    intro.classList.add("is-opening");
+    /* Сначала снимаем «дыхание» — иначе анимация открытия срывается одним кадром */
+    intro.classList.add("intro--freeze");
+    requestAnimationFrame(() => {
+      requestAnimationFrame(() => {
+        intro.classList.add("is-opening");
+      });
+    });
 
-    // гарантированный финал (не зависит от transitionend)
-    setTimeout(() => {
-      finish();
-    }, DURATION + 80);
+    setTimeout(finish, DURATION + 200);
   }
 
   // клик/тап
