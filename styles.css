@@ -2315,7 +2315,12 @@ margin: 0 auto 38px;
   /* Настройки */
   --baseHeart: 0.42;
   --maskScale: 1;
-  --hitSize: clamp(220px, 44vmin, 360px);
+  --hitSize: clamp(200px, 42vmin, 340px);
+  /* Типографика и отступы от vmin — одинаково на телефоне, планшете и десктопе */
+  --intro-title-size: clamp(13px, 3.35vmin, 22px);
+  --intro-hint-size: clamp(10px, 2.35vmin, 12px);
+  --intro-text-gap: clamp(8px, 1.5vmin, 14px);
+  --intro-heart-to-text: clamp(12px, 2.8vmin, 26px);
 
   --fadeDur: 700ms;
   --scaleDur: 1100ms;
@@ -2357,8 +2362,8 @@ margin: 0 auto 38px;
 }
 
 /*
-  Текст и зона тапа: fixed + flex по центру ВЬЮПОРТА (не высоты .intro),
-  чтобы в Safari не «плыло» при подгонке высоты слоя.
+  Сердце по центру экрана, блок текста строго под ним (колонка).
+  fixed + вьюпорт: не зависит от высоты .intro; vmin — стабильный масштаб везде.
 */
 .intro__content {
   position: fixed;
@@ -2368,15 +2373,15 @@ margin: 0 auto 38px;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  gap: clamp(10px, 2.2dvh, 18px);
-  padding: max(12px, env(safe-area-inset-top, 0px)) 16px max(12px, env(safe-area-inset-bottom, 0px));
+  gap: var(--intro-heart-to-text);
+  padding: max(12px, env(safe-area-inset-top, 0px)) max(16px, env(safe-area-inset-right, 0px))
+    max(12px, env(safe-area-inset-bottom, 0px)) max(16px, env(safe-area-inset-left, 0px));
   box-sizing: border-box;
   pointer-events: none;
 }
 
 .intro__hit {
   flex-shrink: 0;
-  order: 2;
   width: var(--hitSize);
   aspect-ratio: 1 / 1;
   margin: 0;
@@ -2401,21 +2406,31 @@ margin: 0 auto 38px;
   background: transparent !important;
 }
 
+/* Текст под сердцем: единая ширина и интервалы */
+.intro__text {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--intro-text-gap);
+  width: min(100%, 32rem);
+  max-width: min(92vw, 520px);
+  pointer-events: none;
+}
+
 .intro__title {
-  order: 1;
   margin: 0;
-  max-width: min(88vw, 520px);
+  width: 100%;
   font-family: "Cormorant Garamond", serif;
   font-weight: 600;
-  letter-spacing: clamp(0.04em, 0.35vw, 0.08em);
+  letter-spacing: 0.07em;
   text-transform: uppercase;
   text-align: center;
   color: rgba(255, 255, 255, 0.92);
-  font-size: clamp(14px, 3.6vw, 26px);
-  line-height: 1.15;
+  font-size: var(--intro-title-size);
+  line-height: 1.2;
   white-space: normal;
   text-wrap: balance;
-  overflow-wrap: anywhere;
+  overflow-wrap: break-word;
   word-break: normal;
   pointer-events: none;
   text-shadow:
@@ -2424,11 +2439,11 @@ margin: 0 auto 38px;
 }
 
 .intro__hint {
-  order: 3;
   margin: 0;
+  width: 100%;
   font-family: system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
-  font-size: clamp(10px, 1.4vw, 12px);
-  letter-spacing: 0.16em;
+  font-size: var(--intro-hint-size);
+  letter-spacing: 0.15em;
   text-transform: uppercase;
   text-align: center;
   color: rgba(255, 255, 255, 0.75);
@@ -2483,14 +2498,11 @@ margin: 0 auto 38px;
   transform: scale(0.98);
 }
 
-@media (max-width: 420px) {
-  .intro__content {
-    gap: 8px;
-    padding-left: 14px;
-    padding-right: 14px;
-  }
-  .intro__title {
-    letter-spacing: 0.06em;
+/* Очень низкий экран: чуть плотнее, те же переменные */
+@media (max-height: 520px) {
+  .intro {
+    --intro-heart-to-text: clamp(8px, 2vmin, 16px);
+    --intro-text-gap: clamp(6px, 1.2vmin, 10px);
   }
 }
 
@@ -2644,17 +2656,7 @@ margin: 0 auto 38px;
 /* ===============================
    📱 ТОЛЬКО ТЕЛЕФОНЫ
    =============================== */
-@media (max-width: 600px) {
-  .intro__title {
-    font-size: clamp(16px, 5vw, 22px);
-    line-height: 1.3;
-  }
-
-  .intro__hint {
-    font-size: 12px;
-    letter-spacing: 0.14em;
-  }
-}
+/* Интро: без отдельных правил под ширину — масштаб только через .intro и vmin */
 /* =========================
    HERO (главная как референс)
    ========================= */
