@@ -5,17 +5,28 @@
   const hit = intro.querySelector(".intro__hit");
   if (!hit) return;
 
-  /** Высота в px для интро: innerHeight + visualViewport (без screen — иначе слой выше экрана и съезжает центр) */
+  /**
+   * Высота в px для интро.
+   * Снизу в Chrome часто просвечивает сайт: visualViewport короче layout,
+   * либо нижняя панель не входит в innerHeight — добиваем зазор + запас на тач.
+   */
   function computeIntroHeightPx() {
     const vv = window.visualViewport;
-    let h = window.innerHeight || document.documentElement.clientHeight || 0;
+    const docEl = document.documentElement;
+    const ih = window.innerHeight || docEl.clientHeight || 0;
+    let h = Math.max(ih, docEl.clientHeight || 0);
+
     if (vv) {
-      h = Math.max(
-        h,
-        document.documentElement.clientHeight,
-        vv.height + Math.max(0, vv.offsetTop)
-      );
+      const visualBottom = vv.offsetTop + vv.height;
+      const gapBelow = Math.max(0, ih - visualBottom);
+      h = Math.max(h, ih, visualBottom + gapBelow);
     }
+
+    const touchUi = window.matchMedia("(hover: none) and (pointer: coarse)").matches;
+    if (touchUi) {
+      h += 96;
+    }
+
     return Math.max(h, 1);
   }
 
@@ -40,9 +51,23 @@
     applyIntroViewport();
     requestAnimationFrame(applyIntroViewport);
   });
+  window.addEventListener(
+    "load",
+    () => {
+      applyIntroViewport();
+      setTimeout(applyIntroViewport, 50);
+      setTimeout(applyIntroViewport, 200);
+      setTimeout(applyIntroViewport, 500);
+    },
+    { once: true }
+  );
 
   const themeMeta = document.getElementById("theme-color-meta");
   if (themeMeta) themeMeta.setAttribute("content", "#a32323");
+
+  document.documentElement.classList.add("intro-active");
+  const prevBodyOverflow = document.body.style.overflow;
+  document.body.style.overflow = "hidden";
 
   let opened = false;
 
@@ -61,6 +86,8 @@
       window.visualViewport.removeEventListener("scroll", onViewportChange);
     }
     document.documentElement.style.removeProperty("--intro-vhpx");
+    document.documentElement.classList.remove("intro-active");
+    document.body.style.overflow = prevBodyOverflow || "";
     if (themeMeta) themeMeta.setAttribute("content", "#ffffff");
 
     intro.classList.add("is-hidden");
