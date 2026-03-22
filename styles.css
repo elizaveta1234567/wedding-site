@@ -942,7 +942,7 @@ body:has(> .intro:not(.is-hidden)){
   box-sizing: border-box;
 }
 
-/* как .loca__heading */
+/* как .loca__heading по шрифту; цвет — как фон блока локации (#6b1419) */
 .timing-title{
   margin: 0 0 clamp(22px, 5vw, 40px);
   font-family: var(--font-heading-script);
@@ -952,7 +952,7 @@ body:has(> .intro:not(.is-hidden)){
   letter-spacing: 0.02em;
   text-transform: none;
   text-align: center;
-  color: #fff;
+  color: var(--timing-surface);
 }
 
 .timing-cards{
