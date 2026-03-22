@@ -343,39 +343,32 @@ else pause();
   </div>
 </section>
 
-<!-- ЛОКАЦИЯ -->
+<!-- ЛОКАЦИЯ (тот же фон и кнопка, что у «Чат для гостей», без декоративной рамки) -->
 <section class="loca" id="location" aria-labelledby="loca-heading">
   <div class="loca__wrap">
-    <header class="loca__header loca__header--above-frame reveal-y">
+    <header class="loca__header reveal-y">
       <h2 id="loca-heading" class="loca__heading">Место проведения</h2>
     </header>
 
-    <div class="loca__panel bow-frame reveal-y">
-      <span class="bow-frame__corner bow-frame__corner--tl" aria-hidden="true"></span>
-      <span class="bow-frame__corner bow-frame__corner--tr" aria-hidden="true"></span>
-      <span class="bow-frame__corner bow-frame__corner--bl" aria-hidden="true"></span>
-      <span class="bow-frame__corner bow-frame__corner--br" aria-hidden="true"></span>
-
-      <div class="bow-frame__content">
-        <div class="loca__stage">
-          <div class="loca__frame">
-            <div class="loca__photo" role="img" aria-label="Площадка торжества"></div>
-            <aside class="loca__side">
-              <div class="loca__card">
-                <h3 class="loca__venue">
-                  <span class="loca__venue-line">Ресторан</span>
-                  <span class="loca__venue-line">«Парк Отель»</span>
-                </h3>
-                <p class="loca__address">г. Тольятти, ул. Комзина, 6</p>
-                <a
-                  class="loca__route-btn"
-                  href="https://yandex.ru/maps/org/park_otel/1081236889/?ll=49.354816%2C53.474493&z=16"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >Построить маршрут</a>
-              </div>
-            </aside>
-          </div>
+    <div class="loca__panel reveal-y">
+      <div class="loca__stage">
+        <div class="loca__frame">
+          <div class="loca__photo" role="img" aria-label="Площадка торжества"></div>
+          <aside class="loca__side">
+            <div class="loca__card">
+              <h3 class="loca__venue">
+                <span class="loca__venue-line">Ресторан</span>
+                <span class="loca__venue-line">«Парк Отель»</span>
+              </h3>
+              <p class="loca__address">г. Тольятти, ул. Комзина, 6</p>
+              <a
+                class="guest-chat__btn loca__route-btn"
+                href="https://yandex.ru/maps/org/park_otel/1081236889/?ll=49.354816%2C53.474493&z=16"
+                target="_blank"
+                rel="noopener noreferrer"
+              >Построить маршрут</a>
+            </div>
+          </aside>
         </div>
       </div>
     </div>
@@ -414,28 +407,21 @@ else pause();
 </div>
 </section>
 
-<!-- ДЕТАЛИ -->
-<section class="page details-section" id="details">
+<!-- Пожелания (стиль как локация / чат для гостей) -->
+<section class="details-section" id="details">
   <div class="details-card reveal-y">
   <div class="details-wrap">
 
     <div class="details-content">
-      <h2 class="details-title">Детали</h2>
+      <h2 class="details-title">Пожелания</h2>
 
       <p class="details-text">
-        Если вы планировали взять с собой букет цветов,
-        то бутылочка вина с вашей подписью будет
-        лучшей заменой!
+        Самым главным подарком для нас будет ваше хорошее настроение на свадьбе!
       </p>
-    </div>
-
-    <div class="details-media">
-      <img
-        src="images/details.png"
-        alt="Две бутылки — тост за праздник"
-        class="details-img"
-        loading="lazy"
-      />
+      <p class="details-text">
+        Если хотите подарить нам ценный и нужный подарок, мы будем благодарны за денежный вклад,
+        который станет частью нашего будущего.
+      </p>
     </div>
 
   </div>
@@ -496,6 +482,21 @@ else pause();
         </form>
       </div>
     </section>
+
+    <section class="guest-chat-section" id="guest-chat" aria-labelledby="guest-chat-heading">
+      <div class="guest-chat reveal-y">
+        <h2 class="guest-chat__title" id="guest-chat-heading">
+          <span class="guest-chat__title-line">Чат</span>
+          <span class="guest-chat__title-line">для гостей</span>
+        </h2>
+        <div class="guest-chat__text">
+          <p>Мы подумали, что нужен чат, чтобы оповещать вас о новостях, изменениях и разогревать ваш настрой перед свадьбой.</p>
+          <p>Также после торжества вы сможете обмениваться фотографиями и видео.</p>
+        </div>
+        <a class="guest-chat__btn" href="https://t.me/+THI6qxQYh5wyYzUy" target="_blank" rel="noopener noreferrer">Вступить</a>
+      </div>
+    </section>
+
     <script>
       (function() {
         var next = document.getElementById('formspree-next');

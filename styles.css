@@ -10,6 +10,8 @@
   --accent-wedding-hover: #631a22;
   /* единый размер заголовков секций (как у Тайминг) */
   --section-title-size: clamp(34px, 6vw, 56px);
+  /* скрипт как у «Пожелания» — все заголовки секций */
+  --font-heading-script: "Segoe Script", "Brush Script MT", "Pacifico", cursive;
 }
 
 /* На телефонах — ещё крупнее заголовки и текст */
@@ -28,7 +30,7 @@
   .anketa-field__input{ font-size: 19px; }
   .timer-num{ font-size: clamp(48px, 14vw, 64px); }
   .timer-label{ font-size: 16px; }
-  .anketa__submit{ font-size: 20px; padding: 16px 56px; }
+  .anketa__submit{ font-size: 17px; }
   .page{ padding-top: 40px; padding-bottom: 40px; }
   .loca__text{ font-size: 19px; }
 }
@@ -109,7 +111,7 @@ body:has(> .intro:not(.is-hidden)){
   justify-content: space-between;
 }
 .topbar__title{
-  font-family: "Marck Script", cursive;
+  font-family: var(--font-heading-script);
   font-size: 22px;
   color: rgba(255,255,255,.92);
   letter-spacing: .2px;
@@ -174,7 +176,7 @@ body:has(> .intro:not(.is-hidden)){
 
 .title{
   margin: 0 0 10px 0;
-  font-family: "Marck Script", cursive;
+  font-family: var(--font-heading-script);
   font-size: 46px;
   line-height: 1;
   letter-spacing: .2px;
@@ -326,9 +328,9 @@ body:has(> .intro:not(.is-hidden)){
 
 .anketa__title {
   margin: 0 0 24px;
-  font-family: "Cormorant Garamond", serif;
+  font-family: var(--font-heading-script);
   font-size: var(--section-title-size);
-  font-weight: 500;
+  font-weight: 400;
   line-height: 1.15;
   color: #1a1a1a;
   text-align: center;
@@ -420,24 +422,122 @@ body:has(> .intro:not(.is-hidden)){
   flex: 1;
 }
 
+/* как у .guest-chat__btn («Вступить»): капсула, обводка; на светлом фоне — тёмные чернила */
 .anketa__submit {
   margin-top: 16px;
   align-self: center;
-  padding: 14px 48px;
-  font-family: "Cormorant Garamond", serif;
-  font-size: 18px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: min(100%, 280px);
+  padding: 14px 40px;
+  font-family: system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
+  font-size: clamp(14px, 3.5vw, 16px);
   font-weight: 500;
-  color: #fff;
-  background: #2a2420;
-  border: none;
-  border-radius: 8px;
+  letter-spacing: 0.04em;
+  text-transform: lowercase;
+  color: var(--ink);
+  background: transparent;
+  border: 1px solid rgba(42, 36, 32, 0.85);
+  border-radius: 999px;
   cursor: pointer;
-  letter-spacing: 0.03em;
-  transition: background 0.2s;
+  transition: background 0.2s ease, color 0.2s ease, border-color 0.2s ease;
 }
 
 .anketa__submit:hover {
-  background: #3d3530;
+  background: rgba(42, 36, 32, 0.08);
+  border-color: var(--ink);
+}
+
+.anketa__submit:focus-visible {
+  outline: 2px solid var(--ink);
+  outline-offset: 3px;
+}
+
+/* ===== Чат для гостей (после анкеты): бордо, блок по центру сайта, кнопка-капсула с обводкой ===== */
+.guest-chat-section {
+  background: #6b1419;
+  padding: clamp(48px, 10vw, 88px) clamp(20px, 5vw, 32px);
+}
+
+.guest-chat {
+  max-width: 560px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: clamp(20px, 4vw, 32px);
+}
+
+.guest-chat__title {
+  margin: 0;
+  font-family: var(--font-heading-script);
+  font-size: clamp(28px, 7vw, 40px);
+  font-weight: 400;
+  line-height: 1.12;
+  letter-spacing: 0.02em;
+  color: #fff;
+  text-transform: none;
+}
+
+.guest-chat__title-line {
+  display: block;
+}
+
+.guest-chat__text {
+  margin: 0;
+  font-family: system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
+  font-size: clamp(14px, 3.6vw, 16px);
+  line-height: 1.55;
+  color: rgba(255, 255, 255, 0.95);
+}
+
+.guest-chat__text p {
+  margin: 0 0 1em;
+}
+
+.guest-chat__text p:last-child {
+  margin-bottom: 0;
+}
+
+.guest-chat__btn {
+  align-self: center;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: min(100%, 280px);
+  padding: 14px 40px;
+  font-family: system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
+  font-size: clamp(14px, 3.5vw, 16px);
+  font-weight: 500;
+  letter-spacing: 0.04em;
+  text-transform: lowercase;
+  text-decoration: none;
+  color: #fff;
+  background: transparent;
+  border: 1px solid rgba(255, 255, 255, 0.95);
+  border-radius: 999px;
+  transition: background 0.2s ease, color 0.2s ease, border-color 0.2s ease;
+}
+
+.guest-chat__btn:hover {
+  background: rgba(255, 255, 255, 0.12);
+  border-color: #fff;
+}
+
+.guest-chat__btn:focus-visible {
+  outline: 2px solid #fff;
+  outline-offset: 3px;
+}
+
+@media (max-width: 480px) {
+  .guest-chat__text {
+    font-size: 17px;
+  }
+  .guest-chat__btn {
+    font-size: 17px;
+  }
 }
 
 .hidden{
@@ -509,9 +609,9 @@ body:has(> .intro:not(.is-hidden)){
 /* Заголовок секции (единый стиль с таймингом) */
 .invite-title{
   margin: 0 0 24px;
-  font-family: "Cormorant Garamond", serif;
+  font-family: var(--font-heading-script);
   font-size: var(--section-title-size);
-  font-weight: 500;
+  font-weight: 400;
   line-height: 1.15;
   color: #1a1a1a;
   text-align: center;
@@ -643,17 +743,17 @@ body:has(> .intro:not(.is-hidden)){
 }
 
 .hero__name-top{
-  font-family: "Times New Roman", "Georgia", serif;
-  font-weight: 500;
-  letter-spacing: 0.08em;
+  font-family: var(--font-heading-script);
+  font-weight: 400;
+  letter-spacing: 0.02em;
   font-size: clamp(44px, 7vw, 84px);
   color: #1a1a1a;
   line-height: 1.05;
-  text-transform: uppercase;
+  text-transform: none;
 }
 
 .hero__amp{
-  font-family: "Times New Roman", "Georgia", serif;
+  font-family: var(--font-heading-script);
   font-weight: 400;
   letter-spacing: 0;
   margin: 0 8px;
@@ -662,7 +762,7 @@ body:has(> .intro:not(.is-hidden)){
 
 .hero__name-bottom{
   margin-top: -6px;
-  font-family: "Segoe Script", "Brush Script MT", "Pacifico", cursive;
+  font-family: var(--font-heading-script);
   font-weight: 400;
   font-size: clamp(44px, 7.5vw, 92px);
   color: #1a1a1a;
@@ -739,7 +839,7 @@ body:has(> .intro:not(.is-hidden)){
 /* Заголовок */
 .location-title{
   margin: 0 0 18px;
-  font-family: "Segoe Script", "Brush Script MT", "Pacifico", cursive;
+  font-family: var(--font-heading-script);
   font-size: clamp(36px, 6vw, 56px);
   font-weight: 400;
   color: #6f2e37;
@@ -839,7 +939,7 @@ body:has(> .intro:not(.is-hidden)){
 .timing-title{
   text-align: center;
   margin: 0 0 clamp(28px, 6vw, 48px);
-  font-family: "Segoe Script","Brush Script MT","Pacifico",cursive;
+  font-family: var(--font-heading-script);
   font-weight: 400;
   font-size: clamp(44px, 6.5vw, 82px);
   color: #c73e4c;
@@ -1218,9 +1318,9 @@ body:has(> .intro:not(.is-hidden)){
 /* Заголовок секции (единый стиль с таймингом) */
 .dresscode-title{
   margin: 0 0 24px;
-  font-family: "Cormorant Garamond", serif;
+  font-family: var(--font-heading-script);
   font-size: var(--section-title-size);
-  font-weight: 500;
+  font-weight: 400;
   line-height: 1.15;
   color: #1a1a1a;
   text-align: center;
@@ -1304,28 +1404,36 @@ body:has(> .intro:not(.is-hidden)){
   border-radius: 16px;  /* мягко, как в дизайне */
 }
 
-/* ===== ДЕТАЛИ (бутылки + анимация) ===== */
+/* ===== ДЕТАЛИ — как локация / чат: бордо #6b1419, светлый текст ===== */
 .details-section{
-  background: #fbf7f3;
-  padding: clamp(48px, 8vw, 110px) clamp(16px, 4vw, 24px) clamp(24px, 4vw, 48px);
-  overflow: hidden;
+  scroll-margin-top: min(88px, 18vh);
+  background: #6b1419;
+  padding:
+    max(clamp(48px, 10vw, 88px), env(safe-area-inset-top, 0px))
+    clamp(20px, 5vw, 32px)
+    max(clamp(48px, 10vw, 88px), env(safe-area-inset-bottom, 0px));
+  overflow-x: visible;
 }
 
 .details-card{
   max-width: 1100px;
   margin: 0 auto;
+  padding: 0;
+  background: transparent;
+  border-radius: 0;
+  box-shadow: none;
 }
 
 .details-wrap{
-  max-width: 1100px;
+  max-width: 560px;
   margin: 0 auto;
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: clamp(32px, 4vw, 48px);
+  gap: clamp(28px, 4vw, 44px);
+  text-align: center;
 }
 
-/* Блок с картинкой */
 .details-media{
   display: flex;
   justify-content: center;
@@ -1334,81 +1442,75 @@ body:has(> .intro:not(.is-hidden)){
 
 .details-img{
   width: 100%;
-  max-width: 280px;
+  max-width: min(280px, 88vw);
   height: auto;
   display: block;
-  border-radius: 16px;
+  border-radius: 12px;
   object-fit: contain;
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.35);
+  outline: 1px solid rgba(255, 255, 255, 0.12);
 }
 
-/* Текст */
 .details-content{
-  max-width: 420px;
+  max-width: 100%;
+  padding: 0;
 }
 
 .details-title{
-  margin: 0 0 24px;
-  font-family: "Cormorant Garamond", serif;
-  font-size: var(--section-title-size);
-  font-weight: 500;
+  margin: 0 0 clamp(20px, 4vw, 32px);
+  font-family: var(--font-heading-script);
+  font-size: clamp(36px, 9vw, 52px);
+  font-weight: 400;
   line-height: 1.15;
-  color: #1a1a1a;
+  letter-spacing: 0.02em;
+  color: #fff;
+  text-transform: none;
   text-align: center;
 }
 
 .details-text{
   font-family: system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
-  font-size: clamp(16px, 2.1vw, 20px);
+  font-size: clamp(14px, 3.6vw, 17px);
   line-height: 1.55;
-  color: rgba(0,0,0,.45);
+  color: rgba(255, 255, 255, 0.92);
   margin: 0;
+  text-align: center;
+  letter-spacing: 0.02em;
 }
 
-/* ===== АНИМАЦИЯ “чокнуться” ===== */
+.details-content .details-text + .details-text{
+  margin-top: 1.15em;
+}
 
 @media (max-width: 900px){
   .details-wrap{
-    gap: 40px;
-    text-align: center;
+    gap: clamp(28px, 5vw, 40px);
   }
 
   .details-img{
-    max-width: 240px;
-  }
-
-  .details-content{
-    margin: 0 auto;
-    max-width: 100%;
-    padding: 0 16px;
-  }
-
-  .details-text{
-    text-align: center;
+    max-width: min(240px, 70vw);
   }
 }
 
-/* Телефон */
 @media (max-width: 600px){
-  .details-section{
-    padding: 40px 16px 32px;
-  }
-
   .details-wrap{
-    gap: 32px;
+    gap: 28px;
   }
 
   .details-img{
-    max-width: 200px;
+    max-width: min(200px, 65vw);
   }
 }
 
 @media (max-width: 480px){
-  .details-section{
-    padding: 32px 12px 28px;
+  .details-section .details-title{
+    font-size: clamp(32px, 9vw, 44px);
   }
 
-  .details-content{
-    padding: 0 8px;
+  /* выше специфичность, чем глобальный .details-text в @media 480px */
+  .details-section .details-text{
+    font-size: 17px;
+    line-height: 1.55;
   }
 }
 /* ===== КОНТАКТЫ как на рефе (карточка + жемчуг + боковые фото) ===== */
@@ -1464,9 +1566,9 @@ body:has(> .intro:not(.is-hidden)){
 /* Заголовок секции (единый стиль с таймингом) */
 .contacts-title{
   margin: 0 0 24px;
-  font-family: "Cormorant Garamond", serif;
+  font-family: var(--font-heading-script);
   font-size: var(--section-title-size);
-  font-weight: 500;
+  font-weight: 400;
   line-height: 1.15;
   color: #1a1a1a;
   text-align: center;
@@ -1545,16 +1647,6 @@ margin: 0 auto 38px;
     padding: 46px 20px 42px;
   }
 }
-.details-card{
-  position: relative;
-  z-index: 2;
-  width: min(980px, 92vw);
-  margin: 0 auto;
-  padding: clamp(24px, 4vw, 46px) clamp(20px, 4vw, 28px) clamp(24px, 4vw, 40px);
-  background: #fbf7f3;
-  border-radius: 22px;
-  text-align: center;
-}
 /* ===== Split Envelope Hero ===== */
 .env-hero{
   min-height: 100vh;
@@ -1623,7 +1715,7 @@ margin: 0 auto 38px;
 }
 
 .env-title{
-  font-family: "Segoe Script","Brush Script MT","Pacifico",cursive;
+  font-family: var(--font-heading-script);
   font-size: clamp(34px, 5.4vw, 54px);
   color: #6f2e37;
 }
@@ -1809,10 +1901,10 @@ margin: 0 auto 38px;
 }
 
 .music-title{
-  font-family: system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
+  font-family: var(--font-heading-script);
   font-size: 12px;
-  letter-spacing: .10em;
-  text-transform: uppercase;
+  letter-spacing: .04em;
+  text-transform: none;
   color: rgba(0,0,0,.55);
   white-space: nowrap;
   overflow: hidden;
@@ -2244,7 +2336,7 @@ margin: 0 auto 38px;
 /* Заголовок */
 .timer-card__title{
   margin: 0 0 10px;
-  font-family: "Segoe Script","Brush Script MT","Pacifico",cursive;
+  font-family: var(--font-heading-script);
   font-weight: 400;
   font-size: clamp(28px, 6.2vw, 44px);
   line-height: 1.05;
@@ -2309,9 +2401,9 @@ margin: 0 auto 38px;
 }
 
 .timer-section__title{
-  font-family: "Cormorant Garamond", serif;
+  font-family: var(--font-heading-script);
   font-size: var(--section-title-size);
-  font-weight: 500;
+  font-weight: 400;
   line-height: 1.15;
   color: #1a1a1a;
   margin: 0 0 32px;
@@ -2690,10 +2782,10 @@ margin: 0 auto 38px;
 .intro__title {
   margin: 0;
   width: 100%;
-  font-family: "Cormorant Garamond", serif;
-  font-weight: 600;
-  letter-spacing: 0.07em;
-  text-transform: uppercase;
+  font-family: var(--font-heading-script);
+  font-weight: 400;
+  letter-spacing: 0.02em;
+  text-transform: none;
   text-align: center;
   color: rgba(255, 255, 255, 0.92);
   font-size: var(--intro-title-size);
@@ -2973,8 +3065,8 @@ margin: 0 auto 38px;
 /* Большая типографика */
 .hero__headline{
   margin: 0;
-  font-family: "Cormorant Garamond", serif;
-  font-weight: 500;
+  font-family: var(--font-heading-script);
+  font-weight: 400;
   line-height: 0.95;
   letter-spacing: 0.02em;
   font-size: clamp(44px, 6vw, 88px);
@@ -3034,12 +3126,12 @@ margin: 0 auto 38px;
   display: grid;
   place-items: center;
   border: 1px solid rgba(0,0,0,0.2);
-  font-family: "Cormorant Garamond", serif;
-  font-weight: 600;
+  font-family: var(--font-heading-script);
+  font-weight: 400;
 }
 
 .hero__music-title{
-  font-family: "Cormorant Garamond", serif;
+  font-family: var(--font-heading-script);
   font-size: 16px;
   color: rgba(0,0,0,0.65);
   margin-bottom: 2px;
@@ -3266,8 +3358,8 @@ margin: 0 auto 38px;
   flex-direction: column;
   align-items: flex-start;
 
-  font-family: "Cormorant Garamond", serif;
-  font-weight: 500;
+  font-family: var(--font-heading-script);
+  font-weight: 400;
   font-size: clamp(42px, 7vw, 96px);
   line-height: 1.05;
   letter-spacing: 0.02em;
@@ -3357,8 +3449,8 @@ margin: 0 auto 38px;
   flex-direction: column;
   align-items: flex-start;
 
-  font-family: "Cormorant Garamond", serif;
-  font-weight: 500;
+  font-family: var(--font-heading-script);
+  font-weight: 400;
   font-size: clamp(42px, 7vw, 96px);
   line-height: 1.05;
   letter-spacing: 0.02em;
@@ -3449,7 +3541,8 @@ margin: 0 auto 38px;
 
 /* Заголовок */
 .date-title {
-  font-family: "Cormorant Garamond", serif;
+  font-family: var(--font-heading-script);
+  font-weight: 400;
   font-size: clamp(28px, 5vw, 48px);
   margin-bottom: 24px;
 }
@@ -3532,7 +3625,8 @@ margin: 0 auto 38px;
 /* Месяц */
 .date-month {
   margin-top: 24px;
-  font-family: "Cormorant Garamond", serif;
+  font-family: var(--font-heading-script);
+  font-weight: 400;
   font-size: clamp(24px, 4vw, 36px);
   color: #8c2f2b;
 }
@@ -3660,7 +3754,7 @@ html.js .date-section.is-visible {
 
 /* заголовок */
 .date-title{
-  font-family: "Cormorant Garamond", serif;
+  font-family: var(--font-heading-script);
   font-size: clamp(34px, 4.6vw, 56px);
   font-weight: 400;
   margin: 0 0 24px;
@@ -3732,7 +3826,7 @@ html.js .date-section.is-visible {
 /* месяц */
 .date-month{
   margin-top: 26px;
-  font-family: "Cormorant Garamond", serif;
+  font-family: var(--font-heading-script);
   font-size: clamp(28px, 4vw, 44px);
   font-weight: 400;
   color: var(--accent);
@@ -3868,7 +3962,7 @@ html.js .date-section.is-visible{
 
 /* заголовок */
 .loveDate__title{
-  font-family: "Cormorant Garamond", serif;
+  font-family: var(--font-heading-script);
   font-size: clamp(30px, 4.2vw, 54px);
   color: #2b2b2b;
   margin: 0 0 22px 0;
@@ -3953,7 +4047,8 @@ html.js .date-section.is-visible{
 /* месяц */
 .loveDate__month{
   margin-top: 22px;
-  font-family: "Cormorant Garamond", serif;
+  font-family: var(--font-heading-script);
+  font-weight: 400;
   font-size: clamp(28px, 4vw, 44px);
   color: #8c2f2b;
 }
@@ -4027,8 +4122,8 @@ html.js .date-section.is-visible{
 /* Заголовок как в стилистике (каллиграфия/акцент) */
 .wloc__title{
   margin: 0 0 14px;
-  font-family: "Cormorant Garamond", serif;
-  font-weight: 500;
+  font-family: var(--font-heading-script);
+  font-weight: 400;
   font-size: clamp(34px, 4.2vw, 56px);
   line-height: 1.05;
   color: #7f2a28; /* винный акцент */
@@ -4103,26 +4198,16 @@ html.js .wloc--reveal.is-visible{
   transform: translateY(0);
 }
 /* =========================
-   LOCATION — референс: крем + оливковый, фото справа, карточка слева
+   LOCATION — как «Чат для гостей»: бордо #6b1419, без рамки bow-frame
    ========================= */
 
 .loca{
-  /* текст и кнопка — тот же акцент, что «ЖЕНИХ / НЕВЕСТА» на главной */
-  --loca-olive: var(--accent-wedding);
-  --loca-olive-hover: var(--accent-wedding-hover);
-  --loca-cream: #f9f8f3;
-  --loca-paper: #faf9f5;
-  --loca-ink: var(--accent-wedding);
-
   scroll-margin-top: min(88px, 18vh);
-  background-color: var(--loca-cream);
-  background-image:
-    radial-gradient(ellipse 140% 60% at 50% -20%, rgba(255, 255, 255, 0.55), transparent 50%);
+  background: #6b1419;
   padding:
-    max(clamp(56px, 8vh, 100px), env(safe-area-inset-top, 0px))
-    clamp(16px, 4vw, 32px)
-    max(clamp(72px, 10vh, 120px), env(safe-area-inset-bottom, 0px));
-  /* clip обрезал «лепестки» углов у рамки локации */
+    max(clamp(48px, 10vw, 88px), env(safe-area-inset-top, 0px))
+    clamp(20px, 5vw, 32px)
+    max(clamp(48px, 10vw, 88px), env(safe-area-inset-bottom, 0px));
   overflow-x: visible;
 }
 
@@ -4133,148 +4218,11 @@ html.js .wloc--reveal.is-visible{
   overflow: visible;
 }
 
-/* Рамка из 8 SVG: стык волны с углом по --corner-arm; одинаковый --bow-gap до контента */
-.loca__panel.bow-frame{
-  --corner-size: clamp(58px, 7vw, 96px);
-  --edge-thickness: clamp(16px, 2vw, 26px);
-  /* прямые участки волн начинаются после зоны цветка (без пересечения с углом) */
-  --corner-arm: calc(var(--corner-size) * 0.88);
-  /* верх/низ: положение горизонтальной волны */
-  --end-inset: calc(var(--corner-size) * 0.42);
-  --bow-gap: clamp(14px, 2.8vw, 28px);
-  /* вертикаль совпадает с горизонталью в стыке */
-  --side-inset: var(--corner-arm);
-  --content-padding: calc(var(--side-inset) + var(--edge-thickness) + var(--bow-gap));
-  /* сдвиг угла наружу: лепестки в SVG левее/выше точки привязки */
-  --corner-nudge: max(6px, calc(var(--corner-size) * 0.1));
-
+.loca__panel{
   position: relative;
   width: 100%;
-  box-sizing: border-box;
   margin: 0 auto;
-  isolation: isolate;
-  overflow: visible;
-  padding: var(--content-padding);
-}
-
-.loca__panel.bow-frame .bow-frame__content{
-  position: relative;
-  z-index: 2;
-}
-
-.loca__panel.bow-frame::before,
-.loca__panel.bow-frame::after,
-.loca__panel.bow-frame .bow-frame__content::before,
-.loca__panel.bow-frame .bow-frame__content::after{
-  content: "";
-  position: absolute;
-  z-index: 1;
-  pointer-events: none;
-}
-
-.loca__panel.bow-frame::before,
-.loca__panel.bow-frame::after{
-  left: var(--corner-arm);
-  right: var(--corner-arm);
-  height: var(--edge-thickness);
-  background-repeat: repeat-x;
-  overflow: hidden;
-}
-
-/* Верхняя волна */
-.loca__panel.bow-frame::before{
-  top: var(--end-inset);
-  background-image: url("images/edge-top.svg");
-  background-size: 180px var(--edge-thickness);
-  background-position: 0 50%;
-  transform: translateZ(0);
-  backface-visibility: hidden;
-}
-
-/* Нижняя волна: без translateZ + overlap тайлов + clip — иначе полоски под repeat-x (десктоп и мобилка) */
-.loca__panel.bow-frame::after{
-  bottom: var(--end-inset);
-  background-image: url("images/edge-bottom.svg");
-  background-size: calc(180px + 0.55px) var(--edge-thickness);
-  background-position: left 48%;
-  transform: translate3d(0, -0.5px, 0);
-  backface-visibility: visible;
-  clip-path: inset(0 0 2px 0);
-  -webkit-clip-path: inset(0 0 2px 0);
-}
-
-/* Боковые волны — между верхней и нижней полосами, стык с горизонталями на x = side-inset */
-.loca__panel.bow-frame .bow-frame__content::before,
-.loca__panel.bow-frame .bow-frame__content::after{
-  top: calc(var(--end-inset) + var(--edge-thickness) - var(--content-padding));
-  bottom: calc(var(--end-inset) + var(--edge-thickness) - var(--content-padding));
-  width: var(--edge-thickness);
-  background-size: var(--edge-thickness) 180px;
-  background-repeat: repeat-y;
-  background-position: 50% 0;
-  overflow: hidden;
-  transform: translateZ(0);
-  backface-visibility: hidden;
-}
-
-.loca__panel.bow-frame .bow-frame__content::before{
-  left: calc(var(--side-inset) - var(--content-padding));
-  background-image: url("images/edge-left.svg");
-}
-
-.loca__panel.bow-frame .bow-frame__content::after{
-  right: calc(var(--side-inset) - var(--content-padding));
-  background-image: url("images/edge-right.svg");
-}
-
-.loca__panel.bow-frame .bow-frame__corner{
-  position: absolute;
-  /* запас под штрих и «лепестки» за пределами старого 150×150 */
-  width: calc(var(--corner-size) * 1.22);
-  height: calc(var(--corner-size) * 1.22);
-  z-index: 3;
-  pointer-events: none;
-  background-repeat: no-repeat;
-  /* поля внутри блока — антиалиасинг не режется по краю painting area */
-  background-size: 90% 90%;
-  overflow: visible;
-}
-
-.loca__panel.bow-frame .bow-frame__corner--tl{
-  top: calc(-1 * var(--corner-nudge));
-  left: calc(-1 * var(--corner-nudge));
-  background-image: url("images/corner-tl.svg");
-  background-position: left top;
-}
-
-.loca__panel.bow-frame .bow-frame__corner--tr{
-  top: calc(-1 * var(--corner-nudge));
-  right: calc(-1 * var(--corner-nudge));
-  background-image: url("images/corner-tr.svg");
-  background-position: right top;
-}
-
-.loca__panel.bow-frame .bow-frame__corner--bl{
-  bottom: calc(-1 * var(--corner-nudge));
-  left: calc(-1 * var(--corner-nudge));
-  background-image: url("images/corner-bl.svg");
-  background-position: left bottom;
-}
-
-.loca__panel.bow-frame .bow-frame__corner--br{
-  bottom: calc(-1 * var(--corner-nudge));
-  right: calc(-1 * var(--corner-nudge));
-  background-image: url("images/corner-br.svg");
-  background-position: right bottom;
-}
-
-@media (max-width: 640px){
-  .loca__panel.bow-frame{
-    --corner-size: 68px;
-    --edge-thickness: 17px;
-    --bow-gap: 12px;
-    --end-inset: calc(var(--corner-size) * 0.4);
-  }
+  box-sizing: border-box;
 }
 
 .loca__header{
@@ -4282,20 +4230,15 @@ html.js .wloc--reveal.is-visible{
   margin-bottom: clamp(18px, 3.5vw, 36px);
 }
 
-/* Заголовок секции над рамкой, не внутри неё */
-.loca__header.loca__header--above-frame{
-  margin-top: 0;
-  margin-bottom: clamp(28px, 5vw, 48px);
-}
-
 .loca__heading{
   margin: 0;
-  font-family: "Cormorant Garamond", Georgia, serif;
-  font-weight: 500;
-  font-size: clamp(34px, 6.5vmin, 52px);
+  font-family: var(--font-heading-script);
+  font-weight: 400;
+  font-size: clamp(28px, 7vw, 40px);
   line-height: 1.15;
   letter-spacing: 0.02em;
-  color: #111;
+  color: #fff;
+  text-transform: none;
 }
 
 /* Контент под общей SVG-рамкой */
@@ -4330,10 +4273,12 @@ html.js .wloc--reveal.is-visible{
   grid-row: 1;
   width: 100%;
   min-height: clamp(320px, 48vmin, 520px);
-  border-radius: 4px;
-  background-color: #e5e2dc;
+  border-radius: 12px;
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.35);
+  outline: 1px solid rgba(255, 255, 255, 0.12);
+  background-color: #3a1416;
   background-image:
-    linear-gradient(160deg, rgba(121, 28, 39, 0.06) 0%, transparent 55%),
+    linear-gradient(160deg, rgba(0, 0, 0, 0.15) 0%, transparent 55%),
     url("images/location.webp");
   background-size: cover, cover;
   background-position: center, center;
@@ -4359,7 +4304,7 @@ html.js .wloc--reveal.is-visible{
   box-shadow: none;
 }
 
-/* Текст — один шрифт Cormorant Garamond */
+/* Текст — как в блоке «Чат для гостей» */
 .loca__card{
   position: relative;
   width: 100%;
@@ -4371,18 +4316,18 @@ html.js .wloc--reveal.is-visible{
   border-radius: 0;
   text-align: center;
   box-sizing: border-box;
-  font-family: "Cormorant Garamond", Georgia, serif;
+  font-family: system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
 }
 
 .loca__venue{
   margin: 0 0 clamp(10px, 2vmin, 16px);
-  font-family: inherit;
-  font-weight: 600;
+  font-family: var(--font-heading-script);
+  font-weight: 400;
   font-size: clamp(14px, 2.7vmin, 20px);
   line-height: 1.18;
-  letter-spacing: 0.03em;
-  text-transform: uppercase;
-  color: var(--loca-olive);
+  letter-spacing: 0.02em;
+  text-transform: none;
+  color: #fff;
   text-align: center;
 }
 
@@ -4398,48 +4343,21 @@ html.js .wloc--reveal.is-visible{
 .loca__address{
   margin: 0 0 clamp(2px, 0.8vmin, 6px);
   font-family: inherit;
-  font-weight: 600;
-  font-size: clamp(11px, 2vmin, 13px);
-  line-height: 1.45;
-  color: var(--loca-olive);
+  font-weight: 500;
+  font-size: clamp(13px, 2.2vmin, 16px);
+  line-height: 1.5;
+  color: rgba(255, 255, 255, 0.92);
 }
 
-.loca__route-btn{
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  margin-top: clamp(6px, 1.5vmin, 11px);
-  padding: 0.65em clamp(22px, 4vw, 36px);
-  min-height: 2.75em;
-  max-width: 100%;
-  box-sizing: border-box;
-  background: var(--loca-olive);
-  color: #fff !important;
-  text-decoration: none;
-  font-family: inherit;
-  /* −20% к прежнему размеру */
-  font-size: clamp(11.2px, 2vmin, 13.6px);
-  font-weight: 600;
-  letter-spacing: 0.06em;
-  line-height: 1;
-  text-transform: uppercase;
-  border-radius: 9999px;
-  transition: background 0.2s ease, transform 0.2s ease;
-}
-
-.loca__route-btn:hover{
-  background: var(--loca-olive-hover);
-  transform: translateY(-1px);
-}
-
-.loca__route-btn:active{
-  transform: translateY(0);
+/* Кнопка — класс .guest-chat__btn; здесь только отступы под вёрстку локации */
+.loca .loca__route-btn.guest-chat__btn{
+  margin-top: clamp(8px, 2vmin, 16px);
 }
 
 /* Десктоп: крупнее типографика, колонка заполняет высоту фото — без «пустоты» сверху/снизу */
 @media (min-width: 721px){
   .loca .loca__heading{
-    font-size: clamp(38px, 5.2vmin, 58px);
+    font-size: clamp(32px, 4.5vmin, 44px);
   }
 
   .loca__side{
@@ -4474,17 +4392,13 @@ html.js .wloc--reveal.is-visible{
   }
 
   .loca__address{
-    font-size: clamp(18px, 2.1vmin, 26px);
+    font-size: clamp(16px, 2vmin, 22px);
     line-height: 1.5;
     margin: 0;
   }
 
-  .loca__route-btn{
-    /* расстояние от адреса до кнопки (суммируется с gap у .loca__card) */
-    margin-top: clamp(24px, 3.8vmin, 48px);
-    font-size: clamp(13.6px, 1.6vmin, 17.6px);
-    padding: 0.78em clamp(28px, 3.8vw, 44px);
-    min-height: 3.1em;
+  .loca .loca__route-btn.guest-chat__btn{
+    margin-top: clamp(20px, 3vmin, 40px);
   }
 }
 
@@ -4496,10 +4410,6 @@ html.js .wloc--reveal.is-visible{
 
   .loca__header{
     margin-bottom: clamp(14px, 4vw, 24px);
-  }
-
-  .loca__header.loca__header--above-frame{
-    margin-bottom: clamp(22px, 4.5vw, 36px);
   }
 
   .loca__stage{
@@ -4535,8 +4445,8 @@ html.js .wloc--reveal.is-visible{
     grid-column: 1;
     grid-row: 2;
     min-height: clamp(220px, 58vw, 360px);
-    border-radius: 10px;
-    box-shadow: 0 10px 30px rgba(42, 36, 32, 0.11);
+    border-radius: 12px;
+    box-shadow: 0 12px 36px rgba(0, 0, 0, 0.35);
   }
 
   .loca__venue{
@@ -4549,17 +4459,14 @@ html.js .wloc--reveal.is-visible{
     font-size: clamp(13px, 2.8vw, 16px);
   }
 
-  .loca__route-btn{
-    margin-top: clamp(12px, 3vw, 18px);
-    padding: 0.65em clamp(24px, 6vw, 44px);
-    min-height: 2.85em;
-    font-size: clamp(11.2px, 2.56vw, 13.6px);
+  .loca .loca__route-btn.guest-chat__btn{
+    margin-top: clamp(12px, 3vw, 20px);
   }
 }
 
 @media (max-width: 480px){
   .loca__heading{
-    font-size: clamp(30px, 9vw, 42px);
+    font-size: clamp(26px, 8vw, 36px);
   }
 
   .loca__stage{
@@ -4709,7 +4616,7 @@ html.js .wloc--reveal.is-visible{
 }
 
 .loveCal__title{
-  font-family: "Cormorant Garamond", serif;
+  font-family: var(--font-heading-script);
   font-size: clamp(28px, 5vw, 48px);
   margin: 0 0 24px;
 }
@@ -4768,7 +4675,8 @@ html.js .wloc--reveal.is-visible{
 
 .loveCal__month{
   margin-top: 0;
-  font-family: "Cormorant Garamond", serif;
+  font-family: var(--font-heading-script);
+  font-weight: 400;
   font-size: clamp(24px, 4vw, 36px);
   color: #8c2f2b;
 }
@@ -4798,7 +4706,8 @@ html.js .wloc--reveal.is-visible{
 
 /* Заголовок */
 .date-title{
-  font-family:"Cormorant Garamond", serif;
+  font-family: var(--font-heading-script);
+  font-weight: 400;
   font-size: clamp(28px, 5vw, 48px);
   margin: 0 0 22px;
 }
@@ -4849,7 +4758,8 @@ html.js .wloc--reveal.is-visible{
 /* Месяц */
 .date-month{
   margin-top: 22px;
-  font-family:"Cormorant Garamond", serif;
+  font-family: var(--font-heading-script);
+  font-weight: 400;
   font-size: clamp(24px, 4vw, 36px);
   color:#8c2f2b;
 }
@@ -5367,6 +5277,8 @@ html.js .date-section.is-visible{
 .day-plan__title{
   text-align: center;
   margin: 0 0 var(--dp-title-gap-desktop);
+  font-family: var(--font-heading-script);
+  font-weight: 400;
   font-size: clamp(34px, 4.2vw, 56px);
   line-height: 1.1;
 }
@@ -5645,8 +5557,8 @@ html.js .date-section.is-visible{
 
 .day-plan__title{
   margin: 0 0 clamp(26px, 5vh, 46px);
-  font-family: "Cormorant Garamond", serif;
-  font-weight: 500;
+  font-family: var(--font-heading-script);
+  font-weight: 400;
   font-size: clamp(34px, 4.2vw, 56px);
   line-height: 1.1;
 }
@@ -5686,8 +5598,8 @@ html.js .date-section.is-visible{
 .day-plan__text{ min-width: 0; }
 
 .day-plan__name{
-  font-family: "Cormorant Garamond", serif;
-  font-weight: 500;
+  font-family: var(--font-heading-script);
+  font-weight: 400;
   font-size: clamp(22px, 2.6vw, 36px);
   line-height: 1.12;
   color: #1f1f1f;
@@ -5695,8 +5607,8 @@ html.js .date-section.is-visible{
 
 .day-plan__time{
   margin-top: clamp(6px, 1.2vh, 10px);
-  font-family: "Cormorant Garamond", serif;
-  font-weight: 500;
+  font-family: var(--font-heading-script);
+  font-weight: 400;
   font-size: clamp(16px, 2vw, 22px);
   color: #791c27;
   letter-spacing: 0.02em;
