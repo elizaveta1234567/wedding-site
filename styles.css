@@ -328,9 +328,9 @@ body:has(> .intro:not(.is-hidden)){
 
 .anketa__title {
   margin: 0 0 24px;
-  font-family: var(--font-heading-script);
+  font-family: "Cormorant Garamond", serif;
   font-size: var(--section-title-size);
-  font-weight: 400;
+  font-weight: 500;
   line-height: 1.15;
   color: #1a1a1a;
   text-align: center;
@@ -4321,12 +4321,12 @@ html.js .wloc--reveal.is-visible{
 
 .loca__venue{
   margin: 0 0 clamp(10px, 2vmin, 16px);
-  font-family: var(--font-heading-script);
-  font-weight: 400;
+  font-family: inherit;
+  font-weight: 600;
   font-size: clamp(14px, 2.7vmin, 20px);
   line-height: 1.18;
-  letter-spacing: 0.02em;
-  text-transform: none;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
   color: #fff;
   text-align: center;
 }
