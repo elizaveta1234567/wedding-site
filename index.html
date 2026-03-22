@@ -9,7 +9,7 @@
   <!-- Шрифты (под “элегантную” эстетику как на референсе) -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Marck+Script&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Marck+Script&family=Outfit:wght@500;600;700&display=swap" rel="stylesheet">
 <link rel="icon" type="image/jpeg" sizes="32x32" href="images/icon.jpg">
   <link rel="stylesheet" href="styles.css" />
 </head>
@@ -267,29 +267,28 @@ else pause();
         <time class="timing-card__time" datetime="2026-08-06T15:30">15.30</time>
         <span class="timing-card__rule" aria-hidden="true"></span>
         <div class="timing-card__main">
-          <p class="timing-card__name">Сбор гостей, фуршет</p>
+          <p class="timing-card__name">СБОР ГОСТЕЙ</p>
         </div>
       </li>
       <li class="timing-card">
         <time class="timing-card__time" datetime="2026-08-06T16:00">16.00</time>
         <span class="timing-card__rule" aria-hidden="true"></span>
         <div class="timing-card__main">
-          <p class="timing-card__name">Торжественная церемония</p>
+          <p class="timing-card__name">ТОРЖЕСТВЕННАЯ ЦЕРЕМОНИЯ</p>
         </div>
       </li>
       <li class="timing-card">
         <time class="timing-card__time" datetime="2026-08-06T17:00">17.00</time>
         <span class="timing-card__rule" aria-hidden="true"></span>
         <div class="timing-card__main">
-          <p class="timing-card__name">Начало банкета</p>
-          <p class="timing-card__sub">и гастрономического удовольствия</p>
+          <p class="timing-card__name">НАЧАЛО БАНКЕТА</p>
         </div>
       </li>
       <li class="timing-card timing-card--note">
         <time class="timing-card__time" datetime="2026-08-06T23:00">23.00</time>
         <span class="timing-card__rule" aria-hidden="true"></span>
         <div class="timing-card__main">
-          <p class="timing-card__name timing-card__name--sentence">Будем рады видеть вас до самого утра</p>
+          <p class="timing-card__name timing-card__name--sentence">ЗАВЕРШЕНИЕ ВЕЧЕРА</p>
         </div>
       </li>
     </ol>
@@ -352,7 +351,7 @@ else pause();
   </div>
     <div class="dresscode-look">
   <img
-    src="images/Dresscode.png"
+    src="images/dresscodex.png"
     alt="Примеры образов дресс-кода"
     class="dresscode-image"
     loading="lazy"
@@ -498,46 +497,33 @@ else pause();
           <p class="timer-heart__title">Мы скажем «ДА»</p>
           <p class="timer-heart__lead">Через...</p>
           <div class="timer timer--heart" role="group" aria-label="Таймер до 6 августа 2026">
-            <!-- 2×2: уже одной строки из 4 — помещается в ширину сердца -->
-            <div class="timer-grid">
-              <div class="timer-row timer-row--pair">
-                <div class="timer-cell">
-                  <div class="timer-flip"><span class="timer-num" id="tDays">00</span></div>
-                  <div class="timer-label">дней</div>
-                </div>
-                <div class="timer-cell">
-                  <div class="timer-flip"><span class="timer-num" id="tHours">00</span></div>
-                  <div class="timer-label">часов</div>
-                </div>
+            <div class="timer-row">
+              <div class="timer-cell">
+                <span class="timer-num" id="tDays">00</span>
+                <span class="timer-label">дней</span>
               </div>
-              <div class="timer-row timer-row--pair">
-                <div class="timer-cell">
-                  <div class="timer-flip"><span class="timer-num" id="tMins">00</span></div>
-                  <div class="timer-label">минут</div>
-                </div>
-                <div class="timer-cell">
-                  <div class="timer-flip"><span class="timer-num" id="tSecs">00</span></div>
-                  <div class="timer-label">секунд</div>
-                </div>
+              <div class="timer-cell">
+                <span class="timer-num" id="tHours">00</span>
+                <span class="timer-label">часов</span>
+              </div>
+              <div class="timer-cell">
+                <span class="timer-num" id="tMins">00</span>
+                <span class="timer-label">минут</span>
+              </div>
+              <div class="timer-cell">
+                <span class="timer-num" id="tSecs">00</span>
+                <span class="timer-label">секунд</span>
               </div>
             </div>
           </div>
         </div>
       </div>
     </div>
-    <div class="timer-love-row">
-      <p class="timer-love-row__sign">С любовью, Владислав и Елизавета!</p>
-      <div class="timer-love-row__cake">
-        <img
-          class="timer-love-row__cake-img"
-          src="images/cake.png"
-          alt=""
-          width="96"
-          height="96"
-          loading="lazy"
-          decoding="async"
-        />
-      </div>
+    <div class="timer-love-block">
+      <p class="timer-love-block__sign">
+        <span class="timer-love-block__line">С любовью,</span>
+        <span class="timer-love-block__line timer-love-block__line--names">Владислав и Елизавета</span>
+      </p>
     </div>
   </div>
 </section>
