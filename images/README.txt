@@ -5,6 +5,8 @@
 - couplelove.png (экран приглашения)
 - callendarlove.png (календарь)
 - timing-1.png ... timing-6.png (иконки тайминга)
+- sbor.png, rings.png, cake.png (блок «Во сколько?» — иллюстрации к трём пунктам)
+- timeline-line-ideal.svg — центральная декоративная линия блока «Во сколько?»
 - Dresscode.png (дресс-код)
 - details.jpg (блок «Детали» — одна картинка)
 - contacts-left.jpg, contacts-right.jpg (контакты)

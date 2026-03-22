@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 260 1220" fill="none" preserveAspectRatio="xMidYMid meet">
+  <title>Wedding timeline line</title>
+  <desc>Decorative wedding timeline path; линия заканчивается у финальной точки (23:00), без хвоста и сердечка внизу.</desc>
+
+  <!-- Основной маршрут: плавные крупные изгибы; конец — у маркера 23:00 (ниже — обрезано) -->
+  <path d="M130 60
+           C130 100, 130 120, 130 150
+           C130 185, 184 205, 196 255
+           C208 307, 152 337, 108 365
+           C60 396, 46 438, 74 483
+           C100 526, 168 548, 190 596
+           C210 640, 182 688, 136 726
+           C90 764, 74 803, 96 846
+           C116 885, 174 910, 186 956
+           C198 1004, 164 1045, 132 1082
+           C112 1106, 108 1132, 116 1162
+           C118 1171, 120 1177, 122 1183"
+        stroke="#DD6B6B"
+        stroke-width="3.5"
+        stroke-linecap="round"
+        stroke-linejoin="round"/>
+</svg>

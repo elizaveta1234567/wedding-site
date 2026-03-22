@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 260 1200" fill="none">
+  <path
+    d="M130 0 L130 70
+       C238 125 22 215 130 300
+       C22 390 238 480 130 565
+       C238 655 22 745 130 830
+       C22 920 238 1010 130 1095
+       L130 1200"
+    stroke="#DD6B6B"
+    stroke-width="6"
+    stroke-linecap="round"
+    stroke-linejoin="round"
+  />
+</svg>

@@ -36,6 +36,7 @@
 *{ box-sizing: border-box; }
 html{
   scroll-behavior: smooth;
+  overflow-x: hidden;
   /* iOS: даём странице реальную высоту экрана (иначе fixed-оверлеи «короче» вьюпорта) */
   min-height: 100%;
   min-height: -webkit-fill-available;
@@ -819,131 +820,387 @@ body:has(> .intro:not(.is-hidden)){
     line-height: 1.2;
   }
 }
-/* ===== ТАЙМИНГ как на рефе (время слева + линия + точки + текст справа) ===== */
+/* ===== ТАЙМИНГ: декоративный маршрут (timeline-line-ideal.svg), точки по y из viewBox 260×1220 ===== */
 .timing-section{
   background: #fbf7f3;
-  padding: 90px 18px 120px;
+  padding: clamp(48px, 8vw, 96px) clamp(16px, 4vw, 24px) clamp(64px, 12vw, 120px);
   position: relative;
-  overflow: hidden;
+  overflow: visible;
 }
 
 .timing-wrap{
   max-width: 980px;
   margin: 0 auto;
+  padding: 0 max(clamp(4px, 1vw, 8px), env(safe-area-inset-left, 0px), env(safe-area-inset-right, 0px));
+  width: 100%;
+  box-sizing: border-box;
 }
 
-/* Заголовок */
 .timing-title{
   text-align: center;
-  margin: 0 0 44px;
+  margin: 0 0 clamp(28px, 6vw, 48px);
   font-family: "Segoe Script","Brush Script MT","Pacifico",cursive;
   font-weight: 400;
   font-size: clamp(44px, 6.5vw, 82px);
-  color: #6f2e37;;
+  color: #c73e4c;
 }
 
-/* Сетка всего тайминга */
-.timing-grid{
-  width: min(820px, 100%);
+.timing-timeline{
+  /* Общий сдвиг линии + точек (иначе маркеры «съезжают» с path). Только линию без точек — в SVG. */
+  --timing-track-shift-x: 0px;
+  /* Большой зазор от линии + внутренние поля «квадратов» слева/справа от маркера */
+  --timing-wing-gap: clamp(1.5rem, 9vw, 3.25rem);
+  --timing-wing-inner-pad: clamp(0.4rem, 2.2vw, 1rem);
+  /* Один масштаб с временем события — картинки подгоняем под него */
+  --timing-time-size: clamp(32px, 5.2vw, 54px);
+  /* Высота PNG: нижняя граница от времени, рост по ширине экрана (не «застревает» в ~100px) */
+  /* +50% к прежнему масштабу иллюстраций */
+  --timing-img-max-h: clamp(calc(var(--timing-time-size) * 2.625), 39vw, 450px);
+  position: relative;
+  isolation: isolate;
+  max-width: 920px;
   margin: 0 auto;
-  position: relative;
+  padding: 0 0 clamp(32px, 6vw, 56px);
+  padding-inline: max(clamp(14px, 3.5vw, 28px), env(safe-area-inset-left, 0px), env(safe-area-inset-right, 0px));
+  overflow-x: visible;
+  width: 100%;
+  box-sizing: border-box;
 }
 
-/* Центральная вертикальная линия */
-.timing-grid::before{
-  content:"";
+.timing-timeline__body{
+  position: relative;
+  width: 100%;
+  overflow: visible;
+}
+
+/* Та же пропорция, что у SVG (260×1220) → без letterboxing, форма линии не искажается */
+.timing-timeline__track{
+  position: relative;
+  width: 100%;
+  max-width: min(100%, 560px);
+  margin-inline: auto;
+  aspect-ratio: 260 / 1220;
+  overflow: visible;
+}
+
+.timing-timeline__line{
   position: absolute;
-  left: 210px;            /* место линии (под время) */
-  top: 10px;
-  bottom: 10px;
-  width: 2px;
-  background: rgba(124, 86, 92, 0.55);
-  border-radius: 2px;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  overflow: visible;
+  transform: translateX(var(--timing-track-shift-x));
 }
 
-/* Одна строка тайминга */
-.timing-item{
-  display: grid;
-  grid-template-columns: 180px 60px 1fr; /* время | линия/точка | текст */
-  align-items: start;
-  column-gap: 0;
-  padding: 18px 0;
-}
-
-/* Время — крупное, “каллиграфическое” */
-.timing-time{
-  text-align: right;
-  padding-right: 24px;
-  font-family: "Times New Roman","Georgia",serif;
-  font-style: italic;
-  font-size: clamp(34px, 4.4vw, 64px);
-  line-height: 1;
-  color: #6f2e37;;
-}
-
-/* Точка на линии */
-.timing-dot{
-  position: relative;
+.timing-timeline__line-img{
+  display: block;
+  width: 100%;
   height: 100%;
+  object-fit: contain;
+  object-position: center top;
 }
-.timing-dot::before{
-  content:"";
+
+/* Список поверх линии; события — absolute по доле высоты = y/viewBoxHeight */
+.timing-timeline__list{
   position: absolute;
-  left: 75px;           /* совпадает с линией */
-  top: 20px;
-  transform: translateX(-50%);
+  inset: 0;
+  z-index: 1;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  pointer-events: none;
+  overflow: visible;
+  transform: translateX(var(--timing-track-shift-x));
+}
+
+.timing-event{
+  position: absolute;
+  left: 0;
+  right: 0;
+  width: 100%;
+  transform: translateY(-50%);
+  pointer-events: auto;
+  z-index: 2;
+}
+
+/* Вертикаль: центр маркера на y path (viewBox высота 1220) */
+.timing-timeline__list > .timing-event:nth-child(1){ top: calc(250 / 1220 * 100%); }
+.timing-timeline__list > .timing-event:nth-child(2){ top: calc(520 / 1220 * 100%); }
+.timing-timeline__list > .timing-event:nth-child(3){ top: calc(835 / 1220 * 100%); }
+.timing-timeline__list > .timing-event:nth-child(4){ top: calc(1185 / 1220 * 100%); }
+
+/*
+ * Горизонталь: центр маркера = центр линии в координатах viewBox (260×1220).
+ * Подобрано по сегментам path в timeline-line-ideal.svg + доводка по 0.1–0.3%.
+ * Если всё ещё «плывёт»: менять только --anchor-x у нужного nth-child шагом ~0.25%.
+ */
+.timing-timeline__list > .timing-event:nth-child(1){ --anchor-x: 75.35%; }
+.timing-timeline__list > .timing-event:nth-child(2){ --anchor-x: 42.75%; }
+.timing-timeline__list > .timing-event:nth-child(3){ --anchor-x: 35.65%; } /* 17:00 */
+.timing-timeline__list > .timing-event:nth-child(4){ --anchor-x: 47.1%; }
+
+.timing-event--final{
+  transform: translateY(-52%);
+}
+
+/* Один кластер на событие: якорь = точка на линии, крылья строятся от неё */
+.timing-event__cluster{
+  position: relative;
+  width: 100%;
+  min-height: clamp(15rem, 51vw, 27rem);
+  overflow: visible;
+}
+
+.timing-event__anchor{
+  position: absolute;
+  left: var(--anchor-x);
+  top: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 4;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 1.35rem;
+  height: 1.35rem;
+  pointer-events: none;
+}
+
+.timing-event__dot{
+  display: block;
   width: 12px;
   height: 12px;
-  background: #8a3c4b;
   border-radius: 50%;
-  box-shadow: #fbf7f3;
+  background: #fff;
+  border: 2.5px solid #dd6b6b;
+  box-shadow: 0 0 0 2px rgba(251, 247, 243, 0.95);
+  box-sizing: border-box;
+  flex-shrink: 0;
 }
 
-/* Текст справа */
-.timing-content{
-  padding-left: 54px;    /* чтобы не липло к линии */
+/* A: текст слева от линии, картинка справа — контент по центру своей зоны (как выделенные области) */
+.timing-event--a .timing-event__text{
+  position: absolute;
+  left: 0;
+  right: calc(100% - var(--anchor-x) + var(--timing-wing-gap));
+  top: 0;
+  bottom: 0;
+  transform: none;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  gap: 0.35em;
+  min-width: 0;
+  padding-right: var(--timing-wing-inner-pad);
+  padding-left: var(--timing-wing-inner-pad);
+  box-sizing: border-box;
 }
 
-.timing-name{
+.timing-event--a .timing-event__icon{
+  position: absolute;
+  left: calc(var(--anchor-x) + var(--timing-wing-gap));
+  right: 0;
+  top: 0;
+  bottom: 0;
+  transform: none;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 3;
+  padding-left: var(--timing-wing-inner-pad);
+  padding-right: var(--timing-wing-inner-pad);
+  box-sizing: border-box;
+  min-width: 0;
+  overflow: visible;
+}
+
+/* 15:30 (sbor): не поджимаем к линии — иначе PNG перекрывает штрих; чуть правее от оси */
+.timing-timeline__list > .timing-event:nth-child(1) .timing-event__icon{
+  left: calc(var(--anchor-x) + var(--timing-wing-gap) + clamp(0.35rem, 2.5vw, 1rem));
+}
+
+/* B: картинка слева, текст справа — то же: центрирование в своих половинах */
+.timing-event--b .timing-event__icon{
+  position: absolute;
+  left: 0;
+  right: calc(100% - var(--anchor-x) + var(--timing-wing-gap));
+  top: 0;
+  bottom: 0;
+  transform: none;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 3;
+  padding-left: var(--timing-wing-inner-pad);
+  padding-right: var(--timing-wing-inner-pad);
+  box-sizing: border-box;
+  min-width: 0;
+  overflow: visible;
+}
+
+.timing-event--b .timing-event__text{
+  position: absolute;
+  left: calc(var(--anchor-x) + var(--timing-wing-gap));
+  right: 0;
+  top: 0;
+  bottom: 0;
+  transform: none;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  gap: 0.35em;
+  min-width: 0;
+  padding-left: var(--timing-wing-inner-pad);
+  padding-right: var(--timing-wing-inner-pad);
+  box-sizing: border-box;
+}
+
+.timing-event__time{
+  display: block;
+  font-family: "Segoe Script","Brush Script MT","Pacifico",cursive;
+  font-weight: 400;
+  font-size: var(--timing-time-size);
+  line-height: 1.08;
+  color: #c73e4c;
+  margin: 0;
+}
+
+.timing-event__desc{
+  margin: 0;
   font-family: system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  font-size: clamp(16px, 1.8vw, 22px);
-  color: rgba(0,0,0,.55);
-  margin-bottom: 6px;
+  font-size: clamp(13px, 1.5vw, 17px);
+  line-height: 1.42;
+  color: rgba(30, 30, 30, 0.9);
+  max-width: min(32ch, 100%);
+  overflow-wrap: break-word;
+  word-break: normal;
+  hyphens: manual;
 }
 
-.timing-desc{
+/*
+ * Иллюстрации: один размер для всех PNG (sbor / rings / cake), не от ширины «половины» у якоря.
+ * Раньше: max-width:100% в узкой колонке (15:30, якорь справа) сжимал sbor, cake в широкой колонке был крупнее.
+ * Сейчас: квадрат со стороной = --timing-img-max-h, object-fit:contain — визуально как cake везде.
+ */
+.timing-event__icon img,
+.timing-event__icon .timing-event__img{
+  display: block;
+  box-sizing: border-box;
+  flex: 0 0 auto;
+  min-width: 0;
+  min-height: 0;
+  /* одна сторона квадрата для всех PNG; min() не даёт вылезти за вьюпорт (html overflow-x: hidden) */
+  width: min(var(--timing-img-max-h), calc(100vw - 32px));
+  height: min(var(--timing-img-max-h), calc(100vw - 32px));
+  max-width: none;
+  max-height: none;
+  object-fit: contain;
+  object-position: center;
+}
+
+/*
+ * sbor: белый прямоугольник PNG перекрывал линию (z-index).
+ * multiply на кремовом фоне «убирает» белый к лину — линия визуально не обрывается.
+ */
+.timing-timeline__list > .timing-event:nth-child(1) .timing-event__icon .timing-event__img{
+  transform: none;
+  mix-blend-mode: multiply;
+}
+
+/* Финал: тот же anchor, что у остальных (50% по вертикали кластера = на линии), текст под точкой */
+.timing-event__cluster--final{
+  min-height: clamp(10rem, 34vw, 15rem);
+}
+
+.timing-event__cluster--final .timing-event__anchor{
+  top: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.timing-event__final{
+  position: absolute;
+  left: 50%;
+  top: calc(50% + 0.85rem);
+  transform: translateX(-50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 0.35em;
+  width: min(34ch, 94%);
+  padding-inline: clamp(6px, 2vw, 14px);
+  z-index: 3;
+}
+
+.timing-event__final .timing-event__time{
+  font-size: clamp(28px, 5vw, 46px);
+}
+
+.timing-event__final-note{
+  margin: 0;
   font-family: system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
-  font-size: clamp(14px, 1.6vw, 18px);
-  line-height: 1.45;
-  color: rgba(0,0,0,.42);
+  font-size: clamp(12px, 1.4vw, 15px);
+  line-height: 1.4;
+  color: rgba(45, 45, 45, 0.78);
 }
 
-/* Мобильная адаптация */
-@media (max-width: 640px){
-  .timing-grid::before{ left: 118px; }
+.timing-event__final-heart{
+  display: block;
+  width: clamp(32px, 8vw, 44px);
+  height: auto;
+  margin-top: 0.15em;
+}
 
-  .timing-item{
-    grid-template-columns: 92px 34px 1fr;
-    padding: 16px 0;
+@media (max-width: 720px){
+  .timing-timeline{
+    --timing-wing-gap: clamp(1.1rem, 7vw, 2.35rem);
+    --timing-wing-inner-pad: clamp(0.3rem, 1.8vw, 0.75rem);
+    --timing-time-size: clamp(24px, 7vw, 36px);
+    --timing-img-max-h: clamp(calc(var(--timing-time-size) * 2.475), 51vw, 330px);
   }
 
-  .timing-time{
-    padding-right: 14px;
+  .timing-timeline__track{
+    max-width: 100%;
   }
 
-  .timing-dot::before{
-    left: 118px;
-    top: 14px;
-    width: 10px;
-    height: 10px;
+  .timing-event__cluster{
+    min-height: clamp(11.25rem, 54vw, 18rem);
   }
 
-  .timing-content{
-    padding-left: 28px;
+  .timing-event__desc{
+    max-width: none;
+    font-size: clamp(12px, 3.4vw, 15px);
+  }
+
+  /* время и PNG: масштаб через --timing-time-size на .timing-timeline выше */
+
+  .timing-event__final-note{
+    font-size: clamp(11px, 3.2vw, 14px);
+  }
+
+  .timing-event__cluster--final{
+    min-height: clamp(8rem, 36vw, 11rem);
   }
 }
+
+@media (max-width: 380px){
+  .timing-event__icon{
+    min-width: 0;
+    overflow: visible;
+  }
+
+  .timing-title{
+    font-size: clamp(36px, 9vw, 52px);
+  }
+}
+
+/* 721–900px: тот же --timing-time-size, иконки без отдельных clamp */
 /* ===== ДРЕСС-КОД как на рефе ===== */
 .dresscode-section{
   background: #fbf7f3;
@@ -5541,187 +5798,4 @@ html.js .date-section.is-visible{
   opacity: 1;
   transform: translateX(0);
   filter: blur(0);
-}
-.timing-section {
-  background: #fbf7f3;
-  padding: clamp(48px, 8vw, 80px) 0;
-}
-
-.timing-program{
-  position: relative;
-  max-width: 760px;
-  margin: 0 auto;
-  padding: clamp(40px, 7vw, 70px) clamp(20px, 6vw, 48px);
-  border-radius: 32px;
-  background: #fbf7f3;
-}
-
-@media (min-width: 768px){
-  .timing-program{
-    background-image: url("images/timing-line.svg");
-    background-repeat: no-repeat;
-    /* чуть сдвигаем линию левее, чтобы не наезжала на картинки */
-    background-position: 38% 0;
-    background-size: auto 100%;
-  }
-}
-
-.timing-section__container {
-  max-width: 640px;
-  margin: 0 auto;
-  padding: 0 20px;
-}
-
-.timing-section__title {
-  font-family: "Cormorant Garamond", serif;
-  font-size: clamp(36px, 6vw, 48px);
-  font-weight: 500;
-  line-height: 1.2;
-  color: #1a1a1a;
-  text-align: center;
-  margin: 0 0 clamp(40px, 8vw, 64px);
-}
-
-.timing-section__list {
-  list-style: none;
-  padding: 0;
-  margin: 0;
-  display: flex;
-  flex-direction: column;
-  gap: clamp(34px, 6vw, 54px);
-}
-
-.timing-event {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  text-align: left;
-}
-
-.timing-event__line {
-  margin: 0 0 20px;
-  font-size: clamp(20px, 3.5vw, 26px);
-  font-weight: 500;
-  color: #1a1a1a;
-  font-family: "Cormorant Garamond", serif;
-  letter-spacing: 0.06em;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  text-align: center;
-  /* базовый сдвиг вниз для мобильной/общей версии, на десктопе переопределяем */
-  transform: translateY(14px);
-}
-
-.timing-event__time {
-  font-weight: 500;
-  font-size: clamp(28px, 4.3vw, 34px);
-  color: #a32323;
-}
-
-.timing-event__dash {
-  display: none;
-}
-
-.timing-event__name {
-  font-weight: 500;
-}
-
-.timing-event__img-wrap {
-  width: 100%;
-  max-width: 260px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-.timing-event__img {
-  width: 115%;
-  height: auto;
-  object-fit: contain;
-  transform: translateX(6%);
-}
-
-@media (max-width: 480px) {
-  .timing-event__line {
-    font-size: 22px;
-  }
-  .timing-event__img-wrap {
-    max-width: 160px;
-  }
-}
-
-@media (min-width: 768px){
-  /* На десктопе оставляем три "колонки": левая (текст/картинка), центр — линия, правая (картинка/текст) */
-  .timing-program{
-    max-width: 880px;
-    padding-left: clamp(40px, 7vw, 80px);
-    padding-right: clamp(40px, 7vw, 80px);
-  }
-
-  .timing-event{
-    display: flex;
-    align-items: center;
-    gap: clamp(24px, 4vw, 40px);
-  }
-
-  .timing-event__line{
-    margin-bottom: 0;
-    max-width: 40%;
-    /* на десктопе выравниваем текст по центру относительно строки с картинкой */
-    transform: translateY(0);
-  }
-
-  .timing-event__img-wrap{
-    max-width: 220px;
-  }
-
-  /* 1-й и 3-й пункты: текст слева, картинка справа от линии */
-  .timing-event:nth-child(1),
-  .timing-event:nth-child(3){
-    flex-direction: row;
-    justify-content: space-between;
-  }
-
-  .timing-event:nth-child(1) .timing-event__line,
-  .timing-event:nth-child(3) .timing-event__line{
-    margin-right: auto;
-    /* лёгкий сдвиг влево от линии, вертикаль остаётся по центру */
-    transform: translateX(-14px);
-  }
-
-  .timing-event:nth-child(1) .timing-event__img-wrap,
-  .timing-event:nth-child(3) .timing-event__img-wrap{
-    justify-content: flex-end;
-    padding-left: clamp(44px, 6vw, 60px); /* увеличенный зазор от линии */
-  }
-
-  .timing-event:nth-child(1) .timing-event__img,
-  .timing-event:nth-child(3) .timing-event__img{
-    transform: translate(12%, 6px); /* уводим правее и слегка опускаем, чтобы было напротив текста */
-  }
-
-  /* 2-й пункт: картинка слева от линии, текст справа;
-     просто подвигаем кольца ближе к тексту, не меняя их местами */
-  .timing-event:nth-child(2){
-    flex-direction: row-reverse;
-    justify-content: space-between;
-  }
-
-  .timing-event:nth-child(2) .timing-event__img-wrap{
-    justify-content: flex-start;
-    /* ещё ближе к тексту, но всё ещё слева от линии */
-    padding-right: clamp(14px, 3vw, 24px);
-    padding-left: 0;
-  }
-
-  .timing-event:nth-child(2) .timing-event__line{
-    /* лёгкий сдвиг вправо от линии, без вертикального смещения */
-    transform: translateX(4px);
-  }
-
-  .timing-event:nth-child(2) .timing-event__img{
-    /* сдвигаем кольца ещё правее к тексту */
-    transform: translateX(4%);
-  }
 }
