@@ -1,4 +1,4 @@
-﻿:root{
+:root{
   --paper: #f5f1e8;
   --ink: #2a2420;
   --muted: rgba(42,36,32,.66);
@@ -1024,6 +1024,18 @@ body:has(> .intro:not(.is-hidden)){
   letter-spacing: 0.05em;
   text-transform: uppercase;
   color: var(--timing-ink);
+}
+
+.timing-card__main > .timing-card__name:only-child{
+  margin-bottom: 0;
+}
+
+/* как в старом блоке: финальная строка — обычный регистр, не капс */
+.timing-card__name--sentence{
+  text-transform: none;
+  letter-spacing: 0.02em;
+  font-weight: 600;
+  line-height: 1.35;
 }
 
 .timing-card__sub{
