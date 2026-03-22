@@ -414,7 +414,7 @@ else pause();
             </label>
           </fieldset>
 
-          <fieldset class="anketa-fieldset">
+          <fieldset class="anketa-fieldset" id="anketa-fieldset-with-whom">
             <span class="anketa-field__label anketa-field__label--question">С кем вы придете?</span>
             <label class="anketa-radio">
               <input type="radio" name="with_whom" value="Буду один/одна" required />
@@ -454,6 +454,37 @@ else pause();
       (function() {
         var next = document.getElementById('formspree-next');
         if (next) next.value = window.location.origin + '/success.html';
+      })();
+      (function() {
+        var form = document.getElementById('rsvp-form');
+        var fieldset = document.getElementById('anketa-fieldset-with-whom');
+        if (!form || !fieldset) return;
+
+        var VALUE_CANT = 'К сожалению, не смогу';
+        var radiosAttendance = form.querySelectorAll('input[name="attendance"]');
+        var radiosWithWhom = fieldset.querySelectorAll('input[name="with_whom"]');
+
+        function sync() {
+          var checked = form.querySelector('input[name="attendance"]:checked');
+          var cant = checked && checked.value === VALUE_CANT;
+
+          if (cant) {
+            fieldset.disabled = true;
+            radiosWithWhom.forEach(function (r) {
+              r.checked = false;
+              r.required = false;
+            });
+          } else {
+            fieldset.disabled = false;
+            var first = fieldset.querySelector('input[name="with_whom"]');
+            if (first) first.required = true;
+          }
+        }
+
+        radiosAttendance.forEach(function (r) {
+          r.addEventListener('change', sync);
+        });
+        sync();
       })();
     </script>
 <section class="timer-section" id="timer">

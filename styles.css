@@ -398,6 +398,17 @@ body:has(> .intro:not(.is-hidden)){
   gap: 14px;
 }
 
+/* «С кем придёте?» — неактивно, если выбрано «не смогу» */
+.anketa-fieldset:disabled {
+  opacity: 0.48;
+  pointer-events: none;
+  user-select: none;
+}
+
+.anketa-fieldset:disabled .anketa-field__label--question {
+  color: rgba(26, 26, 26, 0.55);
+}
+
 .anketa-fieldset > .anketa-field__label--question {
   display: block;
   margin-bottom: 6px;
