@@ -28,7 +28,7 @@
   .anketa-field__label--question{ font-size: 21px; }
   .anketa-radio{ font-size: 21px; }
   .anketa-field__input{ font-size: 22px; }
-  .timer-flip .timer-num{ font-size: clamp(14px, 4vw, 20px); }
+  .timer--heart .timer-num{ font-size: clamp(12px, 3.6vw, 18px); }
   .timer-label{ font-size: 10px; }
   .anketa__submit{ font-size: 17px; }
   .page{ padding-top: 40px; padding-bottom: 40px; }
@@ -2189,17 +2189,17 @@ margin: 0 auto 38px;
 
 .timer-heart__inner{
   position: absolute;
-  /* Нижняя часть сердца узкая — отрезаем «хвост», чтобы таймер не вылезал за контур */
-  left: 11%;
-  right: 11%;
-  top: 16%;
-  bottom: 24%;
+  /* Бока сердца уже внизу — шире отступы; низ отрезаем (узкий «хвост») */
+  left: 14%;
+  right: 14%;
+  top: 14%;
+  bottom: 30%;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   gap: clamp(6px, 2vw, 12px);
-  padding: clamp(10px, 3vw, 20px) clamp(6px, 2vw, 12px);
+  padding: clamp(10px, 3vw, 20px) clamp(4px, 1.5vw, 10px);
   box-sizing: border-box;
   min-height: 0;
 }
@@ -2228,43 +2228,49 @@ margin: 0 auto 38px;
 
 .timer.timer--heart{
   width: 100%;
-  max-width: 100%;
+  max-width: min(200px, 72%);
   margin-top: 0;
   flex-shrink: 0;
-  /* узкое дно сердца — чуть ужимаем ряд цифр */
-  padding: 0 clamp(2px, 1.5vw, 8px);
+  padding: 0;
   box-sizing: border-box;
 }
 
-.timer-row{
+.timer--heart .timer-grid{
   display: flex;
-  align-items: flex-end;
-  justify-content: center;
-  gap: clamp(3px, 1.2vw, 7px);
-  flex-wrap: nowrap;
+  flex-direction: column;
+  align-items: stretch;
+  gap: clamp(6px, 2vw, 10px);
   width: 100%;
-  max-width: min(248px, 100%);
-  margin: 0 auto;
 }
 
-.timer-cell{
+.timer--heart .timer-row--pair{
+  display: flex;
+  flex-direction: row;
+  align-items: flex-end;
+  justify-content: center;
+  gap: clamp(8px, 2.5vw, 14px);
+  width: 100%;
+}
+
+.timer--heart .timer-cell{
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: clamp(4px, 1.5vw, 8px);
+  gap: clamp(4px, 1.5vw, 7px);
   min-width: 0;
   flex: 1 1 0;
+  max-width: 50%;
 }
 
-/* дни могут быть трёхзначными — чуть шире первая колонка */
-.timer-cell:first-child{
-  flex: 1.2 1 0;
+/* три цифры в «днях» — чуть шире левая ячейка верхнего ряда */
+.timer--heart .timer-row--pair:first-child .timer-cell:first-child{
+  flex: 1.15 1 0;
 }
 
-.timer-flip{
+.timer--heart .timer-flip{
   background: linear-gradient(180deg, #faf8f4 0%, #e4ddd2 100%);
   border-radius: 8px;
-  padding: 0.22em 0.12em;
+  padding: 0.28em 0.18em;
   width: 100%;
   min-width: 0;
   max-width: 100%;
@@ -2275,11 +2281,11 @@ margin: 0 auto 38px;
   border: 1px solid rgba(255, 255, 255, 0.55);
 }
 
-.timer-num{
+.timer--heart .timer-num{
   display: block;
   font-family: "Cormorant Garamond", Georgia, "Times New Roman", serif;
   font-weight: 700;
-  font-size: clamp(12px, 3.2vw, 20px);
+  font-size: clamp(13px, 3.4vw, 19px);
   line-height: 1.1;
   letter-spacing: 0.02em;
   font-variant-numeric: tabular-nums;
@@ -2334,20 +2340,23 @@ margin: 0 auto 38px;
 
 @media (max-width: 420px){
   .timer-heart__inner{
-    left: 9%;
-    right: 9%;
-    top: 17%;
-    bottom: 25%;
+    left: 12%;
+    right: 12%;
+    top: 15%;
+    bottom: 32%;
     padding: clamp(8px, 2.5vw, 14px) clamp(4px, 1.5vw, 8px);
   }
 
-  .timer-row{
-    gap: 3px;
-    max-width: min(220px, 92%);
+  .timer--heart{
+    max-width: min(188px, 78%);
   }
 
-  .timer-flip{
-    padding: 0.2em 0.08em;
+  .timer--heart .timer-row--pair{
+    gap: 6px;
+  }
+
+  .timer--heart .timer-flip{
+    padding: 0.22em 0.1em;
     border-radius: 6px;
   }
 }
@@ -2484,8 +2493,8 @@ margin: 0 auto 38px;
   .cal-day{ font-size: 14px; }
 }
 @media (max-width: 360px){
-  .timer-flip .timer-num{
-    font-size: clamp(14px, 4vw, 20px);
+  .timer--heart .timer-num{
+    font-size: clamp(12px, 3.5vw, 17px);
   }
 }
 /* =========================
