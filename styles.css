@@ -23,11 +23,11 @@
   .loca__address{ font-size: 20px; line-height: 1.55; }
   .details-text{ font-size: 20px; }
   .dresscode-text{ font-size: 20px; }
-  .anketa__intro{ font-size: 19px; }
+  .anketa__intro{ font-size: 21px; }
   .anketa-field__label,
-  .anketa-field__label--question{ font-size: 19px; }
-  .anketa-radio{ font-size: 19px; }
-  .anketa-field__input{ font-size: 19px; }
+  .anketa-field__label--question{ font-size: 21px; }
+  .anketa-radio{ font-size: 21px; }
+  .anketa-field__input{ font-size: 22px; }
   .timer-num{ font-size: clamp(48px, 14vw, 64px); }
   .timer-label{ font-size: 16px; }
   .anketa__submit{ font-size: 17px; }
@@ -357,7 +357,8 @@ body:has(> .intro:not(.is-hidden)){
 }
 
 .anketa-field__label {
-  font-size: 16px;
+  font-size: clamp(17px, 2.4vw, 20px);
+  line-height: 1.35;
   color: #1a1a1a;
 }
 
@@ -369,9 +370,9 @@ body:has(> .intro:not(.is-hidden)){
 
 .anketa-field__input {
   width: 100%;
-  padding: 10px 0 12px;
+  padding: 12px 0 14px;
   font-family: inherit;
-  font-size: 17px;
+  font-size: clamp(18px, 2.3vw, 22px);
   color: #1a1a1a;
   background: transparent;
   border: none;
@@ -407,13 +408,14 @@ body:has(> .intro:not(.is-hidden)){
   align-items: center;
   gap: 12px;
   cursor: pointer;
-  font-size: 16px;
+  font-size: clamp(17px, 2.4vw, 20px);
+  line-height: 1.35;
   color: #1a1a1a;
 }
 
 .anketa-radio input {
-  width: 18px;
-  height: 18px;
+  width: 20px;
+  height: 20px;
   accent-color: #6f2e37;
   cursor: pointer;
 }
