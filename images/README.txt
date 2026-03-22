@@ -5,7 +5,7 @@
 - couplelove.png (экран приглашения)
 - callendarlove.png (календарь)
 - timing-1.png ... timing-6.png (старые иконки тайминга; по желанию)
-- sbor.png, rings.png, cake.png (раньше использовались в блоке тайминга)
+- sbor.png, rings.png, cake.png (cake.png — иконка торта под таймером «С любовью…»)
 - timeline-line-ideal.svg — раньше: линия таймлайна (сейчас блок «Программа дня» — карточки без SVG-линии)
 - Dresscode.png (дресс-код)
 - details.jpg (блок «Детали» — одна картинка)
