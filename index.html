@@ -489,36 +489,47 @@ else pause();
     </script>
 <section class="timer-section" id="timer">
   <div class="timer-wrap reveal-y">
-    <h2 class="timer-section__title">Встретимся с вами через:</h2>
-    <div class="timer" aria-label="Обратный отсчет до 6 августа 2026">
-      <div class="timer-row" role="group" aria-label="Таймер">
-        <div class="timer-cell">
-          <div class="timer-num" id="tDays">00</div>
-          <div class="timer-label">дней</div>
-        </div>
-
-        <div class="timer-sep" aria-hidden="true">·</div>
-
-        <div class="timer-cell">
-          <div class="timer-num" id="tHours">00</div>
-          <div class="timer-label">часы</div>
-        </div>
-
-        <div class="timer-sep" aria-hidden="true">·</div>
-
-        <div class="timer-cell">
-          <div class="timer-num" id="tMins">00</div>
-          <div class="timer-label">минуты</div>
-        </div>
-
-        <div class="timer-sep" aria-hidden="true">·</div>
-
-        <div class="timer-cell">
-          <div class="timer-num" id="tSecs">00</div>
-          <div class="timer-label">секунды</div>
+    <div class="timer-heart-wrap">
+      <div class="timer-heart" aria-label="Обратный отсчёт до свадьбы">
+        <svg class="timer-heart__shape" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+          <path fill="currentColor" d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/>
+        </svg>
+        <div class="timer-heart__inner">
+          <p class="timer-heart__title">Мы скажем «ДА»</p>
+          <p class="timer-heart__lead">Через...</p>
+          <div class="timer timer--heart" role="group" aria-label="Таймер до 6 августа 2026">
+            <div class="timer-row">
+              <div class="timer-cell">
+                <div class="timer-flip"><span class="timer-num" id="tDays">00</span></div>
+                <div class="timer-label">дней</div>
+              </div>
+              <div class="timer-cell">
+                <div class="timer-flip"><span class="timer-num" id="tHours">00</span></div>
+                <div class="timer-label">часов</div>
+              </div>
+              <div class="timer-cell">
+                <div class="timer-flip"><span class="timer-num" id="tMins">00</span></div>
+                <div class="timer-label">минут</div>
+              </div>
+              <div class="timer-cell">
+                <div class="timer-flip"><span class="timer-num" id="tSecs">00</span></div>
+                <div class="timer-label">секунд</div>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
-
+    </div>
+    <div class="timer-love-row">
+      <p class="timer-love-row__sign">С любовью, Владислав и Елизавета!</p>
+      <div class="timer-love-row__cake" aria-hidden="true">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 80 96" fill="none" aria-hidden="true">
+          <path stroke="#6b1419" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" d="M40 6l8 12H32l8-12zm-22 22h44v8H18zm-4 14h52v8H14zm-4 14h60v8H10z"/>
+          <path stroke="#6b1419" stroke-width="1.5" stroke-linecap="round" d="M28 38c4-6 8-4 12 0s8 6 12 0" opacity=".7"/>
+          <circle cx="26" cy="52" r="3" fill="#6b1419" opacity=".45"/>
+          <circle cx="54" cy="66" r="3" fill="#6b1419" opacity=".45"/>
+        </svg>
+      </div>
     </div>
   </div>
 </section>
@@ -554,7 +565,7 @@ else pause();
     const mins  = Math.floor((totalSeconds % 3600) / 60);
     const secs  = totalSeconds % 60;
 
-    elDays.textContent  = String(days).padStart(2, "0"); // дни могут быть 3 цифры
+    elDays.textContent  = days > 99 ? String(days) : pad2(days);
     elHours.textContent = pad2(hours);
     elMins.textContent  = pad2(mins);
     elSecs.textContent  = pad2(secs);
