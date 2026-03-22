@@ -9,7 +9,7 @@
   <!-- Шрифты (под “элегантную” эстетику как на референсе) -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&family=Marck+Script&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Marck+Script&display=swap" rel="stylesheet">
 <link rel="icon" type="image/jpeg" sizes="32x32" href="images/icon.jpg">
   <link rel="stylesheet" href="styles.css" />
 </head>
@@ -258,88 +258,44 @@ else pause();
     />
   </div>
 </section>
-<section class="section timing-section" id="timing" aria-labelledby="timing-heading">
+<section class="timing-section" id="timing" aria-labelledby="timing-heading">
   <div class="timing-wrap reveal-y">
-    <h2 id="timing-heading" class="timing-title">Во сколько?</h2>
+    <h2 id="timing-heading" class="timing-title">Программа гуляний</h2>
 
-    <div class="timing-timeline">
-      <!-- Центральная линия: images/timeline-line-ideal.svg (viewBox 0 0 260 1220), без искажения — object-fit: contain + aspect-ratio трека -->
-      <div class="timing-timeline__body">
-        <div class="timing-timeline__track">
-          <div class="timing-timeline__line" aria-hidden="true">
-            <img
-              class="timing-timeline__line-img"
-              src="images/timeline-line-ideal.svg"
-              width="260"
-              height="1220"
-              alt=""
-              decoding="async"
-            />
-          </div>
-
-          <!-- Кластер: один anchor на path (маркер) + крылья текста/иконки от него; --anchor-x в CSS ≈ x/260 из viewBox -->
-          <ol class="timing-timeline__list">
-            <li class="timing-event timing-event--a">
-              <div class="timing-event__cluster">
-                <div class="timing-event__anchor">
-                  <span class="timing-event__dot"></span>
-                </div>
-                <div class="timing-event__text">
-                  <time class="timing-event__time" datetime="2026-08-06T15:30">15:30</time>
-                  <p class="timing-event__desc">Сбор гостей, фуршет</p>
-                </div>
-                <div class="timing-event__icon" aria-hidden="true">
-                  <img src="images/sbor.png" alt="" class="timing-event__img" width="320" height="320" loading="lazy" decoding="async" />
-                </div>
-              </div>
-            </li>
-
-            <li class="timing-event timing-event--b">
-              <div class="timing-event__cluster">
-                <div class="timing-event__anchor">
-                  <span class="timing-event__dot"></span>
-                </div>
-                <div class="timing-event__icon" aria-hidden="true">
-                  <img src="images/rings.png" alt="" class="timing-event__img" width="320" height="320" loading="lazy" decoding="async" />
-                </div>
-                <div class="timing-event__text">
-                  <time class="timing-event__time" datetime="2026-08-06T16:00">16:00</time>
-                  <p class="timing-event__desc">Торжественная церемония</p>
-                </div>
-              </div>
-            </li>
-
-            <li class="timing-event timing-event--a">
-              <div class="timing-event__cluster">
-                <div class="timing-event__anchor">
-                  <span class="timing-event__dot"></span>
-                </div>
-                <div class="timing-event__text">
-                  <time class="timing-event__time" datetime="2026-08-06T17:00">17:00</time>
-                  <p class="timing-event__desc">Начало банкета и гастрономического удовольствия</p>
-                </div>
-                <div class="timing-event__icon" aria-hidden="true">
-                  <img src="images/cake.png" alt="" class="timing-event__img" width="320" height="320" loading="lazy" decoding="async" />
-                </div>
-              </div>
-            </li>
-
-            <li class="timing-event timing-event--final">
-              <div class="timing-event__cluster timing-event__cluster--final">
-                <div class="timing-event__anchor">
-                  <span class="timing-event__dot"></span>
-                </div>
-                <div class="timing-event__final">
-                  <time class="timing-event__time" datetime="2026-08-06T23:00">23:00</time>
-                  <p class="timing-event__final-note">Будем рады видеть вас до самого утра</p>
-                  <img class="timing-event__final-heart" src="images/icon-heart-small.svg" alt="" width="64" height="64" loading="lazy" decoding="async" />
-                </div>
-              </div>
-            </li>
-          </ol>
+    <ol class="timing-cards">
+      <li class="timing-card">
+        <time class="timing-card__time" datetime="2026-08-06T15:30">15.30</time>
+        <span class="timing-card__rule" aria-hidden="true"></span>
+        <div class="timing-card__main">
+          <p class="timing-card__name">Церемония</p>
+          <p class="timing-card__sub">Самый трогательный момент</p>
         </div>
-      </div>
-    </div>
+      </li>
+      <li class="timing-card">
+        <time class="timing-card__time" datetime="2026-08-06T17:30">17.30</time>
+        <span class="timing-card__rule" aria-hidden="true"></span>
+        <div class="timing-card__main">
+          <p class="timing-card__name">Свадебный ужин</p>
+          <p class="timing-card__sub">Встреча с караваем и поздравления</p>
+        </div>
+      </li>
+      <li class="timing-card">
+        <time class="timing-card__time" datetime="2026-08-06T21:30">21.30</time>
+        <span class="timing-card__rule" aria-hidden="true"></span>
+        <div class="timing-card__main">
+          <p class="timing-card__name">Торт</p>
+          <p class="timing-card__sub">Обещаем, торт продавать мы не будем</p>
+        </div>
+      </li>
+      <li class="timing-card">
+        <time class="timing-card__time" datetime="2026-08-06T23:30">23.30</time>
+        <span class="timing-card__rule" aria-hidden="true"></span>
+        <div class="timing-card__main">
+          <p class="timing-card__name">Завершение вечера</p>
+          <p class="timing-card__sub">Даже такая вечеринка может закончиться</p>
+        </div>
+      </li>
+    </ol>
   </div>
 </section>
 
