@@ -980,7 +980,7 @@ body:has(> .intro:not(.is-hidden)){
   display: flex;
   flex-direction: row;
   align-items: center;
-  justify-content: center;
+  justify-content: flex-start;
   gap: clamp(12px, 3.5vw, 20px);
   min-width: 0;
   padding: clamp(14px, 3.5vw, 20px) clamp(14px, 4vw, 22px);
@@ -1009,10 +1009,10 @@ body:has(> .intro:not(.is-hidden)){
 }
 
 .timing-card__main{
-  flex: 0 1 auto;
+  flex: 1 1 auto;
   min-width: 0;
   max-width: 100%;
-  text-align: center;
+  text-align: left;
 }
 
 .timing-card__name{
