@@ -920,16 +920,16 @@ body:has(> .intro:not(.is-hidden)){
     line-height: 1.2;
   }
 }
-/* ===== ТАЙМИНГ: тот же фон и типографика заголовка, что у «Место проведения» (.loca) ===== */
+/* ===== ТАЙМИНГ: фон секции как у дресс-кода; карточки — как у локации ===== */
 .timing-section{
   --timing-pad-x: clamp(16px, 4vw, 24px);
-  --timing-surface: #6b1419; /* как .loca { background } */
+  --timing-surface: #6b1419; /* карточки — как .loca */
   scroll-margin-top: min(88px, 18vh);
   padding:
     max(clamp(48px, 10vw, 88px), env(safe-area-inset-top, 0px))
     var(--timing-pad-x)
     max(clamp(48px, 10vw, 88px), env(safe-area-inset-bottom, 0px));
-  background: var(--timing-surface);
+  background: #fbf7f3; /* как .dresscode-section */
   position: relative;
   overflow-x: hidden;
 }
