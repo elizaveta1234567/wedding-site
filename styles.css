@@ -2782,10 +2782,10 @@ margin: 0 auto 38px;
 .intro__title {
   margin: 0;
   width: 100%;
-  font-family: var(--font-heading-script);
-  font-weight: 400;
-  letter-spacing: 0.02em;
-  text-transform: none;
+  font-family: "Cormorant Garamond", serif;
+  font-weight: 600;
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
   text-align: center;
   color: rgba(255, 255, 255, 0.92);
   font-size: var(--intro-title-size);
@@ -3358,8 +3358,8 @@ margin: 0 auto 38px;
   flex-direction: column;
   align-items: flex-start;
 
-  font-family: var(--font-heading-script);
-  font-weight: 400;
+  font-family: "Cormorant Garamond", serif;
+  font-weight: 500;
   font-size: clamp(42px, 7vw, 96px);
   line-height: 1.05;
   letter-spacing: 0.02em;
@@ -3449,8 +3449,8 @@ margin: 0 auto 38px;
   flex-direction: column;
   align-items: flex-start;
 
-  font-family: var(--font-heading-script);
-  font-weight: 400;
+  font-family: "Cormorant Garamond", serif;
+  font-weight: 500;
   font-size: clamp(42px, 7vw, 96px);
   line-height: 1.05;
   letter-spacing: 0.02em;
