@@ -6,10 +6,8 @@
   <meta name="theme-color" content="#ffffff" id="theme-color-meta" />
   <title>Приглашение на свадьбу</title>
   <!-- обновление: принудительный деплой -->
-  <!-- Шрифты (под “элегантную” эстетику как на референсе) -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Marck+Script&family=Outfit:wght@500;600;700&display=swap" rel="stylesheet">
+  <!-- Шрифты: Spectral + Source Sans 3 (локально в /fonts, OFL) -->
+  <link rel="stylesheet" href="fonts/fonts.css" />
 <link rel="icon" type="image/jpeg" sizes="32x32" href="images/icon.jpg">
   <link rel="stylesheet" href="styles.css" />
 </head>
@@ -408,8 +406,8 @@ else pause();
               <span>Да! С удовольствием!</span>
             </label>
             <label class="anketa-radio">
-              <input type="radio" name="attendance" value="К сожалению, не смогу" />
-              <span>К сожалению, не смогу</span>
+              <input type="radio" name="attendance" value="Нет, не приду" />
+              <span>Нет, не приду</span>
             </label>
           </fieldset>
 
@@ -427,25 +425,11 @@ else pause();
 
           <label class="anketa-field">
             <span class="anketa-field__label anketa-field__label--question">Комментарий (предпочтения в еде/алкоголе и т.д.)</span>
-            <input class="anketa-field__input" type="text" name="comment" autocomplete="off" />
+            <input class="anketa-field__input" type="text" name="comment" id="anketa-comment" autocomplete="off" />
           </label>
 
           <button class="anketa__submit" type="submit">отправить</button>
         </form>
-      </div>
-    </section>
-
-    <section class="guest-chat-section" id="guest-chat" aria-labelledby="guest-chat-heading">
-      <div class="guest-chat reveal-y">
-        <h2 class="guest-chat__title" id="guest-chat-heading">
-          <span class="guest-chat__title-line">Чат</span>
-          <span class="guest-chat__title-line">для гостей</span>
-        </h2>
-        <div class="guest-chat__text">
-          <p>Мы подумали, что нужен чат, чтобы оповещать вас о новостях, изменениях и разогревать ваш настрой перед свадьбой.</p>
-          <p>Также после торжества вы сможете обмениваться фотографиями и видео.</p>
-        </div>
-        <a class="guest-chat__btn" href="https://t.me/+THI6qxQYh5wyYzUy" target="_blank" rel="noopener noreferrer">Вступить</a>
       </div>
     </section>
 
@@ -457,9 +441,10 @@ else pause();
       (function() {
         var form = document.getElementById('rsvp-form');
         var fieldset = document.getElementById('anketa-fieldset-with-whom');
-        if (!form || !fieldset) return;
+        var comment = document.getElementById('anketa-comment');
+        if (!form || !fieldset || !comment) return;
 
-        var VALUE_CANT = 'К сожалению, не смогу';
+        var VALUE_CANT = 'Нет, не приду';
         var radiosAttendance = form.querySelectorAll('input[name="attendance"]');
         var radiosWithWhom = fieldset.querySelectorAll('input[name="with_whom"]');
 
@@ -473,10 +458,13 @@ else pause();
               r.checked = false;
               r.required = false;
             });
+            comment.value = '';
+            comment.disabled = true;
           } else {
             fieldset.disabled = false;
             var first = fieldset.querySelector('input[name="with_whom"]');
             if (first) first.required = true;
+            comment.disabled = false;
           }
         }
 
@@ -494,8 +482,7 @@ else pause();
           <path fill="currentColor" d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/>
         </svg>
         <div class="timer-heart__inner">
-          <p class="timer-heart__title">Мы скажем «ДА»</p>
-          <p class="timer-heart__lead">Через...</p>
+          <p class="timer-heart__title">Мы скажем «да» через</p>
           <div class="timer timer--heart" role="group" aria-label="Таймер до 6 августа 2026">
             <div class="timer-row">
               <div class="timer-cell">
