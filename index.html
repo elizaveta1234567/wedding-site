@@ -164,7 +164,7 @@ else pause();
      Мы приглашаем вас разделить с нами наш счастливый день, в который мы станем одной семьей!
     </p>  -->
 <section class="main-screen">
-  <div class="main-screen__inner reveal-y">
+  <div class="main-screen__inner reveal-y reveal-stagger">
 
     <div class="main-screen__content">
       <h1 class="main-screen__title">
@@ -186,7 +186,7 @@ else pause();
     <div class="main-screen__media">
       <img
         class="main-screen__img"
-        src="images/couplelove.png"
+        src="images/finalcouple.png"
         alt="Владислав и Елизавета"
         loading="lazy"
         decoding="async"
@@ -246,21 +246,42 @@ else pause();
     </div>
   </div> -->
 <section class="love-cal" aria-label="Календарь: 6 августа 2026">
-  <div class="love-cal__frame reveal-y">
-    <img
-      class="love-cal__img"
-      src="images/callendarlove.png"
-      alt="Дата любви: 6 августа 2026"
-      loading="lazy"
-      decoding="async"
-    />
-  </div>
+  <svg class="love-cal__svg reveal-y reveal-stagger" viewBox="0 0 900 640" role="img" aria-label="Дата Любви: 6 августа 2026">
+    <text x="450" y="90" class="love-cal__title">Наш день</text>
+
+    <g class="love-cal__weekdays" aria-hidden="true">
+      <text x="120" y="190">ПН</text>
+      <text x="230" y="190">ВТ</text>
+      <text x="340" y="190">СР</text>
+      <text x="450" y="190">ЧТ</text>
+      <text x="560" y="190">ПТ</text>
+      <text x="670" y="190">СБ</text>
+      <text x="780" y="190">ВС</text>
+    </g>
+
+    <g class="love-cal__days" aria-hidden="true">
+      <text x="120" y="300">3</text>
+      <text x="230" y="300">4</text>
+      <text x="340" y="300">5</text>
+      <text x="560" y="300">7</text>
+      <text x="670" y="300">8</text>
+      <text x="780" y="300">9</text>
+    </g>
+
+    <g class="love-cal__heart">
+      <path d="M450 245 C450 220 418 206 394 206 C362 206 342 230 342 261 C342 313 408 349 450 393 C492 349 558 313 558 261 C558 230 538 206 506 206 C482 206 450 220 450 245 Z" />
+      <text x="450" y="300" class="love-cal__heart-num">6</text>
+    </g>
+
+    <text x="450" y="430" class="love-cal__month">Август</text>
+    <text x="450" y="515" class="love-cal__year">2026</text>
+  </svg>
 </section>
 <section class="timing-section" id="timing" aria-labelledby="timing-heading">
-  <div class="timing-wrap reveal-y">
+  <div class="timing-wrap reveal-y reveal-stagger">
     <h2 id="timing-heading" class="timing-title">Программа дня</h2>
 
-    <ol class="timing-cards">
+    <ol class="timing-cards reveal-stagger">
       <li class="timing-card">
         <time class="timing-card__time" datetime="2026-08-06T15:30">15.30</time>
         <span class="timing-card__rule" aria-hidden="true"></span>
@@ -300,7 +321,7 @@ else pause();
       <h2 id="loca-heading" class="loca__heading">Место проведения</h2>
     </header>
 
-    <div class="loca__panel reveal-y">
+    <div class="loca__panel reveal-y reveal-stagger">
       <div class="loca__stage">
         <div class="loca__frame">
           <div class="loca__photo" role="img" aria-label="Площадка торжества"></div>
@@ -328,7 +349,7 @@ else pause();
 <!-- ДРЕСС-КОД -->
 <!-- ДРЕСС-КОД -->
 <section class="page dresscode-section" id="dresscode">
-  <div class="dresscode-wrap reveal-y">
+  <div class="dresscode-wrap reveal-y reveal-stagger">
  <h2 class="dresscode-title">Дресс-код</h2>
 
 
@@ -349,7 +370,7 @@ else pause();
   </div>
     <div class="dresscode-look">
   <img
-    src="images/dresscodex.png"
+    src="images/dresscodecolor.png"
     alt="Примеры образов дресс-кода"
     class="dresscode-image"
     loading="lazy"
@@ -359,13 +380,13 @@ else pause();
 
 <!-- Пожелания (стиль как локация / чат для гостей) -->
 <section class="details-section" id="details">
-  <div class="details-card reveal-y">
+  <div class="details-card reveal-y reveal-stagger">
   <div class="details-wrap">
 
     <div class="details-content">
       <h2 class="details-title">Пожелания</h2>
 
-      <p class="details-text">
+      <p class="details-text details-text--single-line">
         Самым главным подарком для нас будет ваше хорошее настроение на свадьбе!
       </p>
       <p class="details-text">
@@ -379,11 +400,11 @@ else pause();
 </section>
     <!-- Анкета по референсу: минималистичный вид, Formspree -->
     <section class="page anketa-section" id="rsvp">
-      <div class="anketa reveal-y">
+      <div class="anketa reveal-y reveal-stagger">
         <h2 class="anketa__title">АНКЕТА</h2>
         <p class="anketa__intro">Подтвердите свое присутствие, заполните анкету ниже:</p>
 
-        <form class="anketa-form" id="rsvp-form"
+        <form class="anketa-form reveal-stagger" id="rsvp-form"
               name="rsvp"
               method="POST"
               action="https://formspree.io/f/xqeyzybj">
@@ -443,6 +464,7 @@ else pause();
         var fieldset = document.getElementById('anketa-fieldset-with-whom');
         var comment = document.getElementById('anketa-comment');
         if (!form || !fieldset || !comment) return;
+        var commentField = comment.closest('.anketa-field');
 
         var VALUE_CANT = 'Нет, не приду';
         var radiosAttendance = form.querySelectorAll('input[name="attendance"]');
@@ -460,11 +482,13 @@ else pause();
             });
             comment.value = '';
             comment.disabled = true;
+            if (commentField) commentField.classList.add('anketa-field--disabled');
           } else {
             fieldset.disabled = false;
             var first = fieldset.querySelector('input[name="with_whom"]');
             if (first) first.required = true;
             comment.disabled = false;
+            if (commentField) commentField.classList.remove('anketa-field--disabled');
           }
         }
 
@@ -475,41 +499,32 @@ else pause();
       })();
     </script>
 <section class="timer-section" id="timer">
-  <div class="timer-wrap reveal-y">
-    <div class="timer-heart-wrap">
-      <div class="timer-heart" aria-label="Обратный отсчёт до свадьбы">
-        <svg class="timer-heart__shape" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
-          <path fill="currentColor" d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/>
-        </svg>
-        <div class="timer-heart__inner">
-          <p class="timer-heart__title">Мы скажем «да» через</p>
-          <div class="timer timer--heart" role="group" aria-label="Таймер до 6 августа 2026">
-            <div class="timer-row">
-              <div class="timer-cell">
-                <span class="timer-num" id="tDays">00</span>
-                <span class="timer-label">дней</span>
-              </div>
-              <div class="timer-cell">
-                <span class="timer-num" id="tHours">00</span>
-                <span class="timer-label">часов</span>
-              </div>
-              <div class="timer-cell">
-                <span class="timer-num" id="tMins">00</span>
-                <span class="timer-label">минут</span>
-              </div>
-              <div class="timer-cell">
-                <span class="timer-num" id="tSecs">00</span>
-                <span class="timer-label">секунд</span>
-              </div>
-            </div>
-          </div>
+  <div class="timer-wrap reveal-y reveal-stagger">
+    <p class="timer-heart__title">Мы скажем "ДА" через</p>
+    <div class="timer timer--heart timer--full" role="group" aria-label="Таймер до 6 августа 2026">
+      <div class="timer-row">
+        <div class="timer-cell">
+          <span class="timer-num" id="tDays">00</span>
+          <span class="timer-label">дней</span>
+        </div>
+        <div class="timer-cell">
+          <span class="timer-num" id="tHours">00</span>
+          <span class="timer-label">часов</span>
+        </div>
+        <div class="timer-cell">
+          <span class="timer-num" id="tMins">00</span>
+          <span class="timer-label">минут</span>
+        </div>
+        <div class="timer-cell">
+          <span class="timer-num" id="tSecs">00</span>
+          <span class="timer-label">секунд</span>
         </div>
       </div>
     </div>
     <div class="timer-love-block">
-      <p class="timer-love-block__sign">
-        <span class="timer-love-block__line">С любовью,</span>
-        <span class="timer-love-block__line timer-love-block__line--names">Владислав и Елизавета</span>
+      <p class="timer-love-heart__text">
+        <span>С любовью,</span>
+        <span>Владислав и Елизавета</span>
       </p>
     </div>
   </div>
