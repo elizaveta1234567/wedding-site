@@ -341,12 +341,16 @@ button,
   max-width: 520px;
   margin: 0 auto;
   padding: clamp(28px, 5vw, 52px) 24px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0;
 }
 
 .anketa__title {
-  margin: 0 0 24px;
+  margin: 0 0 clamp(28px, 5vw, 52px);
   font-family: var(--font-serif-display);
-  font-size: var(--section-title-size);
+  font-size: clamp(28px, 7vw, 40px);
   font-weight: 600;
   line-height: 1.15;
   color: #6b1419; /* как фон блока локации */
@@ -354,7 +358,7 @@ button,
 }
 
 .anketa__intro {
-  margin: 0 0 40px;
+  margin: 0 0 clamp(28px, 4.5vw, 40px);
   font-size: clamp(18px, 2.6vw, 22px);
   line-height: 1.6;
   color: #6f2e37;
@@ -1000,11 +1004,15 @@ button,
   padding: 0 max(0px, env(safe-area-inset-left, 0px), env(safe-area-inset-right, 0px));
   width: 100%;
   box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: 0;
 }
 
 /* как .loca__heading по шрифту; цвет — как фон блока локации (#6b1419) */
 .timing-title{
-  margin: 0 0 clamp(22px, 5vw, 40px);
+  margin: 0 0 max(clamp(48px, 10vw, 88px), env(safe-area-inset-top, 0px));
   font-family: var(--font-heading-script);
   font-weight: 600;
   font-size: clamp(28px, 7vw, 40px);
@@ -1097,7 +1105,13 @@ button,
 }
 
 @media (max-width: 480px){
-  .timing-title{
+  .timing-title,
+  .dresscode-title,
+  .details-title,
+  .anketa__title,
+  .love-cal__title,
+  .timer-heart__title,
+  .loca__heading{
     font-size: clamp(26px, 8vw, 36px);
   }
 }
@@ -1126,13 +1140,17 @@ button,
   max-width: 980px;
   margin: 0 auto;
   text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0;
 }
 
 /* Заголовок секции (единый стиль с таймингом) */
 .dresscode-title{
-  margin: 0 0 24px;
+  margin: 0 0 90px;
   font-family: var(--font-heading-script);
-  font-size: var(--section-title-size);
+  font-size: clamp(28px, 7vw, 40px);
   font-weight: 600;
   line-height: 1.15;
   color: #6b1419; /* как фон блока локации */
@@ -1303,13 +1321,17 @@ button,
 .details-content{
   max-width: 100%;
   padding: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0;
 }
 
 .details-title{
-  margin: 0 0 clamp(20px, 4vw, 32px);
+  margin: 0 0 max(clamp(48px, 10vw, 88px), env(safe-area-inset-top, 0px));
   font-family: var(--font-heading-script);
-  font-size: clamp(36px, 9vw, 52px);
-  font-weight: 400;
+  font-size: clamp(28px, 7vw, 40px);
+  font-weight: 600;
   line-height: 1.15;
   letter-spacing: 0.02em;
   color: #fff;
@@ -1329,15 +1351,11 @@ button,
 
 @media (min-width: 700px){
   .details-wrap{
-    max-width: 1100px;
+    max-width: 760px;
   }
 
   .details-content{
-    max-width: none;
-  }
-
-  .details-section .details-text{
-    white-space: nowrap;
+    max-width: 760px;
   }
 
   .details-text--single-line{
@@ -2271,7 +2289,7 @@ margin: 0 auto 38px;
 
 .timer.timer--full{
   width: 100%;
-  margin: 0 0 clamp(34px, 5vw, 56px);
+  margin: 0;
 }
 
 .timer.timer--full .timer-row{
@@ -2366,13 +2384,13 @@ margin: 0 auto 38px;
 
 /* Одна строка, один шрифт (Spectral) */
 .timer-heart__title{
-  margin: 0 0 clamp(34px, 5vw, 56px);
+  margin: 0 0 clamp(40px, 8vw, 72px);
   padding-top: 0;
   font-family: var(--font-heading-script);
   font-weight: 600;
-  font-size: clamp(15px, 2.06vw, 25px);
-  line-height: 1.25;
-  letter-spacing: 0.01em;
+  font-size: clamp(28px, 7vw, 40px);
+  line-height: 1.15;
+  letter-spacing: 0.02em;
   text-transform: none;
   color: #fff;
   text-shadow: none;
@@ -2442,7 +2460,7 @@ margin: 0 auto 38px;
 .timer-love-block{
   width: 100%;
   max-width: min(360px, 100%);
-  margin: 0 auto;
+  margin: clamp(40px, 6vw, 68px) auto 0;
   display: grid;
   place-items: center;
   padding: 0 clamp(12px, 4vw, 20px);
@@ -4228,7 +4246,7 @@ html.js .wloc--reveal.is-visible{
 
 .loca__header{
   text-align: center;
-  margin-bottom: clamp(18px, 3.5vw, 36px);
+  margin-bottom: max(clamp(48px, 10vw, 88px), env(safe-area-inset-top, 0px));
 }
 
 .loca__heading{
@@ -4859,6 +4877,12 @@ html.js .date-section.is-visible{
   margin: 0 auto;
 }
 
+/* Avoid expensive blur rasterization on the calendar SVG during reveal. */
+.love-cal__svg.reveal-y{
+  filter: none;
+  will-change: opacity, transform;
+}
+
 @media (min-width: 821px){
   .love-cal__svg{
     max-width: 770px;
@@ -4872,9 +4896,9 @@ html.js .date-section.is-visible{
 
 .love-cal__title{
   font-family: var(--font-heading-script);
-  font-size: 80px;
+  font-size: clamp(40px, 8.8vw, 56px);
   font-weight: 600;
-  letter-spacing: 0.01em;
+  letter-spacing: 0.02em;
   fill: #3a3a3a;
 }
 
@@ -4923,7 +4947,6 @@ html.js .date-section.is-visible{
   .love-cal {
     padding: clamp(24px, 4vw, 48px) 8px;
   }
-  .love-cal__title{ font-size: 68px; }
   .love-cal__weekdays text,
   .love-cal__days text{ font-size: 38px; }
   .love-cal__heart-num{ font-size: 75px; }
@@ -4935,7 +4958,6 @@ html.js .date-section.is-visible{
   .love-cal {
     padding: 20px 0;
   }
-  .love-cal__title{ font-size: 58px; }
   .love-cal__weekdays text,
   .love-cal__days text{ font-size: 31px; }
   .love-cal__heart-num{ font-size: 64px; }
@@ -4947,7 +4969,6 @@ html.js .date-section.is-visible{
   .love-cal {
     padding: 16px 0;
   }
-  .love-cal__title{ font-size: 50px; }
   .love-cal__weekdays text,
   .love-cal__days text{ font-size: 27px; }
   .love-cal__heart-num{ font-size: 55px; }
@@ -4959,7 +4980,6 @@ html.js .date-section.is-visible{
   .love-cal {
     padding: 12px 0;
   }
-  .love-cal__title{ font-size: 44px; }
   .love-cal__weekdays text,
   .love-cal__days text{ font-size: 24px; }
   .love-cal__heart-num{ font-size: 46px; }
@@ -5280,8 +5300,6 @@ html.js .date-section.is-visible{
 .calendar-month,
 .date-calendar{
   font-family: var(--font-heading-script);
-  transform: translateY(-10px);
-  padding-bottom: 10px;
 }
 
 .timer-heart__title,
@@ -5290,8 +5308,21 @@ html.js .date-section.is-visible{
 .dresscode-title,
 .timing-title,
 .love-cal__title{
-  transform: translateY(-21px);
-  padding-bottom: 21px;
+  margin: 0 0 clamp(36px, 5.5vw, 60px);
+  font-weight: 600;
+  font-size: clamp(28px, 7vw, 40px);
+  line-height: 1.15;
+  letter-spacing: 0.02em;
+  text-align: center;
+}
+
+.timing-wrap > :nth-child(2),
+.dresscode-wrap > :nth-child(2),
+.details-content > :nth-child(2),
+.anketa > :nth-child(2),
+.timer-wrap > :nth-child(2),
+.love-cal__svg > :nth-child(2){
+  margin-top: 0;
 }
 
 .timing-card__time,
@@ -5885,13 +5916,15 @@ html.js .date-section.is-visible{
 /* SVG calendar heart keeps its own scale and does not lose it inside stagger */
 .love-cal__svg.reveal-stagger > .love-cal__heart{
   opacity: 0;
-  transform: translateY(16px) scale(0.39546);
+  transform: scale(0.39546);
+  transition: opacity 980ms cubic-bezier(.22,1,.36,1);
+  will-change: opacity;
 }
 
 .love-cal__svg.reveal-stagger.is-inview > .love-cal__heart,
 .reveal-y.is-inview .love-cal__svg.reveal-stagger > .love-cal__heart{
   opacity: 1;
-  transform: translateY(0) scale(0.39546);
+  transform: scale(0.39546);
 }
 
 .reveal-stagger > *:nth-child(1){ transition-delay: 100ms; }
