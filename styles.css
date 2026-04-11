@@ -428,6 +428,21 @@ button,
   color: rgba(26, 26, 26, 0.55);
 }
 
+.anketa-fieldset:disabled .anketa-radio {
+  color: rgba(26, 26, 26, 0.5);
+  cursor: not-allowed;
+}
+
+.anketa-fieldset:disabled .anketa-radio span {
+  color: rgba(26, 26, 26, 0.5);
+}
+
+.anketa-fieldset:disabled .anketa-radio input {
+  accent-color: #b8b8b8;
+  cursor: not-allowed;
+  filter: grayscale(1);
+}
+
 .anketa-fieldset > .anketa-field__label--question {
   display: block;
   margin-bottom: 6px;
@@ -2279,6 +2294,17 @@ margin: 0 auto 38px;
   flex: 1 1 0;
 }
 
+.timer.timer--full .timer-separator{
+  align-self: flex-start;
+  padding-top: 0.12em;
+  font-family: var(--font-ui);
+  font-size: clamp(24px, 4.6vw, 46px);
+  font-weight: 600;
+  line-height: 1;
+  color: rgba(255, 255, 255, 0.88);
+  flex: 0 0 auto;
+}
+
 .timer.timer--full .timer-num{
   display: block;
   font-family: var(--font-ui);
@@ -2476,6 +2502,10 @@ margin: 0 auto 38px;
 @media (max-width: 640px){
   .timer.timer--full .timer-row{
     gap: 8px;
+  }
+  .timer.timer--full .timer-separator{
+    font-size: clamp(18px, 5vw, 28px);
+    padding-top: 0.18em;
   }
   .timer.timer--full .timer-num{
     font-size: clamp(22px, 7vw, 34px);
@@ -4829,6 +4859,12 @@ html.js .date-section.is-visible{
   margin: 0 auto;
 }
 
+@media (min-width: 821px){
+  .love-cal__svg{
+    max-width: 770px;
+  }
+}
+
 .love-cal__svg text{
   text-anchor: middle;
   dominant-baseline: middle;
@@ -5244,6 +5280,18 @@ html.js .date-section.is-visible{
 .calendar-month,
 .date-calendar{
   font-family: var(--font-heading-script);
+  transform: translateY(-10px);
+  padding-bottom: 10px;
+}
+
+.timer-heart__title,
+.anketa__title,
+.details-title,
+.dresscode-title,
+.timing-title,
+.love-cal__title{
+  transform: translateY(-21px);
+  padding-bottom: 21px;
 }
 
 .timing-card__time,
