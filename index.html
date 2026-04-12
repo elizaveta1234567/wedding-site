@@ -164,35 +164,65 @@ else pause();
      Мы приглашаем вас разделить с нами наш счастливый день, в который мы станем одной семьей!
     </p>  -->
 <section class="main-screen">
-  <div class="main-screen__inner reveal-y reveal-stagger">
+  <div class="main-screen__inner main-screen__inner--photo-only reveal-y reveal-stagger">
+    <div class="main-screen__poster">
+      <div class="main-screen__poster-top" aria-hidden="true">
+        <span class="main-screen__poster-title">Мы женимся!</span>
+      </div>
 
-    <div class="main-screen__content">
-      <h1 class="main-screen__title">
-        <span>ЛЮБОВЬ.</span>
-        <span>КОКТЕЙЛИ.</span>
-        <span class="accent">ЖЕНИХ.</span>
-        <span class="accent">НЕВЕСТА.</span>
-        <span>ПОЦЕЛУИ.</span>
-      </h1>
+      <div class="main-screen__media">
+        <img
+          class="main-screen__poster-deco main-screen__poster-deco--left"
+          src="images/lustra2.PNG"
+          alt=""
+          aria-hidden="true"
+          loading="lazy"
+          decoding="async"
+        />
+        <img
+          class="main-screen__poster-deco main-screen__poster-deco--right"
+          src="images/car.PNG"
+          alt=""
+          aria-hidden="true"
+          loading="lazy"
+          decoding="async"
+        />
+        <figure class="main-screen__polaroid">
+          <img
+            class="main-screen__img"
+            src="images/EV.jpg"
+            alt="Владислав и Елизавета"
+            loading="lazy"
+            decoding="async"
+          />
+          <figcaption class="main-screen__polaroid-caption">Владислав &amp; Елизавета</figcaption>
+        </figure>
+      </div>
+    </div>
 
-      <p class="main-screen__note">
-        Все это и не только
-        ждет вас <span class="date">06.08.26</span> года<br>
-        На празднике по случаю
-        нашей свадьбы!
+  </div>
+  <div class="main-screen__seam-divider" aria-hidden="true"></div>
+</section>
+<!-- Пожелания (дубликат сразу после постера) -->
+<section class="details-section">
+  <div class="details-card reveal-y reveal-stagger">
+  <div class="details-wrap">
+
+    <div class="details-content">
+      <h2 class="details-title">Дорогие родные и близкие!</h2>
+
+      <p class="details-text">
+        Этот день - особенный для нас, и мы рады разделить его с вами!
+      </p>
+      <p class="details-text">
+        Совсем скоро состоится наша свадьба, и мы с огромной радостью приглашаем вас стать частью этого важного события.
+      </p>
+      <p class="details-text">
+        Будем счастливы видеть вас рядом и вместе создать незабываемые воспоминания!
       </p>
     </div>
 
-    <div class="main-screen__media">
-      <img
-        class="main-screen__img"
-        src="images/finalcouple.png"
-        alt="Владислав и Елизавета"
-        loading="lazy"
-        decoding="async"
-      />
-    </div>
-
+  </div>
   </div>
 </section>
  <!-- <section class="calendar-section">
@@ -311,6 +341,7 @@ else pause();
       </li>
     </ol>
   </div>
+  <div class="timing-section__seam-divider" aria-hidden="true"></div>
 </section>
 
 <!-- ЛОКАЦИЯ (тот же фон и кнопка, что у «Чат для гостей», без декоративной рамки) -->
@@ -326,11 +357,13 @@ else pause();
           <div class="loca__photo" role="img" aria-label="Площадка торжества"></div>
           <aside class="loca__side">
             <div class="loca__card">
-              <h3 class="loca__venue">
-                <span class="loca__venue-line">Ресторан</span>
-                <span class="loca__venue-line">«Парк Отель»</span>
-              </h3>
-              <p class="loca__address">г. Тольятти, ул. Комзина, 6</p>
+              <div class="loca__meta">
+                <h3 class="loca__venue">
+                  <span class="loca__venue-line">Ресторан</span>
+                  <span class="loca__venue-line">«Парк Отель»</span>
+                </h3>
+                <p class="loca__address">г. Тольятти, ул. Комзина, 6</p>
+              </div>
               <a
                 class="guest-chat__btn loca__route-btn"
                 href="https://yandex.ru/maps/org/park_otel/1081236889/?ll=49.354816%2C53.474493&z=16"
@@ -343,6 +376,7 @@ else pause();
       </div>
     </div>
   </div>
+  <div class="loca__seam-divider" aria-hidden="true"></div>
 </section>
 
 <!-- ДРЕСС-КОД -->
@@ -376,6 +410,7 @@ else pause();
     loading="lazy"
   />
 </div>
+  <div class="dresscode-section__seam-divider" aria-hidden="true"></div>
 </section>
 
 <!-- Пожелания (стиль как локация / чат для гостей) -->
@@ -427,8 +462,8 @@ else pause();
               <span>Да! С удовольствием!</span>
             </label>
             <label class="anketa-radio">
-              <input type="radio" name="attendance" value="Нет, не приду" />
-              <span>Нет, не приду</span>
+              <input type="radio" name="attendance" value="Нет, к сожалению не смогу" />
+              <span>Нет, к сожалению не смогу</span>
             </label>
           </fieldset>
 
@@ -466,7 +501,7 @@ else pause();
         if (!form || !fieldset || !comment) return;
         var commentField = comment.closest('.anketa-field');
 
-        var VALUE_CANT = 'Нет, не приду';
+        var VALUE_CANT = 'Нет, к сожалению не смогу';
         var radiosAttendance = form.querySelectorAll('input[name="attendance"]');
         var radiosWithWhom = fieldset.querySelectorAll('input[name="with_whom"]');
 

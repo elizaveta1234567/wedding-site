@@ -995,7 +995,23 @@ button,
     max(clamp(48px, 10vw, 88px), env(safe-area-inset-bottom, 0px));
   background: #fbf7f3; /* как .dresscode-section */
   position: relative;
-  overflow-x: hidden;
+  overflow: visible;
+}
+
+.timing-section__seam-divider{
+  position: absolute;
+  left: 50%;
+  bottom: 0;
+  z-index: 4;
+  width: 100vw;
+  max-width: none;
+  height: 120px;
+  background-image: url("images/lenta.PNG");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 112% auto;
+  transform: translate(-50%, 50%);
+  pointer-events: none;
 }
 
 .timing-wrap{
@@ -1136,6 +1152,22 @@ button,
   overflow: hidden;
 }
 
+.dresscode-section__seam-divider{
+  position: absolute;
+  left: 50%;
+  bottom: 0;
+  z-index: 4;
+  width: 100vw;
+  max-width: none;
+  height: 120px;
+  background-image: url("images/lenta.PNG");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 112% auto;
+  transform: translate(-50%, 50%);
+  pointer-events: none;
+}
+
 .dresscode-wrap{
   max-width: 980px;
   margin: 0 auto;
@@ -1159,7 +1191,7 @@ button,
 
 /* Текст */
 .dresscode-text{
-  margin: 0 auto 44px;
+  margin: 0 auto 90px;
   max-width: 760px;
   font-family: system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
   font-size: clamp(16px, 2.2vw, 22px);
@@ -4221,6 +4253,7 @@ html.js .wloc--reveal.is-visible{
    ========================= */
 
 .loca{
+  position: relative;
   scroll-margin-top: min(88px, 18vh);
   background: #6b1419;
   padding:
@@ -4228,6 +4261,22 @@ html.js .wloc--reveal.is-visible{
     clamp(20px, 5vw, 32px)
     max(clamp(48px, 10vw, 88px), env(safe-area-inset-bottom, 0px));
   overflow-x: visible;
+}
+
+.loca__seam-divider{
+  position: absolute;
+  left: 50%;
+  bottom: 0;
+  z-index: 4;
+  width: 100vw;
+  max-width: none;
+  height: 120px;
+  background-image: url("images/lenta.PNG");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 112% auto;
+  transform: translate(-50%, 50%);
+  pointer-events: none;
 }
 
 .loca__wrap{
@@ -4338,8 +4387,15 @@ html.js .wloc--reveal.is-visible{
   font-family: system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
 }
 
+.loca__meta{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: clamp(8px, 1.5vmin, 12px);
+}
+
 .loca__venue{
-  margin: 0 0 clamp(10px, 2vmin, 16px);
+  margin: 0;
   font-family: inherit;
   font-weight: 600;
   font-size: clamp(14px, 2.7vmin, 20px);
@@ -4360,7 +4416,7 @@ html.js .wloc--reveal.is-visible{
 }
 
 .loca__address{
-  margin: 0 0 clamp(2px, 0.8vmin, 6px);
+  margin: 0;
   font-family: inherit;
   font-weight: 500;
   font-size: clamp(13px, 2.2vmin, 16px);
@@ -4370,11 +4426,16 @@ html.js .wloc--reveal.is-visible{
 
 /* Кнопка — класс .guest-chat__btn; здесь только отступы под вёрстку локации */
 .loca .loca__route-btn.guest-chat__btn{
-  margin-top: clamp(8px, 2vmin, 16px);
+  margin-top: 0;
+  font-size: clamp(16px, 3.8vw, 18px);
 }
 
 /* Десктоп: крупнее типографика, колонка заполняет высоту фото — без «пустоты» сверху/снизу */
 @media (min-width: 721px){
+  .loca__frame{
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
   .loca .loca__heading{
     font-size: clamp(32px, 4.5vmin, 44px);
   }
@@ -4393,21 +4454,16 @@ html.js .wloc--reveal.is-visible{
     flex: 1 1 auto;
     display: flex;
     flex-direction: column;
-    justify-content: space-evenly;
+    justify-content: center;
     align-items: center;
     width: 100%;
     min-height: 0;
-    gap: clamp(16px, 2.8vmin, 32px);
+    gap: max(clamp(48px, 10vw, 88px), env(safe-area-inset-top, 0px));
   }
 
   .loca__venue{
     font-size: clamp(22px, 2.6vmin, 34px);
     line-height: 1.2;
-    /* ниже на ~20% ширины колонки (margin-% от ширины блока), с потолком */
-    margin-top: min(20%, 3.75rem);
-    margin-left: 0;
-    margin-right: 0;
-    margin-bottom: clamp(12px, 1.8vmin, 24px);
   }
 
   .loca__address{
@@ -4417,18 +4473,25 @@ html.js .wloc--reveal.is-visible{
   }
 
   .loca .loca__route-btn.guest-chat__btn{
-    margin-top: clamp(20px, 3vmin, 40px);
+    margin-top: 0;
   }
 }
 
 /* Мобилка: текст и кнопка сверху, фото снизу (на ПК — без изменений: фото слева, текст справа) */
 @media (max-width: 720px){
+  .anketa__submit,
+  .loca .loca__route-btn.guest-chat__btn{
+    min-width: min(100%, 224px);
+    padding: 11px 32px;
+    font-size: clamp(13px, 3.2vw, 14px);
+  }
+
   .loca__wrap{
     padding-inline: clamp(8px, 3.5vw, 16px);
   }
 
   .loca__header{
-    margin-bottom: clamp(14px, 4vw, 24px);
+    margin-bottom: max(clamp(48px, 10vw, 88px), env(safe-area-inset-top, 0px));
   }
 
   .loca__stage{
@@ -4443,7 +4506,7 @@ html.js .wloc--reveal.is-visible{
 
   .loca__frame{
     grid-template-columns: 1fr;
-    gap: clamp(20px, 5vw, 28px);
+    gap: max(clamp(48px, 10vw, 88px), env(safe-area-inset-top, 0px));
     width: min(92%, 520px);
     margin: 0 auto;
   }
@@ -4469,17 +4532,37 @@ html.js .wloc--reveal.is-visible{
   }
 
   .loca__venue{
-    margin: 0 0 clamp(10px, 2.5vw, 14px);
     font-size: clamp(15px, 3.2vw, 20px);
     line-height: 1.2;
+    white-space: nowrap;
+  }
+
+  .loca__venue-line{
+    display: inline;
+  }
+
+  .loca__venue-line + .loca__venue-line{
+    margin-top: 0;
+    margin-left: 0.35em;
   }
 
   .loca__address{
     font-size: clamp(13px, 2.8vw, 16px);
   }
 
+  .loca__card{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: max(clamp(48px, 10vw, 88px), env(safe-area-inset-top, 0px));
+  }
+
+  .loca__meta{
+    gap: clamp(8px, 2vw, 12px);
+  }
+
   .loca .loca__route-btn.guest-chat__btn{
-    margin-top: clamp(12px, 3vw, 20px);
+    margin-top: 0;
   }
 }
 
@@ -4988,7 +5071,24 @@ html.js .date-section.is-visible{
 }
 
 .main-screen {
+  position: relative;
   width: 100%;
+}
+
+.main-screen__seam-divider{
+  position: absolute;
+  left: 50%;
+  bottom: 0;
+  z-index: 4;
+  width: 100vw;
+  max-width: none;
+  height: 120px;
+  background-image: url("images/lenta.PNG");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 112% auto;
+  transform: translate(-50%, 50%);
+  pointer-events: none;
 }
 
 /* если у тебя уже есть контейнер/отступы — подстрой значения тут */
@@ -5001,6 +5101,31 @@ html.js .date-section.is-visible{
   grid-template-columns: 1.15fr 0.85fr; /* текст шире, картинка чуть уже */
   align-items: center;
    gap: clamp(24px, 4vw, 100px);
+}
+
+@media (min-width: 821px){
+  .main-screen__seam-divider{
+    height: 58px;
+  }
+
+  .timing-section__seam-divider{
+    height: 58px;
+  }
+
+  .dresscode-section__seam-divider{
+    height: 58px;
+  }
+
+  .loca__seam-divider{
+    height: 58px;
+  }
+}
+
+.main-screen__inner--photo-only{
+  display: block;
+  max-width: 720px;
+  width: 100%;
+  padding: clamp(20px, 3vw, 32px) clamp(20px, 3.5vw, 40px) clamp(20px, 3.5vw, 40px);
 }
 
 /* текстовая часть */
@@ -5020,11 +5145,105 @@ html.js .date-section.is-visible{
   min-width: 0;
 }
 
+.main-screen__inner--photo-only .main-screen__media{
+  justify-content: center;
+  width: 100%;
+  margin: 0;
+  position: relative;
+  isolation: isolate;
+}
+
 .main-screen__img {
   width: min(420px, 100%); /* меняй это число — меняется размер картинки */
   height: auto;
   display: block;
   transform: translateX(30%);
+}
+
+.main-screen__inner--photo-only .main-screen__img{
+  width: 100%;
+  transform: none;
+  margin: 0;
+  box-shadow: none;
+  position: relative;
+  z-index: 1;
+}
+
+.main-screen__polaroid{
+  position: relative;
+  z-index: 1;
+  width: min(100%, 440px);
+  margin: 0;
+  padding: 18px 18px 30px;
+  background: #fff;
+  box-shadow: 0 18px 40px rgba(0, 0, 0, 0.14);
+}
+
+.main-screen__polaroid-caption{
+  margin-top: 16px;
+  text-align: center;
+  color: var(--accent-wedding);
+  font-family: "Marck Script", "Bad Script", cursive;
+  font-size: clamp(34px, 4.6vw, 54px);
+  line-height: 0.95;
+}
+
+.main-screen__poster-deco{
+  position: absolute;
+  z-index: 0;
+  pointer-events: none;
+  user-select: none;
+  max-width: none;
+  opacity: 0.95;
+}
+
+.main-screen__poster-deco--left{
+  width: clamp(260px, 34vw, 420px);
+  left: clamp(-358px, -32.84vw, -185px);
+  top: -36%;
+  transform-origin: top center;
+  animation: posterChandelierSwing 7.5s ease-in-out infinite;
+}
+
+.main-screen__poster-deco--right{
+  width: clamp(383px, 47.25vw, 585px);
+  right: clamp(-506px, -48.5vw, -254px);
+  bottom: -4%;
+}
+
+.main-screen__poster{
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: clamp(22px, 3vw, 34px);
+  padding: 0 clamp(20px, 4vw, 34px) clamp(30px, 4.5vw, 44px);
+  background: transparent;
+  border: none;
+  border-radius: 0;
+  box-shadow: none;
+}
+
+@keyframes posterChandelierSwing{
+  0%{ transform: rotate(-4deg); }
+  50%{ transform: rotate(4deg); }
+  100%{ transform: rotate(-4deg); }
+}
+
+.main-screen__poster-top{
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  color: var(--accent-wedding);
+  text-align: center;
+}
+
+.main-screen__poster-title{
+  font-family: "Marck Script", "Bad Script", cursive;
+  font-weight: 400;
+  font-size: clamp(46px, 6.6vw, 74px);
+  line-height: 0.95;
 }
 
 .main-screen__note{
@@ -5058,6 +5277,47 @@ html.js .date-section.is-visible{
   .main-screen__img {
     width: min(360px, 100%);
     transform: none;
+  }
+
+  .main-screen__inner--photo-only{
+    max-width: none;
+    width: 100%;
+    padding: 0;
+  }
+
+  .main-screen__poster{
+    gap: clamp(18px, 4vw, 26px);
+    padding: clamp(22px, 5vw, 30px) clamp(16px, 4vw, 22px) clamp(26px, 6vw, 34px);
+  }
+
+  .main-screen__inner--photo-only .main-screen__img{
+    width: 100%;
+  }
+
+  .main-screen__polaroid{
+    width: min(100%, 380px);
+    padding: 14px 14px 24px;
+  }
+
+  .main-screen__polaroid-caption{
+    margin-top: 12px;
+    font-size: clamp(28px, 6.6vw, 40px);
+  }
+
+  .main-screen__poster-deco--left{
+    width: clamp(190px, 38vw, 280px);
+    left: clamp(-108px, -10vw, -48px);
+    top: -10%;
+  }
+
+  .main-screen__poster-deco--right{
+    width: clamp(190px, 38vw, 280px);
+    right: clamp(-40px, -4vw, -16px);
+    bottom: 10%;
+  }
+
+  .main-screen__poster-title{
+    font-size: clamp(38px, 8.5vw, 56px);
   }
 
   .main-screen__title {
@@ -5098,6 +5358,47 @@ html.js .date-section.is-visible{
 
   .main-screen__img {
     width: min(340px, 100%);
+  }
+
+  .main-screen__inner--photo-only .main-screen__img{
+    width: 100%;
+  }
+
+  .main-screen__polaroid{
+    width: min(100%, 340px);
+    padding: 12px 12px 22px;
+  }
+
+  .main-screen__polaroid-caption{
+    margin-top: 10px;
+    font-size: clamp(24px, 6.2vw, 34px);
+  }
+
+  .main-screen__poster-deco--left{
+    width: clamp(150px, 36vw, 220px);
+    left: -72px;
+    top: -8%;
+  }
+
+  .main-screen__poster-deco--right{
+    width: clamp(150px, 36vw, 220px);
+    right: -20px;
+    bottom: 12%;
+  }
+
+  .main-screen__poster{
+    gap: 16px;
+    padding: 20px 14px 28px;
+  }
+
+  .main-screen__poster-title{
+    font-size: clamp(32px, 8.6vw, 42px);
+  }
+}
+
+@media (prefers-reduced-motion: reduce){
+  .main-screen__poster-deco--left{
+    animation: none;
   }
 }
 /* ====== DAY PLAN (как на рефе) ====== */
