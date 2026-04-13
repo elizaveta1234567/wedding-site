@@ -1,5 +1,21 @@
 @import url("https://fonts.googleapis.com/css2?family=Bad+Script&family=Cormorant+Garamond:wght@400;500;600;700&family=Lora:wght@500;600;700&family=Marck+Script&display=swap");
 
+@font-face{
+  font-family: "Wolgast Two";
+  src: url("images/Wolgast_Two_Normal.otf") format("opentype");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face{
+  font-family: "Gogol";
+  src: url("https://db.onlinewebfonts.com/t/c5abb7e73ed0432c2be39b91549f3506.woff2") format("woff2");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
 :root{
   --paper: #f5f1e8;
   --ink: #2a2420;
@@ -8,8 +24,8 @@
   --shadow: 0 22px 60px rgba(0,0,0,.14);
   --radius: 28px;
   /* как у «ЖЕНИХ / НЕВЕСТА» на главном экране (.main-screen__title .accent) */
-  --accent-wedding: #791c27;
-  --accent-wedding-hover: #631a22;
+  --accent-wedding: #425340;
+  --accent-wedding-hover: #425340;
   /* единый размер заголовков секций (как у Тайминг) */
   --section-title-size: clamp(34px, 6vw, 56px);
   /* Source Sans 3 — основной UI/текст, отличная читаемость на мобилке (кириллица) */
@@ -50,7 +66,7 @@ html{
 
 /* Пока интро: единый красный фон под всем документом (просвет снизу у нижней панели) */
 html.intro-active{
-  background: #a32323;
+  background: #425340;
   height: 100%;
   min-height: 100vh;
   min-height: -webkit-fill-available;
@@ -81,7 +97,7 @@ body:has(> .intro:not(.is-hidden)) main.pages{
 
 /* Если fixed-слой всё же короче вьюпорта — не белая «щель» у адресной строки */
 body:has(> .intro:not(.is-hidden)){
-  background: #a32323;
+  background: #425340;
 }
 
 /* фон в стиле “фото + мягкая дымка” без картинок */
@@ -334,17 +350,37 @@ button,
 
 /* ===== Анкета по референсу (минимализм, подчёркивания, радиокнопки) ===== */
 .anketa-section {
-  background: #fbf7f3;
+  background: #425340;
+  background-image: url("images/IMG_6852.PNG");
+  background-repeat: no-repeat;
+  background-position: center top;
+  background-size: min(1040px, 100vw) auto;
+  isolation: isolate;
+  position: relative;
+  padding-top: clamp(88px, 10vw, 132px);
+  padding-bottom: clamp(88px, 12vw, 132px);
+}
+
+.anketa-section::before{
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: rgba(66, 83, 64, 0.36);
+  pointer-events: none;
+  z-index: 0;
 }
 
 .anketa {
-  max-width: 520px;
-  margin: 0 auto;
-  padding: clamp(28px, 5vw, 52px) 24px;
+  width: min(100%, 430px);
+  max-width: 430px;
+  margin: clamp(20px, 2.2vw, 32px) auto 0;
+  padding: clamp(34px, 5vw, 54px) clamp(18px, 2.6vw, 26px) clamp(42px, 6vw, 60px);
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: 0;
+  position: relative;
+  z-index: 1;
 }
 
 .anketa__title {
@@ -353,7 +389,7 @@ button,
   font-size: clamp(28px, 7vw, 40px);
   font-weight: 600;
   line-height: 1.15;
-  color: #6b1419; /* как фон блока локации */
+  color: #425340; /* как фон блока локации */
   text-align: center;
 }
 
@@ -361,14 +397,19 @@ button,
   margin: 0 0 clamp(28px, 4.5vw, 40px);
   font-size: clamp(18px, 2.6vw, 22px);
   line-height: 1.6;
-  color: #6f2e37;
+  color: #425340;
   text-align: center;
+}
+
+.anketa__intro-break{
+  display: none;
 }
 
 .anketa-form {
   display: flex;
   flex-direction: column;
   gap: clamp(30px, 4.5vw, 44px);
+  width: 100%;
 }
 
 .anketa-field {
@@ -384,7 +425,7 @@ button,
 }
 
 .anketa-field__label--question {
-  color: #6f2e37;
+  color: #425340;
   font-weight: 600;
   margin-bottom: 4px;
   transition: color 0.2s ease, opacity 0.2s ease;
@@ -409,7 +450,7 @@ button,
 }
 
 .anketa-field__input:focus {
-  border-bottom-color: #6f2e37;
+  border-bottom-color: #425340;
 }
 
 .anketa-fieldset {
@@ -465,7 +506,7 @@ button,
 .anketa-radio input {
   width: 22px;
   height: 22px;
-  accent-color: #6f2e37;
+  accent-color: #425340;
   cursor: pointer;
 }
 
@@ -481,12 +522,14 @@ button,
   align-items: center;
   justify-content: center;
   min-width: min(100%, 280px);
+  max-width: 100%;
   padding: 14px 40px;
   font-family: system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
   font-size: clamp(16px, 3.8vw, 18px);
   font-weight: 500;
   letter-spacing: 0.04em;
   text-transform: uppercase;
+  white-space: nowrap;
   color: var(--ink);
   background: transparent;
   border: 1px solid rgba(42, 36, 32, 0.85);
@@ -518,9 +561,124 @@ button,
   outline-offset: 3px;
 }
 
+.timer-section {
+  width: 100%;
+  background: #425340;
+  padding: clamp(40px, 8vw, 72px) clamp(16px, 4vw, 24px) clamp(48px, 9vw, 88px);
+  text-align: center;
+  overflow: hidden;
+}
+
+.timer-wrap {
+  width: min(980px, 100%);
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0;
+}
+
+.timer-heart__title {
+  margin: 0 0 clamp(40px, 8vw, 72px);
+  font-family: var(--font-heading-script);
+  font-weight: 600;
+  font-size: clamp(28px, 7vw, 40px);
+  line-height: 1.15;
+  letter-spacing: 0.02em;
+  color: #fff;
+  text-align: center;
+}
+
+.timer.timer--full {
+  width: 100%;
+  margin: 0;
+}
+
+.timer.timer--full .timer-row {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: clamp(8px, 2vw, 26px);
+  width: 100%;
+  flex-wrap: nowrap;
+}
+
+.timer.timer--full .timer-cell {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-end;
+  gap: clamp(4px, 1vw, 8px);
+  min-width: 0;
+  flex: 1 1 0;
+}
+
+.timer.timer--full .timer-separator {
+  align-self: flex-start;
+  padding-top: 0.12em;
+  font-family: var(--font-ui);
+  font-size: clamp(24px, 4.6vw, 46px);
+  font-weight: 600;
+  line-height: 1;
+  color: rgba(255, 255, 255, 0.88);
+  flex: 0 0 auto;
+}
+
+.timer.timer--full .timer-num {
+  display: block;
+  font-family: var(--font-ui);
+  font-weight: 700;
+  font-size: clamp(26px, 5vw, 54px);
+  line-height: 1.05;
+  letter-spacing: 0.04em;
+  font-variant-numeric: tabular-nums;
+  font-feature-settings: "tnum" 1;
+  color: #fff;
+  text-align: center;
+}
+
+.timer.timer--full .timer-label {
+  font-family: var(--font-ui);
+  font-size: clamp(12px, 1.8vw, 18px);
+  font-weight: 500;
+  letter-spacing: 0.04em;
+  text-transform: lowercase;
+  color: rgba(255, 255, 255, 0.84);
+  line-height: 1.2;
+}
+
+@media (max-width: 640px) {
+  .timer-section {
+    padding-left: max(12px, env(safe-area-inset-left, 0px));
+    padding-right: max(12px, env(safe-area-inset-right, 0px));
+  }
+
+  .timer.timer--full .timer-row {
+    gap: 8px;
+  }
+
+  .timer.timer--full .timer-separator {
+    font-size: clamp(18px, 5vw, 28px);
+    padding-top: 0.18em;
+  }
+
+  .timer.timer--full .timer-num {
+    font-size: clamp(22px, 7vw, 34px);
+  }
+
+  .timer.timer--full .timer-label {
+    font-size: clamp(11px, 3.2vw, 14px);
+  }
+
+  .timer-heart__title {
+    font-size: clamp(18px, 4.8vw, 28px);
+  }
+}
+
 /* ===== Чат для гостей (после анкеты): бордо, блок по центру сайта, кнопка-капсула с обводкой ===== */
 .guest-chat-section {
-  background: #6b1419;
+  background: #425340;
   padding: clamp(48px, 10vw, 88px) clamp(20px, 5vw, 32px);
 }
 
@@ -596,11 +754,77 @@ button,
 }
 
 @media (max-width: 480px) {
+  .anketa-section{
+    background-size: 190% auto;
+    padding-top: 82px;
+    padding-bottom: 92px;
+  }
+
   .guest-chat__text {
     font-size: 17px;
   }
   .guest-chat__btn {
     font-size: 17px;
+  }
+
+  .anketa{
+    width: min(100%, 236px);
+    max-width: 236px;
+    margin-top: 26px;
+    padding: 16px 10px 34px;
+  }
+
+  .anketa__title{
+    font-size: clamp(17px, 4.4vw, 22px);
+    margin-top: 18px;
+    margin-bottom: 14px;
+  }
+
+  .anketa__intro{
+    font-size: 14px;
+    line-height: 1.4;
+    margin-bottom: 18px;
+  }
+
+  .anketa__intro-break{
+    display: inline;
+  }
+
+  .anketa-form{
+    width: 100%;
+    gap: 22px;
+  }
+
+  .anketa-field{
+    gap: 10px;
+  }
+
+  .anketa-field__label,
+  .anketa-field__label--question,
+  .anketa-radio,
+  .anketa-field__input{
+    font-size: 14px;
+    line-height: 1.4;
+  }
+
+  .anketa-field__label--question{
+    font-size: 13px;
+    line-height: 1.35;
+  }
+
+  .anketa-fieldset{
+    gap: 12px;
+  }
+
+  .anketa-fieldset > .anketa-field__label--question{
+    margin-bottom: 2px;
+  }
+
+  .anketa__submit{
+    min-width: min(100%, 184px);
+    padding: 9px 14px;
+    font-size: 11px;
+    line-height: 1.2;
   }
 }
 
@@ -735,7 +959,7 @@ button,
   position: relative;
   width: 150px;
   height: 120px;
-  color: #8a3c4b; /* бордово-розовый как на рефе */
+  color: #425340; /* бордово-розовый как на рефе */
   transform: translateY(10px); /* чуть ниже строки */
 }
 
@@ -767,7 +991,7 @@ button,
   transform: translateX(0);
   font-family: "Segoe Script", "Brush Script MT", "Pacifico", cursive;
   font-size: clamp(18px, 2.4vw, 32px);
-  color: #8a3c4b;
+  color: #425340;
   white-space: nowrap;
 }
 
@@ -906,7 +1130,7 @@ button,
   font-family: var(--font-heading-script);
   font-size: clamp(36px, 6vw, 56px);
   font-weight: 400;
-  color: #6f2e37;
+  color: #425340;
 }
 
 /* Текст адреса */
@@ -987,7 +1211,7 @@ button,
 /* ===== ТАЙМИНГ: фон секции как у дресс-кода; карточки — как у локации ===== */
 .timing-section{
   --timing-pad-x: clamp(16px, 4vw, 24px);
-  --timing-surface: #6b1419; /* карточки — как .loca */
+  --timing-surface: #425340; /* карточки — как .loca */
   scroll-margin-top: min(88px, 18vh);
   padding:
     max(clamp(48px, 10vw, 88px), env(safe-area-inset-top, 0px))
@@ -1185,7 +1409,7 @@ button,
   font-size: clamp(28px, 7vw, 40px);
   font-weight: 600;
   line-height: 1.15;
-  color: #6b1419; /* как фон блока локации */
+  color: #425340; /* как фон блока локации */
   text-align: center;
 }
 
@@ -1306,7 +1530,7 @@ button,
 /* ===== ДЕТАЛИ — как локация / чат: бордо #6b1419, светлый текст ===== */
 .details-section{
   scroll-margin-top: min(88px, 18vh);
-  background: #6b1419;
+  background: #425340;
   padding:
     max(clamp(48px, 10vw, 88px), env(safe-area-inset-top, 0px))
     clamp(20px, 5vw, 32px)
@@ -1634,7 +1858,7 @@ margin: 0 auto 38px;
 .env-title{
   font-family: var(--font-heading-script);
   font-size: clamp(34px, 5.4vw, 54px);
-  color: #6f2e37;
+  color: #425340;
 }
 
 .env-text{
@@ -2179,7 +2403,7 @@ margin: 0 auto 38px;
   margin-top: 14px;
   font-family: "Segoe Script", "Brush Script MT", "Pacifico", cursive;
   font-size: clamp(26px, 6vw, 44px);
-  color: #7c565c;
+  color: #425340;
 }
 
 /* мобильная докрутка: чуть больше воздуха и меньше “жмёт” */
@@ -2223,349 +2447,8 @@ margin: 0 auto 38px;
   );
 }
 
-/* КАРТОЧКА */
-.timer-card{
-  position: relative;
-  z-index: 2;
-  width: min(420px, 92vw);
-  background: #fbf7f3;               /* бумажный тон */
-  border-radius: 26px;
-  padding: clamp(18px, 4.5vw, 34px) clamp(16px, 4vw, 28px);
-  box-shadow: 0 26px 70px rgba(0,0,0,.18);
-  border: 1px solid rgba(0,0,0,.06);
-  text-align: center;
-}
-
-/* “пузырики/блики” — чтобы было похоже на реф */
-.timer-card::before{
-  content:"";
-  position:absolute;
-  inset:-40px -30px;
-  pointer-events:none;
-  opacity:.75;
-  background:
-    radial-gradient(circle at 18% 35%, rgba(255,255,255,.85) 0 18px, transparent 19px),
-    radial-gradient(circle at 76% 40%, rgba(255,255,255,.75) 0 10px, transparent 11px),
-    radial-gradient(circle at 86% 62%, rgba(255,255,255,.65) 0 14px, transparent 15px),
-    radial-gradient(circle at 22% 78%, rgba(255,255,255,.60) 0 12px, transparent 13px);
-}
-
-/* Заголовок */
-.timer-card__title{
-  margin: 0 0 10px;
-  font-family: var(--font-heading-script);
-  font-weight: 400;
-  font-size: clamp(28px, 6.2vw, 44px);
-  line-height: 1.05;
-  color: #6f2e37;
-}
-
-/* Текст */
-.timer-card__text{
-  margin: 0 auto 18px;
-  max-width: 34ch;
-  font-family: "Times New Roman","Georgia",serif;
-  font-size: clamp(14px, 3.4vw, 18px);
-  line-height: 1.55;
-  color: rgba(0,0,0,.55);
-}
-
-/* Таймер “как на рефе”: цифры в строку с двоеточиями */
-.timer-inline{
-  margin-top: 12px;
-}
-
-.timer-inline__digits{
-  font-family: "Times New Roman","Georgia",serif;
-  font-weight: 600;
-  font-size: clamp(26px, 7.5vw, 44px);
-  letter-spacing: .12em;               /* красиво как на рефе */
-  color: #6f2e37;
-}
-
-/* подписи под группами */
-.timer-inline__labels{
-  margin-top: 8px;
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 10px;
-  font-family: "Times New Roman","Georgia",serif;
-  font-size: clamp(12px, 3vw, 14px);
-  letter-spacing: .10em;
-  text-transform: lowercase;
-  color: rgba(0,0,0,.55);
-}
-
 /* ===== Мобилка: сохраняем вид 1-в-1 ===== */
 @media (max-width: 380px){
-  .timer-card{ border-radius: 22px; }
-  .timer-inline__digits{ letter-spacing: .08em; }
-}
-/* ===== Таймер: сердце #6b1419, текст как у «Торжественная церемония», цифры белые без плиток ===== */
-.timer-section{
-  width: 100%;
-  background: #6b1419;
-  padding: clamp(40px, 8vw, 72px) clamp(16px, 4vw, 24px) clamp(48px, 9vw, 88px);
-  text-align: center;
-  overflow: hidden;
-}
-
-.timer-wrap{
-  width: min(980px, 100%);
-  margin: 0 auto;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 0;
-}
-
-.timer.timer--full{
-  width: 100%;
-  margin: 0;
-}
-
-.timer.timer--full .timer-row{
-  display: flex;
-  flex-direction: row;
-  align-items: flex-end;
-  justify-content: space-between;
-  gap: clamp(8px, 2vw, 26px);
-  width: 100%;
-  flex-wrap: nowrap;
-}
-
-.timer.timer--full .timer-cell{
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: flex-end;
-  gap: clamp(4px, 1vw, 8px);
-  min-width: 0;
-  flex: 1 1 0;
-}
-
-.timer.timer--full .timer-separator{
-  align-self: flex-start;
-  padding-top: 0.12em;
-  font-family: var(--font-ui);
-  font-size: clamp(24px, 4.6vw, 46px);
-  font-weight: 600;
-  line-height: 1;
-  color: rgba(255, 255, 255, 0.88);
-  flex: 0 0 auto;
-}
-
-.timer.timer--full .timer-num{
-  display: block;
-  font-family: var(--font-ui);
-  font-weight: 700;
-  font-size: clamp(26px, 5vw, 54px);
-  line-height: 1.05;
-  letter-spacing: 0.04em;
-  font-variant-numeric: tabular-nums;
-  font-feature-settings: "tnum" 1;
-  color: #fff;
-  text-align: center;
-}
-
-.timer.timer--full .timer-label{
-  font-family: var(--font-ui);
-  font-size: clamp(12px, 1.8vw, 18px);
-  font-weight: 500;
-  letter-spacing: 0.04em;
-  text-transform: lowercase;
-  color: rgba(255, 255, 255, 0.84);
-  line-height: 1.2;
-}
-
-.timer-heart-wrap{
-  width: 100%;
-  display: flex;
-  justify-content: center;
-}
-
-.timer-heart{
-  position: relative;
-  width: min(100%, 540px); /* крупнее сердце — строка таймера + отступы */
-  color: #fff;
-}
-
-.timer-heart__shape{
-  display: block;
-  width: 100%;
-  height: auto;
-  aspect-ratio: 1 / 1;
-  filter: drop-shadow(0 12px 28px rgba(0, 0, 0, 0.18));
-}
-
-.timer-heart__inner{
-  position: absolute;
-  left: 12%;
-  right: 12%;
-  top: 12%;
-  bottom: 23%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: clamp(8px, 2vw, 14px);
-  padding: clamp(8px, 2.5vw, 16px) clamp(6px, 2vw, 12px);
-  box-sizing: border-box;
-  min-height: 0;
-}
-
-/* Одна строка, один шрифт (Spectral) */
-.timer-heart__title{
-  margin: 0 0 clamp(40px, 8vw, 72px);
-  padding-top: 0;
-  font-family: var(--font-heading-script);
-  font-weight: 600;
-  font-size: clamp(28px, 7vw, 40px);
-  line-height: 1.15;
-  letter-spacing: 0.02em;
-  text-transform: none;
-  color: #fff;
-  text-shadow: none;
-  max-width: 100%;
-  text-align: center;
-}
-
-.timer.timer--heart{
-  width: 100%;
-  max-width: 100%;
-  margin-top: 0;
-  flex-shrink: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
-
-.timer--heart .timer-row{
-  display: flex;
-  flex-direction: row;
-  align-items: flex-end;
-  justify-content: center;
-  gap: clamp(4px, 1.5vw, 12px);
-  width: 100%;
-  flex-wrap: nowrap;
-}
-
-.timer--heart .timer-cell{
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: flex-end;
-  gap: clamp(3px, 1vw, 6px);
-  min-width: 0;
-  flex: 1 1 0;
-}
-
-.timer--heart .timer-cell:first-child{
-  flex: 1.05 1 0;
-}
-
-/* Цифры таймера: Source Sans 3 — табличные цифры, высокая читаемость */
-.timer--heart .timer-num{
-  display: block;
-  font-family: var(--font-ui);
-  font-weight: 700;
-  font-size: clamp(18px, 4.8vw, 34px);
-  line-height: 1.05;
-  letter-spacing: 0.06em;
-  font-variant-numeric: tabular-nums;
-  font-feature-settings: "tnum" 1;
-  color: #6b1419;
-  text-align: center;
-  text-shadow: none;
-}
-
-.timer--heart .timer-label{
-  font-family: var(--font-ui);
-  font-size: clamp(10px, 2.4vw, 13px);
-  font-weight: 500;
-  letter-spacing: 0.04em;
-  text-transform: lowercase;
-  color: rgba(107, 20, 25, 0.82);
-  line-height: 1.2;
-}
-
-/* Подпись в декоративном сердце */
-.timer-love-block{
-  width: 100%;
-  max-width: min(360px, 100%);
-  margin: clamp(40px, 6vw, 68px) auto 0;
-  display: grid;
-  place-items: center;
-  padding: 0 clamp(12px, 4vw, 20px);
-}
-
-.timer-love-heart__text{
-  margin: 0;
-  width: 100%;
-  max-width: 420px;
-  text-align: center;
-  font-family: var(--font-heading-script);
-  font-size: clamp(18px, 2.3vw, 25px);
-  line-height: 1.16;
-  color: #ffffff;
-  transform: none;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 0.12em;
-  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.18);
-}
-
-.timer-love-heart__text span{
-  display: block;
-  white-space: nowrap;
-}
-
-.timer-love-heart__text span:last-child{
-  font-size: 0.9em;
-}
-
-@media (max-width: 380px){
-  .timer-love-heart__text{
-    width: 100%;
-    font-size: clamp(15px, 4.8vw, 20px);
-  }
-}
-
-@media (max-width: 480px){
-  .timer-heart__title{
-    font-size: clamp(10px, 4.2vw, 14px);
-  }
-}
-
-@media (max-width: 640px){
-  .timer-section{
-    padding-left: max(12px, env(safe-area-inset-left, 0px)) !important;
-    padding-right: max(12px, env(safe-area-inset-right, 0px)) !important;
-  }
-}
-
-#timer,
-.timer-section{
-  overflow: hidden;
-}
-
-@media (max-width: 640px){
-  .timer.timer--full .timer-row{
-    gap: 8px;
-  }
-  .timer.timer--full .timer-separator{
-    font-size: clamp(18px, 5vw, 28px);
-    padding-top: 0.18em;
-  }
-  .timer.timer--full .timer-num{
-    font-size: clamp(22px, 7vw, 34px);
-  }
-  .timer.timer--full .timer-label{
-    font-size: clamp(11px, 3.2vw, 14px);
-  }
-  .timer-heart__title{
-    font-size: clamp(12px, 4.8vw, 18px);
-  }
 }
 /* =========================
    CALENDAR — RESPONSIVE FIX
@@ -2623,7 +2506,7 @@ margin: 0 auto 38px;
   font-family: "Segoe Script", "Brush Script MT", "Pacifico", cursive;
   font-size: clamp(28px, 6vw, 52px);
   font-weight: 400;
-  color: #6f2e37;
+  color: #425340;
 }
 
 /* Сердце + палочка (svg) — фиксируем в одной ячейке,
@@ -2681,18 +2564,6 @@ margin: 0 auto 38px;
   .cal-head{ font-size: 12px; }
   .cal-day{ font-size: 14px; }
 }
-@media (max-width: 360px){
-  .timer-heart{
-    width: min(100%, 420px);
-  }
-  .timer--heart .timer-num{
-    font-size: clamp(12px, 3.3vw, 19px);
-  }
-  .timer--heart .timer-label{
-    font-size: 10px;
-    letter-spacing: 0.03em;
-  }
-}
 /* =========================
    INTRO (сердце-окно)
    ========================= */
@@ -2712,7 +2583,7 @@ margin: 0 auto 38px;
   z-index: 10000;
   display: block;
   opacity: 1;
-  background: #a32323;
+  background: #425340;
   overflow: visible;
 
   /* Настройки */
@@ -3129,7 +3000,7 @@ margin: 0 auto 38px;
 }
 
 .hero__headline .is-accent{
-  color: #8a2c2c; /* красный акцент как на референсе */
+  color: #425340; /* красный акцент как на референсе */
 }
 
 /* Нижний текст */
@@ -3567,7 +3438,7 @@ margin: 0 auto 38px;
 
 /* дата — акцент, как ЖЕНИХ / НЕВЕСТА */
 .main-screen__note .date {
-  color: #791c27;       /* тот же цвет */
+  color: #425340;       /* тот же цвет */
   font-weight: 500;
 }
 @media (max-width: 768px) {
@@ -3654,7 +3525,7 @@ margin: 0 auto 38px;
   width: 64px;
   height: 56px;
 
-  background: #8c2f2b;          /* ← КРАСНОЕ СЕРДЦЕ */
+  background: #425340;          /* ← КРАСНОЕ СЕРДЦЕ */
   display: flex;
   align-items: center;
   justify-content: center;
@@ -3679,7 +3550,7 @@ margin: 0 auto 38px;
   font-family: var(--font-heading-script);
   font-weight: 400;
   font-size: clamp(24px, 4vw, 36px);
-  color: #8c2f2b;
+  color: #425340;
 }
 
 /* === MOBILE === */
@@ -3760,7 +3631,7 @@ html.js .date-section.is-visible {
   height: 56px;              /* размер сердца */
   width: 64px;
   margin: 0 auto;
-  background: #8c2f2b;
+  background: #425340;
   color: #fff !important;    /* цифра белая */
   font-weight: 500;
 
@@ -3786,7 +3657,7 @@ html.js .date-section.is-visible {
   --bg: #fbf7f3;
   --ink: #2b2b2b;
   --muted: #9a9a9a;
-  --accent: #8c2f2b; /* цвет сердца и акцентов */
+  --accent: #425340; /* цвет сердца и акцентов */
 }
 
 .date-section{
@@ -3976,7 +3847,7 @@ html.js .date-section.is-visible{
   width: 64px !important;
   height: 56px !important;
   line-height: 56px !important;
-  background: #8c2f2b !important;
+  background: #425340 !important;
   color: #fff !important;
 
   clip-path: path("M32 52 C32 52 4 34 4 18 C4 8 12 4 18 4 C24 4 32 10 32 10 C32 10 40 4 46 4 C52 4 60 8 60 18 C60 34 32 52 32 52 Z");
@@ -4078,7 +3949,7 @@ html.js .date-section.is-visible{
   height: 56px; /* сердце выше, но строку не ломаем — оно центрится внутри 44px */
   margin: 0 auto;
 
-  background: #8c2f2b;
+  background: #425340;
   color: #fff;
 
   font-size: 18px;
@@ -4101,7 +3972,7 @@ html.js .date-section.is-visible{
   font-family: var(--font-heading-script);
   font-weight: 400;
   font-size: clamp(28px, 4vw, 44px);
-  color: #8c2f2b;
+  color: #425340;
 }
 
 /* мягкая пульсация */
@@ -4255,7 +4126,7 @@ html.js .wloc--reveal.is-visible{
 .loca{
   position: relative;
   scroll-margin-top: min(88px, 18vh);
-  background: #6b1419;
+  background: #425340;
   padding:
     max(clamp(48px, 10vw, 88px), env(safe-area-inset-top, 0px))
     clamp(20px, 5vw, 32px)
@@ -4481,9 +4352,23 @@ html.js .wloc--reveal.is-visible{
 @media (max-width: 720px){
   .anketa__submit,
   .loca .loca__route-btn.guest-chat__btn{
-    min-width: min(100%, 224px);
-    padding: 11px 32px;
-    font-size: clamp(13px, 3.2vw, 14px);
+    min-width: min(100%, 260px);
+    padding: 12px 28px;
+    font-size: clamp(14px, 3.6vw, 16px);
+  }
+
+  .anketa-section{
+    background-size: 138% auto;
+    background-position: center top;
+    padding-top: clamp(58px, 10vw, 82px);
+    padding-bottom: clamp(62px, 11vw, 86px);
+  }
+
+  .anketa{
+    width: min(100%, 360px);
+    max-width: 360px;
+    margin-top: 18px;
+    padding: clamp(26px, 5vw, 34px) 18px clamp(32px, 6vw, 42px);
   }
 
   .loca__wrap{
@@ -4648,7 +4533,7 @@ html.js .wloc--reveal.is-visible{
   justify-self: center;
   align-self: center;
 
-  background: #8c2f2b; /* красное сердце */
+  background: #425340; /* красное сердце */
   display: grid;
   place-items: center;
 
@@ -4700,7 +4585,7 @@ html.js .wloc--reveal.is-visible{
 }
 
 .loveCal__heartSvg path{
-  fill: #8c2f2b; /* красное сердце */
+  fill: #425340; /* красное сердце */
 }
 
 .loveCal__heartNum{
@@ -4768,7 +4653,7 @@ html.js .wloc--reveal.is-visible{
   width: min(clamp(34px, 9vw, 56px), 100%) !important;
   height: min(clamp(30px, 8vw, 50px), 100%) !important;
 
-  background: #8c2f2b !important; /* красное сердце */
+  background: #425340 !important; /* красное сердце */
   color: #fff !important;        /* белая цифра 6 */
 
   font-weight: 500;
@@ -4780,7 +4665,7 @@ html.js .wloc--reveal.is-visible{
   font-family: var(--font-heading-script);
   font-weight: 400;
   font-size: clamp(24px, 4vw, 36px);
-  color: #8c2f2b;
+  color: #425340;
 }
 
 /* на очень узких — чуть плотнее */
@@ -4863,7 +4748,7 @@ html.js .wloc--reveal.is-visible{
   font-family: var(--font-heading-script);
   font-weight: 400;
   font-size: clamp(24px, 4vw, 36px);
-  color:#8c2f2b;
+  color:#425340;
 }
 
 /* =========================
@@ -4889,7 +4774,7 @@ html.js .wloc--reveal.is-visible{
   content:"";
   position:absolute;
   inset:0;
-  background:#8c2f2b;
+  background:#425340;
 
   /* SVG heart как маска */
   -webkit-mask: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 56'><path d='M32 52 C32 52 4 34 4 18 C4 8 12 4 18 4 C24 4 32 10 32 10 C32 10 40 4 46 4 C52 4 60 8 60 18 C60 34 32 52 32 52 Z'/></svg>") no-repeat center / contain;
@@ -5151,6 +5036,7 @@ html.js .date-section.is-visible{
   margin: 0;
   position: relative;
   isolation: isolate;
+  min-height: clamp(240px, 34vw, 420px);
 }
 
 .main-screen__img {
@@ -5174,9 +5060,9 @@ html.js .date-section.is-visible{
   z-index: 1;
   width: min(100%, 440px);
   margin: 0;
-  padding: 18px 18px 30px;
-  background: #fff;
-  box-shadow: 0 18px 40px rgba(0, 0, 0, 0.14);
+  padding: 0;
+  background: transparent;
+  box-shadow: none;
 }
 
 .main-screen__polaroid-caption{
@@ -5222,6 +5108,130 @@ html.js .date-section.is-visible{
   border: none;
   border-radius: 0;
   box-shadow: none;
+}
+
+.main-screen__copy{
+  width: 100%;
+  color: var(--accent-wedding);
+  text-align: center;
+}
+
+.main-screen__eyebrow{
+  margin: 0 0 clamp(16px, 2.2vw, 26px);
+  font-family: var(--font-ui);
+  font-size: clamp(14px, 1.7vw, 24px);
+  font-weight: 400;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.main-screen__hero-names{
+  margin: 0 0 clamp(18px, 2.4vw, 28px);
+  color: var(--accent-wedding);
+  font-family: "Cormorant Garamond", "Lora", Georgia, "Times New Roman", serif;
+  font-size: clamp(15px, 1.6vw, 24px);
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  text-align: center;
+}
+
+.main-screen__headline{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0;
+}
+
+.main-screen__headline-line{
+  display: flex;
+  align-items: baseline;
+  justify-content: center;
+  flex-wrap: wrap;
+  width: 100%;
+}
+
+.main-screen__headline-line--top{
+  gap: clamp(10px, 1.4vw, 20px);
+  margin-bottom: clamp(10px, 1vw, 16px);
+}
+
+.main-screen__headline-line--bottom{
+  margin-top: clamp(-32px, -1.8vw, -18px);
+}
+
+.main-screen__headline-serif{
+  font-family: "Cormorant Garamond", "Lora", Georgia, "Times New Roman", serif;
+  font-size: clamp(62px, 6.8vw, 112px);
+  line-height: 0.9;
+  font-weight: 500;
+  letter-spacing: -0.02em;
+}
+
+.main-screen__headline-script{
+  font-family: "Gogol", "Wolgast Two", "Marck Script", "Bad Script", cursive;
+  font-size: clamp(68px, 7.1vw, 124px);
+  line-height: 0.88;
+  font-weight: 400;
+  letter-spacing: -0.02em;
+}
+
+@media (min-width: 821px){
+  .main-screen__inner--photo-only{
+    max-width: 1180px;
+    padding: clamp(24px, 3vw, 36px) clamp(28px, 4vw, 48px) clamp(28px, 4vw, 42px);
+  }
+
+  .main-screen__poster{
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(360px, 520px);
+    align-items: center;
+    justify-items: stretch;
+    min-height: clamp(420px, 52vw, 700px);
+    padding: 0;
+    gap: clamp(24px, 4vw, 56px);
+  }
+
+  .main-screen__copy{
+    grid-column: 1;
+    align-self: center;
+    text-align: center;
+    max-width: 560px;
+  }
+
+  .main-screen__headline{
+    align-items: center;
+  }
+
+  .main-screen__headline-line{
+    justify-content: center;
+  }
+
+  .main-screen__inner--photo-only .main-screen__media{
+    grid-column: 2;
+    justify-content: flex-end;
+    min-height: clamp(420px, 52vw, 700px);
+    align-self: stretch;
+  }
+
+  .main-screen__polaroid{
+    width: min(100%, 520px);
+    margin-left: auto;
+  }
+
+  .main-screen__inner--photo-only .main-screen__img{
+    width: 100%;
+    margin-left: auto;
+  }
+
+  .main-screen__hero-names{
+    position: static;
+    width: auto;
+    margin: 0 0 clamp(20px, 2.4vw, 30px);
+    text-align: center;
+    font-size: clamp(15px, 1.2vw, 20px);
+    line-height: 1.2;
+  }
 }
 
 @keyframes posterChandelierSwing{
@@ -5290,13 +5300,44 @@ html.js .date-section.is-visible{
     padding: clamp(22px, 5vw, 30px) clamp(16px, 4vw, 22px) clamp(26px, 6vw, 34px);
   }
 
+  .main-screen__copy{
+    max-width: 100%;
+  }
+
+  .main-screen__eyebrow{
+    margin-bottom: 14px;
+    font-size: clamp(13px, 3.5vw, 18px);
+    letter-spacing: 0.1em;
+  }
+
+  .main-screen__headline-serif{
+    font-size: clamp(48px, 13vw, 74px);
+  }
+
+  .main-screen__headline-script{
+    font-size: clamp(54px, 13.5vw, 82px);
+  }
+
+  .main-screen__headline-line--top,
+  .main-screen__headline-line--bottom{
+    justify-content: center;
+  }
+
+  .main-screen__hero-names{
+    position: static;
+    width: auto;
+    margin: 0 0 18px;
+    font-size: clamp(12px, 3.4vw, 16px);
+    letter-spacing: 0.1em;
+  }
+
   .main-screen__inner--photo-only .main-screen__img{
     width: 100%;
   }
 
   .main-screen__polaroid{
     width: min(100%, 380px);
-    padding: 14px 14px 24px;
+    padding: 0;
   }
 
   .main-screen__polaroid-caption{
@@ -5366,7 +5407,7 @@ html.js .date-section.is-visible{
 
   .main-screen__polaroid{
     width: min(100%, 340px);
-    padding: 12px 12px 22px;
+    padding: 0;
   }
 
   .main-screen__polaroid-caption{
@@ -5480,7 +5521,7 @@ html.js .date-section.is-visible{
 .day-plan__time{
   margin-top: 8px;
   font-size: 40px;
-  color: #791c27;
+  color: #425340;
   letter-spacing: 0.02em;
 }
 
@@ -5632,8 +5673,6 @@ html.js .date-section.is-visible{
 }
 
 .timing-card__sub,
-.timer--heart .timer-num,
-.timer--heart .timer-label,
 .cal-head,
 .cal-day,
 .cal-num-in-heart,
@@ -5816,7 +5855,7 @@ html.js .date-section.is-visible{
 .day-plan__time{
   margin-top: 8px;
   font-size: clamp(18px, 2vw, 28px);
-  color: #791c27;
+  color: #425340;
   letter-spacing: 0.02em;
 }
 
@@ -5950,7 +5989,7 @@ html.js .date-section.is-visible{
 .day-plan__time{
   margin-top: 8px !important;
   font-size: clamp(18px, 2.2vw, 28px) !important;
-  color: #791c27 !important;
+  color: #425340 !important;
 }
 
 /* Стрелки — близко, без гигантских отступов */
@@ -6097,7 +6136,7 @@ html.js .date-section.is-visible{
   font-family: var(--font-heading-script);
   font-weight: 400;
   font-size: clamp(16px, 2vw, 22px);
-  color: #791c27;
+  color: #425340;
   letter-spacing: 0.02em;
 }
 
@@ -6256,3 +6295,4 @@ html.js .date-section.is-visible{
     transform: scale(0.39546);
   }
 }
+

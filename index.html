@@ -31,7 +31,7 @@
              Z"/>
       </mask>
     </defs>
-    <rect x="0" y="0" width="100" height="100" fill="#a32323" mask="url(#heart-mask-bg)"/>
+    <rect x="0" y="0" width="100" height="100" fill="#425340" mask="url(#heart-mask-bg)"/>
   </svg>
 
   <svg class="intro__svg intro__svg--over" viewBox="0 0 100 100" preserveAspectRatio="xMidYMid slice">
@@ -50,7 +50,7 @@
       </mask>
     </defs>
 
-    <rect x="0" y="0" width="100" height="100" fill="#a32323" mask="url(#heart-mask)"/>
+    <rect x="0" y="0" width="100" height="100" fill="#425340" mask="url(#heart-mask)"/>
 
     <path class="intro__stroke-heart" fill="none" stroke="white" stroke-width="1.8"
       d="M50 78
@@ -77,57 +77,7 @@
 <script src="intro.js"></script>
 <!-- /INTRO SCREEN -->
   <main class="pages">
-    <!-- MUSIC PLAYER (floating) -->
-<div class="music-player" id="musicPlayer">
-  <button class="music-btn" id="musicToggle" type="button" aria-label="Включить музыку">
-    ♪
-  </button>
-  <div class="music-meta">
-    <div class="music-title" id="musicTitle">Музыка</div>
-    <div class="music-status" id="musicStatus">нажмите, чтобы включить</div>
-  </div>
-
-  <audio id="bgMusic" preload="metadata">
-    <source src="music.mp3" type="audio/mpeg">
-  </audio>
-</div>
-<script>
-(function(){
-const audio = document.getElementById('bgMusic');
-const toggle = document.getElementById('musicToggle');
-const player = document.getElementById('musicPlayer');
-const status = document.getElementById('musicStatus');
-
-if (!audio || !toggle || !player || !status) return;
-
-audio.volume = 0.6;
-audio.loop = true;
-
-async function play(){
-try{
-await audio.play();
-player.classList.add('is-playing');
-toggle.setAttribute('aria-label', 'Пауза');
-status.textContent = 'играет';
-}catch(e){
-status.textContent = 'нажмите ещё раз';
-console.log('Audio play blocked:', e);
-}
-}
-
-function pause(){
-audio.pause();
-player.classList.remove('is-playing');
-toggle.setAttribute('aria-label', 'Включить музыку');
-status.textContent = 'пауза';
-}
-
-toggle.addEventListener('click', () => {
-if (audio.paused) play();
-else pause();
-});
-})();
-</script>
+   
 <!-- </section>
     <section class="page" id="location">
       <div class="card">
@@ -166,36 +116,27 @@ else pause();
 <section class="main-screen">
   <div class="main-screen__inner main-screen__inner--photo-only reveal-y reveal-stagger">
     <div class="main-screen__poster">
-      <div class="main-screen__poster-top" aria-hidden="true">
-        <span class="main-screen__poster-title">Мы женимся!</span>
+      <div class="main-screen__copy" aria-label="Текст приглашения">
+        <p class="main-screen__hero-names">ВЛАДИСЛАВ + ЕЛИЗАВЕТА</p>
+        <div class="main-screen__headline" aria-hidden="true">
+          <span class="main-screen__headline-line main-screen__headline-line--top">
+            <span class="main-screen__headline-serif">Однажды.</span>
+            <span class="main-screen__headline-script">Навсегда.</span>
+          </span>
+          <span class="main-screen__headline-line main-screen__headline-line--bottom">
+            <span class="main-screen__headline-serif">С любовью.</span>
+          </span>
+        </div>
       </div>
-
       <div class="main-screen__media">
-        <img
-          class="main-screen__poster-deco main-screen__poster-deco--left"
-          src="images/lustra2.PNG"
-          alt=""
-          aria-hidden="true"
-          loading="lazy"
-          decoding="async"
-        />
-        <img
-          class="main-screen__poster-deco main-screen__poster-deco--right"
-          src="images/car.PNG"
-          alt=""
-          aria-hidden="true"
-          loading="lazy"
-          decoding="async"
-        />
         <figure class="main-screen__polaroid">
           <img
             class="main-screen__img"
-            src="images/EV.jpg"
+            src="images/IMG_0119.PNG"
             alt="Владислав и Елизавета"
             loading="lazy"
             decoding="async"
           />
-          <figcaption class="main-screen__polaroid-caption">Владислав &amp; Елизавета</figcaption>
         </figure>
       </div>
     </div>
@@ -255,14 +196,14 @@ else pause();
       C64 15, 50 25, 50 35
       Z"
       fill="none"
-      stroke="#7C565C"
+      stroke="#425340"
       stroke-width="4"
       stroke-linecap="round"
       stroke-linejoin="round"
     /> -->
     <!-- палочка -->
     <!-- <line x1="50" y1="87" x2="50" y2="130"
-      stroke="#7C565C" stroke-width="4" stroke-linecap="round"/>
+      stroke="#425340" stroke-width="4" stroke-linecap="round"/>
   </svg>
  -->
   <!-- <span class="cal-num">6</span>
@@ -437,7 +378,7 @@ else pause();
     <section class="page anketa-section" id="rsvp">
       <div class="anketa reveal-y reveal-stagger">
         <h2 class="anketa__title">АНКЕТА</h2>
-        <p class="anketa__intro">Подтвердите свое присутствие, заполните анкету ниже:</p>
+        <p class="anketa__intro">Подтвердите свое присутствие,<br class="anketa__intro-break" /> заполните анкету ниже:</p>
 
         <form class="anketa-form reveal-stagger" id="rsvp-form"
               name="rsvp"
@@ -533,82 +474,77 @@ else pause();
         sync();
       })();
     </script>
-<section class="timer-section" id="timer">
-  <div class="timer-wrap reveal-y reveal-stagger">
-    <p class="timer-heart__title">Мы скажем "ДА" через</p>
-    <div class="timer timer--heart timer--full" role="group" aria-label="Таймер до 6 августа 2026">
-      <div class="timer-row">
-        <div class="timer-cell">
-          <span class="timer-num" id="tDays">00</span>
-          <span class="timer-label">дней</span>
-        </div>
-        <span class="timer-separator" aria-hidden="true">:</span>
-        <div class="timer-cell">
-          <span class="timer-num" id="tHours">00</span>
-          <span class="timer-label">часов</span>
-        </div>
-        <span class="timer-separator" aria-hidden="true">:</span>
-        <div class="timer-cell">
-          <span class="timer-num" id="tMins">00</span>
-          <span class="timer-label">минут</span>
-        </div>
-        <span class="timer-separator" aria-hidden="true">:</span>
-        <div class="timer-cell">
-          <span class="timer-num" id="tSecs">00</span>
-          <span class="timer-label">секунд</span>
+    <section class="timer-section" id="timer">
+      <div class="timer-wrap reveal-y reveal-stagger">
+        <p class="timer-heart__title">Мы скажем "ДА" через</p>
+        <div class="timer timer--heart timer--full" role="group" aria-label="Таймер до 6 августа 2026">
+          <div class="timer-row">
+            <div class="timer-cell">
+              <span class="timer-num" id="tDays">00</span>
+              <span class="timer-label">дней</span>
+            </div>
+            <span class="timer-separator" aria-hidden="true">:</span>
+            <div class="timer-cell">
+              <span class="timer-num" id="tHours">00</span>
+              <span class="timer-label">часов</span>
+            </div>
+            <span class="timer-separator" aria-hidden="true">:</span>
+            <div class="timer-cell">
+              <span class="timer-num" id="tMins">00</span>
+              <span class="timer-label">минут</span>
+            </div>
+            <span class="timer-separator" aria-hidden="true">:</span>
+            <div class="timer-cell">
+              <span class="timer-num" id="tSecs">00</span>
+              <span class="timer-label">секунд</span>
+            </div>
+          </div>
         </div>
       </div>
-    </div>
-    <div class="timer-love-block">
-      <p class="timer-love-heart__text">
-        <span>С любовью,</span>
-        <span>Владислав и Елизавета</span>
-      </p>
-    </div>
-  </div>
-</section>
+    </section>
 
-<script>
-(function () {
-  // Цель: 6 августа 2026, 00:00 (локальное время пользователя)
-  const target = new Date(2026, 7, 6, 0, 0, 0); // месяцы: 0=янв ... 7=авг
+    <script>
+      (function () {
+        var target = new Date(2026, 7, 6, 0, 0, 0);
+        var elDays = document.getElementById('tDays');
+        var elHours = document.getElementById('tHours');
+        var elMins = document.getElementById('tMins');
+        var elSecs = document.getElementById('tSecs');
 
-  const elDays  = document.getElementById("tDays");
-  const elHours = document.getElementById("tHours");
-  const elMins  = document.getElementById("tMins");
-  const elSecs  = document.getElementById("tSecs");
+        if (!elDays || !elHours || !elMins || !elSecs) return;
 
-  const pad2 = (n) => String(n).padStart(2, "0");
+        function pad2(value) {
+          return String(value).padStart(2, '0');
+        }
 
-  function tick() {
-    const now = new Date();
-    let diff = target - now;
+        function tick() {
+          var now = new Date();
+          var diff = target - now;
 
-    if (diff <= 0) {
-      elDays.textContent  = "00";
-      elHours.textContent = "00";
-      elMins.textContent  = "00";
-      elSecs.textContent  = "00";
-      return;
-    }
+          if (diff <= 0) {
+            elDays.textContent = '00';
+            elHours.textContent = '00';
+            elMins.textContent = '00';
+            elSecs.textContent = '00';
+            return;
+          }
 
-    const totalSeconds = Math.floor(diff / 1000);
+          var totalSeconds = Math.floor(diff / 1000);
+          var days = Math.floor(totalSeconds / 86400);
+          var hours = Math.floor((totalSeconds % 86400) / 3600);
+          var mins = Math.floor((totalSeconds % 3600) / 60);
+          var secs = totalSeconds % 60;
 
-    const days  = Math.floor(totalSeconds / 86400);
-    const hours = Math.floor((totalSeconds % 86400) / 3600);
-    const mins  = Math.floor((totalSeconds % 3600) / 60);
-    const secs  = totalSeconds % 60;
+          elDays.textContent = pad2(days);
+          elHours.textContent = pad2(hours);
+          elMins.textContent = pad2(mins);
+          elSecs.textContent = pad2(secs);
+        }
 
-    elDays.textContent  = days > 99 ? String(days) : pad2(days);
-    elHours.textContent = pad2(hours);
-    elMins.textContent  = pad2(mins);
-    elSecs.textContent  = pad2(secs);
-  }
-
-  tick();
-  setInterval(tick, 1000);
-})();
-</script>
+        tick();
+        window.setInterval(tick, 1000);
+      })();
+    </script>
    <!-- КОНТАКТЫ -->
 <!-- <section class="page contacts-section" id="contacts">
   <div class="contacts-card">
