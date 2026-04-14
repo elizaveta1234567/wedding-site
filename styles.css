@@ -16,6 +16,14 @@
   font-display: swap;
 }
 
+@font-face{
+  font-family: "Annabelle";
+  src: url("https://db.onlinewebfonts.com/t/33ecd334e553c817c3555c5f12b5ebe4.woff2") format("woff2");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
 :root{
   --paper: #f5f1e8;
   --ink: #2a2420;
@@ -32,8 +40,8 @@
   --font-ui: "Source Sans 3", system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
   /* Spectral — «редакционный» сериф для заголовков и торжественных строк */
   --font-serif-display: "Spectral", Georgia, "Times New Roman", serif;
-  /* Заголовки секций — как в "Август" */
-  --font-heading-script: "Lora", "Cormorant Garamond", Georgia, "Times New Roman", serif;
+  /* Заголовки секций — пробуем Annabelle */
+  --font-heading-script: "Annabelle", "Gogol", "Wolgast Two", "Marck Script", "Bad Script", cursive;
 }
 
 /* На телефонах — ещё крупнее заголовки и текст */
@@ -350,7 +358,7 @@ button,
 
 /* ===== Анкета по референсу (минимализм, подчёркивания, радиокнопки) ===== */
 .anketa-section {
-  background: #425340;
+  background-color: #425340;
   background-image: url("images/IMG_6852.PNG");
   background-repeat: no-repeat;
   background-position: center top;
@@ -359,6 +367,22 @@ button,
   position: relative;
   padding-top: clamp(88px, 10vw, 132px);
   padding-bottom: clamp(88px, 12vw, 132px);
+}
+
+.details-section__seam-divider{
+  position: absolute;
+  left: 50%;
+  bottom: 0;
+  z-index: 4;
+  width: 100vw;
+  max-width: none;
+  height: 120px;
+  background-image: url("images/lenta.PNG");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 112% auto;
+  transform: translate(-50%, 50%);
+  pointer-events: none;
 }
 
 .anketa-section::before{
@@ -563,7 +587,7 @@ button,
 
 .timer-section {
   width: 100%;
-  background: #425340;
+  background-color: #425340;
   padding: clamp(40px, 8vw, 72px) clamp(16px, 4vw, 24px) clamp(48px, 9vw, 88px);
   text-align: center;
   overflow: hidden;
@@ -678,7 +702,7 @@ button,
 
 /* ===== Чат для гостей (после анкеты): бордо, блок по центру сайта, кнопка-капсула с обводкой ===== */
 .guest-chat-section {
-  background: #425340;
+  background-color: #425340;
   padding: clamp(48px, 10vw, 88px) clamp(20px, 5vw, 32px);
 }
 
@@ -821,9 +845,10 @@ button,
   }
 
   .anketa__submit{
-    min-width: min(100%, 184px);
-    padding: 9px 14px;
-    font-size: 11px;
+    min-width: min(100%, 168px);
+    margin-top: 10px;
+    padding: 8px 12px;
+    font-size: 10px;
     line-height: 1.2;
   }
 }
@@ -1373,7 +1398,7 @@ button,
   background: #fbf7f3;
   padding: 90px 18px 120px;
   position: relative;
-  overflow: hidden;
+  overflow: visible;
 }
 
 .dresscode-section__seam-divider{
@@ -1530,12 +1555,13 @@ button,
 /* ===== ДЕТАЛИ — как локация / чат: бордо #6b1419, светлый текст ===== */
 .details-section{
   scroll-margin-top: min(88px, 18vh);
-  background: #425340;
+  background-color: #425340;
+  position: relative;
   padding:
     max(clamp(48px, 10vw, 88px), env(safe-area-inset-top, 0px))
     clamp(20px, 5vw, 32px)
     max(clamp(48px, 10vw, 88px), env(safe-area-inset-bottom, 0px));
-  overflow-x: visible;
+  overflow: visible;
 }
 
 .details-card{
@@ -4126,7 +4152,7 @@ html.js .wloc--reveal.is-visible{
 .loca{
   position: relative;
   scroll-margin-top: min(88px, 18vh);
-  background: #425340;
+  background-color: #425340;
   padding:
     max(clamp(48px, 10vw, 88px), env(safe-area-inset-top, 0px))
     clamp(20px, 5vw, 32px)
@@ -4172,7 +4198,7 @@ html.js .wloc--reveal.is-visible{
 .loca__heading{
   margin: 0;
   font-family: var(--font-heading-script);
-  font-weight: 600;
+  font-weight: 400;
   font-size: clamp(28px, 7vw, 40px);
   line-height: 1.15;
   letter-spacing: 0.02em;
@@ -4833,7 +4859,10 @@ html.js .date-section.is-visible{
 
 .love-cal {
   width: 100%;
-  padding: clamp(24px, 5vw, 56px) clamp(12px, 2vw, 48px);
+  padding:
+    115px
+    clamp(12px, 2vw, 48px)
+    0;
   background: #fbf7f3;
 }
 
@@ -4852,8 +4881,14 @@ html.js .date-section.is-visible{
 }
 
 @media (min-width: 821px){
+  .love-cal{
+    padding-top: 84px;
+  }
+
   .love-cal__svg{
     max-width: 770px;
+    margin-top: -170px;
+    margin-bottom: -48px;
   }
 }
 
@@ -4872,7 +4907,7 @@ html.js .date-section.is-visible{
 
 .love-cal__weekdays text,
 .love-cal__days text{
-  font-family: var(--font-heading-script);
+  font-family: var(--font-ui);
   font-size: 44px;
   font-weight: 500;
   letter-spacing: 0.04em;
@@ -4891,9 +4926,9 @@ html.js .date-section.is-visible{
 }
 
 .love-cal__month{
-  font-family: var(--font-heading-script);
+  font-family: "Annabelle", "Gogol", "Wolgast Two", "Marck Script", "Bad Script", cursive;
   font-size: 68px;
-  font-weight: 600;
+  font-weight: 400;
   fill: var(--accent-wedding);
 }
 
@@ -4905,6 +4940,20 @@ html.js .date-section.is-visible{
   fill: #3a3a3a;
 }
 
+@media (min-width: 821px){
+  .love-cal__heading{
+    font-size: 88px;
+  }
+
+  .love-cal__month{
+    font-size: 56px;
+  }
+
+  .love-cal__year{
+    font-size: 34px;
+  }
+}
+
 .love-cal__heart{
   transform-box: fill-box;
   transform-origin: center;
@@ -4913,7 +4962,11 @@ html.js .date-section.is-visible{
 
 @media (max-width: 900px) {
   .love-cal {
-    padding: clamp(24px, 4vw, 48px) 8px;
+    padding: 88px 8px 0;
+  }
+  .love-cal__svg{
+    margin-top: -120px;
+    margin-bottom: -42px;
   }
   .love-cal__weekdays text,
   .love-cal__days text{ font-size: 38px; }
@@ -4924,7 +4977,11 @@ html.js .date-section.is-visible{
 
 @media (max-width: 600px) {
   .love-cal {
-    padding: 20px 0;
+    padding: 88px 0 0;
+  }
+  .love-cal__svg{
+    margin-top: -104px;
+    margin-bottom: -34px;
   }
   .love-cal__weekdays text,
   .love-cal__days text{ font-size: 31px; }
@@ -4935,7 +4992,11 @@ html.js .date-section.is-visible{
 
 @media (max-width: 480px) {
   .love-cal {
-    padding: 16px 0;
+    padding: 88px 0 0;
+  }
+  .love-cal__svg{
+    margin-top: -92px;
+    margin-bottom: -28px;
   }
   .love-cal__weekdays text,
   .love-cal__days text{ font-size: 27px; }
@@ -4946,7 +5007,11 @@ html.js .date-section.is-visible{
 
 @media (max-width: 380px) {
   .love-cal {
-    padding: 12px 0;
+    padding: 88px 0 0;
+  }
+  .love-cal__svg{
+    margin-top: -78px;
+    margin-bottom: -22px;
   }
   .love-cal__weekdays text,
   .love-cal__days text{ font-size: 24px; }
@@ -5002,6 +5067,10 @@ html.js .date-section.is-visible{
   }
 
   .loca__seam-divider{
+    height: 58px;
+  }
+
+  .details-section__seam-divider{
     height: 58px;
   }
 }
@@ -5157,7 +5226,7 @@ html.js .date-section.is-visible{
 }
 
 .main-screen__headline-line--bottom{
-  margin-top: clamp(-32px, -1.8vw, -18px);
+  margin-top: clamp(-24px, -1.2vw, -10px);
 }
 
 .main-screen__headline-serif{
@@ -5169,7 +5238,7 @@ html.js .date-section.is-visible{
 }
 
 .main-screen__headline-script{
-  font-family: "Gogol", "Wolgast Two", "Marck Script", "Bad Script", cursive;
+  font-family: "Annabelle", "Gogol", "Wolgast Two", "Marck Script", "Bad Script", cursive;
   font-size: clamp(68px, 7.1vw, 124px);
   line-height: 0.88;
   font-weight: 400;
@@ -5197,6 +5266,7 @@ html.js .date-section.is-visible{
     align-self: center;
     text-align: center;
     max-width: 560px;
+    transform: translateY(-10%);
   }
 
   .main-screen__headline{
@@ -5638,6 +5708,7 @@ html.js .date-section.is-visible{
 .loca__heading,
 .anketa__title,
 .timer-heart__title,
+.love-cal__heading,
 .cal-month,
 .calendar-month,
 .date-calendar{
@@ -5649,13 +5720,21 @@ html.js .date-section.is-visible{
 .details-title,
 .dresscode-title,
 .timing-title,
-.love-cal__title{
+.love-cal__title,
+.love-cal__heading{
   margin: 0 0 clamp(36px, 5.5vw, 60px);
-  font-weight: 600;
+  font-weight: 400;
   font-size: clamp(28px, 7vw, 40px);
   line-height: 1.15;
   letter-spacing: 0.02em;
   text-align: center;
+}
+
+.love-cal__heading{
+  width: 100%;
+  margin: 0 0 max(clamp(48px, 10vw, 88px), env(safe-area-inset-top, 0px));
+  transform: none;
+  color: #425340;
 }
 
 .timing-wrap > :nth-child(2),
@@ -6293,6 +6372,84 @@ html.js .date-section.is-visible{
   .love-cal__svg.reveal-stagger.is-inview > .love-cal__heart,
   .reveal-y.is-inview .love-cal__svg.reveal-stagger > .love-cal__heart{
     transform: scale(0.39546);
+  }
+}
+
+@media (max-width: 480px){
+  .anketa-section{
+    background-size: 118% auto;
+    background-position: center top;
+    padding-top: 86px;
+    padding-bottom: 92px;
+  }
+
+  .anketa{
+    width: min(100%, 246px);
+    max-width: 246px;
+    margin-top: 16px;
+    padding: 22px 10px 24px;
+  }
+
+  .anketa__title{
+    margin-top: 0;
+    margin-bottom: 14px;
+    font-size: clamp(17px, 4.4vw, 21px);
+  }
+
+  .anketa__intro{
+    margin-bottom: 18px;
+    font-size: 13px;
+    line-height: 1.4;
+  }
+
+  .anketa-form{
+    gap: 16px;
+  }
+
+  .anketa-field{
+    gap: 10px;
+  }
+
+  .anketa-field__label,
+  .anketa-radio,
+  .anketa-field__input{
+    font-size: 13px;
+    line-height: 1.4;
+  }
+
+  .anketa-field__label--question{
+    font-size: 12px;
+    line-height: 1.35;
+    margin-bottom: 2px;
+  }
+
+  .anketa-fieldset{
+    gap: 10px;
+  }
+
+  .anketa-field:last-of-type{
+    margin-top: -6px;
+  }
+
+  .anketa-radio{
+    gap: 10px;
+  }
+
+  .anketa-radio input{
+    width: 18px;
+    height: 18px;
+  }
+
+  .anketa-field__input{
+    padding: 10px 0 12px;
+  }
+
+  .anketa__submit{
+    min-width: min(100%, 168px);
+    margin-top: 0;
+    padding: 8px 12px;
+    font-size: 10px;
+    line-height: 1.2;
   }
 }
 
