@@ -53,12 +53,6 @@
   .loca__address{ font-size: 20px; line-height: 1.55; }
   .details-text{ font-size: 20px; }
   .dresscode-text{ font-size: 20px; }
-  .anketa__intro{ font-size: 21px; }
-  .anketa-field__label,
-  .anketa-field__label--question{ font-size: 21px; }
-  .anketa-radio{ font-size: 21px; }
-  .anketa-field__input{ font-size: 22px; }
-  .anketa__submit{ font-size: 17px; }
   .page{ padding-top: 40px; padding-bottom: 40px; }
   .loca__text{ font-size: 19px; }
 }
@@ -395,16 +389,18 @@ button,
 }
 
 .anketa {
-  width: min(100%, 430px);
-  max-width: 430px;
+  box-sizing: border-box;
+  width: 100%;
+  max-width: min(430px, calc(100vw - 32px));
   margin: clamp(20px, 2.2vw, 32px) auto 0;
   padding: clamp(34px, 5vw, 54px) clamp(18px, 2.6vw, 26px) clamp(42px, 6vw, 60px);
   display: flex;
   flex-direction: column;
-  align-items: center;
+  align-items: stretch;
   gap: 0;
   position: relative;
   z-index: 1;
+  overflow-x: clip;
 }
 
 .anketa__title {
@@ -434,6 +430,8 @@ button,
   flex-direction: column;
   gap: clamp(30px, 4.5vw, 44px);
   width: 100%;
+  min-width: 0;
+  box-sizing: border-box;
 }
 
 .anketa-field {
@@ -457,6 +455,8 @@ button,
 
 .anketa-field__input {
   width: 100%;
+  min-width: 0;
+  max-width: 100%;
   padding: 14px 0 16px;
   font-family: inherit;
   font-size: clamp(20px, 2.8vw, 25px);
@@ -536,17 +536,21 @@ button,
 
 .anketa-radio span {
   flex: 1;
+  min-width: 0;
+  overflow-wrap: break-word;
 }
 
 /* как у .guest-chat__btn («Вступить»): капсула, обводка; на светлом фоне — тёмные чернила */
 .anketa__submit {
   margin-top: 16px;
-  align-self: center;
+  align-self: stretch;
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  min-width: min(100%, 280px);
+  width: 100%;
   max-width: 100%;
+  min-width: 0;
+  box-sizing: border-box;
   padding: 14px 40px;
   font-family: system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
   font-size: clamp(16px, 3.8vw, 18px);
@@ -778,10 +782,8 @@ button,
 }
 
 @media (max-width: 480px) {
-  .anketa-section{
-    background-size: 190% auto;
-    padding-top: 82px;
-    padding-bottom: 92px;
+  .anketa__intro-break{
+    display: inline;
   }
 
   .guest-chat__text {
@@ -789,67 +791,6 @@ button,
   }
   .guest-chat__btn {
     font-size: 17px;
-  }
-
-  .anketa{
-    width: min(100%, 236px);
-    max-width: 236px;
-    margin-top: 26px;
-    padding: 16px 10px 34px;
-  }
-
-  .anketa__title{
-    font-size: clamp(19px, 4.8vw, 24px);
-    margin-top: 18px;
-    margin-bottom: 14px;
-  }
-
-  .anketa__intro{
-    font-size: 14px;
-    line-height: 1.4;
-    margin-bottom: 18px;
-  }
-
-  .anketa__intro-break{
-    display: inline;
-  }
-
-  .anketa-form{
-    width: 100%;
-    gap: 22px;
-  }
-
-  .anketa-field{
-    gap: 10px;
-  }
-
-  .anketa-field__label,
-  .anketa-field__label--question,
-  .anketa-radio,
-  .anketa-field__input{
-    font-size: 14px;
-    line-height: 1.4;
-  }
-
-  .anketa-field__label--question{
-    font-size: 13px;
-    line-height: 1.35;
-  }
-
-  .anketa-fieldset{
-    gap: 12px;
-  }
-
-  .anketa-fieldset > .anketa-field__label--question{
-    margin-bottom: 2px;
-  }
-
-  .anketa__submit{
-    min-width: min(100%, 168px);
-    margin-top: 10px;
-    padding: 8px 12px;
-    font-size: 10px;
-    line-height: 1.2;
   }
 }
 
@@ -1238,8 +1179,9 @@ button,
   --timing-pad-x: clamp(16px, 4vw, 24px);
   --timing-surface: #425340; /* карточки — как .loca */
   scroll-margin-top: min(88px, 18vh);
+  /* сверху 88px — расстояние от календаря к «Программа дня»; снизу прежний clamp */
   padding:
-    max(clamp(48px, 10vw, 88px), env(safe-area-inset-top, 0px))
+    max(88px, env(safe-area-inset-top, 0px))
     var(--timing-pad-x)
     max(clamp(48px, 10vw, 88px), env(safe-area-inset-bottom, 0px));
   background: #fbf7f3; /* как .dresscode-section */
@@ -1618,6 +1560,24 @@ button,
   color: #fff;
   text-transform: none;
   text-align: center;
+}
+
+/* Одна строка на широком экране: пробел между частями */
+.details-title__line{
+  display: inline;
+}
+.details-title__line--second::before{
+  content: " ";
+}
+
+/* Телефоны: «Дорогие» / «родные и близкие!» на двух строках */
+@media (max-width: 699px){
+  .details-title__line--second{
+    display: block;
+  }
+  .details-title__line--second::before{
+    content: none;
+  }
 }
 
 .details-text{
@@ -2612,15 +2572,15 @@ margin: 0 auto 38px;
   overflow: visible;
 
   /* Настройки */
-  --baseHeart: 0.42;
+  --baseHeart: 0.294;
   --maskScale: 1;
-  --hitSize: clamp(200px, 42vmin, 340px);
+  --hitSize: clamp(140px, 29.4vmin, 238px);
   /* Типографика и отступы от vmin — одинаково на телефоне, планшете и десктопе */
   --intro-title-size: clamp(13px, 3.35vmin, 22px);
   --intro-hint-size: clamp(10px, 2.35vmin, 12px);
   --intro-text-gap: clamp(8px, 1.5vmin, 14px);
-  /* зазор между зоной тапа и текстом (SVG-кончик сердца ниже центра квадрата) */
-  --intro-heart-to-text: clamp(52px, 13vmin, 108px);
+  /* зазор между зоной тапа и текстом (только этот отступ «раздвигает» сердце и строки) */
+  --intro-heart-to-text: clamp(80px, 19vmin, 140px);
 
   --fadeDur: 700ms;
   --scaleDur: 1100ms;
@@ -2813,16 +2773,16 @@ margin: 0 auto 38px;
 /* Узкие телефоны — больше воздуха между контуром сердца и заголовком */
 @media (max-width: 540px) {
   .intro {
-    --intro-heart-to-text: clamp(56px, 14vmin, 84px);
+    --intro-heart-to-text: clamp(88px, 22vmin, 120px);
   }
 }
 
 /* Низкий экран: компактнее тап и зазоры (идёт после правила по ширине — перекрывает его) */
 @media (max-height: 560px) {
   .intro {
-    --intro-heart-to-text: clamp(26px, 6vmin, 46px);
+    --intro-heart-to-text: clamp(42px, 10vmin, 68px);
     --intro-text-gap: clamp(6px, 1.2vmin, 10px);
-    --hitSize: clamp(160px, 36vmin, 280px);
+    --hitSize: clamp(112px, 25.2vmin, 196px);
   }
 }
 
@@ -2837,8 +2797,10 @@ margin: 0 auto 38px;
   --introEaseScale: cubic-bezier(0.16, 1, 0.32, 1);
   --introEaseSoft: cubic-bezier(0.22, 0.08, 0.2, 1);
   --introScale: 2.5;
-  --introPulseDur: 2.8s;
-  --introPulseAmp: 1.055;
+  /* Пульс сердца: два удара за цикл, заметная амплитуда */
+  --introPulseDur: 2.1s;
+  --introPulseAmp: 1.12;
+  --introPulseAmp2: 1.068;
   /* keyframes-открытие (как в шаблонных приглашениях: длинный зум + затухание слоя) */
   --introOpenHeart: 2.75s;
   --introOpenText: 0.95s;
@@ -2869,31 +2831,51 @@ margin: 0 auto 38px;
   will-change: transform, opacity;
 }
 
-/* Покой: мягкое «дыхание» сердца, как на maryinvite.ru/angels */
+/* Покой: двухфазный пульс (lub–dub), маска и контур в одном ритме */
 @keyframes introMaskBreathe {
-  0%, 100% {
+  0%,
+  100% {
     transform: scale(calc(var(--baseHeart) * var(--maskScale)));
   }
-  50% {
+  9% {
     transform: scale(calc(var(--baseHeart) * var(--maskScale) * var(--introPulseAmp)));
+  }
+  16% {
+    transform: scale(calc(var(--baseHeart) * var(--maskScale)));
+  }
+  26% {
+    transform: scale(calc(var(--baseHeart) * var(--maskScale) * var(--introPulseAmp2)));
+  }
+  34% {
+    transform: scale(calc(var(--baseHeart) * var(--maskScale)));
   }
 }
 @keyframes introStrokeBreathe {
-  0%, 100% {
+  0%,
+  100% {
     transform: scale(var(--baseHeart));
   }
-  50% {
+  9% {
     transform: scale(calc(var(--baseHeart) * var(--introPulseAmp)));
+  }
+  16% {
+    transform: scale(var(--baseHeart));
+  }
+  26% {
+    transform: scale(calc(var(--baseHeart) * var(--introPulseAmp2)));
+  }
+  34% {
+    transform: scale(var(--baseHeart));
   }
 }
 
 .intro:not(.is-opening):not(.is-hidden) .intro__mask-heart{
-  animation: introMaskBreathe var(--introPulseDur) ease-in-out infinite;
+  animation: introMaskBreathe var(--introPulseDur) linear infinite;
   will-change: transform;
 }
 .intro:not(.is-opening):not(.is-hidden) .intro__fill-heart,
 .intro:not(.is-opening):not(.is-hidden) .intro__stroke-heart{
-  animation: introStrokeBreathe var(--introPulseDur) ease-in-out infinite;
+  animation: introStrokeBreathe var(--introPulseDur) linear infinite;
   will-change: transform;
 }
 
@@ -4384,7 +4366,7 @@ html.js .wloc--reveal.is-visible{
 
 /* Мобилка: текст и кнопка сверху, фото снизу (на ПК — без изменений: фото слева, текст справа) */
 @media (max-width: 720px){
-  .anketa__submit,
+  /* кнопка маршрута в локации; анкета — отдельные правила, чтобы не ломать узкую колонку */
   .loca .loca__route-btn.guest-chat__btn{
     min-width: min(100%, 260px);
     padding: 12px 28px;
@@ -4392,17 +4374,20 @@ html.js .wloc--reveal.is-visible{
   }
 
   .anketa-section{
-    background-size: 138% auto;
+    background-size: 132% auto;
     background-position: center top;
     padding-top: clamp(58px, 10vw, 82px);
-    padding-bottom: clamp(62px, 11vw, 86px);
+    padding-bottom: clamp(72px, 12vw, 100px);
   }
 
   .anketa{
-    width: min(100%, 360px);
-    max-width: 360px;
+    position: relative;
+    top: -24px;
+    width: 100%;
+    max-width: min(360px, calc(100vw - 32px));
     margin-top: 18px;
-    padding: clamp(26px, 5vw, 34px) 18px clamp(32px, 6vw, 42px);
+    margin-bottom: -24px;
+    padding: clamp(26px, 5vw, 34px) clamp(14px, 4vw, 18px) clamp(36px, 6vw, 48px);
   }
 
   .loca__wrap{
@@ -6314,6 +6299,19 @@ html.js .date-section.is-visible{
   filter: blur(0);
 }
 
+/* Анкета на мобилках: масштаб 80% (−20%); +10vh вниз от прежней позиции */
+@media (max-width: 768px){
+  .anketa.reveal-y{
+    transform-origin: top center;
+  }
+  .anketa.reveal-y:not(.is-inview){
+    transform: translateY(calc(18px + 10vh)) scale(0.8);
+  }
+  .anketa.reveal-y.is-inview{
+    transform: translateY(10vh) scale(0.8);
+  }
+}
+
 .reveal-wave{
   opacity: 0;
   transform: translateX(-22px);
@@ -6386,21 +6384,38 @@ html.js .date-section.is-visible{
   .reveal-y.is-inview .love-cal__svg.reveal-stagger > .love-cal__heart{
     transform: scale(0.39546);
   }
+
+  @media (max-width: 768px){
+    .anketa.reveal-y,
+    .anketa.reveal-y.is-inview{
+      opacity: 1;
+      filter: none;
+      transform: translateY(10vh) scale(0.8);
+    }
+  }
 }
 
 @media (max-width: 480px){
+  /* Салфетка: фон снова от верха секции; блок формы чуть поднимаем, чтобы кнопка оставалась на светлой части PNG */
   .anketa-section{
     background-size: 118% auto;
     background-position: center top;
     padding-top: 86px;
-    padding-bottom: 92px;
+    padding-bottom: 96px;
+    padding-left: max(0px, env(safe-area-inset-left, 0px));
+    padding-right: max(0px, env(safe-area-inset-right, 0px));
   }
 
   .anketa{
-    width: min(100%, 246px);
-    max-width: 246px;
-    margin-top: 16px;
-    padding: 22px 10px 24px;
+    position: relative;
+    top: -40px;
+    width: 100%;
+    max-width: min(292px, calc(100vw - 48px));
+    margin-top: 0;
+    margin-bottom: -40px;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 22px 12px 32px;
   }
 
   .anketa__title{
@@ -6440,10 +6455,6 @@ html.js .date-section.is-visible{
     gap: 10px;
   }
 
-  .anketa-field:last-of-type{
-    margin-top: -6px;
-  }
-
   .anketa-radio{
     gap: 10px;
   }
@@ -6451,6 +6462,7 @@ html.js .date-section.is-visible{
   .anketa-radio input{
     width: 18px;
     height: 18px;
+    flex-shrink: 0;
   }
 
   .anketa-field__input{
@@ -6458,11 +6470,20 @@ html.js .date-section.is-visible{
   }
 
   .anketa__submit{
-    min-width: min(100%, 168px);
-    margin-top: 0;
-    padding: 8px 12px;
-    font-size: 10px;
-    line-height: 1.2;
+    margin-top: 8px;
+    margin-bottom: 4px;
+    padding: 10px 14px;
+    font-size: clamp(11px, 2.85vw, 13px);
+    line-height: 1.25;
+    /* непрозрачная подложка в цвет салфетки — читаемость над кружевом фона */
+    background: rgba(251, 247, 243, 0.94);
+    box-shadow: 0 0 0 6px rgba(251, 247, 243, 0.94);
+  }
+
+  .anketa__submit:hover{
+    background: rgba(251, 247, 243, 0.88);
+    border-color: var(--ink);
+    box-shadow: 0 0 0 6px rgba(251, 247, 243, 0.88);
   }
 }
 
