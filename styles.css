@@ -6473,6 +6473,14 @@ html.js .date-section.is-visible{
     transform: translateY(5vh) scale(0.8);
   }
 
+  /* #rsvp: только лёгкий сдвиг по px — translateY(vh) оставлял «дыру» в потоке и перекрывал текст под карточкой */
+  #rsvp.page.anketa-section .anketa.reveal-y:not(.is-inview){
+    transform: translateY(20px) scale(1);
+  }
+  #rsvp.page.anketa-section .anketa.reveal-y.is-inview{
+    transform: translateY(0) scale(1);
+  }
+
   /* iOS/WebKit: родитель с transform — отдельный слой у кнопки, чтобы тап и видимость не ломались */
   .reveal-y.is-inview .anketa-form.reveal-stagger > .anketa__submit{
     transform: translateY(0) translateZ(0);
@@ -6561,6 +6569,11 @@ html.js .date-section.is-visible{
       opacity: 1;
       filter: none;
       transform: translateY(5vh) scale(0.8);
+    }
+
+    #rsvp.page.anketa-section .anketa.reveal-y,
+    #rsvp.page.anketa-section .anketa.reveal-y.is-inview{
+      transform: translateY(0) scale(1);
     }
   }
 }
@@ -6746,69 +6759,150 @@ html.js .date-section.is-visible{
 
 /* Анкета #rsvp: без салфетки — карточка на однотонном фоне */
 #rsvp.page.anketa-section{
-  /* ПК: шире, чтобы длинные строки без переносов */
-  --anketa-safe-h: 0.96;
-
   background-image: none;
   background-color: #425340;
   display: flex;
   flex-direction: column;
-  align-items: center;
-  justify-content: center;
+  align-items: stretch;
+  justify-content: flex-start;
   padding-top: clamp(18px, 3.6vw, 56px);
   padding-bottom: clamp(32px, 6vw, 80px);
+  padding-left: max(20px, env(safe-area-inset-left, 0px));
+  padding-right: max(20px, env(safe-area-inset-right, 0px));
   min-height: auto;
+  box-sizing: border-box;
 }
 
-/* форма: ширина по макету; высота по контенту */
+/* форма: ширина от контейнера (100%), без zoom — иначе «уезжает» визуально и ломается центр */
 #rsvp.page.anketa-section > .anketa{
   position: relative;
+  z-index: 1;
   top: 0;
   flex: 0 1 auto;
-  width: min(calc(100vw * var(--anketa-safe-h)), 680px);
-  max-width: min(calc(100vw * var(--anketa-safe-h)), 680px);
+  align-self: center;
+  width: 100%;
+  max-width: min(680px, 100%);
   margin-left: auto;
   margin-right: auto;
   margin-top: 0;
   margin-bottom: 0;
-  padding: clamp(28px, 4.2vw, 46px) clamp(14px, 3vw, 26px) clamp(22px, 4vw, 36px);
+  padding: clamp(28px, 4.2vw, 46px) clamp(18px, 3.2vw, 28px) clamp(22px, 4vw, 36px);
   box-sizing: border-box;
   overflow: visible;
-  /* +30% к карточке (ширина, текст, поля) */
-  zoom: 1.3;
   background: #fbf7f3;
   border-radius: 28px;
   box-shadow: 0 22px 60px rgba(0,0,0,.14);
 }
 
+#rsvp.page.anketa-section > .anketa__deadline-note{
+  position: relative;
+  z-index: 2;
+  align-self: center;
+  width: 100%;
+  max-width: min(680px, 100%);
+  margin-top: clamp(24px, 5vw, 40px);
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom: 0;
+}
+
 @media (max-width: 720px){
   #rsvp.page.anketa-section{
-    --anketa-safe-h: 0.94;
     padding-top: clamp(12px, 3.5vw, 36px);
     padding-bottom: clamp(12px, 5vw, 44px);
+    padding-left: max(16px, env(safe-area-inset-left, 0px));
+    padding-right: max(16px, env(safe-area-inset-right, 0px));
     min-height: auto;
   }
 
   #rsvp.page.anketa-section > .anketa{
-    width: min(calc(100vw * var(--anketa-safe-h)), calc(100vw - 24px));
-    max-width: min(calc(100vw * var(--anketa-safe-h)), calc(100vw - 24px));
-    /* без глобального +30%: иначе на телефонах контент вылезает за светлое поле салфетки */
-    zoom: 1;
+    max-width: min(680px, 100%);
   }
 }
 
 @media (max-width: 480px){
   #rsvp.page.anketa-section{
-    --anketa-safe-h: 0.94;
     padding-top: clamp(10px, 4vw, 28px);
-    padding-bottom: clamp(10px, 6vw, 36px);
+    padding-bottom: clamp(16px, 6vw, 40px);
+    padding-left: max(18px, env(safe-area-inset-left, 0px));
+    padding-right: max(18px, env(safe-area-inset-right, 0px));
     min-height: auto;
   }
 
   #rsvp.page.anketa-section > .anketa{
-    width: min(calc(100vw * var(--anketa-safe-h)), calc(100vw - 20px));
-    max-width: min(calc(100vw * var(--anketa-safe-h)), calc(100vw - 20px));
-    padding: 22px clamp(12px, 3.5vw, 20px) 22px;
+    max-width: 100%;
+    padding: clamp(24px, 5.5vw, 34px) clamp(18px, 4.8vw, 26px) clamp(26px, 5.5vw, 36px);
+  }
+
+  /* Крупнее текст и поля, чем у общих .anketa @480 (остались от старой салфетки) */
+  #rsvp.page.anketa-section .anketa__title{
+    font-size: clamp(28px, 7.2vw, 40px);
+    line-height: 1.15;
+    margin-bottom: clamp(16px, 4vw, 24px);
+  }
+
+  #rsvp.page.anketa-section .anketa__intro{
+    font-size: clamp(15px, 4vw, 18px);
+    line-height: 1.55;
+    margin-bottom: clamp(20px, 4.5vw, 28px);
+  }
+
+  #rsvp.page.anketa-section .anketa-form{
+    gap: clamp(20px, 4.5vw, 28px);
+  }
+
+  #rsvp.page.anketa-section .anketa-field{
+    gap: 12px;
+  }
+
+  #rsvp.page.anketa-section .anketa-field__label,
+  #rsvp.page.anketa-section .anketa-radio,
+  #rsvp.page.anketa-section .anketa-field__input{
+    font-size: clamp(16px, 4.1vw, 19px);
+    line-height: 1.45;
+  }
+
+  #rsvp.page.anketa-section .anketa-field__label--question{
+    font-size: clamp(15px, 3.9vw, 18px);
+    line-height: 1.4;
+    margin-bottom: 4px;
+  }
+
+  #rsvp.page.anketa-section .anketa-fieldset{
+    gap: 14px;
+  }
+
+  #rsvp.page.anketa-section .anketa-radio{
+    gap: 12px;
+  }
+
+  #rsvp.page.anketa-section .anketa-radio input{
+    width: 22px;
+    height: 22px;
+  }
+
+  #rsvp.page.anketa-section .anketa-field__input{
+    padding: 12px 0 14px;
+  }
+
+  #rsvp.page.anketa-section .anketa__submit{
+    margin-top: clamp(8px, 2vw, 14px);
+    margin-left: 0;
+    margin-right: 0;
+    align-self: stretch;
+    width: 100%;
+    max-width: 100%;
+    padding: 14px 20px;
+    font-size: clamp(14px, 3.6vw, 16px);
+    line-height: 1.35;
+  }
+
+  #rsvp.page.anketa-section > .anketa__deadline-note{
+    max-width: min(680px, 100%);
+    margin-top: clamp(22px, 5vw, 36px);
+    padding-left: 0;
+    padding-right: 0;
+    font-size: clamp(14px, 3.5vw, 17px);
   }
 }
 
