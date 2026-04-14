@@ -4,3 +4,24 @@
 
 [functions]
   node_bundler = "esbuild"
+
+# Кэш статики: быстрее повторные визиты
+[[headers]]
+  for = "/fonts/*"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+
+[[headers]]
+  for = "/images/*"
+  [headers.values]
+    Cache-Control = "public, max-age=604800"
+
+[[headers]]
+  for = "/styles.css"
+  [headers.values]
+    Cache-Control = "public, max-age=86400"
+
+[[headers]]
+  for = "/intro.js"
+  [headers.values]
+    Cache-Control = "public, max-age=86400"

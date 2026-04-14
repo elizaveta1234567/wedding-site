@@ -5,12 +5,17 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
   <meta name="theme-color" content="#ffffff" id="theme-color-meta" />
   <title>Приглашение на свадьбу</title>
-  <!-- обновление: принудительный деплой -->
-  <!-- Шрифты: Spectral + Source Sans 3 (локально в /fonts, OFL) -->
+  <meta name="description" content="Приглашение на свадьбу Владислава и Елизаветы — 6 августа 2026, Тольятти." />
+  <!-- Критичный путь: стили, интро-скрипт, LCP-фото, UI-шрифт (кириллица) -->
+  <link rel="preload" href="styles.css" as="style" />
+  <link rel="preload" href="intro.js" as="script" />
+  <link rel="preload" href="images/IMG_0119.PNG" as="image" />
   <link rel="preload" href="fonts/gf-annabelle.woff2" as="font" type="font/woff2" crossorigin />
+  <link rel="preload" href="fonts/nwpStKy2OAdR1K-IwhWudF-R3wsaZfrc.woff2" as="font" type="font/woff2" crossorigin />
   <link rel="stylesheet" href="fonts/fonts.css" />
-<link rel="icon" type="image/jpeg" sizes="32x32" href="images/iconEV.jpg">
   <link rel="stylesheet" href="styles.css" />
+  <link rel="icon" type="image/jpeg" sizes="32x32" href="images/iconEV.jpg" />
+  <link rel="dns-prefetch" href="https://formspree.io" />
 </head>
 
 <body>
@@ -84,7 +89,6 @@
   </div>
 </div>
 </div>
-<script src="intro.js"></script>
 <!-- /INTRO SCREEN -->
   <main class="pages">
    
@@ -127,7 +131,11 @@
   <div class="main-screen__inner main-screen__inner--photo-only reveal-y reveal-stagger">
     <div class="main-screen__poster">
       <div class="main-screen__copy" aria-label="Текст приглашения">
-        <p class="main-screen__hero-names">ВЛАДИСЛАВ + ЕЛИЗАВЕТА</p>
+        <p class="main-screen__hero-names">
+          <span class="main-screen__hero-names__part">ВЛАДИСЛАВ</span>
+          <span class="main-screen__hero-names__plus" aria-hidden="true">+</span>
+          <span class="main-screen__hero-names__part">ЕЛИЗАВЕТА</span>
+        </p>
         <div class="main-screen__headline" aria-hidden="true">
           <span class="main-screen__headline-line">
             <span class="main-screen__headline-serif">Однажды.</span>
@@ -146,7 +154,8 @@
             class="main-screen__img"
             src="images/IMG_0119.PNG"
             alt="Владислав и Елизавета"
-            loading="lazy"
+            loading="eager"
+            fetchpriority="high"
             decoding="async"
           />
         </figure>
@@ -343,11 +352,11 @@
  <h2 class="dresscode-title">Дресс-код</h2>
 
 
-    <p class="dresscode-text">
-      Для нас самое главное ваше присутствие!<br>
-      Но мы будем очень благодарны, если вы<br>
-      поддержите цветовую гамму спокойных<br>
-      природных оттенков.
+    <p class="dresscode-text dresscode-text--lead">
+      Для нас самое главное ваше присутствие!
+    </p>
+    <p class="dresscode-text dresscode-text--rest">
+      Но мы будем очень благодарны, если вы поддержите цветовую гамму спокойных природных&nbsp;оттенков.
     </p>
 
     <div class="dresscode-palette" aria-label="Палитра дресс-кода">
@@ -365,6 +374,7 @@
     alt="Примеры образов дресс-кода"
     class="dresscode-image"
     loading="lazy"
+    decoding="async"
   />
 </div>
   <div class="dresscode-section__seam-divider" aria-hidden="true"></div>
@@ -601,6 +611,6 @@
   </main>
 
 <!-- <script src="telegram.js"></script> -->
-
+  <script src="intro.js"></script>
 </body>
 </html>

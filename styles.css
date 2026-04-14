@@ -1287,10 +1287,10 @@ button,
 .timing-section{
   --timing-pad-x: clamp(16px, 4vw, 24px);
   --timing-surface: #425340; /* карточки — как .loca */
-  scroll-margin-top: min(88px, 18vh);
-  /* сверху 88px — расстояние от календаря к «Программа дня»; снизу прежний clamp */
+  scroll-margin-top: min(98px, 18vh);
+  /* зазор от низа календаря (год 2026) к заголовку «Программа дня» */
   padding:
-    max(88px, env(safe-area-inset-top, 0px))
+    max(98px, env(safe-area-inset-top, 0px))
     var(--timing-pad-x)
     max(clamp(48px, 10vw, 88px), env(safe-area-inset-bottom, 0px));
   background: #fbf7f3; /* как .dresscode-section */
@@ -1494,14 +1494,26 @@ button,
   text-align: center;
 }
 
-/* Текст */
+/* Текст: кегль как у «Пожелания»; межстрочный — как у body (1.45), без «разреживания» многострочного абзаца */
 .dresscode-text{
-  margin: 0 auto 90px;
+  margin: 0 auto;
   max-width: 760px;
-  font-family: system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
-  font-size: clamp(16px, 2.2vw, 22px);
-  line-height: 1.55;
+  font-family: var(--font-ui);
+  font-size: clamp(14px, 3.6vw, 17px);
+  line-height: 1.45;
   color: #425340;
+  text-align: center;
+  letter-spacing: 0.02em;
+  hyphens: auto;
+  -webkit-hyphens: auto;
+}
+
+.dresscode-text--lead{
+  margin-bottom: clamp(14px, 3vw, 22px);
+}
+
+.dresscode-text--rest{
+  margin-bottom: 90px;
 }
 
 /* Палитра цветов (универсальные плашки без сложных эффектов) */
@@ -1509,7 +1521,7 @@ button,
   display: flex;
   justify-content: center;
   align-items: center;
-  gap: clamp(6px, 1.5vw, 22px);
+  gap: calc(5px + clamp(6px, 1.5vw, 22px));
   flex-wrap: nowrap;
 }
 
@@ -1530,8 +1542,8 @@ button,
   opacity: 0;
   transform: translateX(-16px) scale(0.92);
   transition:
-    opacity 980ms cubic-bezier(0.22, 1, 0.36, 1),
-    transform 1150ms cubic-bezier(0.22, 1, 0.36, 1);
+    opacity 560ms cubic-bezier(0.22, 1, 0.36, 1),
+    transform 620ms cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 .dresscode-wrap.reveal-y.is-inview .swatch{
@@ -1539,12 +1551,12 @@ button,
   transform: translateX(0) scale(1);
 }
 
-.dresscode-wrap.reveal-y .swatch:nth-child(1){ transition-delay: 100ms; }
-.dresscode-wrap.reveal-y .swatch:nth-child(2){ transition-delay: 420ms; }
-.dresscode-wrap.reveal-y .swatch:nth-child(3){ transition-delay: 740ms; }
-.dresscode-wrap.reveal-y .swatch:nth-child(4){ transition-delay: 1060ms; }
-.dresscode-wrap.reveal-y .swatch:nth-child(5){ transition-delay: 1380ms; }
-.dresscode-wrap.reveal-y .swatch:nth-child(6){ transition-delay: 1700ms; }
+.dresscode-wrap.reveal-y .swatch:nth-child(1){ transition-delay: 40ms; }
+.dresscode-wrap.reveal-y .swatch:nth-child(2){ transition-delay: 140ms; }
+.dresscode-wrap.reveal-y .swatch:nth-child(3){ transition-delay: 240ms; }
+.dresscode-wrap.reveal-y .swatch:nth-child(4){ transition-delay: 340ms; }
+.dresscode-wrap.reveal-y .swatch:nth-child(5){ transition-delay: 440ms; }
+.dresscode-wrap.reveal-y .swatch:nth-child(6){ transition-delay: 540ms; }
 
 /* Мягкий блик/объем без тяжелых эффектов */
 .swatch::before{
@@ -1566,11 +1578,19 @@ button,
 .swatch.s5{ background: #8c8d53; } /* молочный */
 .swatch.s6{ background: #c2d7ea; } /* пудра */
 
+@media (min-width: 821px){
+  .dresscode-palette{
+    gap: calc(10px + clamp(6px, 1.5vw, 22px));
+  }
+}
+
 /* Чуть меньше на маленьких экранах */
 @media (max-width: 480px){
-  .dresscode-section{ padding: 70px 14px 90px; }
-  .dresscode-text{ margin-bottom: 34px; }
-  .dresscode-palette{ gap: 6px; }
+  .dresscode-section{
+    padding: calc(var(--dresscode-gap-below-lenta) + var(--dresscode-lenta-overlap)) 14px 90px;
+  }
+  .dresscode-text--rest{ margin-bottom: 34px; }
+  .dresscode-palette{ gap: 11px; }
   .swatch{
     width: 42px;
     height: 42px;
@@ -1695,13 +1715,16 @@ button,
 }
 
 .details-text{
-  font-family: system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
+  font-family: var(--font-ui);
   font-size: clamp(14px, 3.6vw, 17px);
   line-height: 1.55;
   color: rgba(255, 255, 255, 0.92);
   margin: 0;
-  text-align: center;
+  text-align: justify;
+  text-align-last: center;
   letter-spacing: 0.02em;
+  hyphens: auto;
+  -webkit-hyphens: auto;
 }
 
 @media (min-width: 700px){
@@ -4418,7 +4441,7 @@ html.js .wloc--reveal.is-visible{
 }
 
 .loca__address{
-  margin: 0;
+  margin: calc(20px + clamp(14px, 2.8vw, 22px)) 0 0;
   font-family: inherit;
   font-weight: 500;
   font-size: clamp(13px, 2.2vmin, 16px);
@@ -4471,7 +4494,7 @@ html.js .wloc--reveal.is-visible{
   .loca__address{
     font-size: clamp(16px, 2vmin, 22px);
     line-height: 1.5;
-    margin: 0;
+    margin: calc(20px + clamp(16px, 2.2vmin, 24px)) 0 0;
   }
 
   .loca .loca__route-btn.guest-chat__btn{
@@ -4967,6 +4990,7 @@ html.js .date-section.is-visible{
 
 .love-cal {
   /* без width:100% — на мобилках перебивает full-bleed от main.pages */
+  /* padding-bottom: 0 — зазор к «Программа дня» задаёт .timing-section (98px; на ПК 127px) */
   padding:
     115px
     clamp(12px, 2vw, 48px)
@@ -4991,12 +5015,13 @@ html.js .date-section.is-visible{
 @media (min-width: 821px){
   .love-cal{
     padding-top: 84px;
+    padding-bottom: 0;
   }
 
   .love-cal__svg{
     max-width: 770px;
     margin-top: -170px;
-    margin-bottom: -48px;
+    margin-bottom: 0;
   }
 }
 
@@ -5071,7 +5096,7 @@ html.js .date-section.is-visible{
   }
   .love-cal__svg{
     margin-top: -120px;
-    margin-bottom: -42px;
+    margin-bottom: 0;
   }
   .love-cal__weekdays text,
   .love-cal__days text{ font-size: 38px; }
@@ -5085,7 +5110,7 @@ html.js .date-section.is-visible{
   }
   .love-cal__svg{
     margin-top: -104px;
-    margin-bottom: -34px;
+    margin-bottom: 0;
   }
   .love-cal__weekdays text,
   .love-cal__days text{ font-size: 31px; }
@@ -5099,7 +5124,7 @@ html.js .date-section.is-visible{
   }
   .love-cal__svg{
     margin-top: -92px;
-    margin-bottom: -28px;
+    margin-bottom: 0;
   }
   .love-cal__weekdays text,
   .love-cal__days text{ font-size: 27px; }
@@ -5113,7 +5138,7 @@ html.js .date-section.is-visible{
   }
   .love-cal__svg{
     margin-top: -78px;
-    margin-bottom: -22px;
+    margin-bottom: 0;
   }
   .love-cal__weekdays text,
   .love-cal__days text{ font-size: 24px; }
@@ -5307,7 +5332,55 @@ html.js .date-section.is-visible{
   font-weight: 600;
   letter-spacing: 0.04em;
   text-transform: uppercase;
-  text-align: center;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: clamp(6px, 1.2vw, 14px);
+  width: 100%;
+  max-width: 100%;
+  box-sizing: border-box;
+  line-height: 1.2;
+}
+
+.main-screen__hero-names__part{
+  flex: 1 1 0;
+  min-width: 0;
+  line-height: 1.2;
+}
+
+.main-screen__hero-names__part:first-child{
+  text-align: right;
+}
+
+.main-screen__hero-names__plus{
+  flex: 0 0 auto;
+  line-height: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  /* глиф «+» в Cormorant сидит ниже капительных — поднимаем к оптическому центру имён */
+  transform: translateY(-0.07em);
+}
+
+.main-screen__hero-names__part:last-child{
+  text-align: left;
+}
+
+@media (max-width: 360px){
+  .main-screen__hero-names{
+    flex-direction: column;
+    row-gap: 0.12em;
+  }
+
+  .main-screen__hero-names__part:first-child,
+  .main-screen__hero-names__part:last-child,
+  .main-screen__hero-names__plus{
+    text-align: center;
+  }
+
+  .main-screen__hero-names__plus{
+    transform: translateY(0);
+  }
 }
 
 .main-screen__headline{
@@ -5341,6 +5414,10 @@ html.js .date-section.is-visible{
   font-synthesis: none;
   font-stretch: normal;
   letter-spacing: -0.02em;
+}
+
+.main-screen__inner--photo-only .main-screen__headline-script{
+  transform: translateY(3px);
 }
 
 @media (min-width: 821px){
@@ -5378,7 +5455,7 @@ html.js .date-section.is-visible{
   }
 
   .main-screen__inner--photo-only .main-screen__copy{
-    transform: translate(8px, -10%);
+    transform: translate(8px, calc(-10% - 27px));
   }
 
   .main-screen__headline{
@@ -5432,10 +5509,14 @@ html.js .date-section.is-visible{
   .main-screen__hero-names{
     position: static;
     width: auto;
-    margin: 0 0 clamp(20px, 2.4vw, 30px);
+    margin: 0 0 clamp(12px, 2vw, 22px);
     text-align: center;
     font-size: clamp(16px, 1.3vw, 22px);
     line-height: 1.2;
+  }
+
+  .main-screen__inner--photo-only .main-screen__headline-line:first-child{
+    transform: translateY(calc(-0.2em - 5px));
   }
 }
 
@@ -5539,9 +5620,17 @@ html.js .date-section.is-visible{
   .main-screen__hero-names{
     position: static;
     width: auto;
-    margin: 0 0 18px;
+    margin: 0 0 12px;
     font-size: clamp(12px, 3.4vw, 16px);
     letter-spacing: 0.1em;
+  }
+
+  .main-screen__inner--photo-only .main-screen__copy{
+    transform: translateY(-21px);
+  }
+
+  .main-screen__inner--photo-only .main-screen__headline-line:first-child{
+    transform: translateY(calc(-0.18em - 5px));
   }
 
   .main-screen__inner--photo-only .main-screen__img{
@@ -5994,10 +6083,6 @@ html.js .date-section.is-visible{
 .dresscode-image{
   background: transparent !important;
 }
-.dresscode-section{
-  background: #fbf7f3;
-  padding-bottom: 0; /* если нужно убрать лишний “переход” */
-}
 
 .dresscode-look{
   background: #fbf7f3; /* чтобы блок с картинкой точно был на том же фоне */
@@ -6441,8 +6526,8 @@ html.js .date-section.is-visible{
    REVEAL анимация (скорость регулируется переменными)
 ========================= */
 :root{
-  --revealDur: 900ms;      /* 👈 скорость появления */
-  --revealDelayStep: 120ms;/* 👈 “волна” между элементами */
+  --revealDur: 520ms;      /* 👈 скорость появления */
+  --revealDelayStep: 55ms;/* 👈 “волна” между элементами */
   --revealEase: cubic-bezier(.2,.8,.2,1);
 }
 
@@ -6509,10 +6594,10 @@ html.js .date-section.is-visible{
 /* Stagger reveal for elements inside each visible block */
 .reveal-stagger > *{
   opacity: 0;
-  transform: translateY(16px);
+  transform: translateY(12px);
   transition:
-    opacity 980ms cubic-bezier(.22,1,.36,1),
-    transform 1150ms cubic-bezier(.22,1,.36,1);
+    opacity 560ms cubic-bezier(.22,1,.36,1),
+    transform 620ms cubic-bezier(.22,1,.36,1);
 }
 
 .reveal-stagger.is-inview > *,
@@ -6525,7 +6610,7 @@ html.js .date-section.is-visible{
 .love-cal__svg.reveal-stagger > .love-cal__heart{
   opacity: 0;
   transform: scale(0.39546);
-  transition: opacity 980ms cubic-bezier(.22,1,.36,1);
+  transition: opacity 560ms cubic-bezier(.22,1,.36,1);
   will-change: opacity;
 }
 
@@ -6535,18 +6620,18 @@ html.js .date-section.is-visible{
   transform: scale(0.39546);
 }
 
-.reveal-stagger > *:nth-child(1){ transition-delay: 100ms; }
-.reveal-stagger > *:nth-child(2){ transition-delay: 420ms; }
-.reveal-stagger > *:nth-child(3){ transition-delay: 740ms; }
-.reveal-stagger > *:nth-child(4){ transition-delay: 1060ms; }
-.reveal-stagger > *:nth-child(5){ transition-delay: 1380ms; }
-.reveal-stagger > *:nth-child(6){ transition-delay: 1700ms; }
-.reveal-stagger > *:nth-child(7){ transition-delay: 2020ms; }
-.reveal-stagger > *:nth-child(8){ transition-delay: 2340ms; }
-.reveal-stagger > *:nth-child(9){ transition-delay: 2660ms; }
-.reveal-stagger > *:nth-child(10){ transition-delay: 2980ms; }
-.reveal-stagger > *:nth-child(11){ transition-delay: 3300ms; }
-.reveal-stagger > *:nth-child(12){ transition-delay: 3620ms; }
+.reveal-stagger > *:nth-child(1){ transition-delay: 40ms; }
+.reveal-stagger > *:nth-child(2){ transition-delay: 140ms; }
+.reveal-stagger > *:nth-child(3){ transition-delay: 240ms; }
+.reveal-stagger > *:nth-child(4){ transition-delay: 340ms; }
+.reveal-stagger > *:nth-child(5){ transition-delay: 440ms; }
+.reveal-stagger > *:nth-child(6){ transition-delay: 540ms; }
+.reveal-stagger > *:nth-child(7){ transition-delay: 640ms; }
+.reveal-stagger > *:nth-child(8){ transition-delay: 740ms; }
+.reveal-stagger > *:nth-child(9){ transition-delay: 840ms; }
+.reveal-stagger > *:nth-child(10){ transition-delay: 940ms; }
+.reveal-stagger > *:nth-child(11){ transition-delay: 1040ms; }
+.reveal-stagger > *:nth-child(12){ transition-delay: 1140ms; }
 
 @media (prefers-reduced-motion: reduce){
   .reveal-stagger > *,
@@ -6689,6 +6774,9 @@ html.js .date-section.is-visible{
   --seam-overlap-desktop: 29px;
   --seam-pad-mobile: calc(var(--seam-gap) + var(--seam-overlap-mobile));
   --seam-pad-desktop: calc(var(--seam-gap) + var(--seam-overlap-desktop));
+  /* Лента локации (height 120px) с translateY(50%) заходит в дресс-код ~на 60px — компенсируем, чтобы до заголовка было реальные 88px */
+  --dresscode-gap-below-lenta: 88px;
+  --dresscode-lenta-overlap: 60px;
 }
 
 .main-screen__inner--photo-only{
@@ -6702,6 +6790,7 @@ html.js .date-section.is-visible{
 
 .love-cal{
   padding-top: var(--seam-pad-mobile);
+  padding-bottom: 0;
 }
 
 .timing-section{
@@ -6714,7 +6803,7 @@ html.js .date-section.is-visible{
 }
 
 .dresscode-section{
-  padding-top: var(--seam-pad-mobile);
+  padding-top: calc(var(--dresscode-gap-below-lenta) + var(--dresscode-lenta-overlap));
   padding-bottom: var(--seam-pad-mobile);
 }
 
@@ -6735,6 +6824,7 @@ html.js .date-section.is-visible{
 
   .love-cal{
     padding-top: var(--seam-pad-desktop);
+    padding-bottom: 0;
   }
 
   .timing-section{
@@ -6747,7 +6837,7 @@ html.js .date-section.is-visible{
   }
 
   .dresscode-section{
-    padding-top: var(--seam-pad-desktop);
+    padding-top: calc(var(--dresscode-gap-below-lenta) + var(--dresscode-lenta-overlap));
     padding-bottom: var(--seam-pad-desktop);
   }
 
@@ -6806,6 +6896,40 @@ html.js .date-section.is-visible{
   margin-bottom: 0;
 }
 
+#rsvp.page.anketa-section .anketa__title{
+  font-size: clamp(26px, 6.2vw, 38px);
+  margin-bottom: clamp(20px, 4.2vw, 40px);
+}
+
+#rsvp.page.anketa-section .anketa__intro{
+  font-size: clamp(15px, 2.2vw, 19px);
+  margin-bottom: clamp(22px, 3.8vw, 34px);
+}
+
+#rsvp.page.anketa-section .anketa-form{
+  gap: clamp(22px, 3.8vw, 38px);
+}
+
+#rsvp.page.anketa-section .anketa-field__label,
+#rsvp.page.anketa-section .anketa-radio{
+  font-size: clamp(17px, 2.35vw, 21px);
+  line-height: 1.45;
+}
+
+#rsvp.page.anketa-section .anketa-field__label--question{
+  font-size: clamp(16px, 2.25vw, 20px);
+}
+
+#rsvp.page.anketa-section .anketa-field__input{
+  font-size: clamp(17px, 2.35vw, 21px);
+  padding: 12px 0 14px;
+}
+
+#rsvp.page.anketa-section .anketa__submit{
+  font-size: clamp(14px, 3.2vw, 16px);
+  padding: 12px 28px;
+}
+
 @media (max-width: 720px){
   #rsvp.page.anketa-section{
     padding-top: clamp(12px, 3.5vw, 36px);
@@ -6834,75 +6958,107 @@ html.js .date-section.is-visible{
     padding: clamp(24px, 5.5vw, 34px) clamp(18px, 4.8vw, 26px) clamp(26px, 5.5vw, 36px);
   }
 
-  /* Крупнее текст и поля, чем у общих .anketa @480 (остались от старой салфетки) */
   #rsvp.page.anketa-section .anketa__title{
-    font-size: clamp(28px, 7.2vw, 40px);
+    font-size: clamp(24px, 6.4vw, 34px);
     line-height: 1.15;
-    margin-bottom: clamp(16px, 4vw, 24px);
+    margin-bottom: clamp(14px, 3.6vw, 22px);
   }
 
   #rsvp.page.anketa-section .anketa__intro{
-    font-size: clamp(15px, 4vw, 18px);
+    font-size: clamp(13px, 3.5vw, 16px);
     line-height: 1.55;
-    margin-bottom: clamp(20px, 4.5vw, 28px);
+    margin-bottom: clamp(18px, 4vw, 24px);
   }
 
   #rsvp.page.anketa-section .anketa-form{
-    gap: clamp(20px, 4.5vw, 28px);
+    gap: clamp(16px, 4vw, 24px);
   }
 
   #rsvp.page.anketa-section .anketa-field{
-    gap: 12px;
+    gap: 10px;
   }
 
   #rsvp.page.anketa-section .anketa-field__label,
   #rsvp.page.anketa-section .anketa-radio,
   #rsvp.page.anketa-section .anketa-field__input{
-    font-size: clamp(16px, 4.1vw, 19px);
+    font-size: clamp(14px, 3.6vw, 17px);
     line-height: 1.45;
   }
 
   #rsvp.page.anketa-section .anketa-field__label--question{
-    font-size: clamp(15px, 3.9vw, 18px);
+    font-size: clamp(13px, 3.4vw, 16px);
     line-height: 1.4;
     margin-bottom: 4px;
   }
 
   #rsvp.page.anketa-section .anketa-fieldset{
-    gap: 14px;
-  }
-
-  #rsvp.page.anketa-section .anketa-radio{
     gap: 12px;
   }
 
+  #rsvp.page.anketa-section .anketa-radio{
+    gap: 10px;
+  }
+
   #rsvp.page.anketa-section .anketa-radio input{
-    width: 22px;
-    height: 22px;
+    width: 20px;
+    height: 20px;
   }
 
   #rsvp.page.anketa-section .anketa-field__input{
-    padding: 12px 0 14px;
+    padding: 10px 0 12px;
   }
 
   #rsvp.page.anketa-section .anketa__submit{
-    margin-top: clamp(8px, 2vw, 14px);
+    margin-top: clamp(6px, 1.8vw, 12px);
     margin-left: 0;
     margin-right: 0;
     align-self: stretch;
     width: 100%;
     max-width: 100%;
-    padding: 14px 20px;
-    font-size: clamp(14px, 3.6vw, 16px);
+    padding: 12px 18px;
+    font-size: clamp(12px, 3.2vw, 14px);
     line-height: 1.35;
   }
 
   #rsvp.page.anketa-section > .anketa__deadline-note{
     max-width: min(680px, 100%);
-    margin-top: clamp(22px, 5vw, 36px);
+    margin-top: clamp(18px, 4.5vw, 30px);
     padding-left: 0;
     padding-right: 0;
-    font-size: clamp(14px, 3.5vw, 17px);
+    font-size: clamp(12px, 3.2vw, 15px);
+  }
+}
+
+/* Дресс-код: верхний отступ от ленты локации — специфичность выше, чем у .page { padding } и ранних shorthand */
+section#dresscode.dresscode-section.page{
+  padding-top: calc(var(--dresscode-gap-below-lenta, 88px) + var(--dresscode-lenta-overlap, 60px));
+  padding-bottom: var(--seam-pad-mobile, 148px);
+  box-sizing: border-box;
+}
+
+@media (min-width: 821px){
+  section#dresscode.dresscode-section.page{
+    padding-bottom: var(--seam-pad-desktop, 117px);
+  }
+}
+
+@media (max-width: 480px){
+  section#dresscode.dresscode-section.page{
+    padding-left: 14px;
+    padding-right: 14px;
+  }
+}
+
+/* Зазор календарь → «Программа дня»: id + тег выше специфичности .timing-section и поздних shorthand */
+section#timing.timing-section{
+  scroll-margin-top: min(98px, 18vh);
+  padding-top: max(98px, env(safe-area-inset-top, 0px));
+}
+
+@media (min-width: 821px){
+  section#timing.timing-section{
+    scroll-margin-top: min(127px, 18vh);
+    padding-top: max(127px, env(safe-area-inset-top, 0px));
   }
 }
 
