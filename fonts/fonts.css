@@ -1,3 +1,60 @@
+/* Self-hosted: Annabelle, Cormorant Garamond, Lora, Source Sans 3, Spectral */
+@font-face {
+  font-family: 'Annabelle';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url(./gf-annabelle.woff2) format('woff2');
+}
+@font-face {
+  font-family: 'Cormorant Garamond';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url(./gf-cormorant-garamond-400.ttf) format('truetype');
+}
+@font-face {
+  font-family: 'Cormorant Garamond';
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url(./gf-cormorant-garamond-500.ttf) format('truetype');
+}
+@font-face {
+  font-family: 'Cormorant Garamond';
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src: url(./gf-cormorant-garamond-600.ttf) format('truetype');
+}
+@font-face {
+  font-family: 'Cormorant Garamond';
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url(./gf-cormorant-garamond-700.ttf) format('truetype');
+}
+@font-face {
+  font-family: 'Lora';
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url(./gf-lora-500.ttf) format('truetype');
+}
+@font-face {
+  font-family: 'Lora';
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src: url(./gf-lora-600.ttf) format('truetype');
+}
+@font-face {
+  font-family: 'Lora';
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url(./gf-lora-700.ttf) format('truetype');
+}
 /* cyrillic-ext */
 @font-face {
   font-family: 'Source Sans 3';

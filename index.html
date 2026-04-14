@@ -7,6 +7,7 @@
   <title>Приглашение на свадьбу</title>
   <!-- обновление: принудительный деплой -->
   <!-- Шрифты: Spectral + Source Sans 3 (локально в /fonts, OFL) -->
+  <link rel="preload" href="fonts/gf-annabelle.woff2" as="font" type="font/woff2" crossorigin />
   <link rel="stylesheet" href="fonts/fonts.css" />
 <link rel="icon" type="image/jpeg" sizes="32x32" href="images/iconEV.jpg">
   <link rel="stylesheet" href="styles.css" />
@@ -389,6 +390,7 @@
   </div>
   </div>
 </section>
+
     <!-- Анкета по референсу: минималистичный вид, Formspree -->
     <section class="page anketa-section" id="rsvp">
       <div class="anketa reveal-y reveal-stagger">
@@ -407,7 +409,7 @@
           </p>
 
           <label class="anketa-field">
-            <span class="anketa-field__label">Ваше имя:</span>
+            <span class="anketa-field__label anketa-field__label--question">Ваше имя:</span>
             <input class="anketa-field__input" type="text" name="name" required />
           </label>
 
@@ -443,6 +445,9 @@
           <button class="anketa__submit" type="submit">отправить</button>
         </form>
       </div>
+      <p class="anketa__deadline-note reveal-y">
+        Пожалуйста, подтвердите своё присутствие до 20 июля, чтобы мы смогли спланировать всё наилучшим образом!
+      </p>
     </section>
 
     <script>
@@ -489,9 +494,10 @@
         sync();
       })();
     </script>
+
     <section class="timer-section" id="timer">
       <div class="timer-wrap reveal-y reveal-stagger">
-        <p class="timer-heart__title">Мы скажем «ДА» через</p>
+        <p class="timer-heart__title">Мы увидимся с вами уже через</p>
         <div class="timer timer--heart timer--full" role="group" aria-label="Таймер до 6 августа 2026">
           <div class="timer-row">
             <div class="timer-cell">
@@ -514,6 +520,16 @@
               <span class="timer-label">секунд</span>
             </div>
           </div>
+        </div>
+        <div class="timer-heart__figure">
+          <img
+            class="timer-heart__art"
+            src="images/f243f7ee_9fee3126.png"
+            alt=""
+            loading="lazy"
+            decoding="async"
+          />
+          <p class="timer-heart__signoff">С любовью,<br />Владислав и<br />Елизавета</p>
         </div>
       </div>
     </section>
