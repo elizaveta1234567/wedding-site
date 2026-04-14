@@ -52,7 +52,16 @@
 
     <rect x="0" y="0" width="100" height="100" fill="#425340" mask="url(#heart-mask)"/>
 
-    <path class="intro__stroke-heart" fill="none" stroke="white" stroke-width="1.8"
+    <path class="intro__fill-heart" fill="#ffffff"
+      d="M50 78
+         C50 78, 18 56, 18 36
+         C18 24, 28 18, 36 18
+         C44 18, 50 24, 50 24
+         C50 24, 56 18, 64 18
+         C72 18, 82 24, 82 36
+         C82 56, 50 78, 50 78
+         Z"/>
+    <path class="intro__stroke-heart" fill="none" stroke="#ffffff" stroke-width="1.8"
       d="M50 78
          C50 78, 18 56, 18 36
          C18 24, 28 18, 36 18
@@ -145,7 +154,7 @@
   <div class="main-screen__seam-divider" aria-hidden="true"></div>
 </section>
 <!-- Пожелания (дубликат сразу после постера) -->
-<section class="details-section">
+<section class="details-section details-section--intro">
   <div class="details-card reveal-y reveal-stagger">
   <div class="details-wrap">
 
@@ -245,8 +254,8 @@
       <text x="450" y="330" class="love-cal__heart-num">6</text>
     </g>
 
-    <text x="428" y="460" class="love-cal__month">Август</text>
-    <text x="432" y="545" class="love-cal__year">2026</text>
+    <text x="450" y="460" class="love-cal__month">Август</text>
+    <text x="450" y="545" class="love-cal__year">2026</text>
   </svg>
 </section>
 <section class="timing-section" id="timing" aria-labelledby="timing-heading">

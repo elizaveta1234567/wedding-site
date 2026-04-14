@@ -1,0 +1,24 @@
+{
+  "name": "wedding-site-main",
+  "version": "1.0.0",
+  "description": "",
+  "main": "intro.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/elizaveta1234567/wedding-site.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/elizaveta1234567/wedding-site/issues"
+  },
+  "homepage": "https://github.com/elizaveta1234567/wedding-site#readme",
+  "dependencies": {
+    "playwright": "^1.59.1"
+  }
+}
