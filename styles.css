@@ -400,7 +400,7 @@ button,
   width: 100vw;
   max-width: none;
   height: 120px;
-  background-image: url("images/lenta.PNG");
+  background-image: url("images/lenta.webp");
   background-repeat: no-repeat;
   background-position: center;
   background-size: 112% auto;
@@ -685,6 +685,10 @@ button,
   width: min(100%, clamp(460px, 112vw, 668px));
   margin: 55px auto 0;
   align-self: center;
+}
+
+.timer-heart__figure picture{
+  display: contents;
 }
 
 .timer-heart__art{
@@ -1306,7 +1310,7 @@ button,
   width: 100vw;
   max-width: none;
   height: 120px;
-  background-image: url("images/lenta.PNG");
+  background-image: url("images/lenta.webp");
   background-repeat: no-repeat;
   background-position: center;
   background-size: 112% auto;
@@ -1465,7 +1469,7 @@ button,
   width: 100vw;
   max-width: none;
   height: 120px;
-  background-image: url("images/lenta.PNG");
+  background-image: url("images/lenta.webp");
   background-repeat: no-repeat;
   background-position: center;
   background-size: 112% auto;
@@ -1612,6 +1616,10 @@ button,
   margin-top: 48px;
   display: flex;
   justify-content: center;
+}
+
+.dresscode-look picture{
+  display: contents;
 }
 
 .dresscode-image{
@@ -4296,7 +4304,7 @@ html.js .wloc--reveal.is-visible{
   width: 100vw;
   max-width: none;
   height: 120px;
-  background-image: url("images/lenta.PNG");
+  background-image: url("images/lenta.webp");
   background-repeat: no-repeat;
   background-position: center;
   background-size: 112% auto;
@@ -4372,7 +4380,7 @@ html.js .wloc--reveal.is-visible{
   background-color: #3a1416;
   background-image:
     linear-gradient(160deg, rgba(0, 0, 0, 0.15) 0%, transparent 55%),
-    url("images/big_image.jpg");
+    url("images/big_image.webp");
   background-size: cover, cover;
   background-position: center, center;
 }
@@ -5158,7 +5166,7 @@ html.js .date-section.is-visible{
   width: 100vw;
   max-width: none;
   height: 120px;
-  background-image: url("images/lenta.PNG");
+  background-image: url("images/lenta.webp");
   background-repeat: no-repeat;
   background-position: center;
   background-size: 112% auto;
@@ -5262,6 +5270,10 @@ html.js .date-section.is-visible{
   padding: 0;
   background: transparent;
   box-shadow: none;
+}
+
+.main-screen__polaroid picture{
+  display: contents;
 }
 
 .main-screen__polaroid-caption{
