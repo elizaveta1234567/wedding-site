@@ -6867,8 +6867,6 @@ html.js .date-section.is-visible{
 
 :root{
   --seam-gap: 88px;
-  /* главный постер на мобильных: зазор до ленты 55px вместо 88px */
-  --seam-gap-main-photo-mobile: 55px;
   /*
  Пересечение ленты с секцией из-за translateY(50%) + фактической высоты/масштаба графики.
     Подбираем так, чтобы визуальный зазор до текста был ~var(--seam-gap) и сверху, и снизу.
@@ -6883,7 +6881,9 @@ html.js .date-section.is-visible{
 }
 
 .main-screen__inner--photo-only{
-  padding-bottom: calc(var(--seam-gap-main-photo-mobile) + var(--seam-overlap-mobile));
+  /* Важно: должен совпадать с верхним отступом следующего блока (.details-section--intro),
+     иначе зазор “лентa → заголовок” визуально больше, чем “текст → лента” снизу. */
+  padding-bottom: var(--seam-pad-mobile);
 }
 
 .details-section--intro{
