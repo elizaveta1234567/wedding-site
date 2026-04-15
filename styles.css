@@ -469,6 +469,8 @@ button,
     transform: scaleY(0.658);
     /* Ещё чуть тоньше на ПК, не трогая длину */
     clip-path: inset(6px 0);
+    position: relative;
+    z-index: 1;
   }
 
   /* Убираем пробелы по бокам без растягивания: добавляем 2-ю копию ленты и слегка перекрываем стык */
@@ -483,6 +485,10 @@ button,
     background-repeat: no-repeat;
     background-size: 1536px 100%;
     pointer-events: none;
+    transform-origin: center;
+    transform: scaleY(0.658);
+    clip-path: inset(6px 0);
+    z-index: 0;
   }
 
   .seam-divider__picture::after{
