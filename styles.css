@@ -454,20 +454,49 @@ button,
     width: 100%;
     max-width: 100%;
     margin: 0;
+    position: relative;
   }
 
   .seam-divider__img{
     display: block;
-    /* На ПК: делаем ленту длиннее (без “пробелов” по бокам) */
-    width: min(132vw, 2200px);
+    /* На ПК: НЕ растягиваем по X (используем натуральную ширину ассета) */
+    width: 1536px;
     max-width: none;
     height: auto;
     margin: 0 auto;
     /* Тоньше по «ширине» полосы (ось Y); длину (width) не меняем */
     transform-origin: center;
-    transform: scaleY(0.774);
+    transform: scaleY(0.658);
     /* Ещё чуть тоньше на ПК, не трогая длину */
     clip-path: inset(6px 0);
+  }
+
+  /* Убираем пробелы по бокам без растягивания: добавляем 2-ю копию ленты и слегка перекрываем стык */
+  .seam-divider__picture::before,
+  .seam-divider__picture::after{
+    content: "";
+    position: absolute;
+    top: 0;
+    height: 100%;
+    width: 1536px;
+    background-image: url("images/lenta_desktop2.png");
+    background-repeat: no-repeat;
+    background-size: 1536px 100%;
+    pointer-events: none;
+  }
+
+  .seam-divider__picture::after{
+    /* правая «добавка» */
+    left: calc(50% + 768px - 140px);
+    mask-image: linear-gradient(to right, transparent 0, black 140px);
+    -webkit-mask-image: linear-gradient(to right, transparent 0, black 140px);
+  }
+
+  .seam-divider__picture::before{
+    /* левая «добавка» */
+    left: calc(50% - 768px - (1536px - 140px));
+    mask-image: linear-gradient(to left, transparent 0, black 140px);
+    -webkit-mask-image: linear-gradient(to left, transparent 0, black 140px);
   }
 }
 
@@ -1674,7 +1703,7 @@ button,
 /* Только ПК: уменьшаем фото дресс-кода на 30% (920px → 644px) */
 @media (min-width: 821px){
   .dresscode-image{
-    max-width: 644px;
+    max-width: 580px;
   }
 }
 
