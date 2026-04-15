@@ -40,6 +40,11 @@
       });
     });
 
+    // Не держим пользователя в «замке» во время анимации открытия:
+    // оверлей всё равно перекрывает клики, но скролл страницы должен быть доступен сразу.
+    document.body.style.overflow = prevBodyOverflow || "";
+    document.documentElement.style.overflow = prevOverflow || "";
+
     setTimeout(finish, DURATION + 200);
   }
 

@@ -419,7 +419,7 @@ button,
     max-width: none;
     height: 120px;
     display: block;
-    background-image: url("images/lenta.webp");
+    background-image: url("images/lenta_desktop2.png");
     background-repeat: no-repeat;
     background-position: center;
     background-size: 112% auto;
@@ -458,10 +458,16 @@ button,
 
   .seam-divider__img{
     display: block;
-    width: auto;
-    max-width: 100%;
+    /* На ПК: делаем ленту длиннее (без “пробелов” по бокам) */
+    width: min(120vw, 1600px);
+    max-width: none;
     height: auto;
     margin: 0 auto;
+    /* Тоньше по «ширине» полосы (ось Y); длину (width) не меняем */
+    transform-origin: center;
+    transform: scaleY(0.86);
+    /* Ещё чуть тоньше на ПК, не трогая длину */
+    clip-path: inset(6px 0);
   }
 }
 
@@ -4347,6 +4353,15 @@ html.js .wloc--reveal.is-visible{
   overflow-x: visible;
 }
 
+@media (min-width: 821px){
+  section#location.loca{
+    /* Отступ от ленты снизу (только ПК) */
+    padding-bottom: calc(
+      max(clamp(48px, 10vw, 88px), env(safe-area-inset-bottom, 0px)) + 88px
+    );
+  }
+}
+
 .loca__wrap{
   max-width: 1100px;
   margin: 0 auto;
@@ -5374,6 +5389,13 @@ html.js .date-section.is-visible{
   transform: translateY(-0.07em);
 }
 
+@media (max-width: 820px){
+  .main-screen__hero-names__plus{
+    /* На мобилках оптический центр другой — держим строго по центру строки */
+    transform: translateY(0);
+  }
+}
+
 .main-screen__hero-names__part:last-child{
   text-align: left;
 }
@@ -6053,7 +6075,7 @@ html.js .date-section.is-visible{
   display: block;
 
   width: 100%;
-  max-width: 1200px;   /* регулируешь максимальный размер */
+  max-width: 920px;   /* базовый размер (как было в основном блоке выше) */
   height: auto;
 
   object-fit: contain;
@@ -6083,8 +6105,15 @@ html.js .date-section.is-visible{
   }
 
   .dresscode-image{
-    width: 110%;     /* чуть больше на мобилке, чтобы не казалась мелкой */
-    max-width: none;
+    width: 100%;
+    max-width: 100%;
+  }
+}
+
+/* Только ПК: уменьшаем фото дресс-кода на 30% (920px → 644px) */
+@media (min-width: 821px){
+  .dresscode-image{
+    max-width: 644px;
   }
 }
 .dresscode-section,
@@ -7071,6 +7100,10 @@ section#timing.timing-section{
   section#timing.timing-section{
     scroll-margin-top: min(127px, 18vh);
     padding-top: max(127px, env(safe-area-inset-top, 0px));
+    /* Отступ от ленты до последней карточки тайминга (23.00) */
+    padding-bottom: calc(
+      max(clamp(48px, 10vw, 88px), env(safe-area-inset-bottom, 0px)) + 88px
+    );
   }
 }
 
