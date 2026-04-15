@@ -191,6 +191,8 @@ body:has(> .intro:not(.is-hidden)){
   .timer-section{
     padding-left: max(20px, env(safe-area-inset-left, 0px));
     padding-right: max(20px, env(safe-area-inset-right, 0px));
+    /* Закрываем “белую щель” под home-indicator: safe-area должен быть зелёным, как блок */
+    padding-bottom: calc(88px + env(safe-area-inset-bottom, 0px));
   }
 }
 
