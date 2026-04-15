@@ -154,6 +154,10 @@ body:has(> .intro:not(.is-hidden)){
     background-color: var(--accent-wedding);
   }
 
+  body{
+    background-color: var(--accent-wedding);
+  }
+
   body::before{
     content: "";
     position: fixed;
@@ -169,6 +173,7 @@ body:has(> .intro:not(.is-hidden)){
   main.pages{
     padding-left: var(--m-gutter);
     padding-right: var(--m-gutter-r);
+    background: transparent;
   }
 
   /* Полноширинный фон до края экрана (иначе видны полосы от padding у main.pages) */
