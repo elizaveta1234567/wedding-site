@@ -459,13 +459,13 @@ button,
   .seam-divider__img{
     display: block;
     /* На ПК: делаем ленту длиннее (без “пробелов” по бокам) */
-    width: min(120vw, 1600px);
+    width: min(132vw, 2200px);
     max-width: none;
     height: auto;
     margin: 0 auto;
     /* Тоньше по «ширине» полосы (ось Y); длину (width) не меняем */
     transform-origin: center;
-    transform: scaleY(0.86);
+    transform: scaleY(0.774);
     /* Ещё чуть тоньше на ПК, не трогая длину */
     clip-path: inset(6px 0);
   }
