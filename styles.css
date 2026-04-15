@@ -146,6 +146,26 @@ body:has(> .intro:not(.is-hidden)){
     --m-gutter-r: max(20px, env(safe-area-inset-right, 0px));
   }
 
+  /*
+ iOS Safari: при “втором” резиновом оверскролле внизу может проявляться фон документа.
+    Держим низ экрана зелёным (как финальный блок), независимо от белого фона body.
+  */
+  html{
+    background-color: var(--accent-wedding);
+  }
+
+  body::before{
+    content: "";
+    position: fixed;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: calc(180px + env(safe-area-inset-bottom, 0px));
+    background: var(--accent-wedding);
+    pointer-events: none;
+    z-index: -1;
+  }
+
   main.pages{
     padding-left: var(--m-gutter);
     padding-right: var(--m-gutter-r);
