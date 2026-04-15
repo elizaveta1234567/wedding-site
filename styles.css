@@ -6869,8 +6869,12 @@ html.js .date-section.is-visible{
   --seam-gap: 88px;
   /* главный постер на мобильных: зазор до ленты 55px вместо 88px */
   --seam-gap-main-photo-mobile: 55px;
-  --seam-overlap-mobile: 60px;
-  --seam-overlap-desktop: 29px;
+  /*
+ Пересечение ленты с секцией из-за translateY(50%) + фактической высоты/масштаба графики.
+    Подбираем так, чтобы визуальный зазор до текста был ~var(--seam-gap) и сверху, и снизу.
+  */
+  --seam-overlap-mobile: 44px;
+  --seam-overlap-desktop: 44px;
   --seam-pad-mobile: calc(var(--seam-gap) + var(--seam-overlap-mobile));
   --seam-pad-desktop: calc(var(--seam-gap) + var(--seam-overlap-desktop));
   /* Лента локации (height 120px) с translateY(50%) заходит в дресс-код ~на 60px — компенсируем, чтобы до заголовка было реальные 88px */
@@ -6917,9 +6921,8 @@ html.js .date-section.is-visible{
   }
 
   .details-section--intro{
-    /* На ПК: держим реальные 88px от ленты сверху и снизу */
-    padding-top: calc(var(--seam-gap) + 60px);
-    padding-bottom: calc(var(--seam-gap) + 60px);
+    padding-top: var(--seam-pad-desktop);
+    padding-bottom: var(--seam-pad-desktop);
   }
 
   .love-cal{
