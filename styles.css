@@ -6887,7 +6887,8 @@ html.js .date-section.is-visible{
 }
 
 .details-section--intro{
-  padding-top: var(--seam-pad-mobile);
+  /* Визуально сверху лента даёт больше воздуха, чем снизу — компенсируем */
+  padding-top: calc(var(--seam-pad-mobile) - 24px);
   padding-bottom: var(--seam-pad-mobile);
 }
 
@@ -6921,7 +6922,7 @@ html.js .date-section.is-visible{
   }
 
   .details-section--intro{
-    padding-top: var(--seam-pad-desktop);
+    padding-top: calc(var(--seam-pad-desktop) - 24px);
     padding-bottom: var(--seam-pad-desktop);
   }
 
