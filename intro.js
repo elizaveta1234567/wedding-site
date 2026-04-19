@@ -11,7 +11,45 @@
     }
   }
 
+  /** Якорь в URL (#rsvp и т.д.) важнее сохранённого скролла — возврат со страницы «Спасибо» */
+  function scrollToHashIfPresent() {
+    const hash = location.hash;
+    if (!hash || hash.length < 2) return false;
+    let id;
+    try {
+      id = decodeURIComponent(hash.slice(1));
+    } catch (e) {
+      return false;
+    }
+    if (!id) return false;
+    const el = document.getElementById(id);
+    if (!el) return false;
+
+    const apply = () => {
+      el.scrollIntoView({ behavior: "auto", block: "start" });
+    };
+
+    apply();
+    requestAnimationFrame(apply);
+    setTimeout(apply, 0);
+    setTimeout(apply, 80);
+    setTimeout(apply, 200);
+    setTimeout(apply, 450);
+    window.addEventListener(
+      "load",
+      () => {
+        apply();
+        setTimeout(apply, 0);
+        setTimeout(apply, 120);
+      },
+      { once: true }
+    );
+    return true;
+  }
+
   function restoreScrollPosition() {
+    if (scrollToHashIfPresent()) return;
+
     let y = 0;
     try {
       y = parseInt(sessionStorage.getItem(SESSION_SCROLL) || "0", 10) || 0;
@@ -117,6 +155,7 @@
     intro.classList.add("is-hidden");
     document.documentElement.style.overflow = prevOverflow || "";
     setTimeout(() => intro.remove(), 50);
+    setTimeout(() => scrollToHashIfPresent(), 80);
   }
 
   function openIntro() {
