@@ -18,7 +18,7 @@
       <h1 class="title">Спасибо!</h1>
       <p class="text muted">Ваш ответ отправлен. До встречи на празднике 🤍</p>
 
-      <a id="success-back-to-site" class="btn btn--primary btn--wide" href="/#rsvp">
+      <a id="success-back-to-site" class="btn btn--primary btn--wide" href="index.html#rsvp">
         Вернуться на сайт
       </a>
       <script>
@@ -29,17 +29,14 @@
             if ("scrollRestoration" in history) history.scrollRestoration = "manual";
           } catch (e) {}
           try {
-            /* Каталог, где лежит success.html → главная той же папки (без index.html — иначе редирект может срезать #) */
-            var base = new URL(".", location.href);
-            base.searchParams.set("to", "rsvp");
-            base.hash = "#rsvp";
-            a.href = base.href;
+            /* Рядом с success.html лежит index.html — явный файл + якорь (надёжнее, чем только /#rsvp) */
+            var dir = new URL(".", location.href);
+            var target = new URL("index.html", dir.href);
+            target.searchParams.set("to", "rsvp");
+            target.hash = "#rsvp";
+            a.href = target.href;
           } catch (e) {
-            try {
-              a.href = location.origin + "/?to=rsvp#rsvp";
-            } catch (e2) {
-              a.href = "/#rsvp";
-            }
+            a.href = "index.html?to=rsvp#rsvp";
           }
         })();
       </script>
