@@ -1,4 +1,10 @@
 (() => {
+  try {
+    if ("scrollRestoration" in history) history.scrollRestoration = "manual";
+  } catch (e) {
+    /* ignore */
+  }
+
   const SESSION_INTRO = "wedding-intro-done";
   const SESSION_SCROLL = "wedding-scroll-y";
   /** Ставим при submit анкеты — Formspree часто убирает hash/query при возврате */
