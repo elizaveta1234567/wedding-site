@@ -1,11 +1,94 @@
 (() => {
+  const SESSION_INTRO = "wedding-intro-done";
+  const SESSION_SCROLL = "wedding-scroll-y";
+
+  function saveScrollPosition() {
+    try {
+      const y = Math.max(0, window.scrollY || window.pageYOffset || 0);
+      sessionStorage.setItem(SESSION_SCROLL, String(y));
+    } catch (e) {
+      /* ignore private mode / quota */
+    }
+  }
+
+  function restoreScrollPosition() {
+    let y = 0;
+    try {
+      y = parseInt(sessionStorage.getItem(SESSION_SCROLL) || "0", 10) || 0;
+    } catch (e) {
+      return;
+    }
+    if (y <= 0) return;
+
+    const apply = () => {
+      window.scrollTo(0, y);
+    };
+
+    apply();
+    requestAnimationFrame(apply);
+    setTimeout(apply, 0);
+    setTimeout(apply, 50);
+    setTimeout(apply, 150);
+    setTimeout(apply, 400);
+    window.addEventListener(
+      "load",
+      () => {
+        apply();
+        setTimeout(apply, 0);
+        setTimeout(apply, 100);
+      },
+      { once: true }
+    );
+  }
+
+  let scrollDebounce;
+  function wireScrollPersistence() {
+    window.addEventListener("pagehide", saveScrollPosition);
+    window.addEventListener("beforeunload", saveScrollPosition);
+    document.addEventListener("visibilitychange", () => {
+      if (document.visibilityState === "hidden") saveScrollPosition();
+    });
+    window.addEventListener(
+      "scroll",
+      () => {
+        clearTimeout(scrollDebounce);
+        scrollDebounce = setTimeout(saveScrollPosition, 150);
+      },
+      { passive: true }
+    );
+  }
+
   const intro = document.querySelector(".intro");
-  if (!intro) return;
+  const themeMeta = document.getElementById("theme-color-meta");
+
+  /* Уже открывали приглашение в этой вкладке — без интро, с тем же скроллом (обновление, возврат с карт и т.д.) */
+  if (sessionStorage.getItem(SESSION_INTRO) === "1") {
+    if (themeMeta) themeMeta.setAttribute("content", "#ffffff");
+    document.documentElement.classList.remove("intro-active");
+    document.body.style.overflow = "";
+    document.documentElement.style.overflow = "";
+    if (intro) {
+      intro.classList.add("is-hidden");
+      setTimeout(() => intro.remove(), 0);
+    }
+    wireScrollPersistence();
+    restoreScrollPosition();
+    return;
+  }
+
+  if (!intro) {
+    wireScrollPersistence();
+    restoreScrollPosition();
+    return;
+  }
 
   const hit = intro.querySelector(".intro__hit");
-  if (!hit) return;
+  if (!hit) {
+    wireScrollPersistence();
+    restoreScrollPosition();
+    return;
+  }
 
-  const themeMeta = document.getElementById("theme-color-meta");
   if (themeMeta) themeMeta.setAttribute("content", "#a32323");
 
   document.documentElement.classList.add("intro-active");
@@ -20,6 +103,13 @@
   const DURATION = 3600;
 
   function finish() {
+    try {
+      sessionStorage.setItem(SESSION_INTRO, "1");
+    } catch (e) {
+      /* ignore */
+    }
+    saveScrollPosition();
+
     document.documentElement.classList.remove("intro-active");
     document.body.style.overflow = prevBodyOverflow || "";
     if (themeMeta) themeMeta.setAttribute("content", "#ffffff");
@@ -40,8 +130,6 @@
       });
     });
 
-    // Не держим пользователя в «замке» во время анимации открытия:
-    // оверлей всё равно перекрывает клики, но скролл страницы должен быть доступен сразу.
     document.body.style.overflow = prevBodyOverflow || "";
     document.documentElement.style.overflow = prevOverflow || "";
 
@@ -58,6 +146,8 @@
       openIntro();
     }
   });
+
+  wireScrollPersistence();
 })();
 
 // === SCROLL ANIMATION FOR DATE SECTION ===
