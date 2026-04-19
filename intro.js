@@ -2,6 +2,16 @@
   const SESSION_INTRO = "wedding-intro-done";
   const SESSION_SCROLL = "wedding-scroll-y";
 
+  function wantsReturnToRsvp() {
+    const id = (location.hash || "").replace(/^#/, "");
+    if (id === "rsvp") return true;
+    try {
+      return new URLSearchParams(location.search).get("to") === "rsvp";
+    } catch (e) {
+      return false;
+    }
+  }
+
   function saveScrollPosition() {
     try {
       const y = Math.max(0, window.scrollY || window.pageYOffset || 0);
@@ -47,8 +57,41 @@
     return true;
   }
 
+  /** Якорь или ?to=rsvp (после Formspree hash иногда теряется) */
+  function scrollToDeepLinkIfPresent() {
+    if (scrollToHashIfPresent()) return true;
+    try {
+      if (new URLSearchParams(location.search).get("to") === "rsvp") {
+        const el = document.getElementById("rsvp");
+        if (!el) return false;
+        const apply = () => {
+          el.scrollIntoView({ behavior: "auto", block: "start" });
+        };
+        apply();
+        requestAnimationFrame(apply);
+        setTimeout(apply, 0);
+        setTimeout(apply, 80);
+        setTimeout(apply, 200);
+        setTimeout(apply, 450);
+        window.addEventListener(
+          "load",
+          () => {
+            apply();
+            setTimeout(apply, 0);
+            setTimeout(apply, 120);
+          },
+          { once: true }
+        );
+        return true;
+      }
+    } catch (e) {
+      /* ignore */
+    }
+    return false;
+  }
+
   function restoreScrollPosition() {
-    if (scrollToHashIfPresent()) return;
+    if (scrollToDeepLinkIfPresent()) return;
 
     let y = 0;
     try {
@@ -99,10 +142,15 @@
   const intro = document.querySelector(".intro");
   const themeMeta = document.getElementById("theme-color-meta");
 
-  /* Уже открывали приглашение в этой вкладке — без интро, с тем же скроллом (обновление, возврат с карт и т.д.) */
-  if (sessionStorage.getItem(SESSION_INTRO) === "1") {
+  function skipIntroAndRestore() {
+    try {
+      sessionStorage.setItem(SESSION_INTRO, "1");
+    } catch (e) {
+      /* ignore */
+    }
     if (themeMeta) themeMeta.setAttribute("content", "#ffffff");
     document.documentElement.classList.remove("intro-active");
+    document.documentElement.classList.remove("intro-return-rsvp");
     document.body.style.overflow = "";
     document.documentElement.style.overflow = "";
     if (intro) {
@@ -111,6 +159,14 @@
     }
     wireScrollPersistence();
     restoreScrollPosition();
+  }
+
+  /*
+    Уже открывали приглашение ИЛИ возврат к анкете (#rsvp / ?to=rsvp) — без интро.
+    После Formspree sessionStorage часто пустой, поэтому отдельно смотрим URL.
+  */
+  if (wantsReturnToRsvp() || sessionStorage.getItem(SESSION_INTRO) === "1") {
+    skipIntroAndRestore();
     return;
   }
 
@@ -155,7 +211,7 @@
     intro.classList.add("is-hidden");
     document.documentElement.style.overflow = prevOverflow || "";
     setTimeout(() => intro.remove(), 50);
-    setTimeout(() => scrollToHashIfPresent(), 80);
+    setTimeout(() => scrollToDeepLinkIfPresent(), 80);
   }
 
   function openIntro() {

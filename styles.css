@@ -80,6 +80,18 @@ body:has(> .intro:not(.is-hidden)){
   background: #425340;
 }
 
+/* Возврат с Formspree/success: интро скрыто до загрузки intro.js (sessionStorage там часто пустой) */
+html.intro-return-rsvp .intro{
+  display: none !important;
+}
+html.intro-return-rsvp main.pages{
+  pointer-events: auto !important;
+  user-select: auto !important;
+}
+html.intro-return-rsvp body{
+  background: #ffffff !important;
+}
+
 /* фон в стиле “фото + мягкая дымка” без картинок */
 .bg{
   position: fixed;
