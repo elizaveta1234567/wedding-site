@@ -18,9 +18,21 @@
       <h1 class="title">Спасибо!</h1>
       <p class="text muted">Ваш ответ отправлен. До встречи на празднике 🤍</p>
 
-      <a class="btn btn--primary btn--wide" href="index.html?to=rsvp#rsvp">
+      <a id="success-back-to-site" class="btn btn--primary btn--wide" href="index.html?to=rsvp#rsvp">
         Вернуться на сайт
       </a>
+      <script>
+        (function () {
+          var a = document.getElementById("success-back-to-site");
+          if (!a) return;
+          try {
+            var path = location.pathname || "";
+            var i = path.lastIndexOf("/");
+            var dir = i >= 0 ? path.slice(0, i + 1) : "/";
+            a.href = location.origin + dir + "index.html?to=rsvp#rsvp";
+          } catch (e) {}
+        })();
+      </script>
     </div>
   </main>
 </body>

@@ -7,8 +7,8 @@
   <title>Приглашение на свадьбу</title>
   <meta name="description" content="Приглашение на свадьбу Владислава и Елизаветы — 6 августа 2026, Тольятти." />
   <!-- Критичный путь: стили, интро-скрипт, LCP-фото, UI-шрифт (кириллица) -->
-  <link rel="preload" href="styles.css?v=20260415-9" as="style" />
-  <link rel="preload" href="intro.js?v=20260207-3" as="script" />
+  <link rel="preload" href="styles.css?v=20260415-10" as="style" />
+  <link rel="preload" href="intro.js?v=20260207-4" as="script" />
   <link rel="preload" href="images/IMG_0119.webp" as="image" type="image/webp" />
   <link rel="preload" href="images/lenta.webp" as="image" type="image/webp" />
   <link rel="preload" href="images/lenta_desktop2.png" as="image" type="image/png" media="(min-width: 821px)" />
@@ -16,7 +16,7 @@
   <link rel="preload" href="fonts/gf-annabelle.woff2" as="font" type="font/woff2" crossorigin />
   <link rel="preload" href="fonts/nwpStKy2OAdR1K-IwhWudF-R3wsaZfrc.woff2" as="font" type="font/woff2" crossorigin />
   <link rel="stylesheet" href="fonts/fonts.css" />
-  <link rel="stylesheet" href="styles.css?v=20260415-9" />
+  <link rel="stylesheet" href="styles.css?v=20260415-10" />
   <link rel="icon" type="image/jpeg" sizes="32x32" href="images/iconEV.jpg" />
   <link rel="dns-prefetch" href="https://formspree.io" />
 </head>
@@ -26,7 +26,12 @@
 (function () {
   try {
     var q = new URLSearchParams(window.location.search || "");
-    if (window.location.hash.replace(/^#/, "") === "rsvp" || q.get("to") === "rsvp") {
+    var hashOk = window.location.hash.replace(/^#/, "") === "rsvp";
+    var queryOk = q.get("to") === "rsvp";
+    var fromForm =
+      typeof localStorage !== "undefined" &&
+      localStorage.getItem("wedding-pending-rsvp-scroll") === "1";
+    if (hashOk || queryOk || fromForm) {
       document.documentElement.classList.add("intro-return-rsvp");
     }
   } catch (e) {}
@@ -658,6 +663,6 @@
   </main>
 
 <!-- <script src="telegram.js"></script> -->
-  <script src="intro.js?v=20260207-3"></script>
+  <script src="intro.js?v=20260207-4"></script>
 </body>
 </html>

@@ -1,12 +1,19 @@
 (() => {
   const SESSION_INTRO = "wedding-intro-done";
   const SESSION_SCROLL = "wedding-scroll-y";
+  /** Ставим при submit анкеты — Formspree часто убирает hash/query при возврате */
+  const LS_PENDING_RSVP_SCROLL = "wedding-pending-rsvp-scroll";
 
   function wantsReturnToRsvp() {
     const id = (location.hash || "").replace(/^#/, "");
     if (id === "rsvp") return true;
     try {
-      return new URLSearchParams(location.search).get("to") === "rsvp";
+      if (new URLSearchParams(location.search).get("to") === "rsvp") return true;
+    } catch (e) {
+      /* ignore */
+    }
+    try {
+      return localStorage.getItem(LS_PENDING_RSVP_SCROLL) === "1";
     } catch (e) {
       return false;
     }
@@ -57,32 +64,47 @@
     return true;
   }
 
-  /** Якорь или ?to=rsvp (после Formspree hash иногда теряется) */
+  function scrollToRsvpBlock() {
+    const el = document.getElementById("rsvp");
+    if (!el) return false;
+    const apply = () => {
+      el.scrollIntoView({ behavior: "auto", block: "start" });
+    };
+    apply();
+    requestAnimationFrame(apply);
+    setTimeout(apply, 0);
+    setTimeout(apply, 50);
+    setTimeout(apply, 120);
+    setTimeout(apply, 280);
+    setTimeout(apply, 500);
+    setTimeout(apply, 900);
+    window.addEventListener(
+      "load",
+      () => {
+        apply();
+        setTimeout(apply, 0);
+        setTimeout(apply, 100);
+        setTimeout(apply, 300);
+      },
+      { once: true }
+    );
+    return true;
+  }
+
+  /** Якорь, query, или флаг после submit (Formspree режет URL) */
   function scrollToDeepLinkIfPresent() {
+    try {
+      if (localStorage.getItem(LS_PENDING_RSVP_SCROLL) === "1" && document.getElementById("rsvp")) {
+        localStorage.removeItem(LS_PENDING_RSVP_SCROLL);
+        return scrollToRsvpBlock();
+      }
+    } catch (e) {
+      /* ignore */
+    }
     if (scrollToHashIfPresent()) return true;
     try {
       if (new URLSearchParams(location.search).get("to") === "rsvp") {
-        const el = document.getElementById("rsvp");
-        if (!el) return false;
-        const apply = () => {
-          el.scrollIntoView({ behavior: "auto", block: "start" });
-        };
-        apply();
-        requestAnimationFrame(apply);
-        setTimeout(apply, 0);
-        setTimeout(apply, 80);
-        setTimeout(apply, 200);
-        setTimeout(apply, 450);
-        window.addEventListener(
-          "load",
-          () => {
-            apply();
-            setTimeout(apply, 0);
-            setTimeout(apply, 120);
-          },
-          { once: true }
-        );
-        return true;
+        return scrollToRsvpBlock();
       }
     } catch (e) {
       /* ignore */
@@ -120,6 +142,21 @@
       },
       { once: true }
     );
+  }
+
+  try {
+    const rsvpForm = document.getElementById("rsvp-form");
+    if (rsvpForm) {
+      rsvpForm.addEventListener("submit", () => {
+        try {
+          localStorage.setItem(LS_PENDING_RSVP_SCROLL, "1");
+        } catch (e) {
+          /* ignore */
+        }
+      });
+    }
+  } catch (e) {
+    /* ignore */
   }
 
   let scrollDebounce;
